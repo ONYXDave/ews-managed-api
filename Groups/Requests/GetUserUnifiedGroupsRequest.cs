@@ -24,24 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
-    using Microsoft.Exchange.WebServices.Data.Groups;
 
     /// <summary>
     /// Represents a request to a GetUserUnifiedGroupsRequest operation
     /// </summary>
     internal sealed class GetUserUnifiedGroupsRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserUnifiedGroupsRequest"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal GetUserUnifiedGroupsRequest(ExchangeService service) : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the RequestedUnifiedGroupsSet
@@ -58,18 +55,18 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetUserUnifiedGroupsResponseMessage;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetUserUnifiedGroups;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -77,49 +74,49 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetUserUnifiedGroupsResponse response = new GetUserUnifiedGroupsResponse();
+            {
+            GetUserUnifiedGroupsResponse response = new();
             response.LoadFromXml(reader, GetResponseXmlElementName());
             return response;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.RequestedGroupsSets);
 
-            if (this.RequestedUnifiedGroupsSets != null)
-            { 
-                this.RequestedUnifiedGroupsSets.ForEach((unifiedGroupsSet) => unifiedGroupsSet.WriteToXml(writer, XmlElementNames.RequestedUnifiedGroupsSetItem));
-            }
+            if (RequestedUnifiedGroupsSets != null)
+                {
+                RequestedUnifiedGroupsSets.ForEach((unifiedGroupsSet) => unifiedGroupsSet.WriteToXml(writer, XmlElementNames.RequestedUnifiedGroupsSetItem));
+                }
 
             writer.WriteEndElement();
 
-            if (!string.IsNullOrEmpty(this.UserSmtpAddress))
-            {
-                writer.WriteElementValue(XmlNamespace.NotSpecified, XmlElementNames.UserSmtpAddress, this.UserSmtpAddress);
+            if (!string.IsNullOrEmpty(UserSmtpAddress))
+                {
+                writer.WriteElementValue(XmlNamespace.NotSpecified, XmlElementNames.UserSmtpAddress, UserSmtpAddress);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2015;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetUserUnifiedGroupsResponse Execute()
-        {
-            return (GetUserUnifiedGroupsResponse)this.InternalExecute();
+            {
+            return (GetUserUnifiedGroupsResponse)InternalExecute();
+            }
         }
     }
-}

@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents DateTime property definition.
     /// </summary>
     internal class DateTimePropertyDefinition : PropertyDefinition
-    {
+        {
         private bool isNullable;
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Microsoft.Exchange.WebServices.Data
             string uri,
             ExchangeVersion version)
             : base(xmlElementName, uri, version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimePropertyDefinition"/> class.
@@ -65,8 +65,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimePropertyDefinition"/> class.
@@ -87,9 +87,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
+            {
             this.isNullable = isNullable;
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -97,11 +97,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
         internal override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
-            string value = reader.ReadElementValue(XmlNamespace.Types, this.XmlElementName);
+            {
+            string value = reader.ReadElementValue(XmlNamespace.Types, XmlElementName);
 
             propertyBag[this] = reader.Service.ConvertUniversalDateTimeStringToLocalDateTime(value);
-        }
+            }
 
         /// <summary>
         /// Scopes the date time property to the appropriate time zone, if necessary.
@@ -116,24 +116,24 @@ namespace Microsoft.Exchange.WebServices.Data
             DateTime dateTime,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
-            try
             {
+            try
+                {
                 DateTime convertedDateTime = EwsUtilities.ConvertTime(
                     dateTime,
                     service.TimeZone,
                     TimeZoneInfo.Utc);
 
                 return new DateTime(convertedDateTime.Ticks, DateTimeKind.Utc);
-            }
+                }
             catch (TimeZoneConversionException e)
-            {
+                {
                 throw new PropertyException(
                     string.Format(Strings.InvalidDateTime, dateTime),
-                    this.Name,
+                    Name,
                     e);
+                }
             }
-        }
 
         /// <summary>
         /// Writes the property value to XML.
@@ -145,20 +145,20 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             object value = propertyBag[this];
 
             if (value != null)
-            {
-                writer.WriteStartElement(XmlNamespace.Types, this.XmlElementName);
+                {
+                writer.WriteStartElement(XmlNamespace.Types, XmlElementName);
 
                 DateTime convertedDateTime = GetConvertedDateTime(writer.Service, propertyBag, isUpdateOperation, value);
 
-                writer.WriteValue(EwsUtilities.DateTimeToXSDateTime(convertedDateTime), this.Name);
+                writer.WriteValue(EwsUtilities.DateTimeToXSDateTime(convertedDateTime), Name);
 
                 writer.WriteEndElement();
+                }
             }
-        }
 
         /// <summary>
         /// Gets the converted date time.
@@ -169,40 +169,40 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns></returns>
         private DateTime GetConvertedDateTime(ExchangeServiceBase service, PropertyBag propertyBag, bool isUpdateOperation, object value)
-        {
+            {
             DateTime dateTime = (DateTime)value;
             DateTime convertedDateTime;
 
             // If the date/time is unspecified, we may need to scope it to time zone.
             if (dateTime.Kind == DateTimeKind.Unspecified)
-            {
-                convertedDateTime = this.ScopeToTimeZone(
+                {
+                convertedDateTime = ScopeToTimeZone(
                     service,
                     (DateTime)value,
                     propertyBag,
                     isUpdateOperation);
-            }
+                }
             else
-            {
+                {
                 convertedDateTime = dateTime;
-            }
+                }
             return convertedDateTime;
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal override bool IsNullable
-        {
-            get { return this.isNullable; }
-        }
+            {
+            get { return isNullable; }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
-            get { return this.IsNullable ? typeof(DateTime?) : typeof(DateTime); }
+            {
+            get { return IsNullable ? typeof(DateTime?) : typeof(DateTime); }
+            }
         }
     }
-}

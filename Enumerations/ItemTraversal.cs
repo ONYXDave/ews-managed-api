@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the scope of FindItems operations.
     /// </summary>
     public enum ItemTraversal
-    {
+        {
         /// <summary>
         /// All non deleted items in the specified folder are retrieved.
         /// </summary>
@@ -49,5 +45,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2010)]
         Associated
+        }
     }
-}

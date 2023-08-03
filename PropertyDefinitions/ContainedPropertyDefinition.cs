@@ -24,13 +24,13 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents contained property definition.
     /// </summary>
     /// <typeparam name="TComplexProperty">The type of the complex property.</typeparam>
     internal class ContainedPropertyDefinition<TComplexProperty> : ComplexPropertyDefinition<TComplexProperty> where TComplexProperty : ComplexProperty, new()
-    {
+        {
         private string containedXmlElementName;
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace Microsoft.Exchange.WebServices.Data
             ExchangeVersion version,
             CreateComplexPropertyDelegate<TComplexProperty> propertyCreationDelegate)
             : base(xmlElementName, uri, flags, version, propertyCreationDelegate)
-        {
+            {
             this.containedXmlElementName = containedXmlElementName;
-        }
+            }
 
         /// <summary>
         /// Load from XML.
@@ -60,13 +60,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
         internal override void InternalLoadFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
-            reader.ReadStartElement(XmlNamespace.Types, this.containedXmlElementName);
+            {
+            reader.ReadStartElement(XmlNamespace.Types, containedXmlElementName);
 
             base.InternalLoadFromXml(reader, propertyBag);
 
-            reader.ReadEndElementIfNecessary(XmlNamespace.Types, this.containedXmlElementName);
-        }
+            reader.ReadEndElementIfNecessary(XmlNamespace.Types, containedXmlElementName);
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -78,17 +78,17 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             ComplexProperty complexProperty = (ComplexProperty)propertyBag[this];
 
             if (complexProperty != null)
-            {
-                writer.WriteStartElement(XmlNamespace.Types, this.XmlElementName);
+                {
+                writer.WriteStartElement(XmlNamespace.Types, XmlElementName);
 
-                complexProperty.WriteToXml(writer, this.containedXmlElementName);
+                complexProperty.WriteToXml(writer, containedXmlElementName);
 
                 writer.WriteEndElement(); // this.XmlElementName
+                }
             }
         }
     }
-}

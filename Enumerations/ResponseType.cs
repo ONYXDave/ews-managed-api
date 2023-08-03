@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the types of response given to a meeting request.
     /// </summary>
     public enum MeetingResponseType
-    {
+        {
         /// <summary>
         /// The response type is inknown.
         /// </summary>
@@ -63,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// No response was received for the meeting.
         /// </summary>
         NoResponseReceived
+        }
     }
-}

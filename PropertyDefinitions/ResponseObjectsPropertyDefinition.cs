@@ -24,17 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents response object property defintion.
     /// </summary>
     internal sealed class ResponseObjectsPropertyDefinition : PropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseObjectsPropertyDefinition"/> class.
         /// </summary>
@@ -49,36 +46,36 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
-        internal override sealed void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
+        internal sealed override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
+            {
             ResponseActions value = ResponseActions.None;
 
-            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, this.XmlElementName);
+            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementName);
 
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
+                        {
                         value |= GetResponseAction(reader.LocalName);
+                        }
                     }
+                while (!reader.IsEndElement(XmlNamespace.Types, XmlElementName));
                 }
-                while (!reader.IsEndElement(XmlNamespace.Types, this.XmlElementName));
-            }
 
             propertyBag[this] = value;
-        }
+            }
 
         /// <summary>
         /// Gets the response action.
@@ -86,11 +83,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseActionString">The response action string.</param>
         /// <returns></returns>
         private static ResponseActions GetResponseAction(string responseActionString)
-        {
+            {
             ResponseActions value = ResponseActions.None;
 
             switch (responseActionString)
-            {
+                {
                 case XmlElementNames.AcceptItem:
                     value = ResponseActions.Accept;
                     break;
@@ -121,9 +118,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 case XmlElementNames.PostReplyItem:
                     value = ResponseActions.PostReply;
                     break;
-            }
+                }
             return value;
-        }
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -135,24 +132,24 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             // ResponseObjects is a read-only property, no need to implement this.
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal override bool IsNullable
-        {
+            {
             get { return false; }
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(ResponseActions); }
+            }
         }
     }
-}

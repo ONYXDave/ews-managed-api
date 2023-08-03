@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an error that occurred as a result of executing a rule operation. 
     /// </summary>
     public sealed class RuleError : ComplexProperty
-    {
+        {
         /// <summary>
         /// Rule property.
         /// </summary>
@@ -55,52 +55,52 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal RuleError()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the property which failed validation.
         /// </summary>
         public RuleProperty RuleProperty
-        {
-            get
             {
-                return this.ruleProperty;
+            get
+                {
+                return ruleProperty;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the validation error code.
         /// </summary>
         public RuleErrorCode ErrorCode
-        {
-            get
             {
-                return this.errorCode;
+            get
+                {
+                return errorCode;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         public string ErrorMessage
-        {
-            get
             {
-                return this.errorMessage;
+            get
+                {
+                return errorMessage;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the value that failed validation.
         /// </summary>
         public string Value
-        {
-            get
             {
-                return this.value;
+            get
+                {
+                return value;
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -108,24 +108,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.FieldURI:
-                    this.ruleProperty = reader.ReadElementValue<RuleProperty>();
+                    ruleProperty = reader.ReadElementValue<RuleProperty>();
                     return true;
                 case XmlElementNames.ErrorCode:
-                    this.errorCode = reader.ReadElementValue<RuleErrorCode>();
+                    errorCode = reader.ReadElementValue<RuleErrorCode>();
                     return true;
                 case XmlElementNames.ErrorMessage:
-                    this.errorMessage = reader.ReadElementValue();
+                    errorMessage = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.FieldValue:
-                    this.value = reader.ReadElementValue();
+                    value = reader.ReadElementValue();
                     return true;
                 default:
                     return false;
+                }
             }
         }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a standard delegate user.
     /// </summary>
     public enum StandardUser
-    {
+        {
         /// <summary>
         /// The Default delegate user, used to define default delegation permissions.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Anonymous delegate user, used to define delegate permissions for unauthenticated users.
         /// </summary>
         Anonymous
+        }
     }
-}

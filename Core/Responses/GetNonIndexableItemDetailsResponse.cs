@@ -24,42 +24,38 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the GetNonIndexableItemDetails response.
     /// </summary>
     public sealed class GetNonIndexableItemDetailsResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetNonIndexableItemDetailsResponse"/> class.
         /// </summary>
         internal GetNonIndexableItemDetailsResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
-            this.NonIndexableItemsResult = NonIndexableItemDetailsResult.LoadFromXml(reader);
-        }
+            NonIndexableItemsResult = NonIndexableItemDetailsResult.LoadFromXml(reader);
+            }
 
         /// <summary>
         /// Non indexable item result
         /// </summary>
         public NonIndexableItemDetailsResult NonIndexableItemsResult
-        {
+            {
             get;
             internal set;
+            }
         }
     }
-}

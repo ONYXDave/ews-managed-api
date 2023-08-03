@@ -24,77 +24,74 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the EmailInsightValue.
     /// </summary>
     public sealed class EmailInsightValue : InsightValue
-    {
+        {
         /// <summary>
         /// Gets the Id
         /// </summary>
         public string Id
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the ThreadId
         /// </summary>
         public string ThreadId
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the Subject
         /// </summary>
         public string Subject
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the LastEmailDateUtcTicks
         /// </summary>
         public long LastEmailDateUtcTicks
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the Body
         /// </summary>
         public string Body
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the LastEmailSender
         /// </summary>
         public ProfileInsightValue LastEmailSender
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the EmailsCount
         /// </summary>
         public int EmailsCount
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -102,42 +99,42 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Id:
-                    this.Id = reader.ReadElementValue();
+                    Id = reader.ReadElementValue();
                     break;
                 case XmlElementNames.ThreadId:
-                    this.ThreadId = reader.ReadElementValue();
+                    ThreadId = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Subject:
-                    this.Subject = reader.ReadElementValue();
+                    Subject = reader.ReadElementValue();
                     break;
                 case XmlElementNames.LastEmailDateUtcTicks:
-                    this.LastEmailDateUtcTicks = reader.ReadElementValue<long>();
+                    LastEmailDateUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Body:
-                    this.Body = reader.ReadElementValue();
+                    Body = reader.ReadElementValue();
                     break;
                 case XmlElementNames.LastEmailSender:
-                    this.LastEmailSender = new ProfileInsightValue();
-                    this.LastEmailSender.LoadFromXml(reader, reader.LocalName);
+                    LastEmailSender = new ProfileInsightValue();
+                    LastEmailSender.LoadFromXml(reader, reader.LocalName);
                     break;
                 case XmlElementNames.EmailsCount:
-                    this.EmailsCount = reader.ReadElementValue<int>();
+                    EmailsCount = reader.ReadElementValue<int>();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

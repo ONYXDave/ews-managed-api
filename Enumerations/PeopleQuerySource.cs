@@ -24,20 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-
+    {
     /// <summary>
     /// Lists the names of various sources of people
     /// </summary>
     public sealed class PeopleQuerySource
-    {
+        {
         /// <summary>The users mailbox</summary>
         public static readonly string Mailbox = "Mailbox";
 
         /// <summary>The users directory</summary>
         public static readonly string Directory = "Directory";
+        }
     }
-}

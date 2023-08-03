@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class PersonaSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// FieldURIs for persona.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string PersonaId = "persona:PersonaId";
             public const string PersonaType = "persona:PersonaType";
             public const string CreationTime = "persona:CreationTime";
@@ -65,7 +65,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string ImAddresses = "persona:ImAddresses";
             public const string Departments = "persona:Departments";
             public const string ThirdPartyPhotoUrls = "persona:ThirdPartyPhotoUrls";
-        }
+            }
 
         /// <summary>
         /// Defines the PersonaId property.
@@ -77,7 +77,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PersonaId,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new ItemId(); });
+                delegate () { return new ItemId(); });
 
         /// <summary>
         /// Defines the PersonaType property.
@@ -243,7 +243,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.EmailAddress,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new PersonaEmailAddress(); });
+                delegate () { return new PersonaEmailAddress(); });
 
         /// <summary>
         /// Defines the EmailAddresses property.
@@ -255,7 +255,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.EmailAddresses,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new PersonaEmailAddressCollection(); });
+                delegate () { return new PersonaEmailAddressCollection(); });
 
         /// <summary>
         /// Defines the ImAddress property.
@@ -323,7 +323,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Attributions,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new AttributionCollection(); });
+                delegate () { return new AttributionCollection(); });
 
         /// <summary>
         /// Defines the OfficeLocations property.
@@ -335,7 +335,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.OfficeLocations,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new AttributedStringCollection(); });
+                delegate () { return new AttributedStringCollection(); });
 
         /// <summary>
         /// Defines the ImAddresses property.
@@ -347,7 +347,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ImAddresses,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new AttributedStringCollection(); });
+                delegate () { return new AttributedStringCollection(); });
 
         /// <summary>
         /// Defines the Departments property.
@@ -359,7 +359,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Departments,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new AttributedStringCollection(); });
+                delegate () { return new AttributedStringCollection(); });
 
         /// <summary>
         /// Defines the ThirdPartyPhotoUrls property.
@@ -371,10 +371,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ThirdPartyPhotoUrls,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new AttributedStringCollection(); });
+                delegate () { return new AttributedStringCollection(); });
 
         // This must be declared after the property definitions
-        internal static new readonly PersonaSchema Instance = new PersonaSchema();
+        internal static new readonly PersonaSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -383,44 +383,44 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(PersonaId);
-            this.RegisterProperty(PersonaType);
-            this.RegisterProperty(CreationTime);
-            this.RegisterProperty(DisplayNameFirstLastHeader);
-            this.RegisterProperty(DisplayNameLastFirstHeader);
-            this.RegisterProperty(DisplayName);
-            this.RegisterProperty(DisplayNameFirstLast);
-            this.RegisterProperty(DisplayNameLastFirst);
-            this.RegisterProperty(FileAs);
-            this.RegisterProperty(Generation);
-            this.RegisterProperty(DisplayNamePrefix);
-            this.RegisterProperty(GivenName);
-            this.RegisterProperty(Surname);
-            this.RegisterProperty(Title);
-            this.RegisterProperty(CompanyName);
-            this.RegisterProperty(EmailAddress);
-            this.RegisterProperty(EmailAddresses);
-            this.RegisterProperty(ImAddress);
-            this.RegisterProperty(HomeCity);
-            this.RegisterProperty(WorkCity);
-            this.RegisterProperty(Alias);
-            this.RegisterProperty(RelevanceScore);
-            this.RegisterProperty(Attributions);
-            this.RegisterProperty(OfficeLocations);
-            this.RegisterProperty(ImAddresses);
-            this.RegisterProperty(Departments);
-            this.RegisterProperty(ThirdPartyPhotoUrls);
-        }
+            RegisterProperty(PersonaId);
+            RegisterProperty(PersonaType);
+            RegisterProperty(CreationTime);
+            RegisterProperty(DisplayNameFirstLastHeader);
+            RegisterProperty(DisplayNameLastFirstHeader);
+            RegisterProperty(DisplayName);
+            RegisterProperty(DisplayNameFirstLast);
+            RegisterProperty(DisplayNameLastFirst);
+            RegisterProperty(FileAs);
+            RegisterProperty(Generation);
+            RegisterProperty(DisplayNamePrefix);
+            RegisterProperty(GivenName);
+            RegisterProperty(Surname);
+            RegisterProperty(Title);
+            RegisterProperty(CompanyName);
+            RegisterProperty(EmailAddress);
+            RegisterProperty(EmailAddresses);
+            RegisterProperty(ImAddress);
+            RegisterProperty(HomeCity);
+            RegisterProperty(WorkCity);
+            RegisterProperty(Alias);
+            RegisterProperty(RelevanceScore);
+            RegisterProperty(Attributions);
+            RegisterProperty(OfficeLocations);
+            RegisterProperty(ImAddresses);
+            RegisterProperty(Departments);
+            RegisterProperty(ThirdPartyPhotoUrls);
+            }
 
         /// <summary>
         /// internal constructor
         /// </summary>
         internal PersonaSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

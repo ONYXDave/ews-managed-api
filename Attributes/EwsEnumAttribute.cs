@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -34,7 +34,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     internal sealed class EwsEnumAttribute : Attribute
-    {
+        {
         /// <summary>
         /// The name for the enum value used in the server protocol
         /// </summary>
@@ -46,20 +46,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="schemaName">Thename used in the protocol for the enum.</param>
         internal EwsEnumAttribute(string schemaName)
             : base()
-        {
+            {
             this.schemaName = schemaName;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the name used for the enum in the protocol.
         /// </summary>
         /// <value>The name of the name used for the enum in the protocol.</value>
         internal string SchemaName
-        {
-            get
             {
-                return this.schemaName;
+            get
+                {
+                return schemaName;
+                }
             }
         }
     }
-}

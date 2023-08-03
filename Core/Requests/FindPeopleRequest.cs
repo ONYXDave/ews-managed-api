@@ -24,23 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
 
     /// <summary>
     /// Represents a request of a find persona operation
     /// </summary>
     internal sealed class FindPeopleRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Default constructor
         /// </summary>
         /// <param name="service">Exchange web service</param>
         internal FindPeopleRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Accessors of the view controlling the number of personas returned.
@@ -84,68 +83,68 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Validate request.
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
-            this.View.InternalValidate(this);
-        }
+            View.InternalValidate(this);
+            }
 
         /// <summary>
         /// Writes XML attributes.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
-            this.View.WriteAttributesToXml(writer);
-        }
+            View.WriteAttributesToXml(writer);
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.SearchFilter != null)
             {
+            if (SearchFilter != null)
+                {
                 // Emit the Restriction element
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Restriction);
-                this.SearchFilter.WriteToXml(writer);
+                SearchFilter.WriteToXml(writer);
                 writer.WriteEndElement();
-            }
+                }
 
             // Emit the View element
-            this.View.WriteToXml(writer, null);
+            View.WriteToXml(writer, null);
 
             // Emit the SortOrder
-            this.View.WriteOrderByToXml(writer);
+            View.WriteOrderByToXml(writer);
 
             // Emit the ParentFolderId element
-            if (this.FolderId != null)
-            {
+            if (FolderId != null)
+                {
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ParentFolderId);
-                this.FolderId.WriteToXml(writer);
+                FolderId.WriteToXml(writer);
                 writer.WriteEndElement();
-            }
+                }
 
-            if (!string.IsNullOrEmpty(this.QueryString))
-            {
+            if (!string.IsNullOrEmpty(QueryString))
+                {
                 // Emit the QueryString element
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.QueryString);
-                writer.WriteValue(this.QueryString, XmlElementNames.QueryString);
+                writer.WriteValue(QueryString, XmlElementNames.QueryString);
                 writer.WriteEndElement();
-            }
+                }
 
             // Emit the SuggestionIndex-enabled elements
-            if (this.SearchPeopleSuggestionIndex)
-            {
+            if (SearchPeopleSuggestionIndex)
+                {
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.SearchPeopleSuggestionIndex);
-                writer.WriteValue(this.SearchPeopleSuggestionIndex.ToString().ToLowerInvariant(), XmlElementNames.SearchPeopleSuggestionIndex);
+                writer.WriteValue(SearchPeopleSuggestionIndex.ToString().ToLowerInvariant(), XmlElementNames.SearchPeopleSuggestionIndex);
                 writer.WriteEndElement();
 
                 // Write the Context key value pairs
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.SearchPeopleContext);
-                foreach (KeyValuePair<string, string> contextItem in this.Context)
-                {
+                foreach (KeyValuePair<string, string> contextItem in Context)
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, "ContextProperty");
 
                     writer.WriteStartElement(XmlNamespace.Types, "Key");
@@ -157,28 +156,28 @@ namespace Microsoft.Exchange.WebServices.Data
                     writer.WriteEndElement();
 
                     writer.WriteEndElement();
-                }
+                    }
                 writer.WriteEndElement();
 
                 // Write the Query Mode Sources
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.SearchPeopleQuerySources);
-                foreach (string querySource in this.QueryMode.Sources)
-                {
+                foreach (string querySource in QueryMode.Sources)
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, "Source");
                     writer.WriteValue(querySource, "Source");
                     writer.WriteEndElement();
-                }
+                    }
                 writer.WriteEndElement();
-            }
+                }
 
-            if (this.Service.RequestedServerVersion >= this.GetMinimumRequiredServerVersion())
-            {
-                if (this.View.PropertySet != null)
+            if (Service.RequestedServerVersion >= GetMinimumRequiredServerVersion())
                 {
-                    this.View.PropertySet.WriteToXml(writer, ServiceObjectType.Persona);
+                if (View.PropertySet != null)
+                    {
+                    View.PropertySet.WriteToXml(writer, ServiceObjectType.Persona);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Parses the response.
@@ -186,48 +185,48 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            FindPeopleResponse response = new FindPeopleResponse();
+            {
+            FindPeopleResponse response = new();
             response.LoadFromXml(reader, XmlElementNames.FindPeopleResponse);
             return response;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.FindPeople;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.FindPeopleResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013_SP1;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal FindPeopleResponse Execute()
-        {
-            FindPeopleResponse serviceResponse = (FindPeopleResponse)this.InternalExecute();
+            {
+            FindPeopleResponse serviceResponse = (FindPeopleResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
+            }
         }
     }
-}

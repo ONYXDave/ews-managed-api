@@ -24,32 +24,29 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the StringInsightValue.
     /// </summary>
     public sealed class StringInsightValue : InsightValue
-    {
+        {
         private string data;
 
         /// <summary>
         /// Gets the Data
         /// </summary>
         public string Data
-        {
-            get
             {
-                return this.data;
-            }
+            get
+                {
+                return data;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.data, value);
+                {
+                SetFieldValue<string>(ref data, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -57,23 +54,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Data:
-                    this.Data = reader.ReadElementValue();
+                    Data = reader.ReadElementValue();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
-    }    
-}
+    }

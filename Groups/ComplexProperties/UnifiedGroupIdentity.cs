@@ -24,27 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the UnifiedGroupIdentity class.
     /// </summary>
     internal sealed class UnifiedGroupIdentity : ComplexProperty, ISelfValidate
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnifiedGroupIdentity"/>  class
         /// </summary>
         /// <param name="identityType">The identity type</param>
         /// <param name="value">The value assocaited with the identity type</param>
         public UnifiedGroupIdentity(UnifiedGroupIdentityType identityType, string value)
-        {
-            this.IdentityType = identityType;
-            this.Value = value;
-        }
+            {
+            IdentityType = identityType;
+            Value = value;
+            }
 
         /// <summary>
         /// Gets or sets the IdentityType of the UnifiedGroup
@@ -62,11 +57,11 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// <param name="writer">The writer.</param>
         /// <param name="xmlElementName">Name of the XML element.</param>
         internal override void WriteToXml(EwsServiceXmlWriter writer, string xmlElementName)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, xmlElementName);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.GroupIdentityType, this.IdentityType.ToString());
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.GroupIdentityValue, this.Value);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.GroupIdentityType, IdentityType.ToString());
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.GroupIdentityValue, Value);
             writer.WriteEndElement();
+            }
         }
     }
-}

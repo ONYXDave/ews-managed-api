@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents the date and time range within which messages have been received.
     /// </summary>
     public sealed class RulePredicateDateRange : ComplexProperty
-    {
+        {
         /// <summary>
         /// The start DateTime.
         /// </summary>
@@ -47,42 +47,42 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal RulePredicateDateRange()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the range start date and time. If Start is set to null, no 
         /// start date applies.
         /// </summary>
         public DateTime? Start
-        {
-            get
             {
-                return this.start;
-            }
+            get
+                {
+                return start;
+                }
 
             set
-            {
-                this.SetFieldValue<DateTime?>(ref this.start, value);
+                {
+                SetFieldValue<DateTime?>(ref start, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the range end date and time. If End is set to null, no end 
         /// date applies.
         /// </summary>
         public DateTime? End
-        {
-            get
             {
-                return this.end;
-            }
+            get
+                {
+                return end;
+                }
 
             set
-            {
-                this.SetFieldValue<DateTime?>(ref this.end, value);
+                {
+                SetFieldValue<DateTime?>(ref end, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -90,48 +90,48 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.StartDateTime:
-                    this.start = reader.ReadElementValueAsDateTime();
+                    start = reader.ReadElementValueAsDateTime();
                     return true;
                 case XmlElementNames.EndDateTime:
-                    this.end = reader.ReadElementValueAsDateTime();
+                    end = reader.ReadElementValueAsDateTime();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.Start.HasValue)
             {
-                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.StartDateTime, this.Start.Value);
+            if (Start.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.StartDateTime, Start.Value);
+                }
+            if (End.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.EndDateTime, End.Value);
+                }
             }
-            if (this.End.HasValue)
-            {
-                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.EndDateTime, this.End.Value);
-            }
-        }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            base.InternalValidate();
-            if (this.start.HasValue &&
-                this.end.HasValue &&
-                this.start.Value > this.end.Value)
             {
+            base.InternalValidate();
+            if (start.HasValue &&
+                end.HasValue &&
+                start.Value > end.Value)
+                {
                 throw new ServiceValidationException("Start date time cannot be bigger than end date time.");
+                }
             }
         }
     }
-}

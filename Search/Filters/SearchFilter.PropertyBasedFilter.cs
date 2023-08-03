@@ -24,23 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.ComponentModel;
-    using System.Text;
 
     /// <content>
     /// Contains nested type SearchFilter.PropertyBasedFilter.
     /// </content>
     public abstract partial class SearchFilter
-    {
+        {
         /// <summary>
         /// Represents a search filter where an item or folder property is involved.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public abstract class PropertyBasedFilter : SearchFilter
-        {
+            {
             private PropertyDefinitionBase propertyDefinition;
 
             /// <summary>
@@ -48,8 +45,8 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             internal PropertyBasedFilter()
                 : base()
-            {
-            }
+                {
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="PropertyBasedFilter"/> class.
@@ -57,20 +54,20 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="propertyDefinition">The property definition.</param>
             internal PropertyBasedFilter(PropertyDefinitionBase propertyDefinition)
                 : base()
-            {
+                {
                 this.propertyDefinition = propertyDefinition;
-            }
+                }
 
             /// <summary>
             /// Validate instance.
             /// </summary>
             internal override void InternalValidate()
-            {
-                if (this.propertyDefinition == null)
                 {
+                if (propertyDefinition == null)
+                    {
                     throw new ServiceValidationException(Strings.PropertyDefinitionPropertyMustBeSet);
+                    }
                 }
-            }
 
             /// <summary>
             /// Tries to read element from XML.
@@ -78,28 +75,28 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="reader">The reader.</param>
             /// <returns>True if element was read.</returns>
             internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-            {
-                return PropertyDefinitionBase.TryLoadFromXml(reader, ref this.propertyDefinition);
-            }
+                {
+                return PropertyDefinitionBase.TryLoadFromXml(reader, ref propertyDefinition);
+                }
 
             /// <summary>
             /// Writes the elements to XML.
             /// </summary>
             /// <param name="writer">The writer.</param>
             internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-            {
-                this.PropertyDefinition.WriteToXml(writer);
-            }
+                {
+                PropertyDefinition.WriteToXml(writer);
+                }
 
             /// <summary>
             /// Gets or sets the definition of the property that is involved in the search filter. Property definitions are
             /// available as static members from schema classes (for example, EmailMessageSchema.Subject, AppointmentSchema.Start, ContactSchema.GivenName, etc.)
             /// </summary>
             public PropertyDefinitionBase PropertyDefinition
-            {
-                get { return this.propertyDefinition; }
-                set { this.SetFieldValue<PropertyDefinitionBase>(ref this.propertyDefinition, value); }
+                {
+                get { return propertyDefinition; }
+                set { SetFieldValue<PropertyDefinitionBase>(ref propertyDefinition, value); }
+                }
             }
         }
     }
-}

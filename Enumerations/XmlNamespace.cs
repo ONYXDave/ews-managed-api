@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the namespaces as used by the EwsXmlReader, EwsServiceXmlReader, and EwsServiceXmlWriter classes.
     /// </summary>
     internal enum XmlNamespace
-    {
+        {
         /// <summary>
         /// The namespace is not specified.
         /// </summary>
@@ -88,5 +84,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Autodiscover SOAP service namespace.
         /// </summary>
         Autodiscover,
+        }
     }
-}

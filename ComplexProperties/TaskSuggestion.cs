@@ -24,22 +24,19 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.IO;
-
+    {
     /// <summary>
     /// Represents an TaskSuggestion object.
     /// </summary>
     public sealed class TaskSuggestion : ExtractedEntity
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskSuggestion"/> class.
         /// </summary>
         internal TaskSuggestion()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the meeting suggestion TaskString.
@@ -57,21 +54,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NlgTaskString:
-                    this.TaskString = reader.ReadElementValue();
+                    TaskString = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgAssignees:
-                    this.Assignees = new EmailUserEntityCollection();
-                    this.Assignees.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAssignees);
+                    Assignees = new EmailUserEntityCollection();
+                    Assignees.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAssignees);
                     return true;
-                
+
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
         }
     }
-}

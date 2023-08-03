@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Encapsulates information on the changehighlights of a meeting request.
     /// </summary>
     public sealed class ChangeHighlights : ComplexProperty
-    {
+        {
         private bool hasLocationChanged;
         private string location;
         private bool hasStartTimeChanged;
@@ -43,8 +43,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="ChangeHighlights"/> class.
         /// </summary>
         internal ChangeHighlights()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -52,78 +52,78 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.HasLocationChanged:
-                    this.hasLocationChanged = reader.ReadElementValue<bool>();
+                    hasLocationChanged = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.Location:
-                    this.location = reader.ReadElementValue();
+                    location = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.HasStartTimeChanged:
-                    this.hasStartTimeChanged = reader.ReadElementValue<bool>();
+                    hasStartTimeChanged = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.Start:
-                    this.start = reader.ReadElementValueAsDateTime().Value;
+                    start = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 case XmlElementNames.HasEndTimeChanged:
-                    this.hasEndTimeChanged = reader.ReadElementValue<bool>();
+                    hasEndTimeChanged = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.End:
-                    this.end = reader.ReadElementValueAsDateTime().Value;
+                    end = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a value indicating whether the location has changed.
         /// </summary>
         public bool HasLocationChanged
-        {
-            get { return this.hasLocationChanged; }
-        }
+            {
+            get { return hasLocationChanged; }
+            }
 
         /// <summary>
         /// Gets the old location
         /// </summary>
         public string Location
-        {
-            get { return this.location; }
-        }
+            {
+            get { return location; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the the start time has changed.
         /// </summary>
         public bool HasStartTimeChanged
-        {
-            get { return this.hasStartTimeChanged; }
-        }
+            {
+            get { return hasStartTimeChanged; }
+            }
 
         /// <summary>
         /// Gets the old start date and time of the meeting.
         /// </summary>
         public DateTime Start
-        {
-            get { return this.start; }
-        }
+            {
+            get { return start; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the the end time has changed.
         /// </summary>
         public bool HasEndTimeChanged
-        {
-            get { return this.hasEndTimeChanged; }
-        }
+            {
+            get { return hasEndTimeChanged; }
+            }
 
         /// <summary>
         /// Gets the old end date and time of the meeting.
         /// </summary>
         public DateTime End
-        {
-            get { return this.end; }
+            {
+            get { return end; }
+            }
         }
     }
-}

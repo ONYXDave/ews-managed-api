@@ -24,15 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Text;
 
     /// <summary>
     /// Represents the retention tag of an item.
     /// </summary>
     public class RetentionTagBase : ComplexProperty
-    {
+        {
         /// <summary>
         /// Xml element name.
         /// </summary>
@@ -53,66 +52,66 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="xmlElementName">Xml element name.</param>
         public RetentionTagBase(string xmlElementName)
-        {
+            {
             this.xmlElementName = xmlElementName;
-        }
+            }
 
         /// <summary>
         /// Gets or sets if the tag is explicit.
         /// </summary>
         public bool IsExplicit
-        {
-            get { return this.isExplicit; }
-            set { this.SetFieldValue<bool>(ref this.isExplicit, value); }
-        }
+            {
+            get { return isExplicit; }
+            set { SetFieldValue<bool>(ref isExplicit, value); }
+            }
 
         /// <summary>
         /// Gets or sets the retention id.
         /// </summary>
         public Guid RetentionId
-        {
-            get { return this.retentionId; }
-            set { this.SetFieldValue<Guid>(ref this.retentionId, value); }
-        }
+            {
+            get { return retentionId; }
+            set { SetFieldValue<Guid>(ref retentionId, value); }
+            }
 
         /// <summary>
         /// Reads attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.isExplicit = reader.ReadAttributeValue<bool>(XmlAttributeNames.IsExplicit);
-        }
+            {
+            isExplicit = reader.ReadAttributeValue<bool>(XmlAttributeNames.IsExplicit);
+            }
 
         /// <summary>
         /// Reads text value from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadTextValueFromXml(EwsServiceXmlReader reader)
-        {
-            this.retentionId = new Guid(reader.ReadValue());
-        }
+            {
+            retentionId = new Guid(reader.ReadValue());
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.IsExplicit, this.isExplicit);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.IsExplicit, isExplicit);
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.retentionId != Guid.Empty)
             {
-                writer.WriteValue(this.retentionId.ToString(), this.xmlElementName);
+            if (retentionId != Guid.Empty)
+                {
+                writer.WriteValue(retentionId.ToString(), xmlElementName);
+                }
             }
-        }
 
         #region Object method overrides
 
@@ -123,17 +122,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            if (this.retentionId == Guid.Empty)
             {
+            if (retentionId == Guid.Empty)
+                {
                 return string.Empty;
-            }
+                }
             else
-            {
-                return this.retentionId.ToString();
+                {
+                return retentionId.ToString();
+                }
             }
-        }
 
         #endregion
+        }
     }
-}

@@ -24,15 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
-    using System.Xml;
+    {
     using Microsoft.Exchange.WebServices.Data;
+    using System.Xml;
 
     /// <summary>
     /// Represents an error from a GetDomainSettings request.
     /// </summary>
     public sealed class DomainSettingError
-    {
+        {
         private AutodiscoverErrorCode errorCode;
         private string errorMessage;
         private string settingName;
@@ -41,63 +41,63 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Initializes a new instance of the <see cref="DomainSettingError"/> class.
         /// </summary>
         internal DomainSettingError()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal void LoadFromXml(EwsXmlReader reader)
-        {
-            do
             {
+            do
+                {
                 reader.Read();
 
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.ErrorCode:
-                            this.errorCode = reader.ReadElementValue<AutodiscoverErrorCode>();
+                            errorCode = reader.ReadElementValue<AutodiscoverErrorCode>();
                             break;
                         case XmlElementNames.ErrorMessage:
-                            this.errorMessage = reader.ReadElementValue();
+                            errorMessage = reader.ReadElementValue();
                             break;
                         case XmlElementNames.SettingName:
-                            this.settingName = reader.ReadElementValue();
+                            settingName = reader.ReadElementValue();
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Autodiscover, XmlElementNames.DomainSettingError));
-        }
+            }
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The error code.</value>
         public AutodiscoverErrorCode ErrorCode
-        {
-            get { return this.errorCode; }
-        }
+            {
+            get { return errorCode; }
+            }
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <value>The error message.</value>
         public string ErrorMessage
-        {
-            get { return this.errorMessage; }
-        }
+            {
+            get { return errorMessage; }
+            }
 
         /// <summary>
         /// Gets the name of the setting.
         /// </summary>
         /// <value>The name of the setting.</value>
         public string SettingName
-        {
-            get { return this.settingName; }
+            {
+            get { return settingName; }
+            }
         }
     }
-}

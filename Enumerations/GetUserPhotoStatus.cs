@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the response types from a GetUserPhoto request
     /// </summary>
     public enum GetUserPhotoStatus
-    {
+        {
         /// <summary>
         /// The photo was successfully returned
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The photo or user was not found on the server
         /// </summary>
         PhotoOrUserNotFound,
+        }
     }
-}

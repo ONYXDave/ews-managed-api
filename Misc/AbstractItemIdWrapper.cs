@@ -24,36 +24,32 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the abstraction of an item Id.
     /// </summary>
     internal abstract class AbstractItemIdWrapper
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractItemIdWrapper"/> class.
         /// </summary>
         internal AbstractItemIdWrapper()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Obtains the ItemBase object associated with the wrapper.
         /// </summary>
         /// <returns>The ItemBase object associated with the wrapper.</returns>
         public virtual Item GetItem()
-        {
+            {
             return null;
-        }
+            }
 
         /// <summary>
         /// Writes the Id encapsulated in the wrapper to XML.
         /// </summary>
         /// <param name="writer">The writer to write the Id to.</param>
         internal abstract void WriteToXml(EwsServiceXmlWriter writer);
+        }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of search result.
     /// </summary>
     public enum SearchResultType
-    {
+        {
         /// <summary>
         /// Keyword statistics only.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Preview only.
         /// </summary>
         PreviewOnly,
+        }
     }
-}

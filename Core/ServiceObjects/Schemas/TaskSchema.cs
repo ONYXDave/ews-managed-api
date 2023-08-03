@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class TaskSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// Field URIs for tasks.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string ActualWork = "task:ActualWork";
             public const string AssignedTime = "task:AssignedTime";
             public const string BillingInformation = "task:BillingInformation";
@@ -60,7 +60,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string Status = "task:Status";
             public const string StatusDescription = "task:StatusDescription";
             public const string TotalWork = "task:TotalWork";
-        }
+            }
 
         /// <summary>
         /// Defines the ActualWork property.
@@ -118,7 +118,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Companies,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the CompleteDate property.
@@ -142,7 +142,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Contacts,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the DelegationState property.
@@ -315,7 +315,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 true);  // isNullable
 
         // This must be declared after the property definitions
-        internal static new readonly TaskSchema Instance = new TaskSchema();
+        internal static new readonly TaskSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -324,39 +324,39 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(ActualWork);
-            this.RegisterProperty(AssignedTime);
-            this.RegisterProperty(BillingInformation);
-            this.RegisterProperty(ChangeCount);
-            this.RegisterProperty(Companies);
-            this.RegisterProperty(CompleteDate);
-            this.RegisterProperty(Contacts);
-            this.RegisterProperty(DelegationState);
-            this.RegisterProperty(Delegator);
-            this.RegisterProperty(DueDate);
-            this.RegisterProperty(Mode);
-            this.RegisterProperty(IsComplete);
-            this.RegisterProperty(IsRecurring);
-            this.RegisterProperty(IsTeamTask);
-            this.RegisterProperty(Mileage);
-            this.RegisterProperty(Owner);
-            this.RegisterProperty(PercentComplete);
-            this.RegisterProperty(Recurrence);
-            this.RegisterProperty(StartDate);
-            this.RegisterProperty(Status);
-            this.RegisterProperty(StatusDescription);
-            this.RegisterProperty(TotalWork);
-        }
+            RegisterProperty(ActualWork);
+            RegisterProperty(AssignedTime);
+            RegisterProperty(BillingInformation);
+            RegisterProperty(ChangeCount);
+            RegisterProperty(Companies);
+            RegisterProperty(CompleteDate);
+            RegisterProperty(Contacts);
+            RegisterProperty(DelegationState);
+            RegisterProperty(Delegator);
+            RegisterProperty(DueDate);
+            RegisterProperty(Mode);
+            RegisterProperty(IsComplete);
+            RegisterProperty(IsRecurring);
+            RegisterProperty(IsTeamTask);
+            RegisterProperty(Mileage);
+            RegisterProperty(Owner);
+            RegisterProperty(PercentComplete);
+            RegisterProperty(Recurrence);
+            RegisterProperty(StartDate);
+            RegisterProperty(Status);
+            RegisterProperty(StatusDescription);
+            RegisterProperty(TotalWork);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskSchema"/> class.
         /// </summary>
         internal TaskSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

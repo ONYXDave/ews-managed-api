@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,15 +32,15 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class MeetingResponseSchema : MeetingMessageSchema
-    {
+        {
         /// <summary>
         /// Field URIs for MeetingMessage.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string ProposedStart = "meeting:ProposedStart";
             public const string ProposedEnd = "meeting:ProposedEnd";
-        }
+            }
 
         /// <summary>
         /// Defines the Start property.
@@ -87,10 +87,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ProposedStart,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate(ExchangeVersion version)
+                delegate (ExchangeVersion version)
                 {
                     return AppointmentSchema.StartTimeZone;
-                });
+                    });
 
         /// <summary>
         /// Defines the Proposed End property.
@@ -102,10 +102,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ProposedEnd,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate(ExchangeVersion version)
+                delegate (ExchangeVersion version)
                 {
                     return AppointmentSchema.EndTimeZone;
-                });
+                    });
 
         /// <summary>
         /// Enhanced Location property.
@@ -115,7 +115,7 @@ namespace Microsoft.Exchange.WebServices.Data
             AppointmentSchema.EnhancedLocation;
 
         // This must be after the declaration of property definitions
-        internal static new readonly MeetingResponseSchema Instance = new MeetingResponseSchema();
+        internal static new readonly MeetingResponseSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -124,25 +124,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(Start);
-            this.RegisterProperty(End);
-            this.RegisterProperty(Location);
-            this.RegisterProperty(Recurrence);
-            this.RegisterProperty(AppointmentType);
-            this.RegisterProperty(ProposedStart);
-            this.RegisterProperty(ProposedEnd);
-            this.RegisterProperty(EnhancedLocation);
-        }
+            RegisterProperty(Start);
+            RegisterProperty(End);
+            RegisterProperty(Location);
+            RegisterProperty(Recurrence);
+            RegisterProperty(AppointmentType);
+            RegisterProperty(ProposedStart);
+            RegisterProperty(ProposedEnd);
+            RegisterProperty(EnhancedLocation);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MeetingMessageSchema"/> class.
         /// </summary>
         internal MeetingResponseSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

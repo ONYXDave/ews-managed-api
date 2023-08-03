@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// The ConnectionFailureCause enumeration
     /// </summary>
     public enum ConnectionFailureCause
-    {
+        {
         /// <summary>
         /// None
         /// </summary>
@@ -58,5 +54,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Other
         /// </summary>
         Other
+        }
     }
-}

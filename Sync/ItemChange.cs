@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a change on an item as returned by a synchronization operation.
     /// </summary>
     public sealed class ItemChange : Change
-    {
+        {
         private bool isRead;
 
         /// <summary>
@@ -41,17 +37,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal ItemChange()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates an ItemId instance.
         /// </summary>
         /// <returns>A ItemId.</returns>
         internal override ServiceId CreateId()
-        {
+            {
             return new ItemId();
-        }
+            }
 
         /// <summary>
         /// Gets the item the change applies to. Item is null when ChangeType is equal to
@@ -60,26 +56,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// property changed.
         /// </summary>
         public Item Item
-        {
-            get { return (Item)this.ServiceObject; }
-        }
+            {
+            get { return (Item)ServiceObject; }
+            }
 
         /// <summary>
         /// Gets the IsRead property for the item that the change applies to. IsRead is
         /// only valid when ChangeType is equal to ChangeType.ReadFlagChange.
         /// </summary>
         public bool IsRead
-        {
-            get { return this.isRead; }
-            internal set { this.isRead = value; }
-        }
+            {
+            get { return isRead; }
+            internal set { isRead = value; }
+            }
 
         /// <summary>
         /// Gets the Id of the item the change applies to.
         /// </summary>
         public ItemId ItemId
-        {
-            get { return (ItemId)this.Id; }
+            {
+            get { return (ItemId)Id; }
+            }
         }
     }
-}

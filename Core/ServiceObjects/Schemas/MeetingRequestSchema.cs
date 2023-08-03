@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,16 +32,16 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class MeetingRequestSchema : MeetingMessageSchema
-    {
+        {
         /// <summary>
         /// Field URIs for MeetingRequest.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string MeetingRequestType = "meetingRequest:MeetingRequestType";
             public const string IntendedFreeBusyStatus = "meetingRequest:IntendedFreeBusyStatus";
             public const string ChangeHighlights = "meetingRequest:ChangeHighlights";
-        }
+            }
 
         /// <summary>
         /// Defines the MeetingRequestType property.
@@ -73,7 +73,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.ChangeHighlights,
                 FieldUris.ChangeHighlights,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new ChangeHighlights(); });
+                delegate () { return new ChangeHighlights(); });
 
         /// <summary>
         /// Enhanced Location property.
@@ -355,7 +355,7 @@ namespace Microsoft.Exchange.WebServices.Data
             AppointmentSchema.NetShowUrl;
 
         // This must be after the declaration of property definitions
-        internal static new readonly MeetingRequestSchema Instance = new MeetingRequestSchema();
+        internal static new readonly MeetingRequestSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -364,61 +364,61 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(MeetingRequestType);
-            this.RegisterProperty(IntendedFreeBusyStatus);
-            this.RegisterProperty(ChangeHighlights);
+            RegisterProperty(MeetingRequestType);
+            RegisterProperty(IntendedFreeBusyStatus);
+            RegisterProperty(ChangeHighlights);
 
-            this.RegisterProperty(Start);
-            this.RegisterProperty(End);
-            this.RegisterProperty(OriginalStart);
-            this.RegisterProperty(IsAllDayEvent);
-            this.RegisterProperty(LegacyFreeBusyStatus);
-            this.RegisterProperty(Location);
-            this.RegisterProperty(When);
-            this.RegisterProperty(IsMeeting);
-            this.RegisterProperty(IsCancelled);
-            this.RegisterProperty(IsRecurring);
-            this.RegisterProperty(MeetingRequestWasSent);
-            this.RegisterProperty(AppointmentType);
-            this.RegisterProperty(MyResponseType);
-            this.RegisterProperty(Organizer);
-            this.RegisterProperty(RequiredAttendees);
-            this.RegisterProperty(OptionalAttendees);
-            this.RegisterProperty(Resources);
-            this.RegisterProperty(ConflictingMeetingCount);
-            this.RegisterProperty(AdjacentMeetingCount);
-            this.RegisterProperty(ConflictingMeetings);
-            this.RegisterProperty(AdjacentMeetings);
-            this.RegisterProperty(Duration);
-            this.RegisterProperty(TimeZone);
-            this.RegisterProperty(AppointmentReplyTime);
-            this.RegisterProperty(AppointmentSequenceNumber);
-            this.RegisterProperty(AppointmentState);
-            this.RegisterProperty(Recurrence);
-            this.RegisterProperty(FirstOccurrence);
-            this.RegisterProperty(LastOccurrence);
-            this.RegisterProperty(ModifiedOccurrences);
-            this.RegisterProperty(DeletedOccurrences);
-            this.RegisterInternalProperty(MeetingTimeZone);
-            this.RegisterProperty(StartTimeZone);
-            this.RegisterProperty(EndTimeZone);
-            this.RegisterProperty(ConferenceType);
-            this.RegisterProperty(AllowNewTimeProposal);
-            this.RegisterProperty(IsOnlineMeeting);
-            this.RegisterProperty(MeetingWorkspaceUrl);
-            this.RegisterProperty(NetShowUrl);
-            this.RegisterProperty(EnhancedLocation);
-        }
+            RegisterProperty(Start);
+            RegisterProperty(End);
+            RegisterProperty(OriginalStart);
+            RegisterProperty(IsAllDayEvent);
+            RegisterProperty(LegacyFreeBusyStatus);
+            RegisterProperty(Location);
+            RegisterProperty(When);
+            RegisterProperty(IsMeeting);
+            RegisterProperty(IsCancelled);
+            RegisterProperty(IsRecurring);
+            RegisterProperty(MeetingRequestWasSent);
+            RegisterProperty(AppointmentType);
+            RegisterProperty(MyResponseType);
+            RegisterProperty(Organizer);
+            RegisterProperty(RequiredAttendees);
+            RegisterProperty(OptionalAttendees);
+            RegisterProperty(Resources);
+            RegisterProperty(ConflictingMeetingCount);
+            RegisterProperty(AdjacentMeetingCount);
+            RegisterProperty(ConflictingMeetings);
+            RegisterProperty(AdjacentMeetings);
+            RegisterProperty(Duration);
+            RegisterProperty(TimeZone);
+            RegisterProperty(AppointmentReplyTime);
+            RegisterProperty(AppointmentSequenceNumber);
+            RegisterProperty(AppointmentState);
+            RegisterProperty(Recurrence);
+            RegisterProperty(FirstOccurrence);
+            RegisterProperty(LastOccurrence);
+            RegisterProperty(ModifiedOccurrences);
+            RegisterProperty(DeletedOccurrences);
+            RegisterInternalProperty(MeetingTimeZone);
+            RegisterProperty(StartTimeZone);
+            RegisterProperty(EndTimeZone);
+            RegisterProperty(ConferenceType);
+            RegisterProperty(AllowNewTimeProposal);
+            RegisterProperty(IsOnlineMeeting);
+            RegisterProperty(MeetingWorkspaceUrl);
+            RegisterProperty(NetShowUrl);
+            RegisterProperty(EnhancedLocation);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MeetingRequestSchema"/> class.
         /// </summary>
         internal MeetingRequestSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

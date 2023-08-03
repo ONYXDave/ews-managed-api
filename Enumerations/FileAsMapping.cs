@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the way the FileAs property of a contact is automatically formatted.
     /// </summary>
     public enum FileAsMapping
-    {
+        {
         /// <summary>
         /// No automatic formatting is used.
         /// </summary>
@@ -142,5 +138,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2010)]
         Empty
+        }
     }
-}

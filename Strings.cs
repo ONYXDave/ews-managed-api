@@ -23,15 +23,10 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Microsoft.Exchange.WebServices
-{
-    internal static class Strings
     {
+    internal static class Strings
+        {
         internal static string CannotRemoveSubscriptionFromLiveConnection = "Subscriptions can't be removed from an open connection.";
         internal static string ReadAccessInvalidForNonCalendarFolder = "The Permission read access value {0} can't be used with a non-calendar folder.";
         internal static string PropertyDefinitionPropertyMustBeSet = "The PropertyDefinition property must be set.";
@@ -226,5 +221,5 @@ namespace Microsoft.Exchange.WebServices
         internal static string UserPhotoSizeNotSpecified = "The UserPhotoSize must be not be null or empty.";
         internal static string UserPhotoNotSpecified = "The photo must be not be null or empty.";
 
+        }
     }
-}

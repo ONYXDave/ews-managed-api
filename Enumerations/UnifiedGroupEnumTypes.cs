@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
-    using System;
-
+    {
     /// <summary>
     /// The UnifiedGroupsSortType enum
     /// </summary>
     public enum UnifiedGroupsSortType
-    {
+        {
         /// <summary>
         /// None
         /// </summary>
@@ -56,13 +54,13 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// Relevance
         /// </summary>
         Relevance = 4,
-    }
+        }
 
     /// <summary>
     /// The UnifiedGroupsFilterType enum
     /// </summary>
     public enum UnifiedGroupsFilterType
-    {
+        {
         /// <summary>
         /// All
         /// </summary>
@@ -77,13 +75,13 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// Exclude Favorites
         /// </summary>
         ExcludeFavorites = 2
-    }
+        }
 
     /// <summary>
     /// The UnifiedGroupAccessType enum
     /// </summary>
     public enum UnifiedGroupAccessType
-    {
+        {
         /// <summary>
         /// None 
         /// </summary>
@@ -103,13 +101,13 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// Public Group
         /// </summary>
         Public = 3,
-    }
+        }
 
     /// <summary>
     /// The UnifiedGroupIdentityType enum
     /// </summary>
     public enum UnifiedGroupIdentityType
-    {
+        {
         /// <summary>
         /// Smtp Address
         /// </summary>
@@ -124,5 +122,5 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// ExternalDirectoryObjectId
         /// </summary>
         ExternalDirectoryObjectId = 2
+        }
     }
-}

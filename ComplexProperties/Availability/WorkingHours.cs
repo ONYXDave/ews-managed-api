@@ -24,19 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the working hours for a specific time zone.
     /// </summary>
     public sealed class WorkingHours : ComplexProperty
-    {
+        {
         private TimeZoneInfo timeZone;
-        private Collection<DayOfTheWeek> daysOfTheWeek = new Collection<DayOfTheWeek>();
+        private Collection<DayOfTheWeek> daysOfTheWeek = new();
         private TimeSpan startTime;
         private TimeSpan endTime;
 
@@ -45,8 +44,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal WorkingHours()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -54,32 +53,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if appropriate element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.TimeZone:
-                    LegacyAvailabilityTimeZone legacyTimeZone = new LegacyAvailabilityTimeZone();
+                    LegacyAvailabilityTimeZone legacyTimeZone = new();
                     legacyTimeZone.LoadFromXml(reader, reader.LocalName);
 
-                    this.timeZone = legacyTimeZone.ToTimeZoneInfo();
-                    
+                    timeZone = legacyTimeZone.ToTimeZoneInfo();
+
                     return true;
                 case XmlElementNames.WorkingPeriodArray:
-                    List<WorkingPeriod> workingPeriods = new List<WorkingPeriod>();
+                    List<WorkingPeriod> workingPeriods = new();
 
                     do
-                    {
+                        {
                         reader.Read();
 
                         if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.WorkingPeriod))
-                        {
-                            WorkingPeriod workingPeriod = new WorkingPeriod();
+                            {
+                            WorkingPeriod workingPeriod = new();
 
                             workingPeriod.LoadFromXml(reader, reader.LocalName);
 
                             workingPeriods.Add(workingPeriod);
+                            }
                         }
-                    }
                     while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.WorkingPeriodArray));
 
                     // Availability supports a structure that can technically represent different working
@@ -89,56 +88,56 @@ namespace Microsoft.Exchange.WebServices.Data
                     // structure if it happens to be in Exchange.
                     // So here we'll do what Outlook and OWA do: we'll use the start and end times of the
                     // first working period, but we'll use the week days of all the periods.
-                    this.startTime = workingPeriods[0].StartTime;
-                    this.endTime = workingPeriods[0].EndTime;
+                    startTime = workingPeriods[0].StartTime;
+                    endTime = workingPeriods[0].EndTime;
 
                     foreach (WorkingPeriod workingPeriod in workingPeriods)
-                    {
-                        foreach (DayOfTheWeek dayOfWeek in workingPeriods[0].DaysOfWeek)
                         {
-                            if (!this.daysOfTheWeek.Contains(dayOfWeek))
+                        foreach (DayOfTheWeek dayOfWeek in workingPeriods[0].DaysOfWeek)
                             {
-                                this.daysOfTheWeek.Add(dayOfWeek);
+                            if (!daysOfTheWeek.Contains(dayOfWeek))
+                                {
+                                daysOfTheWeek.Add(dayOfWeek);
+                                }
                             }
                         }
-                    }
 
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the time zone to which the working hours apply.
         /// </summary>
         public TimeZoneInfo TimeZone
-        {
-            get { return this.timeZone; }
-        }
+            {
+            get { return timeZone; }
+            }
 
         /// <summary>
         /// Gets the working days of the attendees.
         /// </summary>
         public Collection<DayOfTheWeek> DaysOfTheWeek
-        {
-            get { return this.daysOfTheWeek; }
-        }
+            {
+            get { return daysOfTheWeek; }
+            }
 
         /// <summary>
         /// Gets the time of the day the attendee starts working.
         /// </summary>
         public TimeSpan StartTime
-        {
-            get { return this.startTime; }
-        }
+            {
+            get { return startTime; }
+            }
 
         /// <summary>
         /// Gets the time of the day the attendee stops working.
         /// </summary>
         public TimeSpan EndTime
-        {
-            get { return this.endTime; }
+            {
+            get { return endTime; }
+            }
         }
     }
-}

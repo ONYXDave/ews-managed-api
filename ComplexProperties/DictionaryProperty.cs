@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
 
@@ -37,26 +36,26 @@ namespace Microsoft.Exchange.WebServices.Data
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class DictionaryProperty<TKey, TEntry> : ComplexProperty, ICustomUpdateSerializer
         where TEntry : DictionaryEntryProperty<TKey>
-    {
-        private Dictionary<TKey, TEntry> entries = new Dictionary<TKey, TEntry>();
-        private Dictionary<TKey, TEntry> removedEntries = new Dictionary<TKey, TEntry>();
-        private List<TKey> addedEntries = new List<TKey>();
-        private List<TKey> modifiedEntries = new List<TKey>();
+        {
+        private Dictionary<TKey, TEntry> entries = new();
+        private Dictionary<TKey, TEntry> removedEntries = new();
+        private List<TKey> addedEntries = new();
+        private List<TKey> modifiedEntries = new();
 
         /// <summary>
         /// Entry was changed.
         /// </summary>
         /// <param name="complexProperty">The complex property.</param>
         private void EntryChanged(ComplexProperty complexProperty)
-        {
+            {
             TKey key = (complexProperty as TEntry).Key;
 
-            if (!this.addedEntries.Contains(key) && !this.modifiedEntries.Contains(key))
-            {
-                this.modifiedEntries.Add(key);
-                this.Changed();
+            if (!addedEntries.Contains(key) && !modifiedEntries.Contains(key))
+                {
+                modifiedEntries.Add(key);
+                Changed();
+                }
             }
-        }
 
         /// <summary>
         /// Writes the URI to XML.
@@ -64,12 +63,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="writer">The writer.</param>
         /// <param name="key">The key.</param>
         private void WriteUriToXml(EwsServiceXmlWriter writer, TKey key)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.IndexedFieldURI);
-            writer.WriteAttributeValue(XmlAttributeNames.FieldURI, this.GetFieldURI());
-            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, this.GetFieldIndex(key));
+            writer.WriteAttributeValue(XmlAttributeNames.FieldURI, GetFieldURI());
+            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, GetFieldIndex(key));
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Gets the index of the field.
@@ -77,18 +76,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">The key.</param>
         /// <returns>Key index.</returns>
         internal virtual string GetFieldIndex(TKey key)
-        {
+            {
             return key.ToString();
-        }
+            }
 
         /// <summary>
         /// Gets the field URI.
         /// </summary>
         /// <returns>Field URI.</returns>
         internal virtual string GetFieldURI()
-        {
+            {
             return null;
-        }
+            }
 
         /// <summary>
         /// Creates the entry.
@@ -96,16 +95,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Dictionary entry.</returns>
         internal virtual TEntry CreateEntry(EwsServiceXmlReader reader)
-        {
+            {
             if (reader.LocalName == XmlElementNames.Entry)
-            {
-                return this.CreateEntryInstance();
-            }
+                {
+                return CreateEntryInstance();
+                }
             else
-            {
+                {
                 return null;
+                }
             }
-        }
 
         /// <summary>
         /// Creates instance of dictionary entry.
@@ -119,91 +118,91 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="entry">The entry.</param>
         /// <returns>XML element name.</returns>
         internal virtual string GetEntryXmlElementName(TEntry entry)
-        {
+            {
             return XmlElementNames.Entry;
-        }
+            }
 
         /// <summary>
         /// Clears the change log.
         /// </summary>
         internal override void ClearChangeLog()
-        {
-            this.addedEntries.Clear();
-            this.removedEntries.Clear();
-            this.modifiedEntries.Clear();
-
-            foreach (TEntry entry in this.entries.Values)
             {
+            addedEntries.Clear();
+            removedEntries.Clear();
+            modifiedEntries.Clear();
+
+            foreach (TEntry entry in entries.Values)
+                {
                 entry.ClearChangeLog();
+                }
             }
-        }
 
         /// <summary>
         /// Add entry.
         /// </summary>
         /// <param name="entry">The entry.</param>
         internal void InternalAdd(TEntry entry)
-        {
-            entry.OnChange += this.EntryChanged;
+            {
+            entry.OnChange += EntryChanged;
 
-            this.entries.Add(entry.Key, entry);
-            this.addedEntries.Add(entry.Key);
-            this.removedEntries.Remove(entry.Key);
+            entries.Add(entry.Key, entry);
+            addedEntries.Add(entry.Key);
+            removedEntries.Remove(entry.Key);
 
-            this.Changed();
-        }
+            Changed();
+            }
 
         /// <summary>
         /// Add or replace entry.
         /// </summary>
         /// <param name="entry">The entry.</param>
         internal void InternalAddOrReplace(TEntry entry)
-        {
+            {
             TEntry oldEntry;
 
-            if (this.entries.TryGetValue(entry.Key, out oldEntry))
-            {
-                oldEntry.OnChange -= this.EntryChanged;
-
-                entry.OnChange += this.EntryChanged;
-
-                if (!this.addedEntries.Contains(entry.Key))
+            if (entries.TryGetValue(entry.Key, out oldEntry))
                 {
-                    if (!this.modifiedEntries.Contains(entry.Key))
-                    {
-                        this.modifiedEntries.Add(entry.Key);
-                    }
-                }
+                oldEntry.OnChange -= EntryChanged;
 
-                this.Changed();
-            }
+                entry.OnChange += EntryChanged;
+
+                if (!addedEntries.Contains(entry.Key))
+                    {
+                    if (!modifiedEntries.Contains(entry.Key))
+                        {
+                        modifiedEntries.Add(entry.Key);
+                        }
+                    }
+
+                Changed();
+                }
             else
-            {
-                this.InternalAdd(entry);
+                {
+                InternalAdd(entry);
+                }
             }
-        }
 
         /// <summary>
         /// Remove entry based on key.
         /// </summary>
         /// <param name="key">The key.</param>
         internal void InternalRemove(TKey key)
-        {
+            {
             TEntry entry;
 
-            if (this.entries.TryGetValue(key, out entry))
-            {
-                entry.OnChange -= this.EntryChanged;
+            if (entries.TryGetValue(key, out entry))
+                {
+                entry.OnChange -= EntryChanged;
 
-                this.entries.Remove(key);
-                this.removedEntries.Add(key, entry);
+                entries.Remove(key);
+                removedEntries.Add(key, entry);
 
-                this.Changed();
+                Changed();
+                }
+
+            addedEntries.Remove(key);
+            modifiedEntries.Remove(key);
             }
-
-            this.addedEntries.Remove(key);
-            this.modifiedEntries.Remove(key);
-        }
 
         /// <summary>
         /// Loads from XML.
@@ -211,33 +210,33 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="localElementName">Name of the local element.</param>
         internal override void LoadFromXml(EwsServiceXmlReader reader, string localElementName)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, localElementName);
 
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        TEntry entry = this.CreateEntry(reader);
+                        {
+                        TEntry entry = CreateEntry(reader);
 
                         if (entry != null)
-                        {
+                            {
                             entry.LoadFromXml(reader, reader.LocalName);
-                            this.InternalAdd(entry);
-                        }
+                            InternalAdd(entry);
+                            }
                         else
-                        {
+                            {
                             reader.SkipCurrentElement();
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Types, localElementName));
+                }
             }
-        }
 
         /// <summary>
         /// Writes to XML.
@@ -249,37 +248,37 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             XmlNamespace xmlNamespace,
             string xmlElementName)
-        {
-            // Only write collection if it has at least one element.
-            if (this.entries.Count > 0)
             {
+            // Only write collection if it has at least one element.
+            if (entries.Count > 0)
+                {
                 base.WriteToXml(
                     writer,
                     xmlNamespace,
                     xmlElementName);
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            foreach (KeyValuePair<TKey, TEntry> keyValuePair in this.entries)
             {
-                keyValuePair.Value.WriteToXml(writer, this.GetEntryXmlElementName(keyValuePair.Value));
+            foreach (KeyValuePair<TKey, TEntry> keyValuePair in entries)
+                {
+                keyValuePair.Value.WriteToXml(writer, GetEntryXmlElementName(keyValuePair.Value));
+                }
             }
-        }
 
         /// <summary>
         /// Gets the entries.
         /// </summary>
         /// <value>The entries.</value>
         internal Dictionary<TKey, TEntry> Entries
-        {
-            get { return this.entries; }
-        }
+            {
+            get { return entries; }
+            }
 
         /// <summary>
         /// Determines whether this instance contains the specified key.
@@ -289,9 +288,9 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if this instance contains the specified key; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains(TKey key)
-        {
-            return this.Entries.ContainsKey(key);
-        }
+            {
+            return Entries.ContainsKey(key);
+            }
 
         #region ICustomXmlUpdateSerializer Members
 
@@ -308,50 +307,50 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             ServiceObject ewsObject,
             PropertyDefinition propertyDefinition)
-        {
-            List<TEntry> tempEntries = new List<TEntry>();
+            {
+            List<TEntry> tempEntries = new();
 
-            foreach (TKey key in this.addedEntries)
-            {
-                tempEntries.Add(this.entries[key]);
-            }
-            foreach (TKey key in this.modifiedEntries)
-            {
-                tempEntries.Add(this.entries[key]);
-            }
+            foreach (TKey key in addedEntries)
+                {
+                tempEntries.Add(entries[key]);
+                }
+            foreach (TKey key in modifiedEntries)
+                {
+                tempEntries.Add(entries[key]);
+                }
 
             foreach (TEntry entry in tempEntries)
-            {
+                {
                 if (!entry.WriteSetUpdateToXml(
                     writer,
                     ewsObject,
                     propertyDefinition.XmlElementName))
-                {
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetSetFieldXmlElementName());
-                    this.WriteUriToXml(writer, entry.Key);
+                    WriteUriToXml(writer, entry.Key);
 
                     writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetXmlElementName());
                     writer.WriteStartElement(XmlNamespace.Types, propertyDefinition.XmlElementName);
-                    entry.WriteToXml(writer, this.GetEntryXmlElementName(entry));
+                    entry.WriteToXml(writer, GetEntryXmlElementName(entry));
                     writer.WriteEndElement();
                     writer.WriteEndElement();
 
                     writer.WriteEndElement();
+                    }
                 }
-            }
 
-            foreach (TEntry entry in this.removedEntries.Values)
-            {
-                if (!entry.WriteDeleteUpdateToXml(writer, ewsObject))
+            foreach (TEntry entry in removedEntries.Values)
                 {
+                if (!entry.WriteDeleteUpdateToXml(writer, ewsObject))
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetDeleteFieldXmlElementName());
-                    this.WriteUriToXml(writer, entry.Key);
+                    WriteUriToXml(writer, entry.Key);
                     writer.WriteEndElement();
+                    }
                 }
-            }
 
             return true;
-        }
+            }
 
         /// <summary>
         /// Writes deletion update to XML.
@@ -362,10 +361,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// True if property generated serialization.
         /// </returns>
         bool ICustomUpdateSerializer.WriteDeleteUpdateToXml(EwsServiceXmlWriter writer, ServiceObject ewsObject)
-        {
+            {
             return false;
-        }
+            }
 
         #endregion
+        }
     }
-}

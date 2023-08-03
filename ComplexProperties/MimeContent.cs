@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Text;
 
@@ -32,13 +32,13 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents the MIME content of an item.
     /// </summary>
     public sealed class MimeContent : MimeContentBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="MimeContent"/> class.
         /// </summary>
         public MimeContent()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MimeContent"/> class.
@@ -46,10 +46,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="characterSet">The character set of the content.</param>
         /// <param name="content">The content.</param>
         public MimeContent(string characterSet, byte[] content)
-        {
-            this.CharacterSet = characterSet;
-            this.Content = content;
-        }
+            {
+            CharacterSet = characterSet;
+            Content = content;
+            }
 
         #region Object method overrides
         /// <summary>
@@ -59,31 +59,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            if (this.Content == null)
             {
-                return string.Empty;
-            }
-            else
-            {
-                try
+            if (Content == null)
                 {
+                return string.Empty;
+                }
+            else
+                {
+                try
+                    {
                     // Try to convert to original MIME content using specified charset. If this fails, 
                     // return the Base64 representation of the content.
                     // Note: Encoding.GetString can throw DecoderFallbackException which is a subclass
                     // of ArgumentException.
-                    string charSet = string.IsNullOrEmpty(this.CharacterSet)
+                    string charSet = string.IsNullOrEmpty(CharacterSet)
                                                 ? Encoding.UTF8.EncodingName
-                                                : this.CharacterSet;
+                                                : CharacterSet;
                     Encoding encoding = Encoding.GetEncoding(charSet);
-                    return encoding.GetString(this.Content);
-                }
+                    return encoding.GetString(Content);
+                    }
                 catch (ArgumentException)
-                {
-                    return Convert.ToBase64String(this.Content);
+                    {
+                    return Convert.ToBase64String(Content);
+                    }
                 }
             }
-        }
         #endregion
+        }
     }
-}

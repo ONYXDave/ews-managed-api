@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an Id expressed in a specific format.
     /// </summary>
     public class AlternateId : AlternateIdBase
-    {
+        {
         /// <summary>
         /// Name of schema type used for AlternateId.
         /// </summary>
@@ -40,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public AlternateId()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternateId"/> class.
@@ -54,10 +54,10 @@ namespace Microsoft.Exchange.WebServices.Data
             string id,
             string mailbox)
             : base(format)
-        {
-            this.UniqueId = id;
-            this.Mailbox = mailbox;
-        }
+            {
+            UniqueId = id;
+            Mailbox = mailbox;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternateId"/> class.
@@ -72,93 +72,93 @@ namespace Microsoft.Exchange.WebServices.Data
             string mailbox,
             bool isArchive)
             : base(format)
-        {
-            this.UniqueId = id;
-            this.Mailbox = mailbox;
-            this.IsArchive = isArchive;
-        }
+            {
+            UniqueId = id;
+            Mailbox = mailbox;
+            IsArchive = isArchive;
+            }
 
         /// <summary>
         /// Gets or sets the Id.
         /// </summary>
         public string UniqueId
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the mailbox to which the Id belongs.
         /// </summary>
         public string Mailbox
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the type (primary or archive) mailbox to which the Id belongs.
         /// </summary>
         public bool IsArchive
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.AlternateId;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
 
-            writer.WriteAttributeValue(XmlAttributeNames.Id, this.UniqueId);
-            writer.WriteAttributeValue(XmlAttributeNames.Mailbox, this.Mailbox);
+            writer.WriteAttributeValue(XmlAttributeNames.Id, UniqueId);
+            writer.WriteAttributeValue(XmlAttributeNames.Mailbox, Mailbox);
 
             // this is optional attribute will default false so we will write
             // it only if it is true
-            if (this.IsArchive)
-            {
+            if (IsArchive)
+                {
                 writer.WriteAttributeValue(XmlAttributeNames.IsArchive, true);
+                }
             }
-        }
 
         /// <summary>
         /// Loads the attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void LoadAttributesFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.LoadAttributesFromXml(reader);
 
-            this.UniqueId = reader.ReadAttributeValue(XmlAttributeNames.Id);
-            this.Mailbox = reader.ReadAttributeValue(XmlAttributeNames.Mailbox);
+            UniqueId = reader.ReadAttributeValue(XmlAttributeNames.Id);
+            Mailbox = reader.ReadAttributeValue(XmlAttributeNames.Mailbox);
 
             // optional attribute: defaulting to false if not present
             string isArchive = reader.ReadAttributeValue(XmlAttributeNames.IsArchive);
             if (!string.IsNullOrEmpty(isArchive))
-            {
-                this.IsArchive = reader.ReadAttributeValue<bool>(XmlAttributeNames.IsArchive);
-            }
+                {
+                IsArchive = reader.ReadAttributeValue<bool>(XmlAttributeNames.IsArchive);
+                }
             else
-            {
-                this.IsArchive = false;
+                {
+                IsArchive = false;
+                }
             }
-        }
 
         /// <summary>
         /// Validate this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            EwsUtilities.ValidateParam(this.Mailbox, "mailbox");
+            {
+            EwsUtilities.ValidateParam(Mailbox, "mailbox");
+            }
         }
     }
-}

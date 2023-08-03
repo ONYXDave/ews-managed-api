@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// The values indicate the types of item icons to display.
     /// </summary>
     public enum SendPrompt
-    {
+        {
         /// <summary>
         /// None
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// VotingOption
         /// </summary>
         VotingOption,
+        }
     }
-}

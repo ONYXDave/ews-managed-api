@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Runtime.Serialization;
 
@@ -33,14 +33,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public sealed class ServiceVersionException : ServiceLocalException
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceVersionException"/> class.
         /// </summary>
         public ServiceVersionException()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceVersionException"/> class.
@@ -48,8 +48,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="message">The error message.</param>
         public ServiceVersionException(string message)
             : base(message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceVersionException"/> class.
@@ -58,17 +58,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="innerException">The inner exception.</param>
         public ServiceVersionException(string message, Exception innerException)
             : base(message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceVersionException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		private ServiceVersionException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-	    {
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceVersionException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        private ServiceVersionException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

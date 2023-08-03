@@ -24,42 +24,38 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a GetDiscoverySearchConfigurationRequest.
     /// </summary>
     internal sealed class GetDiscoverySearchConfigurationRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDiscoverySearchConfigurationRequest"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal GetDiscoverySearchConfigurationRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetDiscoverySearchConfigurationResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetDiscoverySearchConfiguration;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -67,41 +63,41 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetDiscoverySearchConfigurationResponse response = new GetDiscoverySearchConfigurationResponse();
-            response.LoadFromXml(reader, this.GetResponseXmlElementName());
+            {
+            GetDiscoverySearchConfigurationResponse response = new();
+            response.LoadFromXml(reader, GetResponseXmlElementName());
             return response;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchId, this.SearchId ?? string.Empty);
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ExpandGroupMembership, this.ExpandGroupMembership.ToString().ToLower());
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.InPlaceHoldConfigurationOnly, this.InPlaceHoldConfigurationOnly.ToString().ToLower());
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchId, SearchId ?? string.Empty);
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ExpandGroupMembership, ExpandGroupMembership.ToString().ToLower());
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.InPlaceHoldConfigurationOnly, InPlaceHoldConfigurationOnly.ToString().ToLower());
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetDiscoverySearchConfigurationResponse Execute()
-        {
-            GetDiscoverySearchConfigurationResponse serviceResponse = (GetDiscoverySearchConfigurationResponse)this.InternalExecute();
+            {
+            GetDiscoverySearchConfigurationResponse serviceResponse = (GetDiscoverySearchConfigurationResponse)InternalExecute();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Search Id
@@ -117,5 +113,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// In-Place hold configuration only
         /// </summary>
         public bool InPlaceHoldConfigurationOnly { get; set; }
+        }
     }
-}

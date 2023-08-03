@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the scope of FindFolders operations.
     /// </summary>
     public enum FolderTraversal
-    {
+        {
         /// <summary>
         /// Only direct sub-folders are retrieved.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Only soft deleted folders are retrieved.
         /// </summary>
         SoftDeleted
+        }
     }
-}

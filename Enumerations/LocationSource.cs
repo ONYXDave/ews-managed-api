@@ -24,15 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     // System Dependencies
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// Source of resolution.
     /// </summary>
     public enum LocationSource
-    {
+        {
         /// <summary>Unresolved</summary>
         None = 0,
 
@@ -50,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
 
         /// <summary>Sourced from a resource (such as a conference room)</summary>
         Resource = 5,
+        }
     }
-}

@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the response to a GetAppMarketplaceUrl operation
     /// </summary>
     internal sealed class GetAppMarketplaceUrlResponse : ServiceResponse
-    {
+        {
         private string appMarketplaceUrl;
 
         /// <summary>
@@ -37,25 +37,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal GetAppMarketplaceUrlResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
-            this.appMarketplaceUrl = reader.ReadElementValue<string>(XmlNamespace.NotSpecified, XmlElementNames.AppMarketplaceUrl);
-        }
+            appMarketplaceUrl = reader.ReadElementValue<string>(XmlNamespace.NotSpecified, XmlElementNames.AppMarketplaceUrl);
+            }
 
         /// <summary>
         /// App Marketplace Url
         /// </summary>
         public string AppMarketplaceUrl
-        {
-            get { return this.appMarketplaceUrl; }
+            {
+            get { return appMarketplaceUrl; }
+            }
         }
     }
-}

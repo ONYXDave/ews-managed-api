@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the hold action.
     /// </summary>
     public enum HoldAction
-    {
+        {
         /// <summary>
         /// Create new hold
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Release the hold
         /// </summary>
         Remove,
+        }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
 
     /// <summary>
@@ -32,11 +32,11 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     /// <typeparam name="TKey">The type of the key.</typeparam>
     internal class SimplePropertyBag<TKey> : IEnumerable<KeyValuePair<TKey, object>>
-    {
-        private Dictionary<TKey, object> items = new Dictionary<TKey, object>();
-        private List<TKey> removedItems = new List<TKey>();
-        private List<TKey> addedItems = new List<TKey>();
-        private List<TKey> modifiedItems = new List<TKey>();
+        {
+        private Dictionary<TKey, object> items = new();
+        private List<TKey> removedItems = new();
+        private List<TKey> addedItems = new();
+        private List<TKey> modifiedItems = new();
 
         /// <summary>
         /// Add item to change list.
@@ -44,83 +44,83 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">The key.</param>
         /// <param name="changeList">The change list.</param>
         private static void InternalAddItemToChangeList(TKey key, List<TKey> changeList)
-        {
-            if (!changeList.Contains(key))
             {
+            if (!changeList.Contains(key))
+                {
                 changeList.Add(key);
+                }
             }
-        }
 
         /// <summary>
         /// Triggers dispatch of the change event.
         /// </summary>
         private void Changed()
-        {
-            if (this.OnChange != null)
             {
-                this.OnChange();
+            if (OnChange != null)
+                {
+                OnChange();
+                }
             }
-        }
 
         /// <summary>
         /// Remove item.
         /// </summary>
         /// <param name="key">The key.</param>
         private void InternalRemoveItem(TKey key)
-        {
+            {
             object value;
 
-            if (this.TryGetValue(key, out value))
-            {
-                this.items.Remove(key);
-                this.removedItems.Add(key);
-                this.Changed();
+            if (TryGetValue(key, out value))
+                {
+                items.Remove(key);
+                removedItems.Add(key);
+                Changed();
+                }
             }
-        }
 
         /// <summary>
         /// Gets the added items.
         /// </summary>
         /// <value>The added items.</value>
         internal IEnumerable<TKey> AddedItems
-        {
-            get { return this.addedItems; }
-        }
+            {
+            get { return addedItems; }
+            }
 
         /// <summary>
         /// Gets the removed items.
         /// </summary>
         /// <value>The removed items.</value>
         internal IEnumerable<TKey> RemovedItems
-        {
-            get { return this.removedItems; }
-        }
+            {
+            get { return removedItems; }
+            }
 
         /// <summary>
         /// Gets the modified items.
         /// </summary>
         /// <value>The modified items.</value>
         internal IEnumerable<TKey> ModifiedItems
-        {
-            get { return this.modifiedItems; }
-        }
+            {
+            get { return modifiedItems; }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimplePropertyBag&lt;TKey&gt;"/> class.
         /// </summary>
         public SimplePropertyBag()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Clears the change log.
         /// </summary>
         public void ClearChangeLog()
-        {
-            this.removedItems.Clear();
-            this.addedItems.Clear();
-            this.modifiedItems.Clear();
-        }
+            {
+            removedItems.Clear();
+            addedItems.Clear();
+            modifiedItems.Clear();
+            }
 
         /// <summary>
         /// Determines whether the specified key is in the property bag.
@@ -130,9 +130,9 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if the specified key exists; otherwise, <c>false</c>.
         /// </returns>
         public bool ContainsKey(TKey key)
-        {
-            return this.items.ContainsKey(key);
-        }
+            {
+            return items.ContainsKey(key);
+            }
 
         /// <summary>
         /// Tries to get value.
@@ -141,9 +141,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>True if value exists in property bag.</returns>
         public bool TryGetValue(TKey key, out object value)
-        {
-            return this.items.TryGetValue(key, out value);
-        }
+            {
+            return items.TryGetValue(key, out value);
+            }
 
         /// <summary>
         /// Gets or sets the <see cref="System.Object"/> with the specified key.
@@ -151,56 +151,56 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">Key.</param>
         /// <value>Value associated with key.</value>
         public object this[TKey key]
-        {
-            get
             {
+            get
+                {
                 object value;
 
-                if (this.TryGetValue(key, out value))
-                {
+                if (TryGetValue(key, out value))
+                    {
                     return value;
-                }
+                    }
                 else
-                {
+                    {
                     return null;
+                    }
                 }
-            }
 
             set
-            {
+                {
                 if (value == null)
-                {
-                    this.InternalRemoveItem(key);
-                }
-                else
-                {
-                    // If the item was to be deleted, the deletion becomes an update.
-                    if (this.removedItems.Remove(key))
                     {
-                        InternalAddItemToChangeList(key, this.modifiedItems);
+                    InternalRemoveItem(key);
                     }
-                    else
+                else
                     {
-                        // If the property value was not set, we have a newly set property.
-                        if (!this.ContainsKey(key))
+                    // If the item was to be deleted, the deletion becomes an update.
+                    if (removedItems.Remove(key))
                         {
-                            InternalAddItemToChangeList(key, this.addedItems);
+                        InternalAddItemToChangeList(key, modifiedItems);
                         }
-                        else
+                    else
                         {
-                            // The last case is that we have a modified property.
-                            if (!this.modifiedItems.Contains(key))
+                        // If the property value was not set, we have a newly set property.
+                        if (!ContainsKey(key))
                             {
-                                InternalAddItemToChangeList(key, this.modifiedItems);
+                            InternalAddItemToChangeList(key, addedItems);
+                            }
+                        else
+                            {
+                            // The last case is that we have a modified property.
+                            if (!modifiedItems.Contains(key))
+                                {
+                                InternalAddItemToChangeList(key, modifiedItems);
+                                }
                             }
                         }
-                    }
 
-                    this.items[key] = value;
-                    this.Changed();
+                    items[key] = value;
+                    Changed();
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Occurs when Changed.
@@ -214,9 +214,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         public IEnumerator<KeyValuePair<TKey, object>> GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
 
@@ -227,10 +227,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
+        }
     }
-}

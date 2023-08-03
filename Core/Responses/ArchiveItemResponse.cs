@@ -24,17 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents a response to a Move or Copy operation.
     /// </summary>
     public sealed class ArchiveItemResponse : ServiceResponse
-    {
+        {
         private Item item;
 
         /// <summary>
@@ -42,8 +39,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal ArchiveItemResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets Item instance.
@@ -52,37 +49,37 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Item.</returns>
         private Item GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
+            {
             return EwsUtilities.CreateEwsObjectFromXmlElementName<Item>(service, xmlElementName);
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             List<Item> items = reader.ReadServiceObjectsCollectionFromXml<Item>(
                 XmlElementNames.Items,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 false,  /* clearPropertyBag */
                 null,   /* requestedPropertySet */
                 false); /* summaryPropertiesOnly */
 
             if (items.Count > 0)
-            {
-                this.item = items[0];
+                {
+                item = items[0];
+                }
             }
-        }
 
         /// <summary>
         /// Gets the copied or moved item.
         /// </summary>
         public Item Item
-        {
-            get { return this.item; }
+            {
+            get { return item; }
+            }
         }
     }
-}

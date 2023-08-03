@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a PlayOnPhone request.
     /// </summary>
     internal sealed class PlayOnPhoneRequest : SimpleServiceRequestBase
-    {
+        {
         private ItemId itemId;
         private string dialString;
 
@@ -43,36 +39,36 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service.</param>
         internal PlayOnPhoneRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.PlayOnPhone;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.itemId.WriteToXml(writer, XmlNamespace.Messages, XmlElementNames.ItemId);
+            {
+            itemId.WriteToXml(writer, XmlNamespace.Messages, XmlElementNames.ItemId);
             writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.DialString, dialString);
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.PlayOnPhoneResponse;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -80,62 +76,62 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            PlayOnPhoneResponse serviceResponse = new PlayOnPhoneResponse(this.Service);
+            {
+            PlayOnPhoneResponse serviceResponse = new(Service);
             serviceResponse.LoadFromXml(reader, XmlElementNames.PlayOnPhoneResponse);
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2010;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal PlayOnPhoneResponse Execute()
-        {
-            PlayOnPhoneResponse serviceResponse = (PlayOnPhoneResponse)this.InternalExecute();
+            {
+            PlayOnPhoneResponse serviceResponse = (PlayOnPhoneResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the item id of the message to play.
         /// </summary>
         internal ItemId ItemId
-        {
-            get
             {
-                return this.itemId;
-            }
+            get
+                {
+                return itemId;
+                }
 
             set
-            {
-                this.itemId = value;
+                {
+                itemId = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the dial string.
         /// </summary>
         internal string DialString
-        {
-            get
             {
-                return this.dialString;
-            }
+            get
+                {
+                return dialString;
+                }
 
             set
-            {
-                this.dialString = value;
+                {
+                dialString = value;
+                }
             }
         }
     }
-}

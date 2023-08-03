@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Runtime.Serialization;
     using System.Xml;
 
@@ -32,21 +32,21 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Exception class for banned xml parsing
     /// </summary>
     internal class XmlDtdException : XmlException
-    {
+        {
         /// <summary>
         /// Gets the xml exception message.
         /// </summary>
         public override string Message
-        {
+            {
             get { return "For security reasons DTD is prohibited in this XML document."; }
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDtdException"/> class.
         /// </summary>
         public XmlDtdException()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDtdException"/> class with serialized data.
@@ -55,7 +55,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
         protected XmlDtdException(SerializationInfo info, StreamingContext context)
             : base(info, context)
-        {
+            {
+            }
         }
     }
-}

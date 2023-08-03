@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
 
     /// <summary>
     /// Represents a GetStreamingEvents request.
     /// </summary>
     internal class GetStreamingEventsRequest : HangingServiceRequestBase
-    {
+        {
         internal const int HeartbeatFrequencyDefault = 45000; ////45s in ms
         private static int heartbeatFrequency = HeartbeatFrequencyDefault;
 
@@ -46,66 +46,66 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="subscriptionIds">List of subscription ids to listen to on this request.</param>
         /// <param name="connectionTimeout">Connection timeout, in minutes.</param>
         internal GetStreamingEventsRequest(
-            ExchangeService service, 
+            ExchangeService service,
             HandleResponseObject serviceObjectHandler,
             IEnumerable<string> subscriptionIds,
             int connectionTimeout)
             : base(service, serviceObjectHandler, GetStreamingEventsRequest.heartbeatFrequency)
-        {
+            {
             this.subscriptionIds = subscriptionIds;
             this.connectionTimeout = connectionTimeout;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetStreamingEvents;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetStreamingEventsResponse;
-        }
+            }
 
         /// <summary>
         /// Writes the elements to XML writer.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.SubscriptionIds);
 
-            foreach (string id in this.subscriptionIds)
-            {
+            foreach (string id in subscriptionIds)
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.SubscriptionId,
                     id);
-            }
+                }
 
             writer.WriteEndElement();
 
             writer.WriteElementValue(
                 XmlNamespace.Messages,
                 XmlElementNames.ConnectionTimeout,
-                this.connectionTimeout);
-        }
+                connectionTimeout);
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2010_SP1;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -113,28 +113,28 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
+            {
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.ResponseMessages);
 
-            GetStreamingEventsResponse response = new GetStreamingEventsResponse(this);
+            GetStreamingEventsResponse response = new(this);
             response.LoadFromXml(reader, XmlElementNames.GetStreamingEventsResponseMessage);
 
             reader.ReadEndElementIfNecessary(XmlNamespace.Messages, XmlElementNames.ResponseMessages);
 
             return response;
-        }
+            }
 
         #region Test hooks
         /// <summary>
         /// Allow test code to change heartbeat value
         /// </summary>
         internal static int HeartbeatFrequency
-        {
-            set
             {
+            set
+                {
                 heartbeatFrequency = value;
+                }
             }
-        }
         #endregion
+        }
     }
-}

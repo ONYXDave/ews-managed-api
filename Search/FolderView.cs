@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the view settings in a folder search operation.
     /// </summary>
     public sealed class FolderView : PagedView
-    {
+        {
         private FolderTraversal traversal;
 
         /// <summary>
@@ -41,27 +37,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetViewXmlElementName()
-        {
+            {
             return XmlElementNames.IndexedPageFolderView;
-        }
+            }
 
         /// <summary>
         /// Gets the type of service object this view applies to.
         /// </summary>
         /// <returns>A ServiceObjectType value.</returns>
         internal override ServiceObjectType GetServiceObjectType()
-        {
+            {
             return ServiceObjectType.Folder;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.Traversal, this.Traversal);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.Traversal, Traversal);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FolderView"/> class.
@@ -69,8 +65,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="pageSize">The maximum number of elements the search operation should return.</param>
         public FolderView(int pageSize)
             : base(pageSize)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FolderView"/> class.
@@ -79,8 +75,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="offset">The offset of the view from the base point.</param>
         public FolderView(int pageSize, int offset)
             : base(pageSize, offset)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FolderView"/> class.
@@ -93,16 +89,16 @@ namespace Microsoft.Exchange.WebServices.Data
             int offset,
             OffsetBasePoint offsetBasePoint)
             : base(pageSize, offset, offsetBasePoint)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the search traversal mode. Defaults to FolderTraversal.Shallow.
         /// </summary>
         public FolderTraversal Traversal
-        {
-            get { return this.traversal; }
-            set { this.traversal = value; }
+            {
+            get { return traversal; }
+            set { traversal = value; }
+            }
         }
     }
-}

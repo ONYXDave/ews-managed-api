@@ -24,38 +24,36 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.IO;
-    using System.IO.Compression;
     using System.Net;
-    using System.Xml;
 
     /// <summary>
     /// Represents an abstract, simple request-response service request.
     /// </summary>
     internal abstract class SimpleServiceRequestBase : ServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleServiceRequestBase"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal SimpleServiceRequestBase(ExchangeService service) :
             base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal object InternalExecute()
-        {
+            {
             IEwsHttpWebRequest request;
-            IEwsHttpWebResponse response = this.ValidateAndEmitRequest(out request);
+            IEwsHttpWebResponse response = ValidateAndEmitRequest(out request);
 
-            return this.ReadResponse(response);
-        }
+            return ReadResponse(response);
+            }
 
         /// <summary>
         /// Ends executing this async request.
@@ -63,13 +61,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="asyncResult">The async result</param>
         /// <returns>Service response object.</returns>
         internal object EndInternalExecute(IAsyncResult asyncResult)
-        {
+            {
             // We have done enough validation before
             AsyncRequestResult asyncRequestResult = (AsyncRequestResult)asyncResult;
 
-            IEwsHttpWebResponse response = this.EndGetEwsHttpWebResponse(asyncRequestResult.WebRequest, asyncRequestResult.WebAsyncResult);
-            return this.ReadResponse(response);
-        }
+            IEwsHttpWebResponse response = EndGetEwsHttpWebResponse(asyncRequestResult.WebRequest, asyncRequestResult.WebAsyncResult);
+            return ReadResponse(response);
+            }
 
         /// <summary>
         /// Begins executing this async request.
@@ -78,30 +76,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="state">An object that contains state information for this request.</param>
         /// <returns>An IAsyncResult that references the asynchronous request.</returns>
         internal IAsyncResult BeginExecute(AsyncCallback callback, object state)
-        {
-            this.Validate();
+            {
+            Validate();
 
-            IEwsHttpWebRequest request = this.BuildEwsHttpWebRequest();
+            IEwsHttpWebRequest request = BuildEwsHttpWebRequest();
 
-            WebAsyncCallStateAnchor wrappedState = new WebAsyncCallStateAnchor(this, request, callback /* user callback */, state /* user state */);
+            WebAsyncCallStateAnchor wrappedState = new(this, request, callback /* user callback */, state /* user state */);
 
             // BeginGetResponse() does not throw interesting exceptions
             IAsyncResult webAsyncResult = request.BeginGetResponse(SimpleServiceRequestBase.WebRequestAsyncCallback, wrappedState);
 
             return new AsyncRequestResult(this, request, webAsyncResult, state /* user state */);
-        }
+            }
 
         /// <summary>
         /// Async callback method for HttpWebRequest async requests.
         /// </summary>
         /// <param name="webAsyncResult">An IAsyncResult that references the asynchronous request.</param>
         private static void WebRequestAsyncCallback(IAsyncResult webAsyncResult)
-        {
+            {
             WebAsyncCallStateAnchor wrappedState = webAsyncResult.AsyncState as WebAsyncCallStateAnchor;
 
             if (wrappedState != null && wrappedState.AsyncCallback != null)
-            {
-                AsyncRequestResult asyncRequestResult = new AsyncRequestResult(
+                {
+                AsyncRequestResult asyncRequestResult = new(
                     wrappedState.ServiceRequest,
                     wrappedState.WebRequest,
                     webAsyncResult, /* web async result */
@@ -109,8 +107,8 @@ namespace Microsoft.Exchange.WebServices.Data
 
                 // Call user's call back
                 wrappedState.AsyncCallback(asyncRequestResult);
+                }
             }
-        }
 
         /// <summary>
         /// Reads the response with error handling
@@ -118,65 +116,65 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="response">The response.</param>
         /// <returns>Service response.</returns>
         private object ReadResponse(IEwsHttpWebResponse response)
-        {
+            {
             object serviceResponse;
 
             try
-            {
-                this.Service.ProcessHttpResponseHeaders(TraceFlags.EwsResponseHttpHeaders, response);
+                {
+                Service.ProcessHttpResponseHeaders(TraceFlags.EwsResponseHttpHeaders, response);
 
                 // If tracing is enabled, we read the entire response into a MemoryStream so that we
                 // can pass it along to the ITraceListener. Then we parse the response from the 
                 // MemoryStream.
-                if (this.Service.IsTraceEnabledFor(TraceFlags.EwsResponse))
-                {
-                    using (MemoryStream memoryStream = new MemoryStream())
+                if (Service.IsTraceEnabledFor(TraceFlags.EwsResponse))
                     {
-                        using (Stream serviceResponseStream = ServiceRequestBase.GetResponseStream(response))
+                    using (MemoryStream memoryStream = new())
                         {
+                        using (Stream serviceResponseStream = ServiceRequestBase.GetResponseStream(response))
+                            {
                             // Copy response to in-memory stream and reset position to start.
                             EwsUtilities.CopyStream(serviceResponseStream, memoryStream);
                             memoryStream.Position = 0;
+                            }
+
+                        TraceResponseXml(response, memoryStream);
+
+                        serviceResponse = ReadResponseXml(memoryStream, response.Headers);
                         }
-
-                        this.TraceResponseXml(response, memoryStream);
-
-                        serviceResponse = this.ReadResponseXml(memoryStream, response.Headers);
                     }
-                }
                 else
-                {
-                    using (Stream responseStream = ServiceRequestBase.GetResponseStream(response))
                     {
-                        serviceResponse = this.ReadResponseXml(responseStream, response.Headers);
+                    using (Stream responseStream = ServiceRequestBase.GetResponseStream(response))
+                        {
+                        serviceResponse = ReadResponseXml(responseStream, response.Headers);
+                        }
                     }
                 }
-            }
             catch (WebException e)
-            {
-                if (e.Response != null)
                 {
-                    IEwsHttpWebResponse exceptionResponse = this.Service.HttpWebRequestFactory.CreateExceptionResponse(e);
-                    this.Service.ProcessHttpResponseHeaders(TraceFlags.EwsResponseHttpHeaders, exceptionResponse);
-                }
+                if (e.Response != null)
+                    {
+                    IEwsHttpWebResponse exceptionResponse = Service.HttpWebRequestFactory.CreateExceptionResponse(e);
+                    Service.ProcessHttpResponseHeaders(TraceFlags.EwsResponseHttpHeaders, exceptionResponse);
+                    }
 
                 throw new ServiceRequestException(string.Format(Strings.ServiceRequestFailed, e.Message), e);
-            }
+                }
             catch (IOException e)
-            {
+                {
                 // Wrap exception.
                 throw new ServiceRequestException(string.Format(Strings.ServiceRequestFailed, e.Message), e);
-            }
-            finally
-            {
-                if (response != null)
-                {
-                    response.Close();
                 }
-            }
+            finally
+                {
+                if (response != null)
+                    {
+                    response.Close();
+                    }
+                }
 
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Reads the response XML.
@@ -184,9 +182,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseStream">The response stream.</param>
         /// <returns></returns>
         private object ReadResponseXml(Stream responseStream)
-        {
-            return this.ReadResponseXml(responseStream, null);
-        }
+            {
+            return ReadResponseXml(responseStream, null);
+            }
 
         /// <summary>
         /// Reads the response XML.
@@ -195,11 +193,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseHeaders">The HTTP response headers</param>
         /// <returns></returns>
         private object ReadResponseXml(Stream responseStream, WebHeaderCollection responseHeaders)
-        {
+            {
             object serviceResponse;
-            EwsServiceXmlReader ewsXmlReader = new EwsServiceXmlReader(responseStream, this.Service);
-            serviceResponse = this.ReadResponse(ewsXmlReader, responseHeaders);
+            EwsServiceXmlReader ewsXmlReader = new(responseStream, Service);
+            serviceResponse = ReadResponse(ewsXmlReader, responseHeaders);
             return serviceResponse;
+            }
         }
     }
-}

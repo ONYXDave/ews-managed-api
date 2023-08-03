@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents search preview item.
     /// </summary>
     public sealed class SearchPreviewItem
-    {
+        {
         /// <summary>
         /// Item id
         /// </summary>
@@ -48,7 +46,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Parent item id
         /// </summary>
         public ItemId ParentId { get; set; }
-        
+
         /// <summary>
         /// Item class
         /// </summary>
@@ -139,5 +137,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Extended properties
         /// </summary>
         public ExtendedPropertyCollection ExtendedProperties { get; set; }
+        }
     }
-}

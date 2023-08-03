@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of error handling used for service method calls. 
     /// </summary>
     internal enum ServiceErrorHandling
-    {
+        {
         /// <summary>
         /// Service method should return the error(s).
         /// </summary>
@@ -39,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Service method should throw exception when error occurs.
         /// </summary>
         ThrowOnError
+        }
     }
-}

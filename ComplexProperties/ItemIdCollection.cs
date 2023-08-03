@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.ComponentModel;
 
     /// <summary>
@@ -32,14 +32,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ItemIdCollection : ComplexPropertyCollection<ItemId>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemIdCollection"/> class.
         /// </summary>
         internal ItemIdCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates the complex property.
@@ -47,9 +47,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>ItemId.</returns>
         internal override ItemId CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new ItemId();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -57,8 +57,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(ItemId complexProperty)
-        {
+            {
             return complexProperty.GetXmlElementName();
+            }
         }
     }
-}

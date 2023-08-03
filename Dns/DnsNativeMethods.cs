@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Dns
-{
+    {
     using System;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
@@ -37,7 +37,7 @@ namespace Microsoft.Exchange.WebServices.Dns
     /// </summary>
     [ComVisible(false)]
     internal static class DnsNativeMethods
-    {
+        {
         /// <summary>
         /// The Win32 dll from which to load DNS APIs.
         /// </summary>
@@ -51,35 +51,35 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// </summary>
         /// <remarks>Win32 defines other values for this enum but we don't uses them.</remarks>
         private enum FreeType
-        {
+            {
             /// <summary>
             /// The data freed is a Resource Record list, and includes subfields of the DNS_RECORD
             /// structure. Resources freed include structures returned by the DnsQuery and DnsRecordSetCopyEx functions.
             /// </summary>
             RecordList = 1,
-        }
+            }
 
         /// <summary>
         /// DNS Query options.
         /// </summary>
         /// <remarks>Win32 defines other values for this enum but we don't uses them.</remarks>
         private enum DnsQueryOptions
-        {
+            {
             /// <summary>
             /// Default option.
             /// </summary>
             DNS_QUERY_STANDARD = 0,
-        }
+            }
 
         /// <summary>
         /// Represents the native format of a DNS record returned by the Win32 DNS API
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private struct DnsServerList
-        {
+            {
             public Int32 AddressCount;
             public Int32 ServerAddress;
-        }
+            }
 
         /// <summary>
         /// Call Win32 DNS API DnsQuery.
@@ -117,14 +117,14 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// <param name="dnsServerAddress">The DNS server address (may be null).</param>
         /// <returns>Pointer to DNS server list (may be IntPtr.Zero).</returns>
         private static IntPtr AllocDnsServerList(IPAddress dnsServerAddress)
-        {
+            {
             IntPtr pServerList = IntPtr.Zero;
 
             // Build DNS server list arg if DNS server address was passed in.
             // Note: DnsQuery only supports a single IP address and it has to 
             // be an IPv4 address.
             if (dnsServerAddress != null)
-            {
+                {
                 Debug.Assert(
                     dnsServerAddress.AddressFamily == AddressFamily.InterNetwork,
                     "DnsNativeMethods",
@@ -137,9 +137,9 @@ namespace Microsoft.Exchange.WebServices.Dns
 
                 pServerList = Marshal.AllocHGlobal(Marshal.SizeOf(serverList));
                 Marshal.StructureToPtr(serverList, pServerList, false);
-            }
+                }
             return pServerList;
-        }
+            }
 
         /// <summary>
         /// Wrapper method to perform DNS Query.
@@ -155,13 +155,13 @@ namespace Microsoft.Exchange.WebServices.Dns
             IPAddress dnsServerAddress,
             DnsRecordType recordType,
             ref IntPtr ppQueryResults)
-        {
-            Debug.Assert( !string.IsNullOrEmpty(domain), "domain cannot be null.");
+            {
+            Debug.Assert(!string.IsNullOrEmpty(domain), "domain cannot be null.");
 
             IntPtr pServerList = IntPtr.Zero;
 
             try
-            {
+                {
                 pServerList = DnsNativeMethods.AllocDnsServerList(dnsServerAddress);
 
                 return DnsNativeMethods.DnsQuery(
@@ -171,13 +171,13 @@ namespace Microsoft.Exchange.WebServices.Dns
                     pServerList,
                     ref ppQueryResults,
                     0);
-            }
+                }
             finally
-            {
+                {
                 // Note: if pServerList is IntPtr.Zero, FreeHGlobal does nothing.
                 Marshal.FreeHGlobal(pServerList);
+                }
             }
-        }
 
         /// <summary>
         /// Free results from DnsQuery call.
@@ -185,10 +185,10 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// <remarks>Makes DnsRecordListFree a little more palatable.</remarks>
         /// <param name="ptrRecords">Pointer to records.</param>
         internal static void FreeDnsQueryResults(IntPtr ptrRecords)
-        {
-            Debug.Assert( !ptrRecords.Equals(IntPtr.Zero), "ptrRecords cannot be null.");
+            {
+            Debug.Assert(!ptrRecords.Equals(IntPtr.Zero), "ptrRecords cannot be null.");
 
-            DnsNativeMethods.DnsRecordListFree( ptrRecords, FreeType.RecordList);
+            DnsNativeMethods.DnsRecordListFree(ptrRecords, FreeType.RecordList);
+            }
         }
     }
-}

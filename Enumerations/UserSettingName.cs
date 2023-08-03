@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
+    {
     /// <summary>
     /// User settings that can be requested using GetUserSettings.
     /// </summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
     /// Add new values to the end and keep in sync with Microsoft.Exchange.Autodiscover.ConfigurationSettings.UserConfigurationSettingName.
     /// </remarks>
     public enum UserSettingName
-    {
+        {
         /// <summary>
         /// The display name of the user.
         /// </summary>
@@ -532,5 +532,5 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// External OutlookService URL
         /// </summary>
         ExternalOutlookServiceUrl = 99
+        }
     }
-}

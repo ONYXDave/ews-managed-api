@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a request to a GetConversationItems operation
     /// </summary>
     internal sealed class GetConversationItemsRequest : MultiResponseServiceRequest<GetConversationItemsResponse>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetConversationItemsRequest"/> class.
         /// </summary>
@@ -41,8 +39,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorHandlingMode">Error handling mode.</param>
         internal GetConversationItemsRequest(ExchangeService service, ServiceErrorHandling errorHandlingMode)
             : base(service, errorHandlingMode)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the conversations.
@@ -75,60 +73,60 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Validate request.
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
 
             // SearchScope is only valid for Exchange2013 or higher
             //
-            if (this.MailboxScope.HasValue &&
-                this.Service.RequestedServerVersion < ExchangeVersion.Exchange2013)
-            {
+            if (MailboxScope.HasValue &&
+                Service.RequestedServerVersion < ExchangeVersion.Exchange2013)
+                {
                 throw new ServiceVersionException(
                     string.Format(
                         Strings.ParameterIncompatibleWithRequestVersion,
                         "MailboxScope",
                         ExchangeVersion.Exchange2013));
+                }
             }
-        }
 
         /// <summary>
         /// Writes XML attributes.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.ItemProperties.WriteToXml(writer, ServiceObjectType.Item);
-
-            this.FoldersToIgnore.WriteToXml(writer, XmlNamespace.Messages, XmlElementNames.FoldersToIgnore);
-
-            if (this.MaxItemsToReturn.HasValue)
             {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MaxItemsToReturn, this.MaxItemsToReturn.Value);
-            }
+            ItemProperties.WriteToXml(writer, ServiceObjectType.Item);
 
-            if (this.SortOrder.HasValue)
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SortOrder, this.SortOrder.Value);
-            }
+            FoldersToIgnore.WriteToXml(writer, XmlNamespace.Messages, XmlElementNames.FoldersToIgnore);
 
-            if (this.MailboxScope.HasValue)
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MailboxScope, this.MailboxScope.Value);
-            }
+            if (MaxItemsToReturn.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MaxItemsToReturn, MaxItemsToReturn.Value);
+                }
+
+            if (SortOrder.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SortOrder, SortOrder.Value);
+                }
+
+            if (MailboxScope.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MailboxScope, MailboxScope.Value);
+                }
 
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Conversations);
-            this.Conversations.ForEach((conversation) => conversation.WriteToXml(writer, XmlElementNames.Conversation));
+            Conversations.ForEach((conversation) => conversation.WriteToXml(writer, XmlElementNames.Conversation));
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Creates the service response.
@@ -137,53 +135,53 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseIndex">Index of the response.</param>
         /// <returns>Service response.</returns>
         internal override GetConversationItemsResponse CreateServiceResponse(ExchangeService service, int responseIndex)
-        {
-            return new GetConversationItemsResponse(this.ItemProperties);
-        }
+            {
+            return new GetConversationItemsResponse(ItemProperties);
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetConversationItems;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetConversationItemsResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response message XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseMessageXmlElementName()
-        {
+            {
             return XmlElementNames.GetConversationItemsResponseMessage;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Gets the expected response message count.
         /// </summary>
         /// <returns>Number of expected response messages.</returns>
         internal override int GetExpectedResponseMessageCount()
-        {
-            return this.Conversations.Count;
+            {
+            return Conversations.Count;
+            }
         }
     }
-}

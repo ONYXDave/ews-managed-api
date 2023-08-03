@@ -24,22 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <content>
     /// Contains nested type Recurrence.RelativeMonthlyPattern.
     /// </content>
     public abstract partial class Recurrence
-    {
+        {
         /// <summary>
         /// Represents a recurrence pattern where each occurrence happens on a relative day a specific number of months
         /// after the previous one.
         /// </summary>
         public sealed class RelativeMonthlyPattern : IntervalPattern
-        {
+            {
             private DayOfTheWeek? dayOfTheWeek;
             private DayOfTheWeekIndex? dayOfTheWeekIndex;
 
@@ -48,8 +46,8 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             public RelativeMonthlyPattern()
                 : base()
-            {
-            }
+                {
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="RelativeMonthlyPattern"/> class.
@@ -64,38 +62,38 @@ namespace Microsoft.Exchange.WebServices.Data
                 DayOfTheWeek dayOfTheWeek,
                 DayOfTheWeekIndex dayOfTheWeekIndex)
                 : base(startDate, interval)
-            {
-                this.DayOfTheWeek = dayOfTheWeek;
-                this.DayOfTheWeekIndex = dayOfTheWeekIndex;
-            }
+                {
+                DayOfTheWeek = dayOfTheWeek;
+                DayOfTheWeekIndex = dayOfTheWeekIndex;
+                }
 
             /// <summary>
             /// Gets the name of the XML element.
             /// </summary>
             /// <value>The name of the XML element.</value>
             internal override string XmlElementName
-            {
+                {
                 get { return XmlElementNames.RelativeMonthlyRecurrence; }
-            }
+                }
 
             /// <summary>
             /// Write properties to XML.
             /// </summary>
             /// <param name="writer">The writer.</param>
             internal override void InternalWritePropertiesToXml(EwsServiceXmlWriter writer)
-            {
+                {
                 base.InternalWritePropertiesToXml(writer);
 
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.DaysOfWeek,
-                    this.DayOfTheWeek);
+                    DayOfTheWeek);
 
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.DayOfWeekIndex,
-                    this.DayOfTheWeekIndex);
-            }
+                    DayOfTheWeekIndex);
+                }
 
             /// <summary>
             /// Tries to read element from XML.
@@ -103,44 +101,44 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="reader">The reader.</param>
             /// <returns>True if appropriate element was read.</returns>
             internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-            {
+                {
                 if (base.TryReadElementFromXml(reader))
-                {
-                    return true;
-                }
-                else
-                {
-                    switch (reader.LocalName)
                     {
+                    return true;
+                    }
+                else
+                    {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.DaysOfWeek:
-                            this.dayOfTheWeek = reader.ReadElementValue<DayOfTheWeek>();
+                            dayOfTheWeek = reader.ReadElementValue<DayOfTheWeek>();
                             return true;
                         case XmlElementNames.DayOfWeekIndex:
-                            this.dayOfTheWeekIndex = reader.ReadElementValue<DayOfTheWeekIndex>();
+                            dayOfTheWeekIndex = reader.ReadElementValue<DayOfTheWeekIndex>();
                             return true;
                         default:
                             return false;
+                        }
                     }
                 }
-            }
 
             /// <summary>
             /// Validates this instance.
             /// </summary>
             internal override void InternalValidate()
-            {
+                {
                 base.InternalValidate();
 
-                if (!this.dayOfTheWeek.HasValue)
-                {
+                if (!dayOfTheWeek.HasValue)
+                    {
                     throw new ServiceValidationException(Strings.DayOfTheWeekMustBeSpecifiedForRecurrencePattern);
-                }
+                    }
 
-                if (!this.dayOfTheWeekIndex.HasValue)
-                {
+                if (!dayOfTheWeekIndex.HasValue)
+                    {
                     throw new ServiceValidationException(Strings.DayOfWeekIndexMustBeSpecifiedForRecurrencePattern);
+                    }
                 }
-            }
 
             /// <summary>
             /// Checks if two recurrence objects are identical. 
@@ -148,31 +146,31 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="otherRecurrence">The recurrence to compare this one to.</param>
             /// <returns>true if the two recurrences are identical, false otherwise.</returns>
             public override bool IsSame(Recurrence otherRecurrence)
-            {
+                {
                 RelativeMonthlyPattern otherRelativeMonthlyPattern = (RelativeMonthlyPattern)otherRecurrence;
 
                 return base.IsSame(otherRecurrence) &&
-                       this.dayOfTheWeek == otherRelativeMonthlyPattern.dayOfTheWeek &&
-                       this.dayOfTheWeekIndex == otherRelativeMonthlyPattern.dayOfTheWeekIndex;
-            }
+                       dayOfTheWeek == otherRelativeMonthlyPattern.dayOfTheWeek &&
+                       dayOfTheWeekIndex == otherRelativeMonthlyPattern.dayOfTheWeekIndex;
+                }
 
             /// <summary>
             /// Gets or sets the relative position of the day specified in DayOfTheWeek within the month.
             /// </summary>
             public DayOfTheWeekIndex DayOfTheWeekIndex
-            {
-                get { return this.GetFieldValueOrThrowIfNull<DayOfTheWeekIndex>(this.dayOfTheWeekIndex, "DayOfTheWeekIndex"); }
-                set { this.SetFieldValue<DayOfTheWeekIndex?>(ref this.dayOfTheWeekIndex, value); }
-            }
+                {
+                get { return GetFieldValueOrThrowIfNull<DayOfTheWeekIndex>(dayOfTheWeekIndex, "DayOfTheWeekIndex"); }
+                set { SetFieldValue<DayOfTheWeekIndex?>(ref dayOfTheWeekIndex, value); }
+                }
 
             /// <summary>
             /// The day of the week when each occurrence happens.
             /// </summary>
             public DayOfTheWeek DayOfTheWeek
-            {
-                get { return this.GetFieldValueOrThrowIfNull<DayOfTheWeek>(this.dayOfTheWeek, "DayOfTheWeek"); }
-                set { this.SetFieldValue<DayOfTheWeek?>(ref this.dayOfTheWeek, value); }
+                {
+                get { return GetFieldValueOrThrowIfNull<DayOfTheWeek>(dayOfTheWeek, "DayOfTheWeek"); }
+                set { SetFieldValue<DayOfTheWeek?>(ref dayOfTheWeek, value); }
+                }
             }
         }
     }
-}

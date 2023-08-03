@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents permission set property definition.
     /// </summary>
     internal class PermissionSetPropertyDefinition : ComplexPropertyDefinitionBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionSetPropertyDefinition"/> class.
         /// </summary>
@@ -49,8 +49,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates the property instance.
@@ -58,7 +58,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="owner">The owner.</param>
         /// <returns>ComplexProperty.</returns>
         internal override ComplexProperty CreatePropertyInstance(ServiceObject owner)
-        {
+            {
             Folder folder = owner as Folder;
 
             EwsUtilities.Assert(
@@ -67,14 +67,14 @@ namespace Microsoft.Exchange.WebServices.Data
                 "The owner parameter is not of type Folder or a derived class.");
 
             return new FolderPermissionCollection(folder);
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(FolderPermissionCollection); }
+            }
         }
     }
-}

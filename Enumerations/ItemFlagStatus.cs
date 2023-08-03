@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the flag status of an Item.
     /// </summary>
     public enum ItemFlagStatus
-    {
+        {
         /// <summary>
         /// Not Flagged.
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Complete.
         /// </summary>
         Complete
+        }
     }
-}

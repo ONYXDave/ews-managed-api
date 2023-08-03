@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of ClientAccessTokenType
     /// </summary>
     public enum ClientAccessTokenType
-    {
+        {
         /// <summary>
         /// CallerIdentity
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// ScopedToken.
         /// </summary>
         ScopedToken,
+        }
     }
-}

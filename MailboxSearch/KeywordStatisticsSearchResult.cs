@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the keyword statistics result.
     /// </summary>
     public sealed class KeywordStatisticsSearchResult
-    {
+        {
         /// <summary>
         /// Keyword string
         /// </summary>
@@ -49,5 +47,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [CLSCompliant(false)]
         public ulong Size { get; set; }
+        }
     }
-}

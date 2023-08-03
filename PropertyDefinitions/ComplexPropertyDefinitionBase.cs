@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents abstract complex property definition.
     /// </summary>
     internal abstract class ComplexPropertyDefinitionBase : PropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexPropertyDefinitionBase"/> class.
         /// </summary>
@@ -48,8 +44,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexPropertyDefinitionBase"/> class.
@@ -65,8 +61,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexPropertyDefinitionBase"/> class.
@@ -85,8 +81,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates the property instance.
@@ -101,22 +97,22 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
         internal virtual void InternalLoadFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
+            {
             object complexProperty;
 
             bool justCreated = GetPropertyInstance(propertyBag, out complexProperty);
 
-            if (!justCreated && this.HasFlag(PropertyDefinitionFlags.UpdateCollectionItems, propertyBag.Owner.Service.RequestedServerVersion))
-            {
+            if (!justCreated && HasFlag(PropertyDefinitionFlags.UpdateCollectionItems, propertyBag.Owner.Service.RequestedServerVersion))
+                {
                 (complexProperty as ComplexProperty).UpdateFromXml(reader, reader.LocalName);
-            }
+                }
             else
-            {
+                {
                 (complexProperty as ComplexProperty).LoadFromXml(reader, reader.LocalName);
-            }
+                }
 
             propertyBag[this] = complexProperty;
-        }
+            }
 
         /// <summary>
         /// Gets the property instance.
@@ -125,33 +121,33 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The property instance.</param>
         /// <returns>True if the instance is newly created.</returns>
         private bool GetPropertyInstance(PropertyBag propertyBag, out object complexProperty)
-        {
-            complexProperty = null;
-            if (!propertyBag.TryGetValue(this, out complexProperty) || !this.HasFlag(PropertyDefinitionFlags.ReuseInstance, propertyBag.Owner.Service.RequestedServerVersion))
             {
-                complexProperty = this.CreatePropertyInstance(propertyBag.Owner);
+            complexProperty = null;
+            if (!propertyBag.TryGetValue(this, out complexProperty) || !HasFlag(PropertyDefinitionFlags.ReuseInstance, propertyBag.Owner.Service.RequestedServerVersion))
+                {
+                complexProperty = CreatePropertyInstance(propertyBag.Owner);
                 return true;
-            }
+                }
 
             return false;
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
-        internal override sealed void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
-            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, this.XmlElementName);
+        internal sealed override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
+            {
+            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementName);
 
             if (!reader.IsEmptyElement || reader.HasAttributes)
-            {
-                this.InternalLoadFromXml(reader, propertyBag);
-            }
+                {
+                InternalLoadFromXml(reader, propertyBag);
+                }
 
-            reader.ReadEndElementIfNecessary(XmlNamespace.Types, this.XmlElementName);
-        }
+            reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementName);
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -163,13 +159,13 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             ComplexProperty complexProperty = (ComplexProperty)propertyBag[this];
 
             if (complexProperty != null)
-            {
-                complexProperty.WriteToXml(writer, this.XmlElementName);
+                {
+                complexProperty.WriteToXml(writer, XmlElementName);
+                }
             }
         }
     }
-}

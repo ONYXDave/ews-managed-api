@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents an event that applies to a folder.
     /// </summary>
     public class FolderEvent : NotificationEvent
-    {
+        {
         private FolderId folderId;
         private FolderId oldFolderId;
 
@@ -48,61 +48,61 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="timestamp">The event timestamp.</param>
         internal FolderEvent(EventType eventType, DateTime timestamp)
             : base(eventType, timestamp)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Load from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void InternalLoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.InternalLoadFromXml(reader);
 
-            this.folderId = new FolderId();
-            this.folderId.LoadFromXml(reader, reader.LocalName);
+            folderId = new FolderId();
+            folderId.LoadFromXml(reader, reader.LocalName);
 
             reader.Read();
 
-            this.ParentFolderId = new FolderId();
-            this.ParentFolderId.LoadFromXml(reader, XmlElementNames.ParentFolderId);
+            ParentFolderId = new FolderId();
+            ParentFolderId.LoadFromXml(reader, XmlElementNames.ParentFolderId);
 
-            switch (this.EventType)
-            {
+            switch (EventType)
+                {
                 case EventType.Moved:
                 case EventType.Copied:
                     reader.Read();
 
-                    this.oldFolderId = new FolderId();
-                    this.oldFolderId.LoadFromXml(reader, reader.LocalName);
+                    oldFolderId = new FolderId();
+                    oldFolderId.LoadFromXml(reader, reader.LocalName);
 
                     reader.Read();
 
-                    this.OldParentFolderId = new FolderId();
-                    this.OldParentFolderId.LoadFromXml(reader, reader.LocalName);
+                    OldParentFolderId = new FolderId();
+                    OldParentFolderId.LoadFromXml(reader, reader.LocalName);
                     break;
 
                 case EventType.Modified:
                     reader.Read();
                     if (reader.IsStartElement())
-                    {
+                        {
                         reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.UnreadCount);
-                        this.unreadCount = int.Parse(reader.ReadValue());
-                    }
+                        unreadCount = int.Parse(reader.ReadValue());
+                        }
                     break;
 
                 default:
                     break;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Id of the folder this event applies to.
         /// </summary>
         public FolderId FolderId
-        {
-            get { return this.folderId; }
-        }
+            {
+            get { return folderId; }
+            }
 
         /// <summary>
         /// Gets the Id of the folder that was moved or copied. OldFolderId is only meaningful
@@ -110,9 +110,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// other event types, OldFolderId is null.
         /// </summary>
         public FolderId OldFolderId
-        {
-            get { return this.oldFolderId; }
-        }
+            {
+            get { return oldFolderId; }
+            }
 
         /// <summary>
         /// Gets the new number of unread messages. This is is only meaningful when 
@@ -120,8 +120,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// UnreadCount is null.
         /// </summary>
         public int? UnreadCount
-        {
-            get { return this.unreadCount; }
+            {
+            get { return unreadCount; }
+            }
         }
     }
-}

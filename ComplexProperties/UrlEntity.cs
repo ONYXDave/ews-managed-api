@@ -24,22 +24,19 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.IO;
-
+    {
     /// <summary>
     /// Represents an UrlEntity object.
     /// </summary>
     public sealed class UrlEntity : ExtractedEntity
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlEntity"/> class.
         /// </summary>
         internal UrlEntity()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the meeting suggestion Location.
@@ -52,16 +49,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NlgUrl:
-                    this.Url = reader.ReadElementValue();
+                    Url = reader.ReadElementValue();
                     return true;
-                
+
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
         }
     }
-}

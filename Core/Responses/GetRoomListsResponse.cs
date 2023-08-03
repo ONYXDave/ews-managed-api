@@ -24,56 +24,56 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the response to a GetRoomLists operation.
     /// </summary>
     internal sealed class GetRoomListsResponse : ServiceResponse
-    {
-        private EmailAddressCollection roomLists = new EmailAddressCollection();
+        {
+        private EmailAddressCollection roomLists = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetRoomListsResponse"/> class.
         /// </summary>
         internal GetRoomListsResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets all room list returned
         /// </summary>
         public EmailAddressCollection RoomLists
-        {
-            get { return this.roomLists; }
-        }
+            {
+            get { return roomLists; }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.RoomLists.Clear();
+            {
+            RoomLists.Clear();
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.RoomLists);
 
             if (!reader.IsEmptyElement)
-            {
+                {
                 // Because we don't have an element for count of returned object,
                 // we have to test the element to determine if it is return object or EndElement
                 reader.Read();
                 while (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.Address))
-                {
-                    EmailAddress emailAddress = new EmailAddress();
+                    {
+                    EmailAddress emailAddress = new();
                     emailAddress.LoadFromXml(reader, XmlElementNames.Address);
-                    this.RoomLists.Add(emailAddress);
+                    RoomLists.Add(emailAddress);
                     reader.Read();
-                }
+                    }
                 reader.EnsureCurrentNodeIsEndElement(XmlNamespace.Messages, XmlElementNames.RoomLists);
-            }
+                }
             return;
+            }
         }
     }
-}

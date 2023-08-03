@@ -24,13 +24,13 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Globalization;
     using System.Xml;
 
     internal sealed class SecurityTimestamp
-    {
+        {
         //  Pulled from SecurityProtocolFactory
         //
         internal const string DefaultTimestampValidityDurationString = "00:05:00";
@@ -50,11 +50,11 @@ namespace Microsoft.Exchange.WebServices.Data
 
         public SecurityTimestamp(DateTime creationTimeUtc, DateTime expiryTimeUtc, string id)
             : this(creationTimeUtc, expiryTimeUtc, id, null, null)
-        {
-        }
+            {
+            }
 
         internal SecurityTimestamp(DateTime creationTimeUtc, DateTime expiryTimeUtc, string id, string digestAlgorithm, byte[] digest)
-        {
+            {
             EwsUtilities.Assert(
                 creationTimeUtc.Kind == DateTimeKind.Utc,
                 "SecurityTimestamp.ctor",
@@ -65,9 +65,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 "expiry time must be in UTC");
 
             if (creationTimeUtc > expiryTimeUtc)
-            {
+                {
                 throw new ArgumentOutOfRangeException("recordedExpiryTime");
-            }
+                }
 
             this.creationTimeUtc = creationTimeUtc;
             this.expiryTimeUtc = expiryTimeUtc;
@@ -75,65 +75,65 @@ namespace Microsoft.Exchange.WebServices.Data
 
             this.digestAlgorithm = digestAlgorithm;
             this.digest = digest;
-        }
+            }
 
         public DateTime CreationTimeUtc
-        {
-            get
             {
-                return this.creationTimeUtc;
+            get
+                {
+                return creationTimeUtc;
+                }
             }
-        }
 
         public DateTime ExpiryTimeUtc
-        {
-            get
             {
-                return this.expiryTimeUtc;
+            get
+                {
+                return expiryTimeUtc;
+                }
             }
-        }
 
         public string Id
-        {
-            get
             {
-                return this.id;
+            get
+                {
+                return id;
+                }
             }
-        }
 
         public string DigestAlgorithm
-        {
-            get
             {
-                return this.digestAlgorithm;
+            get
+                {
+                return digestAlgorithm;
+                }
             }
-        }
 
         internal byte[] GetDigest()
-        {
-            return this.digest;
-        }
+            {
+            return digest;
+            }
 
         internal char[] GetCreationTimeChars()
-        {
-            if (this.computedCreationTimeUtc == null)
             {
-                this.computedCreationTimeUtc = ToChars(ref this.creationTimeUtc);
+            if (computedCreationTimeUtc == null)
+                {
+                computedCreationTimeUtc = ToChars(ref creationTimeUtc);
+                }
+            return computedCreationTimeUtc;
             }
-            return this.computedCreationTimeUtc;
-        }
 
         internal char[] GetExpiryTimeChars()
-        {
-            if (this.computedExpiryTimeUtc == null)
             {
-                this.computedExpiryTimeUtc = ToChars(ref this.expiryTimeUtc);
+            if (computedExpiryTimeUtc == null)
+                {
+                computedExpiryTimeUtc = ToChars(ref expiryTimeUtc);
+                }
+            return computedExpiryTimeUtc;
             }
-            return this.computedExpiryTimeUtc;
-        }
 
         private static char[] ToChars(ref DateTime utcTime)
-        {
+            {
             char[] buffer = new char[DefaultFormat.Length];
             int offset = 0;
 
@@ -159,30 +159,30 @@ namespace Microsoft.Exchange.WebServices.Data
             buffer[offset++] = 'Z';
 
             return buffer;
-        }
+            }
 
         private static void ToChars(int n, char[] buffer, ref int offset, int count)
-        {
-            for (int i = offset + count - 1; i >= offset; i--)
             {
-                buffer[i] = (char) ('0' + (n % 10));
+            for (int i = offset + count - 1; i >= offset; i--)
+                {
+                buffer[i] = (char)('0' + (n % 10));
                 n /= 10;
-            }
+                }
             EwsUtilities.Assert(
                 n == 0,
                 "SecurityTimestamp.ToChars",
                 "Overflow in encoding timestamp field");
             offset += count;
-        }
+            }
 
         public override string ToString()
-        {
+            {
             return string.Format(
                 CultureInfo.InvariantCulture,
                 "SecurityTimestamp: Id={0}, CreationTimeUtc={1}, ExpirationTimeUtc={2}",
-                this.Id,
-                XmlConvert.ToString(this.CreationTimeUtc, XmlDateTimeSerializationMode.RoundtripKind),
-                XmlConvert.ToString(this.ExpiryTimeUtc, XmlDateTimeSerializationMode.RoundtripKind));
+                Id,
+                XmlConvert.ToString(CreationTimeUtc, XmlDateTimeSerializationMode.RoundtripKind),
+                XmlConvert.ToString(ExpiryTimeUtc, XmlDateTimeSerializationMode.RoundtripKind));
+            }
         }
     }
-}

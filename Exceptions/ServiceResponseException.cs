@@ -24,16 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-	using System.Runtime.Serialization;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a remote service exception that has a single response.
     /// </summary>
     [Serializable]
     public class ServiceResponseException : ServiceRemoteException
-    {
+        {
         /// <summary>
         /// Error details Value keys
         /// </summary>
@@ -51,81 +51,81 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="response">The ServiceResponse when service operation failed remotely.</param>
         internal ServiceResponseException(ServiceResponse response)
-        {
+            {
             this.response = response;
-		}
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceResponseException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected ServiceResponseException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-			this.response = (ServiceResponse)info.GetValue("Response", typeof(ServiceResponse));
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceResponseException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected ServiceResponseException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            response = (ServiceResponse)info.GetValue("Response", typeof(ServiceResponse));
+            }
 
-		/// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
-		/// <param name="info">The object that holds the serialized object data. </param>
-		/// <param name="context">The contextual information about the source or destination. </param>
-		/// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			EwsUtilities.Assert(info != null, "ServiceResponseException.GetObjectData", "info is null");
+        /// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
+        /// <param name="info">The object that holds the serialized object data. </param>
+        /// <param name="context">The contextual information about the source or destination. </param>
+        /// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+            EwsUtilities.Assert(info != null, "ServiceResponseException.GetObjectData", "info is null");
 
-			base.GetObjectData(info, context);
+            base.GetObjectData(info, context);
 
-			info.AddValue("Response", this.response, typeof(ServiceResponse));
-		}
+            info.AddValue("Response", response, typeof(ServiceResponse));
+            }
 
-		/// <summary>
-		/// Gets the ServiceResponse for the exception.
-		/// </summary>
-		public ServiceResponse Response
-        {
-            get { return this.response; }
-        }
+        /// <summary>
+        /// Gets the ServiceResponse for the exception.
+        /// </summary>
+        public ServiceResponse Response
+            {
+            get { return response; }
+            }
 
         /// <summary>
         /// Gets the service error code.
         /// </summary>
         public ServiceError ErrorCode
-        {
-            get { return this.response.ErrorCode; }
-        }
+            {
+            get { return response.ErrorCode; }
+            }
 
         /// <summary>
         /// Gets a message that describes the current exception.
         /// </summary>
         /// <returns>The error message that explains the reason for the exception.</returns>
         public override string Message
-        {
-            get
             {
+            get
+                {
                 // Special case for Internal Server Error. If the server returned
                 // stack trace information, include it in the exception message.
-                if (this.Response.ErrorCode == ServiceError.ErrorInternalServerError)
-                {
+                if (Response.ErrorCode == ServiceError.ErrorInternalServerError)
+                    {
                     string exceptionClass;
                     string exceptionMessage;
                     string stackTrace;
 
-                    if (this.Response.ErrorDetails.TryGetValue(ExceptionClassKey, out exceptionClass) &&
-                        this.Response.ErrorDetails.TryGetValue(ExceptionMessageKey, out exceptionMessage) &&
-                        this.Response.ErrorDetails.TryGetValue(StackTraceKey, out stackTrace))
-                    {
+                    if (Response.ErrorDetails.TryGetValue(ExceptionClassKey, out exceptionClass) &&
+                        Response.ErrorDetails.TryGetValue(ExceptionMessageKey, out exceptionMessage) &&
+                        Response.ErrorDetails.TryGetValue(StackTraceKey, out stackTrace))
+                        {
                         return string.Format(
                             Strings.ServerErrorAndStackTraceDetails,
-                            this.Response.ErrorMessage,
+                            Response.ErrorMessage,
                             exceptionClass,
                             exceptionMessage,
                             stackTrace);
+                        }
                     }
-                }
 
-                return this.Response.ErrorMessage;
+                return Response.ErrorMessage;
+                }
             }
         }
     }
-}

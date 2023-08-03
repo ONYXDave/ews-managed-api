@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the execution status of a task.
     /// </summary>
     public enum TaskStatus
-    {
+        {
         /// <summary>
         /// The execution of the task is not started.
         /// </summary>
@@ -58,5 +54,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The execution of the task is deferred.
         /// </summary>
         Deferred
+        }
     }
-}

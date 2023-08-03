@@ -24,19 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
-    using System.Text;
-    using System.Xml;
 
     /// <summary>
     /// XML reader.
     /// </summary>
     internal class EwsServiceXmlReader : EwsXmlReader
-    {
+        {
         #region Private members
 
         private ExchangeService service;
@@ -52,9 +49,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service.</param>
         internal EwsServiceXmlReader(Stream stream, ExchangeService service)
             : base(stream)
-        {
+            {
             this.service = service;
-        }
+            }
 
         #endregion
 
@@ -64,9 +61,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="dateTimeString">The date time string to convert.</param>
         /// <returns>A DateTime representing the converted string.</returns>
         private DateTime? ConvertStringToDateTime(string dateTimeString)
-        {
-            return this.Service.ConvertUniversalDateTimeStringToLocalDateTime(dateTimeString);
-        }
+            {
+            return Service.ConvertUniversalDateTimeStringToLocalDateTime(dateTimeString);
+            }
 
         /// <summary>
         /// Converts the specified string into a unspecified Date object, ignoring offset.
@@ -74,27 +71,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="dateTimeString">The date time string to convert.</param>
         /// <returns>A DateTime representing the converted string.</returns>
         private DateTime? ConvertStringToUnspecifiedDate(string dateTimeString)
-        {
-            return this.Service.ConvertStartDateToUnspecifiedDateTime(dateTimeString);
-        }
+            {
+            return Service.ConvertStartDateToUnspecifiedDateTime(dateTimeString);
+            }
 
         /// <summary>
         /// Reads the element value as date time.
         /// </summary>
         /// <returns>Element value.</returns>
         public DateTime? ReadElementValueAsDateTime()
-        {
-            return this.ConvertStringToDateTime(this.ReadElementValue());
-        }
+            {
+            return ConvertStringToDateTime(ReadElementValue());
+            }
 
         /// <summary>
         /// Reads the element value as unspecified date.
         /// </summary>
         /// <returns>Element value.</returns>
         public DateTime? ReadElementValueAsUnspecifiedDate()
-        {
-            return this.ConvertStringToUnspecifiedDate(this.ReadElementValue());
-        }
+            {
+            return ConvertStringToUnspecifiedDate(ReadElementValue());
+            }
 
         /// <summary>
         /// Reads the element value as date time, assuming it is unbiased (e.g. 2009/01/01T08:00) 
@@ -102,10 +99,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>The element's value as a DateTime object.</returns>
         public DateTime ReadElementValueAsUnbiasedDateTimeScopedToServiceTimeZone()
-        {
-            string elementValue = this.ReadElementValue();
-            return EwsUtilities.ParseAsUnbiasedDatetimescopedToServicetimeZone(elementValue, this.Service);
-        }
+            {
+            string elementValue = ReadElementValue();
+            return EwsUtilities.ParseAsUnbiasedDatetimescopedToServicetimeZone(elementValue, Service);
+            }
 
         /// <summary>
         /// Reads the element value as date time.
@@ -114,9 +111,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localName">Name of the local.</param>
         /// <returns>Element value.</returns>
         public DateTime? ReadElementValueAsDateTime(XmlNamespace xmlNamespace, string localName)
-        {
-            return this.ConvertStringToDateTime(this.ReadElementValue(xmlNamespace, localName));
-        }
+            {
+            return ConvertStringToDateTime(ReadElementValue(xmlNamespace, localName));
+            }
 
         /// <summary>
         /// Reads the service objects collection from XML.
@@ -136,39 +133,39 @@ namespace Microsoft.Exchange.WebServices.Data
             bool clearPropertyBag,
             PropertySet requestedPropertySet,
             bool summaryPropertiesOnly) where TServiceObject : ServiceObject
-        {
-            List<TServiceObject> serviceObjects = new List<TServiceObject>();
+            {
+            List<TServiceObject> serviceObjects = new();
             TServiceObject serviceObject = null;
 
-            if (!this.IsStartElement(collectionXmlNamespace, collectionXmlElementName))
-            {
-                this.ReadStartElement(collectionXmlNamespace, collectionXmlElementName);
-            }
-
-            if (!this.IsEmptyElement)
-            {
-                do
+            if (!IsStartElement(collectionXmlNamespace, collectionXmlElementName))
                 {
-                    this.Read();
+                ReadStartElement(collectionXmlNamespace, collectionXmlElementName);
+                }
 
-                    if (this.IsStartElement())
+            if (!IsEmptyElement)
+                {
+                do
                     {
-                        serviceObject = getObjectInstanceDelegate(this.Service, this.LocalName);
+                    Read();
+
+                    if (IsStartElement())
+                        {
+                        serviceObject = getObjectInstanceDelegate(Service, LocalName);
 
                         if (serviceObject == null)
-                        {
-                            this.SkipCurrentElement();
-                        }
-                        else
-                        {
-                            if (string.Compare(this.LocalName, serviceObject.GetXmlElementName(), StringComparison.Ordinal) != 0)
                             {
+                            SkipCurrentElement();
+                            }
+                        else
+                            {
+                            if (string.Compare(LocalName, serviceObject.GetXmlElementName(), StringComparison.Ordinal) != 0)
+                                {
                                 throw new ServiceLocalException(
                                     string.Format(
                                         "The type of the object in the store ({0}) does not match that of the local object ({1}).",
-                                        this.LocalName,
+                                        LocalName,
                                         serviceObject.GetXmlElementName()));
-                            }
+                                }
 
                             serviceObject.LoadFromXml(
                                             this,
@@ -177,14 +174,14 @@ namespace Microsoft.Exchange.WebServices.Data
                                             summaryPropertiesOnly);
 
                             serviceObjects.Add(serviceObject);
+                            }
                         }
                     }
+                while (!IsEndElement(collectionXmlNamespace, collectionXmlElementName));
                 }
-                while (!this.IsEndElement(collectionXmlNamespace, collectionXmlElementName));
-            }
 
             return serviceObjects;
-        }
+            }
 
         /// <summary>
         /// Reads the service objects collection from XML.
@@ -202,23 +199,23 @@ namespace Microsoft.Exchange.WebServices.Data
             bool clearPropertyBag,
             PropertySet requestedPropertySet,
             bool summaryPropertiesOnly) where TServiceObject : ServiceObject
-        {
-            return this.ReadServiceObjectsCollectionFromXml<TServiceObject>(
+            {
+            return ReadServiceObjectsCollectionFromXml<TServiceObject>(
                                 XmlNamespace.Messages,
                                 collectionXmlElementName,
                                 getObjectInstanceDelegate,
                                 clearPropertyBag,
                                 requestedPropertySet,
                                 summaryPropertiesOnly);
-        }
+            }
 
         /// <summary>
         /// Gets the service.
         /// </summary>
         /// <value>The service.</value>
         public ExchangeService Service
-        {
-            get { return this.service; }
+            {
+            get { return service; }
+            }
         }
     }
-}

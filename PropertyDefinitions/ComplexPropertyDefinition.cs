@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// <typeparam name="TComplexProperty">The type of the complex property.</typeparam>
     internal class ComplexPropertyDefinition<TComplexProperty> : ComplexPropertyDefinitionBase
         where TComplexProperty : ComplexProperty
-    {
+        {
         private CreateComplexPropertyDelegate<TComplexProperty> propertyCreationDelegate;
 
         /// <summary>
@@ -59,14 +59,14 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 flags,
                 version)
-        {
+            {
             EwsUtilities.Assert(
                 propertyCreationDelegate != null,
                 "ComplexPropertyDefinition ctor",
                 "CreateComplexPropertyDelegate cannot be null");
 
             this.propertyCreationDelegate = propertyCreationDelegate;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexPropertyDefinition&lt;TComplexProperty&gt;"/> class.
@@ -84,9 +84,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
+            {
             this.propertyCreationDelegate = propertyCreationDelegate;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexPropertyDefinition&lt;TComplexProperty&gt;"/> class.
@@ -107,9 +107,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
+            {
             this.propertyCreationDelegate = propertyCreationDelegate;
-        }
+            }
 
         /// <summary>
         /// Creates the property instance.
@@ -117,24 +117,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="owner">The owner.</param>
         /// <returns>ComplexProperty instance.</returns>
         internal override ComplexProperty CreatePropertyInstance(ServiceObject owner)
-        {
-            TComplexProperty complexProperty = this.propertyCreationDelegate();
+            {
+            TComplexProperty complexProperty = propertyCreationDelegate();
             IOwnedProperty ownedProperty = complexProperty as IOwnedProperty;
 
             if (ownedProperty != null)
-            {
+                {
                 ownedProperty.Owner = owner;
-            }
-            
+                }
+
             return complexProperty;
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(TComplexProperty); }
+            }
         }
     }
-}

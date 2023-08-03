@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the response to an individual item creation operation.
     /// </summary>
     internal sealed class CreateItemResponse : CreateItemResponseBase
-    {
+        {
         private Item item;
 
         /// <summary>
@@ -43,9 +39,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Item.</returns>
         internal override Item GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
-            return this.item;
-        }
+            {
+            return item;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateItemResponse"/> class.
@@ -53,19 +49,19 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="item">The item.</param>
         internal CreateItemResponse(Item item)
             : base()
-        {
+            {
             this.item = item;
-        }
+            }
 
         /// <summary>
         /// Clears the change log of the created folder if the creation succeeded.
         /// </summary>
         internal override void Loaded()
-        {
-            if (this.Result == ServiceResult.Success)
             {
-                this.item.ClearChangeLog();
+            if (Result == ServiceResult.Success)
+                {
+                item.ClearChangeLog();
+                }
             }
         }
     }
-}

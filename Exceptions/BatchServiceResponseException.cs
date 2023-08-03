@@ -24,9 +24,9 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-	using System.Runtime.Serialization;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a remote service exception that can have multiple service responses.
@@ -35,7 +35,7 @@ namespace Microsoft.Exchange.WebServices.Data
     [Serializable]
     public abstract class BatchServiceResponseException<TResponse> : ServiceRemoteException
         where TResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// The list of responses returned by the web method.
         /// </summary>
@@ -50,14 +50,14 @@ namespace Microsoft.Exchange.WebServices.Data
             ServiceResponseCollection<TResponse> serviceResponses,
             string message)
             : base(message)
-        {
+            {
             EwsUtilities.Assert(
                 serviceResponses != null,
                 "MultiServiceResponseException.ctor",
                 "serviceResponses is null");
 
-            this.responses = serviceResponses;
-        }
+            responses = serviceResponses;
+            }
 
         /// <summary>
         /// Initializes a new instance of MultiServiceResponseException.
@@ -70,45 +70,45 @@ namespace Microsoft.Exchange.WebServices.Data
             string message,
             Exception innerException)
             : base(message, innerException)
-        {
+            {
             EwsUtilities.Assert(
                 serviceResponses != null,
                 "MultiServiceResponseException.ctor",
                 "serviceResponses is null");
 
-            this.responses = serviceResponses;
-		}
+            responses = serviceResponses;
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.BatchServiceResponseException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected BatchServiceResponseException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-			this.responses = (ServiceResponseCollection<TResponse>)info.GetValue("Responses", typeof(ServiceResponseCollection<TResponse>));
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.BatchServiceResponseException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected BatchServiceResponseException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            responses = (ServiceResponseCollection<TResponse>)info.GetValue("Responses", typeof(ServiceResponseCollection<TResponse>));
+            }
 
-		/// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
-		/// <param name="info">The object that holds the serialized object data. </param>
-		/// <param name="context">The contextual information about the source or destination. </param>
-		/// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			EwsUtilities.Assert(info != null, "BatchServiceResponseException.GetObjectData", "info is null");
+        /// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
+        /// <param name="info">The object that holds the serialized object data. </param>
+        /// <param name="context">The contextual information about the source or destination. </param>
+        /// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+            EwsUtilities.Assert(info != null, "BatchServiceResponseException.GetObjectData", "info is null");
 
-			base.GetObjectData(info, context);
+            base.GetObjectData(info, context);
 
-			info.AddValue("Responses", this.responses, typeof(ServiceResponseCollection<TResponse>));
-		}
+            info.AddValue("Responses", responses, typeof(ServiceResponseCollection<TResponse>));
+            }
 
-		/// <summary>
-		/// Gets a list of responses returned by the web method.
-		/// </summary>
-		public ServiceResponseCollection<TResponse> ServiceResponses
-        {
-            get { return this.responses; }
+        /// <summary>
+        /// Gets a list of responses returned by the web method.
+        /// </summary>
+        public ServiceResponseCollection<TResponse> ServiceResponses
+            {
+            get { return responses; }
+            }
         }
     }
-}

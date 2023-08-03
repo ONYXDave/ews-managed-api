@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class EmailMessageSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// Field URIs for EmailMessage.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string ConversationIndex = "message:ConversationIndex";
             public const string ConversationTopic = "message:ConversationTopic";
             public const string InternetMessageId = "message:InternetMessageId";
@@ -57,7 +57,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string ApprovalRequestData = "message:ApprovalRequestData";
             public const string VotingInformation = "message:VotingInformation";
             public const string Likers = "message:Likers";
-        }
+            }
 
         /// <summary>
         /// Defines the ToRecipients property.
@@ -69,7 +69,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ToRecipients,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         /// <summary>
         /// Defines the BccRecipients property.
@@ -81,7 +81,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.BccRecipients,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         /// <summary>
         /// Defines the CcRecipients property.
@@ -93,7 +93,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.CcRecipients,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         /// <summary>
         /// Defines the ConversationIndex property.
@@ -128,7 +128,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the IsDeliveryReceiptRequested property.
@@ -207,7 +207,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ReplyTo,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         /// <summary>
         /// Defines the Sender property.
@@ -220,7 +220,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the ReceivedBy property.
@@ -233,7 +233,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the ReceivedRepresenting property.
@@ -246,7 +246,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the ApprovalRequestData property.
@@ -257,7 +257,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.ApprovalRequestData,
                 FieldUris.ApprovalRequestData,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new ApprovalRequestData(); });
+                delegate () { return new ApprovalRequestData(); });
 
         /// <summary>
         /// Defines the VotingInformation property.
@@ -268,7 +268,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.VotingInformation,
                 FieldUris.VotingInformation,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new VotingInformation(); });
+                delegate () { return new VotingInformation(); });
 
         /// <summary>
         /// Defines the Likers property
@@ -280,10 +280,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Likers,
                 PropertyDefinitionFlags.AutoInstantiateOnRead,
                 ExchangeVersion.Exchange2015,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         // This must be after the declaration of property definitions
-        internal static new readonly EmailMessageSchema Instance = new EmailMessageSchema();
+        internal static new readonly EmailMessageSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -292,36 +292,36 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(Sender);
-            this.RegisterProperty(ToRecipients);
-            this.RegisterProperty(CcRecipients);
-            this.RegisterProperty(BccRecipients);
-            this.RegisterProperty(IsReadReceiptRequested);
-            this.RegisterProperty(IsDeliveryReceiptRequested);
-            this.RegisterProperty(ConversationIndex);
-            this.RegisterProperty(ConversationTopic);
-            this.RegisterProperty(From);
-            this.RegisterProperty(InternetMessageId);
-            this.RegisterProperty(IsRead);
-            this.RegisterProperty(IsResponseRequested);
-            this.RegisterProperty(References);
-            this.RegisterProperty(ReplyTo);
-            this.RegisterProperty(ReceivedBy);
-            this.RegisterProperty(ReceivedRepresenting);
-            this.RegisterProperty(ApprovalRequestData);
-            this.RegisterProperty(VotingInformation);
-            this.RegisterProperty(Likers);
-        }
+            RegisterProperty(Sender);
+            RegisterProperty(ToRecipients);
+            RegisterProperty(CcRecipients);
+            RegisterProperty(BccRecipients);
+            RegisterProperty(IsReadReceiptRequested);
+            RegisterProperty(IsDeliveryReceiptRequested);
+            RegisterProperty(ConversationIndex);
+            RegisterProperty(ConversationTopic);
+            RegisterProperty(From);
+            RegisterProperty(InternetMessageId);
+            RegisterProperty(IsRead);
+            RegisterProperty(IsResponseRequested);
+            RegisterProperty(References);
+            RegisterProperty(ReplyTo);
+            RegisterProperty(ReceivedBy);
+            RegisterProperty(ReceivedRepresenting);
+            RegisterProperty(ApprovalRequestData);
+            RegisterProperty(VotingInformation);
+            RegisterProperty(Likers);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailMessageSchema"/> class.
         /// </summary>
         internal EmailMessageSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

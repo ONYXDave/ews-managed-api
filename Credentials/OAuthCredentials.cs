@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Net;
     using System.Text.RegularExpressions;
@@ -37,10 +37,10 @@ namespace Microsoft.Exchange.WebServices.Data
     /// OAuthCredentials is supported for Exchange 2013 or above.
     /// </summary>
     public sealed class OAuthCredentials : ExchangeCredentials
-    {
+        {
         private const string BearerAuthenticationType = "Bearer";
 
-        private static readonly Regex validTokenPattern = new Regex(
+        private static readonly Regex validTokenPattern = new(
             @"^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]*$",
             RegexOptions.Compiled);
 
@@ -54,8 +54,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="token">The JSON web token string.</param>
         public OAuthCredentials(string token)
             : this(token, false)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OAuthCredentials"/> class.
@@ -63,40 +63,40 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="token"></param>
         /// <param name="verbatim"></param>
         internal OAuthCredentials(string token, bool verbatim)
-        {
+            {
             EwsUtilities.ValidateParam(token, "token");
 
             string rawToken;
             if (verbatim)
-            {
+                {
                 rawToken = token;
-            }
+                }
             else
-            {
+                {
                 int whiteSpacePosition = token.IndexOf(' ');
                 if (whiteSpacePosition == -1)
-                {
+                    {
                     rawToken = token;
-                }
+                    }
                 else
-                {
+                    {
                     string authType = token.Substring(0, whiteSpacePosition);
                     if (string.Compare(authType, BearerAuthenticationType, StringComparison.OrdinalIgnoreCase) != 0)
-                    {
+                        {
                         throw new ArgumentException(Strings.InvalidAuthScheme);
-                    }
+                        }
 
                     rawToken = token.Substring(whiteSpacePosition + 1);
-                }
+                    }
 
                 if (!validTokenPattern.IsMatch(rawToken))
-                {
+                    {
                     throw new ArgumentException(Strings.InvalidOAuthToken);
+                    }
                 }
-            }
 
             this.token = BearerAuthenticationType + " " + rawToken;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OAuthCredentials"/> class using
@@ -104,29 +104,29 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="credentials">Credentials to use.</param>
         public OAuthCredentials(ICredentials credentials)
-        {
+            {
             EwsUtilities.ValidateParam(credentials, "credentials");
 
             this.credentials = credentials;
-        }
+            }
 
         /// <summary>
         /// Add the Authorization header to a service request.
         /// </summary>
         /// <param name="request">The request</param>
         internal override void PrepareWebRequest(IEwsHttpWebRequest request)
-        {
+            {
             base.PrepareWebRequest(request);
 
-            if (this.token != null)
-            {
+            if (token != null)
+                {
                 request.Headers.Remove(HttpRequestHeader.Authorization);
-                request.Headers.Add(HttpRequestHeader.Authorization, this.token);
-            }
+                request.Headers.Add(HttpRequestHeader.Authorization, token);
+                }
             else
-            {
-                request.Credentials = this.credentials;
+                {
+                request.Credentials = credentials;
+                }
             }
         }
     }
-}

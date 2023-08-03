@@ -24,24 +24,23 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.ObjectModel;
-    using System.IO;
     using System.Xml;
 
     /// <summary>
     /// Represents the response to a GetPeopleInsights operation.
     /// </summary>
     internal sealed class GetPeopleInsightsResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetPeopleInsightsResponse"/> class.
         /// </summary>
         public GetPeopleInsightsResponse()
             : base()
-        {
-            this.People = new Collection<Person>();
-        }
+            {
+            People = new Collection<Person>();
+            }
 
         /// <summary>
         /// Gets the People
@@ -53,28 +52,28 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             EwsUtilities.Assert(
-                   this.People != null,
+                   People != null,
                    "GetPeopleInsightsResponse.ReadElementsFromXml",
                    "People is null.");
-            
+
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.People);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        Person item = new Person();
+                        {
+                        Person item = new();
                         item.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.Person);
-                        this.People.Add(item);
+                        People.Add(item);
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.People));
+                }
             }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     internal sealed class RequiredServerVersionAttribute : Attribute
-    {
+        {
         /// <summary>
         /// Exchange version.
         /// </summary>
@@ -45,20 +45,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="version">The Exchange version.</param>
         internal RequiredServerVersionAttribute(ExchangeVersion version)
             : base()
-        {
+            {
             this.version = version;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <value>The name of the XML element.</value>
         internal ExchangeVersion Version
-        {
-            get
             {
-                return this.version;
+            get
+                {
+                return version;
+                }
             }
         }
     }
-}

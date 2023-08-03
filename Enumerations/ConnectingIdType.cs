@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of Id of a ConnectingId object.
     /// </summary>
     public enum ConnectingIdType
-    {
+        {
         /// <summary>
         /// The connecting Id is a principal name.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Id is an SMTP address.
         /// </summary>
         SmtpAddress
+        }
     }
-}

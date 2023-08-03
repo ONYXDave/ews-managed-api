@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of ExtensionInstallScope.
     /// </summary>
     public enum ExtensionInstallScope
-    {
+        {
         /// <summary>
         /// Unassigned
         /// </summary>
@@ -49,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Exchange Default
         /// </summary>
         Default = 3,
+        }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of change of a synchronization event.
     /// </summary>
     public enum ChangeType
-    {
+        {
         /// <summary>
         /// An item or folder was created.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// An item's IsRead flag was changed.
         /// </summary>
         ReadFlagChange,
+        }
     }
-}

@@ -24,58 +24,56 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the GetUserRetentionPolicyTagsResponse response.
     /// </summary>
     public sealed class GetUserRetentionPolicyTagsResponse : ServiceResponse
-    {
-        List<RetentionPolicyTag> retentionPolicyTags = new List<RetentionPolicyTag>();
+        {
+        private List<RetentionPolicyTag> retentionPolicyTags = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserRetentionPolicyTagsResponse"/> class.
         /// </summary>
         internal GetUserRetentionPolicyTagsResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.retentionPolicyTags.Clear();
+            {
+            retentionPolicyTags.Clear();
 
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.RetentionPolicyTags);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
                     if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.RetentionPolicyTag))
-                    {
-                        this.retentionPolicyTags.Add(RetentionPolicyTag.LoadFromXml(reader));
+                        {
+                        retentionPolicyTags.Add(RetentionPolicyTag.LoadFromXml(reader));
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.RetentionPolicyTags));
                 reader.ReadEndElementIfNecessary(XmlNamespace.Messages, XmlElementNames.RetentionPolicyTags);
+                }
             }
-        }
 
         /// <summary>
         /// Retention policy tags result.
         /// </summary>
         public RetentionPolicyTag[] RetentionPolicyTags
-        {
-            get { return this.retentionPolicyTags.ToArray(); }
+            {
+            get { return retentionPolicyTags.ToArray(); }
+            }
         }
     }
-}

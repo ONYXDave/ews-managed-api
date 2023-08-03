@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the UserProfilePicture.
     /// </summary>
     public sealed class UserProfilePicture : InsightValue
-    {
+        {
         private string blob;
         private string photoSize;
         private string url;
@@ -42,65 +39,65 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the Blob
         /// </summary>
         public string Blob
-        {
-            get
             {
-                return this.blob;
-            }
+            get
+                {
+                return blob;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.blob, value);
+                {
+                SetFieldValue<string>(ref blob, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the PhotoSize
         /// </summary>
         public string PhotoSize
-        {
-            get
             {
-                return this.photoSize;
-            }
+            get
+                {
+                return photoSize;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.photoSize, value);
+                {
+                SetFieldValue<string>(ref photoSize, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Url
         /// </summary>
         public string Url
-        {
-            get
             {
-                return this.url;
-            }
+            get
+                {
+                return url;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.url, value);
+                {
+                SetFieldValue<string>(ref url, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the ImageType
         /// </summary>
         public string ImageType
-        {
-            get
             {
-                return this.imageType;   
-            }
+            get
+                {
+                return imageType;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.imageType, value);
+                {
+                SetFieldValue<string>(ref imageType, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -108,32 +105,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Blob:
-                    this.Blob = reader.ReadElementValue();
+                    Blob = reader.ReadElementValue();
                     break;
                 case XmlElementNames.PhotoSize:
-                    this.PhotoSize = reader.ReadElementValue();
+                    PhotoSize = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Url:
-                    this.Url = reader.ReadElementValue();
+                    Url = reader.ReadElementValue();
                     break;
                 case XmlElementNames.ImageType:
-                    this.ImageType = reader.ReadElementValue();
+                    ImageType = reader.ReadElementValue();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

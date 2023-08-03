@@ -24,19 +24,17 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Xml;
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// A stream that traces everything it returns from its Read() call.
     /// That trace may be retrieved at the end of the stream.
     /// </summary>
     internal class HangingTraceStream : Stream
-    {
+        {
         private Stream underlyingStream;
         private ExchangeService service;
         private MemoryStream responseCopy;
@@ -47,46 +45,46 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="stream">The stream.</param>
         /// <param name="service">The service.</param>
         internal HangingTraceStream(Stream stream, ExchangeService service)
-        {
-            this.underlyingStream = stream;
+            {
+            underlyingStream = stream;
             this.service = service;
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports reading.
         /// </summary>
         /// <returns>true</returns>
         public override bool CanRead
-        {
+            {
             get { return true; }
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports seeking.
         /// </summary>
         /// <returns>false</returns>
         public override bool CanSeek
-        {
+            {
             get { return false; }
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports writing.
         /// </summary>
         /// <returns>false</returns>
         public override bool CanWrite
-        {
+            {
             get { return false; }
-        }
+            }
 
         /// <summary>
         /// When overridden in a derived class, clears all buffers for this stream and causes any buffered data to be written to the underlying device.
         /// </summary>
         /// <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
         public override void Flush()
-        {
+            {
             // no-op
-        }
+            }
 
         /// <summary>
         /// Gets the length in bytes of the stream.
@@ -94,9 +92,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <returns>A long value representing the length of the stream in bytes.</returns>
         /// <exception cref="T:System.NotSupportedException">This class does not support seeking. </exception>
         public override long Length
-        {
+            {
             get { throw new NotSupportedException(); }
-        }
+            }
 
         /// <summary>
         /// Gets or sets the position within the current stream.
@@ -105,17 +103,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <returns>The current position within the stream.</returns>
         /// <exception cref="T:System.NotSupportedException">The stream does not support seeking. </exception>
         public override long Position
-        {
-            get
             {
+            get
+                {
                 throw new NotSupportedException();
-            }
+                }
 
             set
-            {
+                {
                 throw new NotSupportedException();
+                }
             }
-        }
 
         /// <summary>
         /// When overridden in a derived class, reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
@@ -135,30 +133,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <exception cref="T:System.NotSupportedException">The stream does not support reading. </exception>
         /// <exception cref="T:System.ObjectDisposedException">Methods were called after the stream was closed. </exception>
         public override int Read(byte[] buffer, int offset, int count)
-        {
-            int retVal = this.underlyingStream.Read(buffer, offset, count);
+            {
+            int retVal = underlyingStream.Read(buffer, offset, count);
 
             if (HangingServiceRequestBase.LogAllWireBytes)
-            {
+                {
                 string readString = Encoding.UTF8.GetString(buffer, offset, retVal);
                 string logMessage = String.Format(
                     "HangingTraceStream ID [{0}] returned {1} bytes. Bytes returned: [{2}]",
-                    this.GetHashCode(),
+                    GetHashCode(),
                     retVal,
                     readString);
 
-                this.service.TraceMessage(
+                service.TraceMessage(
                     TraceFlags.DebugMessage,
                     logMessage);
-            }
+                }
 
-            if (this.responseCopy != null)
-            {
-                this.responseCopy.Write(buffer, offset, retVal);
-            }
+            if (responseCopy != null)
+                {
+                responseCopy.Write(buffer, offset, retVal);
+                }
 
             return retVal;
-        }
+            }
 
         /// <summary>
         /// Sets the position within the current stream.
@@ -170,9 +168,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The stream does not support seeking. </exception>
         public override long Seek(long offset, SeekOrigin origin)
-        {
+            {
             throw new NotSupportedException();
-        }
+            }
 
         /// <summary>
         /// Sets the length of the current stream.
@@ -180,9 +178,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The desired length of the current stream in bytes.</param>
         /// <exception cref="T:System.NotSupportedException">The stream does not support both writing and seeking, such as if the stream is constructed from a pipe or console output. </exception>
         public override void SetLength(long value)
-        {
+            {
             throw new NotSupportedException();
-        }
+            }
 
         /// <summary>
         /// Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
@@ -192,9 +190,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="count">The number of bytes to be written to the current stream.</param>
         /// <exception cref="T:System.NotSupportedException">The stream does not support writing. </exception>
         public override void Write(byte[] buffer, int offset, int count)
-        {
+            {
             throw new NotSupportedException();
-        }
+            }
 
         /// <summary>
         /// Sets the response copy.
@@ -202,8 +200,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseCopy">A copy of the response.</param>
         /// <returns>A copy of the response.</returns>
         internal void SetResponseCopy(MemoryStream responseCopy)
-        {
+            {
             this.responseCopy = responseCopy;
+            }
         }
     }
-}

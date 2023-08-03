@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents recurrence range with start and end dates.
     /// </summary>
     internal abstract class RecurrenceRange : ComplexProperty
-    {
+        {
         private DateTime startDate;
         private Recurrence recurrence;
 
@@ -42,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal RecurrenceRange()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RecurrenceRange"/> class.
@@ -51,41 +49,41 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="startDate">The start date.</param>
         internal RecurrenceRange(DateTime startDate)
             : this()
-        {
+            {
             this.startDate = startDate;
-        }
+            }
 
         /// <summary>
         /// Changes handler.
         /// </summary>
         internal override void Changed()
-        {
-            if (this.Recurrence != null)
             {
-                this.Recurrence.Changed();
+            if (Recurrence != null)
+                {
+                Recurrence.Changed();
+                }
             }
-        }
 
         /// <summary>
         /// Setup the recurrence.
         /// </summary>
         /// <param name="recurrence">The recurrence.</param>
         internal virtual void SetupRecurrence(Recurrence recurrence)
-        {
-            recurrence.StartDate = this.StartDate;
-        }
+            {
+            recurrence.StartDate = StartDate;
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.StartDate,
-                EwsUtilities.DateTimeToXSDate(this.StartDate));
-        }
+                EwsUtilities.DateTimeToXSDate(StartDate));
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -93,24 +91,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.StartDate:
 
                     DateTime? startDate = reader.ReadElementValueAsUnspecifiedDate();
                     if (startDate.HasValue)
-                    {
+                        {
                         this.startDate = startDate.Value;
                         return true;
-                    }
+                        }
 
                     return false;
 
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -123,19 +121,19 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value>The recurrence.</value>
         internal Recurrence Recurrence
-        {
-            get { return this.recurrence; }
-            set { this.recurrence = value; }
-        }
+            {
+            get { return recurrence; }
+            set { recurrence = value; }
+            }
 
         /// <summary>
         /// Gets or sets the start date.
         /// </summary>
         /// <value>The start date.</value>
         internal DateTime StartDate
-        {
-            get { return this.startDate; }
-            set { this.SetFieldValue<DateTime>(ref this.startDate, value); }
+            {
+            get { return startDate; }
+            set { SetFieldValue<DateTime>(ref startDate, value); }
+            }
         }
     }
-}

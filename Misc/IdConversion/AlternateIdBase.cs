@@ -24,18 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the base class for Id expressed in a specific format.
     /// </summary>
     public abstract class AlternateIdBase : ISelfValidate
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternateIdBase"/> class.
         /// </summary>
         internal AlternateIdBase()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternateIdBase"/> class.
@@ -43,17 +43,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="format">The format.</param>
         internal AlternateIdBase(IdFormat format)
             : this()
-        {
-            this.Format = format;
-        }
+            {
+            Format = format;
+            }
 
         /// <summary>
         /// Gets or sets the format in which the Id in expressed.
         /// </summary>
         public IdFormat Format
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -66,39 +66,39 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal virtual void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.Format, this.Format);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.Format, Format);
+            }
 
         /// <summary>
         /// Loads the attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal virtual void LoadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.Format = reader.ReadAttributeValue<IdFormat>(XmlAttributeNames.Format);
-        }
+            {
+            Format = reader.ReadAttributeValue<IdFormat>(XmlAttributeNames.Format);
+            }
 
         /// <summary>
         /// Writes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal void WriteToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteStartElement(XmlNamespace.Types, this.GetXmlElementName());
+            {
+            writer.WriteStartElement(XmlNamespace.Types, GetXmlElementName());
 
-            this.WriteAttributesToXml(writer);
+            WriteAttributesToXml(writer);
 
             writer.WriteEndElement(); // this.GetXmlElementName()
-        }
+            }
 
         /// <summary>
         /// Validate this instance.
         /// </summary>
         internal virtual void InternalValidate()
-        {
+            {
             // nothing to do.
-        }
+            }
 
         #region ISelfValidate Members
 
@@ -106,10 +106,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Validates this instance.
         /// </summary>
         void ISelfValidate.Validate()
-        {
-            this.InternalValidate();
-        }
+            {
+            InternalValidate();
+            }
 
         #endregion
+        }
     }
-}

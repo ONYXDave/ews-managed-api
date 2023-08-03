@@ -24,11 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents an abstract Get request.
     /// </summary>
@@ -37,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     internal abstract class GetRequest<TServiceObject, TResponse> : MultiResponseServiceRequest<TResponse>
         where TServiceObject : ServiceObject
         where TResponse : ServiceResponse
-    {
+        {
         private PropertySet propertySet;
 
         /// <summary>
@@ -47,18 +43,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorHandlingMode"> Indicates how errors should be handled.</param>
         internal GetRequest(ExchangeService service, ServiceErrorHandling errorHandlingMode)
             : base(service, errorHandlingMode)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Validate request.
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
-            EwsUtilities.ValidateParam(this.PropertySet, "PropertySet");
-            this.PropertySet.ValidateForRequest(this, false /*summaryPropertiesOnly*/);
-        }
+            EwsUtilities.ValidateParam(PropertySet, "PropertySet");
+            PropertySet.ValidateForRequest(this, false /*summaryPropertiesOnly*/);
+            }
 
         /// <summary>
         /// Gets the type of the service object this request applies to.
@@ -71,18 +67,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.propertySet.WriteToXml(writer, this.GetServiceObjectType());
-        }
+            {
+            propertySet.WriteToXml(writer, GetServiceObjectType());
+            }
 
         /// <summary>
         /// Gets or sets the property set.
         /// </summary>
         /// <value>The property set.</value>
         public PropertySet PropertySet
-        {
-            get { return this.propertySet; }
-            set { this.propertySet = value; }
+            {
+            get { return propertySet; }
+            set { propertySet = value; }
+            }
         }
     }
-}

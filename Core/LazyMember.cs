@@ -24,11 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Delegate called to perform the actual initialization of the member
     /// </summary>
@@ -44,10 +40,10 @@ namespace Microsoft.Exchange.WebServices.Data
     /// this.  Each lazy member holds the actual member, a lock object, a boolean flag and a delegate.
     /// That can turn into a whole lot of overhead.</remarks>
     internal class LazyMember<T>
-    {
+        {
         private T lazyMember;
         private InitializeLazyMember<T> initializationDelegate;
-        private object lockObject = new object();
+        private object lockObject = new();
         private bool initialized = false;
 
         /// <summary>
@@ -56,30 +52,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="initializationDelegate">The initialization delegate to call for the item on first access
         /// </param>
         public LazyMember(InitializeLazyMember<T> initializationDelegate)
-        {
+            {
             this.initializationDelegate = initializationDelegate;
-        }
+            }
 
         /// <summary>
         /// Public accessor for the lazy member.  Lazy initializes the member on first access
         /// </summary>
         public T Member
-        {
-            get
             {
-                if (!this.initialized)
+            get
                 {
-                    lock (this.lockObject)
+                if (!initialized)
                     {
-                        if (!this.initialized)
+                    lock (lockObject)
                         {
-                            this.lazyMember = this.initializationDelegate();
+                        if (!initialized)
+                            {
+                            lazyMember = initializationDelegate();
+                            }
+                        initialized = true;
                         }
-                        this.initialized = true;
                     }
+                return lazyMember;
                 }
-                return this.lazyMember;
             }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.ComponentModel;
 
     /// <summary>
@@ -32,24 +32,24 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class PhoneNumberDictionary : DictionaryProperty<PhoneNumberKey, PhoneNumberEntry>
-    {
+        {
         /// <summary>
         /// Gets the field URI.
         /// </summary>
         /// <returns>Field URI.</returns>
         internal override string GetFieldURI()
-        {
+            {
             return "contacts:PhoneNumber";
-        }
+            }
 
         /// <summary>
         /// Creates instance of dictionary entry.
         /// </summary>
         /// <returns>New instance.</returns>
         internal override PhoneNumberEntry CreateEntryInstance()
-        {
+            {
             return new PhoneNumberEntry();
-        }
+            }
 
         /// <summary>
         /// Gets or sets the phone number at the specified key.
@@ -57,35 +57,35 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">The key of the phone number to get or set.</param>
         /// <returns>The phone number at the specified key.</returns>
         public string this[PhoneNumberKey key]
-        {
-            get
             {
-                return this.Entries[key].PhoneNumber;
-            }
+            get
+                {
+                return Entries[key].PhoneNumber;
+                }
 
             set
-            {
+                {
                 if (value == null)
-                {
-                    this.InternalRemove(key);
-                }
+                    {
+                    InternalRemove(key);
+                    }
                 else
-                {
+                    {
                     PhoneNumberEntry entry;
 
-                    if (this.Entries.TryGetValue(key, out entry))
-                    {
+                    if (Entries.TryGetValue(key, out entry))
+                        {
                         entry.PhoneNumber = value;
-                        this.Changed();
-                    }
+                        Changed();
+                        }
                     else
-                    {
+                        {
                         entry = new PhoneNumberEntry(key, value);
-                        this.InternalAdd(entry);
+                        InternalAdd(entry);
+                        }
                     }
                 }
             }
-        }
 
         /// <summary>
         /// Tries to get the phone number associated with the specified key.
@@ -99,21 +99,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// true if the Dictionary contains a phone number associated with the specified key; otherwise, false.
         /// </returns>
         public bool TryGetValue(PhoneNumberKey key, out string phoneNumber)
-        {
+            {
             PhoneNumberEntry entry = null;
 
-            if (this.Entries.TryGetValue(key, out entry))
-            {
+            if (Entries.TryGetValue(key, out entry))
+                {
                 phoneNumber = entry.PhoneNumber;
 
                 return true;
-            }
+                }
             else
-            {
+                {
                 phoneNumber = null;
 
                 return false;
+                }
             }
         }
     }
-}

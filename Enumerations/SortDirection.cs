@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a sort direction
     /// </summary>
     public enum SortDirection
-    {
+        {
         /// <summary>
         /// The sort is performed in ascending order.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The sort is performed in descending order.
         /// </summary>
         Descending
+        }
     }
-}

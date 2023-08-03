@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Represents non indexable item parameters base class
     /// </summary>
     public abstract class NonIndexableItemParameters
-    {
+        {
         /// <summary>
         /// List of mailboxes (in legacy DN format)
         /// </summary>
@@ -41,20 +39,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Search archive only
         /// </summary>
         public bool SearchArchiveOnly { get; set; }
-    }
+        }
 
     /// <summary>
     /// Represents get non indexable item statistics parameters.
     /// </summary>
     public sealed class GetNonIndexableItemStatisticsParameters : NonIndexableItemParameters
-    {
-    }
+        {
+        }
 
     /// <summary>
     /// Represents get non indexable item details parameters.
     /// </summary>
     public sealed class GetNonIndexableItemDetailsParameters : NonIndexableItemParameters
-    {
+        {
         /// <summary>
         /// Page size
         /// </summary>
@@ -69,5 +67,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Search page direction
         /// </summary>
         public SearchPageDirection? PageDirection { get; set; }
+        }
     }
-}

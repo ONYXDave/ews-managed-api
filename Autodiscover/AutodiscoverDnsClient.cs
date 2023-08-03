@@ -24,18 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
+    {
+    using Microsoft.Exchange.WebServices.Data;
+    using Microsoft.Exchange.WebServices.Dns;
     using System;
     using System.Collections.Generic;
     using System.Security;
-    using Microsoft.Exchange.WebServices.Data;
-    using Microsoft.Exchange.WebServices.Dns;
 
     /// <summary>
     /// Class that reads AutoDiscover configuration information from DNS.
     /// </summary>
     internal class AutodiscoverDnsClient
-    {
+        {
         #region Constants
         /// <summary>
         /// SRV DNS prefix to lookup.
@@ -52,7 +52,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <summary>
         /// Random selector in the case of ties.
         /// </summary>
-        private static Random randomTieBreakerSelector = new Random();
+        private static Random randomTieBreakerSelector = new();
         #endregion
 
         #region Instance fields
@@ -69,9 +69,9 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// </summary>
         /// <param name="service">The service.</param>
         internal AutodiscoverDnsClient(AutodiscoverService service)
-        {
+            {
             this.service = service;
-        }
+            }
 
         #endregion
 
@@ -88,27 +88,27 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="domain">The domain.</param>
         /// <returns>Autodiscover hostname (will be null if lookup failed).</returns>
         internal string FindAutodiscoverHostFromSrv(string domain)
-        {
+            {
             string domainToMatch = AutoDiscoverSrvPrefix + domain;
 
-            DnsSrvRecord dnsSrvRecord = this.FindBestMatchingSrvRecord(domainToMatch);
+            DnsSrvRecord dnsSrvRecord = FindBestMatchingSrvRecord(domainToMatch);
 
             if ((dnsSrvRecord == null) || string.IsNullOrEmpty(dnsSrvRecord.NameTarget))
-            {
-                this.service.TraceMessage(
+                {
+                service.TraceMessage(
                     TraceFlags.AutodiscoverConfiguration,
                     "No appropriate SRV record was found.");
                 return null;
-            }
+                }
             else
-            {
-                this.service.TraceMessage(
+                {
+                service.TraceMessage(
                     TraceFlags.AutodiscoverConfiguration,
                     string.Format("DNS query for SRV record for domain {0} found {1}", domain, dnsSrvRecord.NameTarget));
 
                 return dnsSrvRecord.NameTarget;
+                }
             }
-        }
 
         /// <summary>
         /// Finds the best matching SRV record.
@@ -116,32 +116,32 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="domain">The domain.</param>
         /// <returns>DnsSrvRecord(will be null if lookup failed).</returns>
         private DnsSrvRecord FindBestMatchingSrvRecord(string domain)
-        {
+            {
             List<DnsSrvRecord> dnsSrvRecordList;
             try
-            {
+                {
                 // Make DnsQuery call to get collection of SRV records.
-                dnsSrvRecordList = DnsClient.DnsQuery<DnsSrvRecord>(domain, this.service.DnsServerAddress);
-            }
+                dnsSrvRecordList = DnsClient.DnsQuery<DnsSrvRecord>(domain, service.DnsServerAddress);
+                }
             catch (DnsException ex)
-            {
+                {
                 string dnsExcMessage = string.Format(
                         "DnsQuery returned error error '{0}' error code 0x{1:X8}.",
                         ex.Message,
                         ex.NativeErrorCode);
-                this.service.TraceMessage(TraceFlags.AutodiscoverConfiguration, dnsExcMessage);
+                service.TraceMessage(TraceFlags.AutodiscoverConfiguration, dnsExcMessage);
                 return null;
-            }
+                }
             catch (SecurityException ex)
-            {
+                {
                 // In restricted environments, we may not be allowed to call unmanaged code.
-                this.service.TraceMessage(
+                service.TraceMessage(
                     TraceFlags.AutodiscoverConfiguration,
                     string.Format("DnsQuery cannot be called. Security error: {0}.", ex.Message));
                 return null;
-            }
+                }
 
-            this.service.TraceMessage(
+            service.TraceMessage(
                 TraceFlags.AutodiscoverConfiguration,
                 string.Format("{0} SRV records were returned.", dnsSrvRecordList.Count));
 
@@ -151,25 +151,25 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
             int weight = int.MinValue;
             bool recordFound = false;
             foreach (DnsSrvRecord dnsSrvRecord in dnsSrvRecordList)
-            {
-                if (dnsSrvRecord.Port == SslPort)
                 {
+                if (dnsSrvRecord.Port == SslPort)
+                    {
                     priority = dnsSrvRecord.Priority;
                     weight = dnsSrvRecord.Weight;
                     recordFound = true;
                     break;
+                    }
                 }
-            }
 
             // Records were returned but nothing matched our criteria.
             if (!recordFound)
-            {
-                this.service.TraceMessage(
+                {
+                service.TraceMessage(
                     TraceFlags.AutodiscoverConfiguration,
                     "No appropriate SRV records were found.");
 
                 return null;
-            }
+                }
 
             // Collect all records with the same (highest) priority.
             // (Aren't lambda expressions cool? ;-)
@@ -184,7 +184,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
 
             // If we have multiple records with the same priority and weight, randomly pick one.
             int recordIndex = (bestDnsSrvRecordList.Count > 1)
-                ? randomTieBreakerSelector.Next(bestDnsSrvRecordList.Count) 
+                ? randomTieBreakerSelector.Next(bestDnsSrvRecordList.Count)
                 : 0;
 
             DnsSrvRecord bestDnsSrvRecord = bestDnsSrvRecordList[recordIndex];
@@ -196,10 +196,10 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                  bestDnsSrvRecord.NameTarget,
                  bestDnsSrvRecord.Priority,
                  bestDnsSrvRecord.Weight);
-             this.service.TraceMessage( TraceFlags.AutodiscoverConfiguration, traceMessage);
+            service.TraceMessage(TraceFlags.AutodiscoverConfiguration, traceMessage);
 
             return bestDnsSrvRecord;
-        }
+            }
         #endregion
+        }
     }
-}

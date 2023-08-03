@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines how conflict resolutions are handled in update operations.
     /// </summary>
     public enum ConflictResolutionMode
-    {
+        {
         /// <summary>
         /// Local property changes are discarded.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Local property changes overwrite server-side changes. 
         /// </summary>
         AlwaysOverwrite
+        }
     }
-}

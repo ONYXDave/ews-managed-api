@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines months of the year.
     /// </summary>
     public enum Month
-    {
+        {
         /// <summary>
         /// January.
         /// </summary>
@@ -93,5 +89,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// December.
         /// </summary>
         December = 12
+        }
     }
-}

@@ -24,22 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
 
     /// <summary>
     /// Represents a collection of notification events.
     /// </summary>
     internal sealed class GetStreamingEventsResults
-    {        
+        {
         /// <summary>
         /// Structure to track a subscription and its associated notification events.
         /// </summary>
         internal struct NotificationGroup
-        {
+            {
             /// <summary>
             /// Subscription Id
             /// </summary>
@@ -49,76 +47,76 @@ namespace Microsoft.Exchange.WebServices.Data
             /// Events in the response associated with the subscription id.
             /// </summary>
             internal Collection<NotificationEvent> Events;
-        }
+            }
 
         /// <summary>
         /// Collection of notification events.
         /// </summary>
-        private Collection<NotificationGroup> events = new Collection<NotificationGroup>();
+        private Collection<NotificationGroup> events = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetStreamingEventsResults"/> class.
         /// </summary>
         internal GetStreamingEventsResults()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal void LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.Notification);
 
             do
-            {
-                NotificationGroup notifications = new NotificationGroup();
+                {
+                NotificationGroup notifications = new();
                 notifications.SubscriptionId = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.SubscriptionId);
                 notifications.Events = new Collection<NotificationEvent>();
 
                 lock (this)
-                {
-                    this.events.Add(notifications);
-                }
+                    {
+                    events.Add(notifications);
+                    }
 
                 do
-                {
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
+                        {
                         string eventElementName = reader.LocalName;
                         EventType eventType;
 
                         if (GetEventsResults.XmlElementNameToEventTypeMap.TryGetValue(eventElementName, out eventType))
-                        {
-                            if (eventType == EventType.Status)
                             {
+                            if (eventType == EventType.Status)
+                                {
                                 // We don't need to return status events
                                 reader.ReadEndElementIfNecessary(XmlNamespace.Types, eventElementName);
-                            }
+                                }
                             else
-                            {
-                                this.LoadNotificationEventFromXml(
+                                {
+                                LoadNotificationEventFromXml(
                                     reader,
                                     eventElementName,
-                                    eventType, 
+                                    eventType,
                                     notifications);
+                                }
+                            }
+                        else
+                            {
+                            reader.SkipCurrentElement();
                             }
                         }
-                        else
-                        {
-                            reader.SkipCurrentElement();
-                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.Notification));
 
                 reader.Read();
-            }
+                }
             while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.Notifications));
-        }
+            }
 
         /// <summary>
         /// Loads a notification event from XML.
@@ -132,7 +130,7 @@ namespace Microsoft.Exchange.WebServices.Data
             string eventElementName,
             EventType eventType,
             NotificationGroup notifications)
-        {
+            {
             DateTime timestamp = reader.ReadElementValue<DateTime>(XmlNamespace.Types, XmlElementNames.TimeStamp);
 
             NotificationEvent notificationEvent;
@@ -140,25 +138,25 @@ namespace Microsoft.Exchange.WebServices.Data
             reader.Read();
 
             if (reader.LocalName == XmlElementNames.FolderId)
-            {
+                {
                 notificationEvent = new FolderEvent(eventType, timestamp);
-            }
+                }
             else
-            {
+                {
                 notificationEvent = new ItemEvent(eventType, timestamp);
-            }
+                }
 
             notificationEvent.LoadFromXml(reader, eventElementName);
             notifications.Events.Add(notificationEvent);
-        }
+            }
 
         /// <summary>
         /// Gets the notification collection.
         /// </summary>
         /// <value>The notification collection.</value>
         internal Collection<NotificationGroup> Notifications
-        {
-            get { return this.events; }
+            {
+            get { return events; }
+            }
         }
     }
-}

@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents String property definition.
     /// </summary>
     internal class StringPropertyDefinition : TypedPropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="StringPropertyDefinition"/> class.
         /// </summary>
@@ -49,8 +49,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -58,24 +58,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>String value.</returns>
         internal override object Parse(string value)
-        {
+            {
             return value;
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal override bool IsNullable
-        {
+            {
             get { return true; }
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(string); }
+            }
         }
     }
-}

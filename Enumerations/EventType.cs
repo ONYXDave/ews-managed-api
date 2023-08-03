@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the types of event that can occur in a folder.
     /// </summary>
     public enum EventType
-    {
+        {
         /// <summary>
         /// This event is sent to a client application by push notifications to indicate that
         /// the subscription is still alive.
@@ -79,5 +79,5 @@ namespace Microsoft.Exchange.WebServices.Data
         [RequiredServerVersion(ExchangeVersion.Exchange2010_SP1)]
         [EwsEnum("FreeBusyChangedEvent")]
         FreeBusyChanged
+        }
     }
-}

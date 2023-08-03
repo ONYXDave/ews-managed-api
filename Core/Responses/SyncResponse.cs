@@ -24,11 +24,8 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the base response class for synchronuization operations.
@@ -39,8 +36,8 @@ namespace Microsoft.Exchange.WebServices.Data
     public abstract class SyncResponse<TServiceObject, TChange> : ServiceResponse
         where TServiceObject : ServiceObject
         where TChange : Change
-    {
-        private ChangeCollection<TChange> changes = new ChangeCollection<TChange>();
+        {
+        private ChangeCollection<TChange> changes = new();
         private PropertySet propertySet;
 
         /// <summary>
@@ -49,14 +46,14 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">Property set.</param>
         internal SyncResponse(PropertySet propertySet)
             : base()
-        {
+            {
             this.propertySet = propertySet;
 
             EwsUtilities.Assert(
                 this.propertySet != null,
                 "SyncResponse.ctor",
                 "PropertySet should not be null");
-        }
+            }
 
         /// <summary>
         /// Gets the name of the includes last in range XML element.
@@ -87,23 +84,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.Changes.SyncState = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.SyncState);
-            this.Changes.MoreChangesAvailable = !reader.ReadElementValue<bool>(XmlNamespace.Messages, this.GetIncludesLastInRangeXmlElementName());
+            {
+            Changes.SyncState = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.SyncState);
+            Changes.MoreChangesAvailable = !reader.ReadElementValue<bool>(XmlNamespace.Messages, GetIncludesLastInRangeXmlElementName());
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.Changes);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        TChange change = this.CreateChangeInstance();
+                        {
+                        TChange change = CreateChangeInstance();
 
                         switch (reader.LocalName)
-                        {
+                            {
                             case XmlElementNames.Create:
                                 change.ChangeType = ChangeType.Create;
                                 break;
@@ -119,22 +116,22 @@ namespace Microsoft.Exchange.WebServices.Data
                             default:
                                 reader.SkipCurrentElement();
                                 break;
-                        }
+                            }
 
                         if (change != null)
-                        {
+                            {
                             reader.Read();
                             reader.EnsureCurrentNodeIsStartElement();
 
                             switch (change.ChangeType)
-                            {
+                                {
                                 case ChangeType.Delete:
                                 case ChangeType.ReadFlagChange:
                                     change.Id = change.CreateId();
                                     change.Id.LoadFromXml(reader, change.Id.GetXmlElementName());
 
                                     if (change.ChangeType == ChangeType.ReadFlagChange)
-                                    {
+                                        {
                                         reader.Read();
                                         reader.EnsureCurrentNodeIsStartElement();
 
@@ -146,7 +143,7 @@ namespace Microsoft.Exchange.WebServices.Data
                                             "ReadFlagChange is only valid on ItemChange");
 
                                         itemChange.IsRead = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.IsRead);
-                                    }
+                                        }
 
                                     break;
                                 default:
@@ -157,35 +154,35 @@ namespace Microsoft.Exchange.WebServices.Data
                                     change.ServiceObject.LoadFromXml(
                                                             reader,
                                                             true, /* clearPropertyBag */
-                                                            this.propertySet,
-                                                            this.SummaryPropertiesOnly);
+                                                            propertySet,
+                                                            SummaryPropertiesOnly);
                                     break;
-                            }
+                                }
 
                             reader.ReadEndElementIfNecessary(XmlNamespace.Types, change.ChangeType.ToString());
 
-                            this.changes.Add(change);
+                            changes.Add(change);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.Changes));
+                }
             }
-        }
 
         /// <summary>
         /// Gets a list of changes that occurred on the synchronized folder.
         /// </summary>
         public ChangeCollection<TChange> Changes
-        {
-            get { return this.changes; }
-        }
+            {
+            get { return changes; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this request returns full or summary properties.
         /// </summary>
         internal abstract bool SummaryPropertiesOnly
-        {
-            get; 
+            {
+            get;
+            }
         }
     }
-}

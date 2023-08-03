@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Encapsulates information on the deleted occurrence of a recurring appointment.
     /// </summary>
     public class DeletedOccurrenceInfo : ComplexProperty
-    {
+        {
         /// <summary>
         /// The original start date and time of the deleted occurrence.
         /// </summary>
@@ -45,8 +45,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="DeletedOccurrenceInfo"/> class.
         /// </summary>
         internal DeletedOccurrenceInfo()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -54,23 +54,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.Start:
-                    this.originalStart = reader.ReadElementValueAsDateTime().Value;
+                    originalStart = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the original start date and time of the deleted occurrence.
         /// </summary>
         public DateTime OriginalStart
-        {
-            get { return this.originalStart; }
+            {
+            get { return originalStart; }
+            }
         }
     }
-}

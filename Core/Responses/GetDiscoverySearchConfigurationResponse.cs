@@ -24,58 +24,56 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the GetDiscoverySearchConfiguration response.
     /// </summary>
     public sealed class GetDiscoverySearchConfigurationResponse : ServiceResponse
-    {
-        List<DiscoverySearchConfiguration> configurations = new List<DiscoverySearchConfiguration>();
+        {
+        private List<DiscoverySearchConfiguration> configurations = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDiscoverySearchConfigurationResponse"/> class.
         /// </summary>
         internal GetDiscoverySearchConfigurationResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.configurations.Clear();
+            {
+            configurations.Clear();
 
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.DiscoverySearchConfigurations);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
                     if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.DiscoverySearchConfiguration))
-                    {
-                        this.configurations.Add(DiscoverySearchConfiguration.LoadFromXml(reader));
+                        {
+                        configurations.Add(DiscoverySearchConfiguration.LoadFromXml(reader));
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.DiscoverySearchConfigurations));
-            }
+                }
             reader.ReadEndElementIfNecessary(XmlNamespace.Messages, XmlElementNames.DiscoverySearchConfigurations);
-        }
+            }
 
         /// <summary>
         /// Searchable mailboxes result
         /// </summary>
         public DiscoverySearchConfiguration[] DiscoverySearchConfigurations
-        {
-            get { return this.configurations.ToArray(); }
+            {
+            get { return configurations.ToArray(); }
+            }
         }
     }
-}

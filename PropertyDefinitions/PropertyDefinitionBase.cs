@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -32,13 +32,13 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public abstract class PropertyDefinitionBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyDefinitionBase"/> class.
         /// </summary>
         internal PropertyDefinitionBase()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to load from XML.
@@ -47,9 +47,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertyDefinition">The property definition.</param>
         /// <returns>True if property was loaded.</returns>
         internal static bool TryLoadFromXml(EwsServiceXmlReader reader, ref PropertyDefinitionBase propertyDefinition)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.FieldURI:
                     propertyDefinition = ServiceObjectSchema.FindPropertyDefinition(reader.ReadAttributeValue(XmlAttributeNames.FieldURI));
                     reader.SkipCurrentElement();
@@ -66,8 +66,8 @@ namespace Microsoft.Exchange.WebServices.Data
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -103,11 +103,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal virtual void WriteToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteStartElement(XmlNamespace.Types, this.GetXmlElementName());
-            this.WriteAttributesToXml(writer);
+            {
+            writer.WriteStartElement(XmlNamespace.Types, GetXmlElementName());
+            WriteAttributesToXml(writer);
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
@@ -116,8 +116,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            return this.GetPrintableName();
+            {
+            return GetPrintableName();
+            }
         }
     }
-}

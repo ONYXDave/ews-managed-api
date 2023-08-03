@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the error codes identifying why a rule failed validation.
     /// </summary>
     public enum RuleErrorCode
-    {
+        {
         /// <summary>
         /// Active Directory operation failed.
         /// </summary>
@@ -152,5 +152,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The rule is not supported.
         /// </summary>
         UnsupportedRule
+        }
     }
-}

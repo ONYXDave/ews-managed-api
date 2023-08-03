@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of body of an item.
     /// </summary>
     public enum BodyType
-    {
+        {
         /// <summary>
         /// The body is formatted in HTML.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The body is in plain text.
         /// </summary>
         Text
+        }
     }
-}

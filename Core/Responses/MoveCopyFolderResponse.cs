@@ -24,17 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the base response class for individual folder move and copy operations.
     /// </summary>
     public sealed class MoveCopyFolderResponse : ServiceResponse
-    {
+        {
         private Folder folder;
 
         /// <summary>
@@ -42,8 +39,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal MoveCopyFolderResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets Folder instance.
@@ -52,34 +49,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Folder.</returns>
         private Folder GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
+            {
             return EwsUtilities.CreateEwsObjectFromXmlElementName<Folder>(service, xmlElementName);
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             List<Folder> folders = reader.ReadServiceObjectsCollectionFromXml<Folder>(
                 XmlElementNames.Folders,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 false,  /* clearPropertyBag */
                 null,   /* requestedPropertySet */
                 false); /* summaryPropertiesOnly */
 
-            this.folder = folders[0];
-        }
+            folder = folders[0];
+            }
 
         /// <summary>
         /// Gets the new (moved or copied) folder.
         /// </summary>
         public Folder Folder
-        {
-            get { return this.folder; }
+            {
+            get { return folder; }
+            }
         }
     }
-}

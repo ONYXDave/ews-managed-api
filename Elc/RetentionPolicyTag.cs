@@ -24,22 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Text;
-    using System.Xml;
 
     /// <summary>
     /// Represents retention policy tag object.
     /// </summary>
     public sealed class RetentionPolicyTag
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         public RetentionPolicyTag()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor for retention policy tag.
@@ -61,7 +59,7 @@ namespace Microsoft.Exchange.WebServices.Data
             bool isVisible,
             bool optedInto,
             bool isArchive)
-        {
+            {
             DisplayName = displayName;
             RetentionId = retentionId;
             RetentionPeriod = retentionPeriod;
@@ -70,7 +68,7 @@ namespace Microsoft.Exchange.WebServices.Data
             IsVisible = isVisible;
             OptedInto = optedInto;
             IsArchive = isArchive;
-        }
+            }
 
         /// <summary>
         /// Load from xml.
@@ -78,10 +76,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Retention policy tag object.</returns>
         internal static RetentionPolicyTag LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.RetentionPolicyTag);
 
-            RetentionPolicyTag retentionPolicyTag = new RetentionPolicyTag();
+            RetentionPolicyTag retentionPolicyTag = new();
             retentionPolicyTag.DisplayName = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.DisplayName);
             retentionPolicyTag.RetentionId = new Guid(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.RetentionId));
             retentionPolicyTag.RetentionPeriod = reader.ReadElementValue<int>(XmlNamespace.Types, XmlElementNames.RetentionPeriod);
@@ -91,16 +89,16 @@ namespace Microsoft.Exchange.WebServices.Data
             // Description is not a required property.
             reader.Read();
             if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.Description))
-            {
+                {
                 retentionPolicyTag.Description = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Description);
-            }
+                }
 
             retentionPolicyTag.IsVisible = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.IsVisible);
             retentionPolicyTag.OptedInto = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.OptedInto);
             retentionPolicyTag.IsArchive = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.IsArchive);
 
             return retentionPolicyTag;
-        }
+            }
 
         /// <summary>
         /// Retention policy tag display name.
@@ -146,5 +144,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Is this an archive tag?
         /// </summary>
         public bool IsArchive { get; set; }
+        }
     }
-}

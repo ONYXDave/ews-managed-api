@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
 
@@ -34,26 +33,26 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class PhoneEntityCollection : ComplexPropertyCollection<PhoneEntity>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneEntityCollection"/> class.
         /// </summary>
         internal PhoneEntityCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneEntityCollection"/> class.
         /// </summary>
         /// <param name="collection">The collection of objects to include.</param>
         internal PhoneEntityCollection(IEnumerable<PhoneEntity> collection)
-        {
-            if (collection != null)
             {
-                collection.ForEach(this.InternalAdd);
+            if (collection != null)
+                {
+                collection.ForEach(InternalAdd);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the complex property.
@@ -61,9 +60,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>PhoneEntity.</returns>
         internal override PhoneEntity CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new PhoneEntity();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -71,8 +70,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(PhoneEntity complexProperty)
-        {
+            {
             return XmlElementNames.NlgPhone;
+            }
         }
     }
-}

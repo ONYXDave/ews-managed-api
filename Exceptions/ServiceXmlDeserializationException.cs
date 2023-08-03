@@ -24,23 +24,23 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-	using System.Runtime.Serialization;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents an error that occurs when the XML for a response cannot be deserialized.
     /// </summary>
     [Serializable]
     public sealed class ServiceXmlDeserializationException : ServiceLocalException
-    {
+        {
         /// <summary>
         /// ServiceXmlDeserializationException Constructor.
         /// </summary>
         public ServiceXmlDeserializationException()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceXmlDeserializationException Constructor.
@@ -48,8 +48,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="message">Error message text.</param>
         public ServiceXmlDeserializationException(string message)
             : base(message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceXmlDeserializationException Constructor.
@@ -58,17 +58,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="innerException">Inner exception.</param>
         public ServiceXmlDeserializationException(string message, Exception innerException)
             : base(message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceXmlDeserializationException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		private ServiceXmlDeserializationException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-	    {
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceXmlDeserializationException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        private ServiceXmlDeserializationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

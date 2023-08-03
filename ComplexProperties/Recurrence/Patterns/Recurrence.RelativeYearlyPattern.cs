@@ -24,21 +24,19 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <content>
     /// Contains nested type Recurrence.RelativeYearlyPattern.
     /// </content>
     public abstract partial class Recurrence
-    {
+        {
         /// <summary>
         /// Represents a recurrence pattern where each occurrence happens on a relative day every year.
         /// </summary>
         public sealed class RelativeYearlyPattern : Recurrence
-        {
+            {
             private DayOfTheWeek? dayOfTheWeek;
             private DayOfTheWeekIndex? dayOfTheWeekIndex;
             private Month? month;
@@ -48,33 +46,33 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             /// <value>The name of the XML element.</value>
             internal override string XmlElementName
-            {
+                {
                 get { return XmlElementNames.RelativeYearlyRecurrence; }
-            }
+                }
 
             /// <summary>
             /// Write properties to XML.
             /// </summary>
             /// <param name="writer">The writer.</param>
             internal override void InternalWritePropertiesToXml(EwsServiceXmlWriter writer)
-            {
+                {
                 base.InternalWritePropertiesToXml(writer);
 
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.DaysOfWeek,
-                    this.DayOfTheWeek);
+                    DayOfTheWeek);
 
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.DayOfWeekIndex,
-                    this.DayOfTheWeekIndex);
+                    DayOfTheWeekIndex);
 
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.Month,
-                    this.Month);
-            }
+                    Month);
+                }
 
             /// <summary>
             /// Tries to read element from XML.
@@ -82,37 +80,37 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="reader">The reader.</param>
             /// <returns>True if element was read.</returns>
             internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-            {
+                {
                 if (base.TryReadElementFromXml(reader))
-                {
-                    return true;
-                }
-                else
-                {
-                    switch (reader.LocalName)
                     {
+                    return true;
+                    }
+                else
+                    {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.DaysOfWeek:
-                            this.dayOfTheWeek = reader.ReadElementValue<DayOfTheWeek>();
+                            dayOfTheWeek = reader.ReadElementValue<DayOfTheWeek>();
                             return true;
                         case XmlElementNames.DayOfWeekIndex:
-                            this.dayOfTheWeekIndex = reader.ReadElementValue<DayOfTheWeekIndex>();
+                            dayOfTheWeekIndex = reader.ReadElementValue<DayOfTheWeekIndex>();
                             return true;
                         case XmlElementNames.Month:
-                            this.month = reader.ReadElementValue<Month>();
+                            month = reader.ReadElementValue<Month>();
                             return true;
                         default:
                             return false;
+                        }
                     }
                 }
-            }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="RelativeYearlyPattern"/> class.
             /// </summary>
             public RelativeYearlyPattern()
                 : base()
-            {
-            }
+                {
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="RelativeYearlyPattern"/> class.
@@ -127,34 +125,34 @@ namespace Microsoft.Exchange.WebServices.Data
                 DayOfTheWeek dayOfTheWeek,
                 DayOfTheWeekIndex dayOfTheWeekIndex)
                 : base(startDate)
-            {
-                this.Month = month;
-                this.DayOfTheWeek = dayOfTheWeek;
-                this.DayOfTheWeekIndex = dayOfTheWeekIndex;
-            }
+                {
+                Month = month;
+                DayOfTheWeek = dayOfTheWeek;
+                DayOfTheWeekIndex = dayOfTheWeekIndex;
+                }
 
             /// <summary>
             /// Validates this instance.
             /// </summary>
             internal override void InternalValidate()
-            {
+                {
                 base.InternalValidate();
 
-                if (!this.dayOfTheWeekIndex.HasValue)
-                {
+                if (!dayOfTheWeekIndex.HasValue)
+                    {
                     throw new ServiceValidationException(Strings.DayOfWeekIndexMustBeSpecifiedForRecurrencePattern);
-                }
+                    }
 
-                if (!this.dayOfTheWeek.HasValue)
-                {
+                if (!dayOfTheWeek.HasValue)
+                    {
                     throw new ServiceValidationException(Strings.DayOfTheWeekMustBeSpecifiedForRecurrencePattern);
-                }
+                    }
 
-                if (!this.month.HasValue)
-                {
+                if (!month.HasValue)
+                    {
                     throw new ServiceValidationException(Strings.MonthMustBeSpecifiedForRecurrencePattern);
+                    }
                 }
-            }
 
             /// <summary>
             /// Checks if two recurrence objects are identical. 
@@ -162,41 +160,41 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="otherRecurrence">The recurrence to compare this one to.</param>
             /// <returns>true if the two recurrences are identical, false otherwise.</returns>
             public override bool IsSame(Recurrence otherRecurrence)
-            {
+                {
                 RelativeYearlyPattern otherYearlyPattern = (RelativeYearlyPattern)otherRecurrence;
 
                 return base.IsSame(otherRecurrence) &&
-                       this.dayOfTheWeek == otherYearlyPattern.dayOfTheWeek &&
-                       this.dayOfTheWeekIndex == otherYearlyPattern.dayOfTheWeekIndex &&
-                       this.month == otherYearlyPattern.month;
-            }
+                       dayOfTheWeek == otherYearlyPattern.dayOfTheWeek &&
+                       dayOfTheWeekIndex == otherYearlyPattern.dayOfTheWeekIndex &&
+                       month == otherYearlyPattern.month;
+                }
 
             /// <summary>
             /// Gets or sets the relative position of the day specified in DayOfTheWeek within the month.
             /// </summary>
             public DayOfTheWeekIndex DayOfTheWeekIndex
-            {
-                get { return this.GetFieldValueOrThrowIfNull<DayOfTheWeekIndex>(this.dayOfTheWeekIndex, "DayOfTheWeekIndex"); }
-                set { this.SetFieldValue<DayOfTheWeekIndex?>(ref this.dayOfTheWeekIndex, value); }
-            }
+                {
+                get { return GetFieldValueOrThrowIfNull<DayOfTheWeekIndex>(dayOfTheWeekIndex, "DayOfTheWeekIndex"); }
+                set { SetFieldValue<DayOfTheWeekIndex?>(ref dayOfTheWeekIndex, value); }
+                }
 
             /// <summary>
             /// Gets or sets the day of the week when each occurrence happens.
             /// </summary>
             public DayOfTheWeek DayOfTheWeek
-            {
-                get { return this.GetFieldValueOrThrowIfNull<DayOfTheWeek>(this.dayOfTheWeek, "DayOfTheWeek"); }
-                set { this.SetFieldValue<DayOfTheWeek?>(ref this.dayOfTheWeek, value); }
-            }
+                {
+                get { return GetFieldValueOrThrowIfNull<DayOfTheWeek>(dayOfTheWeek, "DayOfTheWeek"); }
+                set { SetFieldValue<DayOfTheWeek?>(ref dayOfTheWeek, value); }
+                }
 
             /// <summary>
             /// Gets or sets the month of the year when each occurrence happens.
             /// </summary>
             public Month Month
-            {
-                get { return this.GetFieldValueOrThrowIfNull<Month>(this.month, "Month"); }
-                set { this.SetFieldValue<Month?>(ref this.month, value); }
+                {
+                get { return GetFieldValueOrThrowIfNull<Month>(month, "Month"); }
+                set { SetFieldValue<Month?>(ref month, value); }
+                }
             }
         }
     }
-}

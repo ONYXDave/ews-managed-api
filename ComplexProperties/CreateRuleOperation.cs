@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an operation to create a new rule.
     /// </summary>
     public sealed class CreateRuleOperation : RuleOperation
-    {
+        {
         /// <summary>
         /// Inbox rule to be created.
         /// </summary>
@@ -40,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public CreateRuleOperation()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateRuleOperation"/> class.
@@ -49,52 +49,52 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="rule">The inbox rule to create.</param>
         public CreateRuleOperation(Rule rule)
             : base()
-        {
+            {
             this.rule = rule;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the rule to be created.
         /// </summary>
         public Rule Rule
-        {
-            get
             {
-                return this.rule;
-            }
+            get
+                {
+                return rule;
+                }
 
             set
-            {
-                this.SetFieldValue<Rule>(ref this.rule, value);
+                {
+                SetFieldValue<Rule>(ref rule, value);
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.Rule.WriteToXml(writer, XmlElementNames.Rule);
-        }
+            {
+            Rule.WriteToXml(writer, XmlElementNames.Rule);
+            }
 
         /// <summary>
         ///  Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            EwsUtilities.ValidateParam(this.rule, "Rule");
-        }
+            {
+            EwsUtilities.ValidateParam(rule, "Rule");
+            }
 
         /// <summary>
         /// Gets the Xml element name of the CreateRuleOperation object.
         /// </summary>
         internal override string XmlElementName
-        {
-            get
             {
+            get
+                {
                 return XmlElementNames.CreateRuleOperation;
+                }
             }
         }
     }
-}

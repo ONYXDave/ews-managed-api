@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of SetClientExtensionActionId.
     /// </summary>
     public enum SetClientExtensionActionId
-    {
+        {
         /// <summary>
         /// Install
         /// </summary>
@@ -39,10 +39,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Uninstall
         /// </summary>
         Uninstall,
-            
+
         /// <summary>
         /// Configure
         /// </summary>
         Configure,
+        }
     }
-}

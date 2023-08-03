@@ -24,18 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents a change as returned by a synchronization operation.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Change
-    {
+        {
         /// <summary>
         /// The type of change.
         /// </summary>
@@ -55,8 +52,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of Change.
         /// </summary>
         internal Change()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates an Id of the appropriate class.
@@ -68,27 +65,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the type of the change.
         /// </summary>
         public ChangeType ChangeType
-        {
-            get { return this.changeType; }
-            internal set { this.changeType = value; }
-        }
+            {
+            get { return changeType; }
+            internal set { changeType = value; }
+            }
 
         /// <summary>
         /// Gets or sets the service object the change applies to.
         /// </summary>
         internal ServiceObject ServiceObject
-        {
-            get { return this.serviceObject; }
-            set { this.serviceObject = value; }
-        }
+            {
+            get { return serviceObject; }
+            set { serviceObject = value; }
+            }
 
         /// <summary>
         /// Gets or sets the Id of the service object the change applies to.
         /// </summary>
         internal ServiceId Id
-        {
-            get { return this.ServiceObject != null ? this.ServiceObject.GetId() : this.id; }
-            set { this.id = value; }
+            {
+            get { return ServiceObject != null ? ServiceObject.GetId() : id; }
+            set { id = value; }
+            }
         }
     }
-}

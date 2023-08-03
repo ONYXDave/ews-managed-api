@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents an event as exposed by push and pull notifications. 
     /// </summary>
     public abstract class NotificationEvent
-    {
+        {
         /// <summary>
         /// Type of this event.
         /// </summary>
@@ -60,18 +60,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="eventType">Type of the event.</param>
         /// <param name="timestamp">The event timestamp.</param>
         internal NotificationEvent(EventType eventType, DateTime timestamp)
-        {
+            {
             this.eventType = eventType;
             this.timestamp = timestamp;
-        }
+            }
 
         /// <summary>
         /// Load from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal virtual void InternalLoadFromXml(EwsServiceXmlReader reader)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads this NotificationEvent from XML.
@@ -79,36 +79,36 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader from which to read the notification event.</param>
         /// <param name="xmlElementName">The start XML element name of this notification event.</param>
         internal void LoadFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
-            this.InternalLoadFromXml(reader);
+            {
+            InternalLoadFromXml(reader);
 
             reader.ReadEndElementIfNecessary(XmlNamespace.Types, xmlElementName);
-        }
+            }
 
         /// <summary>
         /// Gets the type of this event.
         /// </summary>
         public EventType EventType
-        {
-            get { return this.eventType; }
-        }
+            {
+            get { return eventType; }
+            }
 
         /// <summary>
         /// Gets the date and time when the event occurred.
         /// </summary>
         public DateTime TimeStamp
-        {
-            get { return this.timestamp; }
-        }
+            {
+            get { return timestamp; }
+            }
 
         /// <summary>
         /// Gets the Id of the parent folder of the item or folder this event applie to.
         /// </summary>
         public FolderId ParentFolderId
-        {
-            get { return this.parentFolderId; }
-            internal set { this.parentFolderId = value; }
-        }
+            {
+            get { return parentFolderId; }
+            internal set { parentFolderId = value; }
+            }
 
         /// <summary>
         /// Gets the Id of the old parent folder of the item or folder this event applies to.
@@ -116,9 +116,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// EventType.Copied. For all other event types, OldParentFolderId is null.
         /// </summary>
         public FolderId OldParentFolderId
-        {
-            get { return this.oldParentFolderId; }
-            internal set { this.oldParentFolderId = value; }
+            {
+            get { return oldParentFolderId; }
+            internal set { oldParentFolderId = value; }
+            }
         }
     }
-}

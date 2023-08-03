@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the available properties of a rule. 
     /// </summary>
     public enum RuleProperty
-    {
+        {
         /// <summary>
         /// The RuleId property of a rule.
         /// </summary>
@@ -575,5 +575,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [EwsEnum("Exceptions")]
         Exceptions
+        }
     }
-}

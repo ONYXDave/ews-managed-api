@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the default sets of extended properties.
     /// </summary>
     public enum DefaultExtendedPropertySet
-    {
+        {
         /// <summary>
         /// The Meeting extended property set.
         /// </summary>
@@ -78,5 +74,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Task extended property set.
         /// </summary>
         Task
+        }
     }
-}

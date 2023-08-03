@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Xml;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represenrs recurrence property definition.
     /// </summary>
     internal sealed class RecurrencePropertyDefinition : PropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecurrencePropertyDefinition"/> class.
         /// </summary>
@@ -50,8 +50,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -59,7 +59,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
         internal override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.Recurrence);
 
             Recurrence recurrence = null;
@@ -80,7 +80,7 @@ namespace Microsoft.Exchange.WebServices.Data
             reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.Recurrence);
 
             propertyBag[this] = recurrence;
-        }
+            }
 
         /// <summary>
         /// Gets the recurrence range.
@@ -88,11 +88,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="recurrenceRangeString">The recurrence range string.</param>
         /// <returns></returns>
         private static RecurrenceRange GetRecurrenceRange(string recurrenceRangeString)
-        {
+            {
             RecurrenceRange range;
 
             switch (recurrenceRangeString)
-            {
+                {
                 case XmlElementNames.NoEndRecurrence:
                     range = new NoEndRecurrenceRange();
                     break;
@@ -104,9 +104,9 @@ namespace Microsoft.Exchange.WebServices.Data
                     break;
                 default:
                     throw new ServiceXmlDeserializationException(string.Format(Strings.InvalidRecurrenceRange, recurrenceRangeString));
-            }
+                }
             return range;
-        }
+            }
 
         /// <summary>
         /// Gets the recurrence from string.
@@ -114,11 +114,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="recurranceString">The recurrance string.</param>
         /// <returns></returns>
         private static Recurrence GetRecurrenceFromString(string recurranceString)
-        {
+            {
             Recurrence recurrence = null;
 
             switch (recurranceString)
-            {
+                {
                 case XmlElementNames.RelativeYearlyRecurrence:
                     recurrence = new Recurrence.RelativeYearlyPattern();
                     break;
@@ -151,9 +151,9 @@ namespace Microsoft.Exchange.WebServices.Data
                     break;
                 default:
                     throw new ServiceXmlDeserializationException(string.Format(Strings.InvalidRecurrencePattern, recurranceString));
-            }
+                }
             return recurrence;
-        }
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -165,21 +165,21 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             Recurrence value = (Recurrence)propertyBag[this];
 
             if (value != null)
-            {
+                {
                 value.WriteToXml(writer, XmlElementNames.Recurrence);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(Recurrence); }
+            }
         }
     }
-}

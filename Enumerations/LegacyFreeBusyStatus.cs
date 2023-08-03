@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the legacy free/busy status associated with an appointment.
     /// </summary>
     public enum LegacyFreeBusyStatus
-    {
+        {
         /// <summary>
         /// The time slot associated with the appointment appears as free.
         /// </summary>
@@ -63,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// No free/busy status is associated with the appointment.
         /// </summary>
         NoData = 5
+        }
     }
-}

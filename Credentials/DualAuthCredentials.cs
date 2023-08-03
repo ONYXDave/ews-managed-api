@@ -24,7 +24,7 @@
 */
 
 namespace Microsoft.Exchange.WebServices.Data.Credentials
-{
+    {
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data.Credentials
     /// DualAuthCredentials wraps an instance of X509CertificateCollection and basic auth credentials used for client dual authentication.
     /// </summary>
     public sealed class DualAuthCredentials : ExchangeCredentials
-    {
+        {
         /// <summary>
         /// Collection of client certificates.
         /// </summary>
@@ -47,29 +47,29 @@ namespace Microsoft.Exchange.WebServices.Data.Credentials
         /// <param name="userName">The username.</param>
         /// <param name="password">The password.</param>
         public DualAuthCredentials(X509CertificateCollection clientCertificates, string userName, string password)
-        {
+            {
             EwsUtilities.ValidateParam(clientCertificates, "clientCertificates");
 
             this.clientCertificates = clientCertificates;
-            this.credentials = new NetworkCredential(userName, password);
-        }
+            credentials = new NetworkCredential(userName, password);
+            }
 
         /// <summary>
         /// This method is called to apply credentials to a service request before the request is made.
         /// </summary>
         /// <param name="request">The request.</param>
         internal override void PrepareWebRequest(IEwsHttpWebRequest request)
-        {
-            request.ClientCertificates = this.ClientCertificates;
-            request.Credentials = this.credentials;
-        }
+            {
+            request.ClientCertificates = ClientCertificates;
+            request.Credentials = credentials;
+            }
 
         /// <summary>
         /// Gets the client certificates collection.
         /// </summary>
         public X509CertificateCollection ClientCertificates
-        {
-            get { return this.clientCertificates; }
+            {
+            get { return clientCertificates; }
+            }
         }
     }
-}

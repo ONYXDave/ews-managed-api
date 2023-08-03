@@ -24,50 +24,47 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a GetPasswordExpirationDate request.
     /// </summary>
     internal sealed class GetPasswordExpirationDateRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetPasswordExpirationDateRequest"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal GetPasswordExpirationDateRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetPasswordExpirationDateRequest;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MailboxSmtpAddress, this.MailboxSmtpAddress);
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MailboxSmtpAddress, MailboxSmtpAddress);
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetPasswordExpirationDateResponse;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -75,48 +72,48 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetPasswordExpirationDateResponse response = new GetPasswordExpirationDateResponse();
+            {
+            GetPasswordExpirationDateResponse response = new();
             response.LoadFromXml(reader, XmlElementNames.GetPasswordExpirationDateResponse);
             return response;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2010_SP1;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetPasswordExpirationDateResponse Execute()
-        {
-            GetPasswordExpirationDateResponse serviceResponse = (GetPasswordExpirationDateResponse)this.InternalExecute();
+            {
+            GetPasswordExpirationDateResponse serviceResponse = (GetPasswordExpirationDateResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the room list to retrieve rooms from.
         /// </summary>
         internal string MailboxSmtpAddress
-        {
-            get 
             {
-                return this.mailboxSmtpAddress;
-            }
+            get
+                {
+                return mailboxSmtpAddress;
+                }
 
-            set 
-            {
-                this.mailboxSmtpAddress = value;
+            set
+                {
+                mailboxSmtpAddress = value;
+                }
             }
-        }
 
         private string mailboxSmtpAddress;
+        }
     }
-}

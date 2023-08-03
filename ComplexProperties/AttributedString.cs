@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.Xml;
@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents an attributed string, a string with a value and a list of attributions.
     /// </summary>
     public sealed class AttributedString : ComplexProperty
-    {
+        {
         /// <summary>
         /// Internal attribution store
         /// </summary>
@@ -54,18 +54,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public AttributedString()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
         /// </summary>
         public AttributedString(string value)
             : this()
-        {
+            {
             EwsUtilities.ValidateParam(value, "value");
-            this.Value = value;
-        }
+            Value = value;
+            }
 
         /// <summary>
         /// Constructor
@@ -74,19 +74,19 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attributions">A list of attributions</param>
         public AttributedString(string value, IList<string> attributions)
             : this(value)
-        {
-            if (attributions == null)
             {
+            if (attributions == null)
+                {
                 throw new ArgumentNullException("attributions");
-            }
+                }
 
             foreach (string s in attributions)
-            {
+                {
                 EwsUtilities.ValidateParam(s, "attributions");
-            }
+                }
 
-            this.Attributions = attributions;
-        }
+            Attributions = attributions;
+            }
 
         /// <summary>
         /// Defines an implicit conversion from a regular string to an attributedString.
@@ -94,9 +94,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">String value of the attributed string being created</param>
         /// <returns>An attributed string initialized with the specified value</returns>
         public static implicit operator AttributedString(string value)
-        {
+            {
             return new AttributedString(value);
-        }
+            }
 
         /// <summary>
         /// Tries to read an attributed string blob represented in XML.
@@ -104,18 +104,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether reading succeeded</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.Value:
-                    this.Value = reader.ReadElementValue();
+                    Value = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.Attributions:
-                    return this.LoadAttributionsFromXml(reader);
+                    return LoadAttributionsFromXml(reader);
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Read attribution blobs from XML
@@ -123,30 +123,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether reading succeeded</returns>
         internal bool LoadAttributionsFromXml(EwsServiceXmlReader reader)
-        {
-            if (!reader.IsEmptyElement)
             {
+            if (!reader.IsEmptyElement)
+                {
                 string localName = reader.LocalName;
-                this.attributionList = new List<string>();
+                attributionList = new List<string>();
 
                 do
-                {
+                    {
                     reader.Read();
                     if (reader.NodeType == XmlNodeType.Element &&
                         reader.LocalName == XmlElementNames.Attribution)
-                    {
+                        {
                         string s = reader.ReadElementValue();
                         if (!string.IsNullOrEmpty(s))
-                        {
-                            this.attributionList.Add(s);
+                            {
+                            attributionList.Add(s);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Types, localName));
-                this.Attributions = this.attributionList.ToArray();
-            }
+                Attributions = attributionList.ToArray();
+                }
 
             return true;
+            }
         }
     }
-}

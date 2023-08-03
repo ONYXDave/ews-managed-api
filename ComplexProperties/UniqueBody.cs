@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the body part of an item that is unique to the conversation the item is part of. 
     /// </summary>
     public sealed class UniqueBody : ComplexProperty
-    {
+        {
         private BodyType bodyType;
         private string text;
         private bool isTruncated;
@@ -38,8 +38,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="UniqueBody"/> class.
         /// </summary>
         internal UniqueBody()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Defines an implicit conversion of UniqueBody into a string.
@@ -47,88 +47,88 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="messageBody">The UniqueBody to convert to a string.</param>
         /// <returns>A string containing the text of the UniqueBody.</returns>
         public static implicit operator string(UniqueBody messageBody)
-        {
+            {
             EwsUtilities.ValidateParam(messageBody, "messageBody");
             return messageBody.Text;
-        }
+            }
 
         /// <summary>
         /// Reads attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.bodyType = reader.ReadAttributeValue<BodyType>(XmlAttributeNames.BodyType);
+            {
+            bodyType = reader.ReadAttributeValue<BodyType>(XmlAttributeNames.BodyType);
 
             string attributeValue = reader.ReadAttributeValue(XmlAttributeNames.IsTruncated);
             if (!string.IsNullOrEmpty(attributeValue))
-            {
-                this.isTruncated = bool.Parse(attributeValue);
+                {
+                isTruncated = bool.Parse(attributeValue);
+                }
             }
-        }
 
         /// <summary>
         /// Reads text value from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadTextValueFromXml(EwsServiceXmlReader reader)
-        {
-            this.text = reader.ReadValue();
-        }
+            {
+            text = reader.ReadValue();
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.BodyType, this.BodyType);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.BodyType, BodyType);
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (!string.IsNullOrEmpty(this.Text))
             {
-                writer.WriteValue(this.Text, XmlElementNames.UniqueBody);
+            if (!string.IsNullOrEmpty(Text))
+                {
+                writer.WriteValue(Text, XmlElementNames.UniqueBody);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the type of the unique body's text.
         /// </summary>
         public BodyType BodyType
-        {
-            get
             {
-                return this.bodyType; 
+            get
+                {
+                return bodyType;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the text of the unique body.
         /// </summary>
         public string Text
-        {
-            get 
             {
-                return this.text;
+            get
+                {
+                return text;
+                }
             }
-        }
 
         /// <summary>
         /// Gets whether the unique body is truncated.
         /// </summary>
         public bool IsTruncated
-        {
-            get
             {
-                return this.isTruncated;
+            get
+                {
+                return isTruncated;
+                }
             }
-        }
 
         #region Object method overrides
         /// <summary>
@@ -138,9 +138,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            return (this.Text == null) ? string.Empty : this.Text;
-        }
+            {
+            return (Text == null) ? string.Empty : Text;
+            }
         #endregion
+        }
     }
-}

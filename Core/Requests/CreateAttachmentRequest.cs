@@ -24,19 +24,17 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents a CreateAttachment request.
     /// </summary>
     internal sealed class CreateAttachmentRequest : MultiResponseServiceRequest<CreateAttachmentResponse>
-    {
+        {
         private string parentItemId;
-        private List<Attachment> attachments = new List<Attachment>();
+        private List<Attachment> attachments = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateAttachmentRequest"/> class.
@@ -45,17 +43,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorHandlingMode"> Indicates how errors should be handled.</param>
         internal CreateAttachmentRequest(ExchangeService service, ServiceErrorHandling errorHandlingMode)
             : base(service, errorHandlingMode)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Validate request..
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
-            EwsUtilities.ValidateParam(this.ParentItemId, "ParentItemId");
-        }
+            EwsUtilities.ValidateParam(ParentItemId, "ParentItemId");
+            }
 
         /// <summary>
         /// Creates the service response.
@@ -64,109 +62,109 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseIndex">Index of the response.</param>
         /// <returns>Service response.</returns>
         internal override CreateAttachmentResponse CreateServiceResponse(ExchangeService service, int responseIndex)
-        {
-            return new CreateAttachmentResponse(this.Attachments[responseIndex]);
-        }
+            {
+            return new CreateAttachmentResponse(Attachments[responseIndex]);
+            }
 
         /// <summary>
         /// Gets the expected response message count.
         /// </summary>
         /// <returns>Number of expected response messages.</returns>
         internal override int GetExpectedResponseMessageCount()
-        {
-            return this.Attachments.Count;
-        }
+            {
+            return Attachments.Count;
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.CreateAttachment;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.CreateAttachmentResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response message XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseMessageXmlElementName()
-        {
+            {
             return XmlElementNames.CreateAttachmentResponseMessage;
-        }
+            }
 
         /// <summary>
         /// Writes the elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ParentItemId);
-            writer.WriteAttributeValue(XmlAttributeNames.Id, this.ParentItemId);
+            writer.WriteAttributeValue(XmlAttributeNames.Id, ParentItemId);
             writer.WriteEndElement();
 
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Attachments);
-            foreach (Attachment attachment in this.Attachments)
-            {
+            foreach (Attachment attachment in Attachments)
+                {
                 attachment.WriteToXml(writer, attachment.GetXmlElementName());
-            }
+                }
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2007_SP1;
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the TimeZoneContext SOAP header should be emitted.
         /// </summary>
         internal override bool EmitTimeZoneHeader
-        {
-            get
             {
-                foreach (ItemAttachment itemAttachment in this.attachments.OfType<ItemAttachment>())
+            get
                 {
-                    if ((itemAttachment.Item != null) && itemAttachment.Item.GetIsTimeZoneHeaderRequired(false /* isUpdateOperation */))
+                foreach (ItemAttachment itemAttachment in attachments.OfType<ItemAttachment>())
                     {
+                    if ((itemAttachment.Item != null) && itemAttachment.Item.GetIsTimeZoneHeaderRequired(false /* isUpdateOperation */))
+                        {
                         return true;
+                        }
                     }
-                }
 
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the attachments.
         /// </summary>
         /// <value>The attachments.</value>
         public List<Attachment> Attachments
-        {
-            get { return this.attachments; }
-        }
+            {
+            get { return attachments; }
+            }
 
         /// <summary>
         /// Gets or sets the parent item id.
         /// </summary>
         /// <value>The parent item id.</value>
         public string ParentItemId
-        {
-            get { return this.parentItemId; }
-            set { this.parentItemId = value; }
+            {
+            get { return parentItemId; }
+            set { parentItemId = value; }
+            }
         }
     }
-}

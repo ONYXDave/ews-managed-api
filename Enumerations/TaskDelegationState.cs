@@ -24,11 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     // This maps to the bogus TaskDelegationState in the EWS schema.
     // The schema enum has 6 values, but EWS should never return anything but
     // values between 0 and 3, so we should be safe without mappings for
@@ -38,7 +34,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Defines the delegation state of a task.
     /// </summary>
     public enum TaskDelegationState
-    {
+        {
         /// <summary>
         /// The task is not delegated
         /// </summary>
@@ -61,5 +57,5 @@ namespace Microsoft.Exchange.WebServices.Data
 
         // The original Declined value has no mapping
         // The original Max value has no mapping
+        }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a user's Out of Office Assistant status.
     /// </summary>
     public enum OofState
-    {
+        {
         /// <summary>
         /// The assistant is diabled.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The assistant is scheduled.
         /// </summary>
         Scheduled
+        }
     }
-}

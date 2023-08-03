@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Represents search mailbox parameters.
     /// </summary>
     public sealed class SearchMailboxesParameters
-    {
+        {
         /// <summary>
         /// Search queries
         /// </summary>
@@ -81,5 +79,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Query language
         /// </summary>
         public string Language { get; set; }
+        }
     }
-}

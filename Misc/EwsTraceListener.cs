@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.IO;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// EwsTraceListener logs request/responses to a text writer.
     /// </summary>
     internal class EwsTraceListener : ITraceListener
-    {
+        {
         private TextWriter writer;
 
         /// <summary>
@@ -41,17 +41,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal EwsTraceListener()
             : this(Console.Out)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EwsTraceListener"/> class.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal EwsTraceListener(TextWriter writer)
-        {
+            {
             this.writer = writer;
-        }
+            }
 
         /// <summary>
         /// Handles a trace message
@@ -59,8 +59,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="traceType">Type of trace message.</param>
         /// <param name="traceMessage">The trace message.</param>
         public void Trace(string traceType, string traceMessage)
-        {
-            this.writer.Write(traceMessage);
+            {
+            writer.Write(traceMessage);
+            }
         }
     }
-}

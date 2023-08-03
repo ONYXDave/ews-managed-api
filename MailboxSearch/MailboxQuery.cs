@@ -24,26 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents mailbox query object.
     /// </summary>
     public sealed class MailboxQuery
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="query">Search query</param>
         /// <param name="searchScopes">Set of mailbox and scope pair</param>
         public MailboxQuery(string query, MailboxSearchScope[] searchScopes)
-        {
+            {
             Query = query;
             MailboxSearchScopes = searchScopes;
-        }
+            }
 
         /// <summary>
         /// Search query
@@ -54,13 +50,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Set of mailbox and scope pair
         /// </summary>
         public MailboxSearchScope[] MailboxSearchScopes { get; set; }
-    }
+        }
 
     /// <summary>
     /// Represents mailbox search scope object.
     /// </summary>
     public sealed class MailboxSearchScope
-    {
+        {
         private MailboxSearchLocation searchScope = MailboxSearchLocation.All;
         private MailboxSearchScopeType scopeType = MailboxSearchScopeType.LegacyExchangeDN;
 
@@ -70,11 +66,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="mailbox">Mailbox</param>
         /// <param name="searchScope">Search scope</param>
         public MailboxSearchScope(string mailbox, MailboxSearchLocation searchScope)
-        {
-            this.Mailbox = mailbox;
+            {
+            Mailbox = mailbox;
             this.searchScope = searchScope;
-            this.ExtendedAttributes = new ExtendedAttributes();
-        }
+            ExtendedAttributes = new ExtendedAttributes();
+            }
 
         /// <summary>
         /// Mailbox
@@ -85,42 +81,42 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Search scope
         /// </summary>
         public MailboxSearchLocation SearchScope
-        {
-            get { return this.searchScope; }
-            set { this.searchScope = value; }
-        }
+            {
+            get { return searchScope; }
+            set { searchScope = value; }
+            }
 
         /// <summary>
         /// Search scope type
         /// </summary>
         internal MailboxSearchScopeType SearchScopeType
-        {
-            get { return this.scopeType; }
-            set { this.scopeType = value; }
-        }
+            {
+            get { return scopeType; }
+            set { scopeType = value; }
+            }
 
         /// <summary>
         /// Gets the extended data.
         /// </summary>
         /// <value>The extended data.</value>
         public ExtendedAttributes ExtendedAttributes
-        {
+            {
             get;
             private set;
+            }
         }
-    }
 
     /// <summary>
     /// Represents mailbox object for preview item.
     /// </summary>
     public sealed class PreviewItemMailbox
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         public PreviewItemMailbox()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
@@ -128,10 +124,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="mailboxId">Mailbox id</param>
         /// <param name="primarySmtpAddress">Primary smtp address</param>
         public PreviewItemMailbox(string mailboxId, string primarySmtpAddress)
-        {
+            {
             MailboxId = mailboxId;
             PrimarySmtpAddress = primarySmtpAddress;
-        }
+            }
 
         /// <summary>
         /// Mailbox id
@@ -142,5 +138,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Primary smtp address
         /// </summary>
         public string PrimarySmtpAddress { get; set; }
+        }
     }
-}

@@ -24,11 +24,10 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Text;
     using System.Xml;
 
     /// <summary>
@@ -38,16 +37,16 @@ namespace Microsoft.Exchange.WebServices.Data
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ItemCollection<TItem> : ComplexProperty, IEnumerable<TItem>
         where TItem : Item
-    {
-        private List<TItem> items = new List<TItem>();
+        {
+        private List<TItem> items = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemCollection&lt;TItem&gt;"/> class.
         /// </summary>
         internal ItemCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -55,43 +54,43 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="localElementName">Name of the local element.</param>
         internal override void LoadFromXml(EwsServiceXmlReader reader, string localElementName)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, localElementName);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
+                        {
                         TItem item = EwsUtilities.CreateEwsObjectFromXmlElementName<Item>(
                             reader.Service,
                             reader.LocalName) as TItem;
 
                         if (item == null)
-                        {
+                            {
                             reader.SkipCurrentElement();
-                        }
+                            }
                         else
-                        {
+                            {
                             item.LoadFromXml(reader, true /* clearPropertyBag */);
 
-                            this.items.Add(item);
+                            items.Add(item);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Types, localElementName));
+                }
             }
-        }
 
         /// <summary>
         /// Gets the total number of items in the collection.
         /// </summary>
         public int Count
-        {
-            get { return this.items.Count; }
-        }
+            {
+            get { return items.Count; }
+            }
 
         /// <summary>
         /// Gets the item at the specified index.
@@ -99,17 +98,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="index">The zero-based index of the item to get.</param>
         /// <returns>The item at the specified index.</returns>
         public TItem this[int index]
-        {
-            get
             {
-                if (index < 0 || index >= this.Count)
+            get
                 {
+                if (index < 0 || index >= Count)
+                    {
                     throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-                }
+                    }
 
-                return this.items[index];
+                return items[index];
+                }
             }
-        }
 
         #region IEnumerable<TItem> Members
 
@@ -118,9 +117,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         public IEnumerator<TItem> GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
 
@@ -131,10 +130,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
+        }
     }
-}

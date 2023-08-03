@@ -24,29 +24,27 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents an availability time suggestion.
     /// </summary>
     public sealed class TimeSuggestion : ComplexProperty
-    {
+        {
         private DateTime meetingTime;
         private bool isWorkTime;
         private SuggestionQuality quality;
-        private Collection<Conflict> conflicts = new Collection<Conflict>();
+        private Collection<Conflict> conflicts = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeSuggestion"/> class.
         /// </summary>
         internal TimeSuggestion()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -54,31 +52,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if appropriate element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.MeetingTime:
-                    this.meetingTime = reader.ReadElementValueAsUnbiasedDateTimeScopedToServiceTimeZone();
+                    meetingTime = reader.ReadElementValueAsUnbiasedDateTimeScopedToServiceTimeZone();
                     return true;
                 case XmlElementNames.IsWorkTime:
-                    this.isWorkTime = reader.ReadElementValue<bool>();
+                    isWorkTime = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.SuggestionQuality:
-                    this.quality = reader.ReadElementValue<SuggestionQuality>();
+                    quality = reader.ReadElementValue<SuggestionQuality>();
                     return true;
                 case XmlElementNames.AttendeeConflictDataArray:
                     if (!reader.IsEmptyElement)
-                    {
-                        do
                         {
+                        do
+                            {
                             reader.Read();
 
                             if (reader.IsStartElement())
-                            {
+                                {
                                 Conflict conflict = null;
 
                                 switch (reader.LocalName)
-                                {
+                                    {
                                     case XmlElementNames.UnknownAttendeeConflictData:
                                         conflict = new Conflict(ConflictType.UnknownAttendeeConflict);
                                         break;
@@ -99,52 +97,52 @@ namespace Microsoft.Exchange.WebServices.Data
 
                                         // The following line to please the compiler
                                         break;
-                                }
+                                    }
 
                                 conflict.LoadFromXml(reader, reader.LocalName);
 
-                                this.conflicts.Add(conflict);
+                                conflicts.Add(conflict);
+                                }
                             }
-                        }
                         while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.AttendeeConflictDataArray));
-                    }
+                        }
 
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the suggested time.
         /// </summary>
         public DateTime MeetingTime
-        {
-            get { return this.meetingTime; }
-        }
+            {
+            get { return meetingTime; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the suggested time is within working hours.
         /// </summary>
         public bool IsWorkTime
-        {
-            get { return this.isWorkTime; }
-        }
+            {
+            get { return isWorkTime; }
+            }
 
         /// <summary>
         /// Gets the quality of the suggestion.
         /// </summary>
         public SuggestionQuality Quality
-        {
-            get { return this.quality; }
-        }
+            {
+            get { return quality; }
+            }
 
         /// <summary>
         /// Gets a collection of conflicts at the suggested time.
         /// </summary>
         public Collection<Conflict> Conflicts
-        {
-            get { return this.conflicts; }
+            {
+            get { return conflicts; }
+            }
         }
     }
-}

@@ -24,32 +24,28 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a change on a folder as returned by a synchronization operation.
     /// </summary>
     public sealed class FolderChange : Change
-    {
+        {
         /// <summary>
         /// Initializes a new instance of FolderChange.
         /// </summary>
         internal FolderChange()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates a FolderId instance.
         /// </summary>
         /// <returns>A FolderId.</returns>
         internal override ServiceId CreateId()
-        {
+            {
             return new FolderId();
-        }
+            }
 
         /// <summary>
         /// Gets the folder the change applies to. Folder is null when ChangeType is equal to
@@ -57,16 +53,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// the folder that was deleted.
         /// </summary>
         public Folder Folder
-        {
-            get { return (Folder)this.ServiceObject; }
-        }
+            {
+            get { return (Folder)ServiceObject; }
+            }
 
         /// <summary>
         /// Gets the Id of the folder the change applies to.
         /// </summary>
         public FolderId FolderId
-        {
-            get { return (FolderId)this.Id; }
+            {
+            get { return (FolderId)Id; }
+            }
         }
     }
-}

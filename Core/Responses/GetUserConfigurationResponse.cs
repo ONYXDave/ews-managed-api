@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a response to a GetUserConfiguration request.
     /// </summary>
     internal sealed class GetUserConfigurationResponse : ServiceResponse
-    {
+        {
         private UserConfiguration userConfiguration;
 
         /// <summary>
@@ -41,32 +38,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="userConfiguration">The userConfiguration.</param>
         internal GetUserConfigurationResponse(UserConfiguration userConfiguration)
             : base()
-        {
+            {
             EwsUtilities.Assert(
                 userConfiguration != null,
                 "GetUserConfigurationResponse.ctor",
                 "userConfiguration is null");
 
             this.userConfiguration = userConfiguration;
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
-            this.userConfiguration.LoadFromXml(reader);
-        }
+            userConfiguration.LoadFromXml(reader);
+            }
 
         /// <summary>
         /// Gets the user configuration that was created.
         /// </summary>
         public UserConfiguration UserConfiguration
-        {
-            get { return this.userConfiguration; }
+            {
+            get { return userConfiguration; }
+            }
         }
     }
-}

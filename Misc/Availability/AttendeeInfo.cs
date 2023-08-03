@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents information about an attendee for which to request availability information.
     /// </summary>
     public sealed class AttendeeInfo : ISelfValidate
-    {
+        {
         private string smtpAddress;
         private MeetingAttendeeType attendeeType = MeetingAttendeeType.Required;
         private bool excludeConflicts;
@@ -42,8 +38,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="AttendeeInfo"/> class.
         /// </summary>
         public AttendeeInfo()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttendeeInfo"/> class.
@@ -56,11 +52,11 @@ namespace Microsoft.Exchange.WebServices.Data
             MeetingAttendeeType attendeeType,
             bool excludeConflicts)
             : this()
-        {
+            {
             this.smtpAddress = smtpAddress;
             this.attendeeType = attendeeType;
             this.excludeConflicts = excludeConflicts;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttendeeInfo"/> class.
@@ -68,9 +64,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="smtpAddress">The SMTP address of the attendee.</param>
         public AttendeeInfo(string smtpAddress)
             : this(smtpAddress, MeetingAttendeeType.Required, false)
-        {
+            {
             this.smtpAddress = smtpAddress;
-        }
+            }
 
         /// <summary>
         /// Defines an implicit conversion between a string representing an SMTP address and AttendeeInfo.
@@ -78,61 +74,61 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="smtpAddress">The SMTP address to convert to AttendeeInfo.</param>
         /// <returns>An AttendeeInfo initialized with the specified SMTP address.</returns>
         public static implicit operator AttendeeInfo(string smtpAddress)
-        {
+            {
             return new AttendeeInfo(smtpAddress);
-        }
+            }
 
         /// <summary>
         /// Writes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal void WriteToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.MailboxData);
 
             writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Email);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.Address, this.SmtpAddress);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.Address, SmtpAddress);
             writer.WriteEndElement(); // Email
 
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.AttendeeType,
-                this.attendeeType);
+                attendeeType);
 
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.ExcludeConflicts,
-                this.excludeConflicts);
+                excludeConflicts);
 
             writer.WriteEndElement(); // MailboxData
-        }
+            }
 
         /// <summary>
         /// Gets or sets the SMTP address of this attendee.
         /// </summary>
         public string SmtpAddress
-        {
-            get { return this.smtpAddress; }
-            set { this.smtpAddress = value; }
-        }
+            {
+            get { return smtpAddress; }
+            set { smtpAddress = value; }
+            }
 
         /// <summary>
         /// Gets or sets the type of this attendee.
         /// </summary>
         public MeetingAttendeeType AttendeeType
-        {
-            get { return this.attendeeType; }
-            set { this.attendeeType = value; }
-        }
+            {
+            get { return attendeeType; }
+            set { attendeeType = value; }
+            }
 
         /// <summary>
         /// Gets or sets a value indicating whether times when this attendee is not available should be returned.
         /// </summary>
         public bool ExcludeConflicts
-        {
-            get { return this.excludeConflicts; }
-            set { this.excludeConflicts = value; }
-        }
+            {
+            get { return excludeConflicts; }
+            set { excludeConflicts = value; }
+            }
 
         #region ISelfValidate Members
 
@@ -140,10 +136,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Validates this instance.
         /// </summary>
         void ISelfValidate.Validate()
-        {
-            EwsUtilities.ValidateParam(this.smtpAddress, "SmtpAddress");
-        }
+            {
+            EwsUtilities.ValidateParam(smtpAddress, "SmtpAddress");
+            }
 
         #endregion
+        }
     }
-}

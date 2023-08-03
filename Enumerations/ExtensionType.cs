@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of ExtensionType.
     /// </summary>
     public enum ExtensionType
-    {
+        {
         /// <summary>
         /// Default
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// MarketPlace
         /// </summary>
         MarketPlace = 2,
+        }
     }
-}

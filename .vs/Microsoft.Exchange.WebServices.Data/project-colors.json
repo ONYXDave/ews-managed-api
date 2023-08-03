@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f059972f-0561-4203-abb8-3abb41ccbe22": {
+      "ProjectGuid": "f059972f-0561-4203-abb8-3abb41ccbe22",
+      "DisplayName": "Microsoft.Exchange.WebServices.Data",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the results of an action performed on a calendar item or meeting message,
     /// such as accepting, tentatively accepting or declining a meeting request.
     /// </summary>
     public sealed class CalendarActionResults
-    {
+        {
         private Appointment appointment;
         private MeetingRequest meetingRequest;
         private MeetingResponse meetingResponse;
@@ -45,12 +43,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="items">Collection of items that were created or modified as a result of a calendar action.</param>
         internal CalendarActionResults(IEnumerable<Item> items)
-        {
-            this.appointment = EwsUtilities.FindFirstItemOfType<Appointment>(items);
-            this.meetingRequest = EwsUtilities.FindFirstItemOfType<MeetingRequest>(items);
-            this.meetingResponse = EwsUtilities.FindFirstItemOfType<MeetingResponse>(items);
-            this.meetingCancellation = EwsUtilities.FindFirstItemOfType<MeetingCancellation>(items);
-        }
+            {
+            appointment = EwsUtilities.FindFirstItemOfType<Appointment>(items);
+            meetingRequest = EwsUtilities.FindFirstItemOfType<MeetingRequest>(items);
+            meetingResponse = EwsUtilities.FindFirstItemOfType<MeetingResponse>(items);
+            meetingCancellation = EwsUtilities.FindFirstItemOfType<MeetingCancellation>(items);
+            }
 
         /// <summary>
         /// Gets the meeting that was accepted, tentatively accepted or declined.
@@ -70,9 +68,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// from the Deleted Items folder, Appointment is null.
         /// </remarks>
         public Appointment Appointment
-        {
-            get { return this.appointment; }
-        }
+            {
+            get { return appointment; }
+            }
 
         /// <summary>
         /// Gets the meeting request that was moved to the Deleted Items folder as a result
@@ -81,9 +79,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Deleted Items folder, it is permanently deleted and MeetingRequest is null.
         /// </summary>
         public MeetingRequest MeetingRequest
-        {
-            get { return this.meetingRequest; }
-        }
+            {
+            get { return meetingRequest; }
+            }
 
         /// <summary>
         /// Gets the copy of the response that is sent to the organizer of a meeting when
@@ -91,17 +89,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// MeetingResponse is null if the attendee chose not to send a response.
         /// </summary>
         public MeetingResponse MeetingResponse
-        {
-            get { return this.meetingResponse; }
-        }
+            {
+            get { return meetingResponse; }
+            }
 
         /// <summary>
         /// Gets the copy of the meeting cancellation message sent by the organizer to the
         /// attendees of a meeting when the meeting is cancelled.
         /// </summary>
         public MeetingCancellation MeetingCancellation
-        {
-            get { return this.meetingCancellation; }
+            {
+            get { return meetingCancellation; }
+            }
         }
     }
-}

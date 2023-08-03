@@ -24,18 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Text;
     using System.Xml;
 
     /// <summary>
     /// XML reader.
     /// </summary>
     internal class EwsXmlReader
-    {
+        {
         private const int ReadWriteBufferSize = 4096;
 
         #region Private members
@@ -52,9 +50,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="stream">The stream.</param>
         public EwsXmlReader(Stream stream)
-        {
-            this.xmlReader = InitializeXmlReader(stream);
-        }
+            {
+            xmlReader = InitializeXmlReader(stream);
+            }
 
         /// <summary>
         /// Initializes the XML reader.
@@ -62,26 +60,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="stream">The stream.</param>
         /// <returns>An XML reader to use.</returns>
         protected virtual XmlReader InitializeXmlReader(Stream stream)
-        {
+            {
             // The ProhibitDtd property is used to indicate whether XmlReader should process DTDs or not. By default, 
             // it will do so. EWS doesn't use DTD references so we want to turn this off. Also, the XmlResolver property is
             // set to an instance of XmlUrlResolver by default. We don't want XmlTextReader to try to resolve this DTD reference 
             // so we disable the XmlResolver as well.
-            XmlReaderSettings settings = new XmlReaderSettings()
-            {
+            XmlReaderSettings settings = new()
+                {
                 ConformanceLevel = ConformanceLevel.Auto,
                 ProhibitDtd = true,
                 IgnoreComments = true,
                 IgnoreProcessingInstructions = true,
                 IgnoreWhitespace = true,
                 XmlResolver = null
-            };
+                };
 
             XmlTextReader xmlTextReader = SafeXmlFactory.CreateSafeXmlTextReader(stream);
             xmlTextReader.Normalization = false;
 
             return XmlReader.Create(xmlTextReader, settings);
-        }
+            }
 
         #endregion
 
@@ -92,9 +90,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localElementName">Name of the local element.</param>
         /// <returns>Element name.</returns>
         private static string FormatElementName(string namespacePrefix, string localElementName)
-        {
+            {
             return string.IsNullOrEmpty(namespacePrefix) ? localElementName : namespacePrefix + ":" + localElementName;
-        }
+            }
 
         /// <summary>
         /// Read XML element.
@@ -106,31 +104,31 @@ namespace Microsoft.Exchange.WebServices.Data
             XmlNamespace xmlNamespace,
             string localName,
             XmlNodeType nodeType)
-        {
-            if (xmlNamespace == XmlNamespace.NotSpecified)
             {
-                this.InternalReadElement(
+            if (xmlNamespace == XmlNamespace.NotSpecified)
+                {
+                InternalReadElement(
                     string.Empty,
                     localName,
                     nodeType);
-            }
+                }
             else
-            {
-                this.Read(nodeType);
-
-                if ((this.LocalName != localName) || (this.NamespaceUri != EwsUtilities.GetNamespaceUri(xmlNamespace)))
                 {
+                Read(nodeType);
+
+                if ((LocalName != localName) || (NamespaceUri != EwsUtilities.GetNamespaceUri(xmlNamespace)))
+                    {
                     throw new ServiceXmlDeserializationException(
                         string.Format(
                             Strings.UnexpectedElement,
                             EwsUtilities.GetNamespacePrefix(xmlNamespace),
                             localName,
                             nodeType,
-                            this.xmlReader.Name,
-                            this.NodeType));
+                            xmlReader.Name,
+                            NodeType));
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Read XML element.
@@ -142,55 +140,55 @@ namespace Microsoft.Exchange.WebServices.Data
             string namespacePrefix,
             string localName,
             XmlNodeType nodeType)
-        {
-            this.Read(nodeType);
-
-            if ((this.LocalName != localName) || (this.NamespacePrefix != namespacePrefix))
             {
+            Read(nodeType);
+
+            if ((LocalName != localName) || (NamespacePrefix != namespacePrefix))
+                {
                 throw new ServiceXmlDeserializationException(
                                 string.Format(
                                     Strings.UnexpectedElement,
                                     namespacePrefix,
                                     localName,
                                     nodeType,
-                                    this.xmlReader.Name,
-                                    this.NodeType));
+                                    xmlReader.Name,
+                                    NodeType));
+                }
             }
-        }
 
         /// <summary>
         /// Reads the next node.
         /// </summary>
         public void Read()
-        {
-            this.prevNodeType = this.xmlReader.NodeType;
+            {
+            prevNodeType = xmlReader.NodeType;
 
             // XmlReader.Read returns true if the next node was read successfully; false if there 
             // are no more nodes to read. The caller to EwsXmlReader.Read expects that there's another node to 
             // read. Throw an exception if not true.
-            bool nodeRead = this.xmlReader.Read();
+            bool nodeRead = xmlReader.Read();
             if (!nodeRead)
-            {
+                {
                 throw new ServiceXmlDeserializationException(Strings.UnexpectedEndOfXmlDocument);
+                }
             }
-        }
 
         /// <summary>
         /// Reads the specified node type.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         public void Read(XmlNodeType nodeType)
-        {
-            this.Read();
-            if (this.NodeType != nodeType)
             {
+            Read();
+            if (NodeType != nodeType)
+                {
                 throw new ServiceXmlDeserializationException(
                     string.Format(
                         Strings.UnexpectedElementType,
                         nodeType,
-                        this.NodeType));
+                        NodeType));
+                }
             }
-        }
 
         /// <summary>
         /// Reads the attribute value.
@@ -199,16 +197,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attributeName">Name of the attribute.</param>
         /// <returns>Attribute value.</returns>
         public string ReadAttributeValue(XmlNamespace xmlNamespace, string attributeName)
-        {
+            {
             if (xmlNamespace == XmlNamespace.NotSpecified)
-            {
-                return this.ReadAttributeValue(attributeName);
-            }
+                {
+                return ReadAttributeValue(attributeName);
+                }
             else
-            {
-                return this.xmlReader.GetAttribute(attributeName, EwsUtilities.GetNamespaceUri(xmlNamespace));
+                {
+                return xmlReader.GetAttribute(attributeName, EwsUtilities.GetNamespaceUri(xmlNamespace));
+                }
             }
-        }
 
         /// <summary>
         /// Reads the attribute value.
@@ -216,9 +214,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attributeName">Name of the attribute.</param>
         /// <returns>Attribute value.</returns>
         public string ReadAttributeValue(string attributeName)
-        {
-            return this.xmlReader.GetAttribute(attributeName);
-        }
+            {
+            return xmlReader.GetAttribute(attributeName);
+            }
 
         /// <summary>
         /// Reads the attribute value.
@@ -227,9 +225,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attributeName">Name of the attribute.</param>
         /// <returns>Attribute value.</returns>
         public T ReadAttributeValue<T>(string attributeName)
-        {
-            return EwsUtilities.Parse<T>(this.ReadAttributeValue(attributeName));
-        }
+            {
+            return EwsUtilities.Parse<T>(ReadAttributeValue(attributeName));
+            }
 
         /// <summary>
         /// Reads a nullable attribute value.
@@ -238,17 +236,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attributeName">Name of the attribute.</param>
         /// <returns>Attribute value.</returns>
         public Nullable<T> ReadNullableAttributeValue<T>(string attributeName) where T : struct
-        {
-            string attributeValue = this.ReadAttributeValue(attributeName);
+            {
+            string attributeValue = ReadAttributeValue(attributeName);
             if (attributeValue == null)
-            {
+                {
                 return null;
-            }
+                }
             else
-            {
+                {
                 return EwsUtilities.Parse<T>(attributeValue);
+                }
             }
-        }
 
         /// <summary>
         /// Reads the element value.
@@ -257,21 +255,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localName">Name of the local.</param>
         /// <returns>Element value.</returns>
         public string ReadElementValue(string namespacePrefix, string localName)
-        {
-            if (!this.IsStartElement(namespacePrefix, localName))
             {
-                this.ReadStartElement(namespacePrefix, localName);
-            }
+            if (!IsStartElement(namespacePrefix, localName))
+                {
+                ReadStartElement(namespacePrefix, localName);
+                }
 
             string value = null;
 
-            if (!this.IsEmptyElement)
-            {
-                value = this.ReadValue();
-            }
+            if (!IsEmptyElement)
+                {
+                value = ReadValue();
+                }
 
             return value;
-        }
+            }
 
         /// <summary>
         /// Reads the element value.
@@ -280,32 +278,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localName">Name of the local.</param>
         /// <returns>Element value.</returns>
         public string ReadElementValue(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!this.IsStartElement(xmlNamespace, localName))
             {
-                this.ReadStartElement(xmlNamespace, localName);
-            }
+            if (!IsStartElement(xmlNamespace, localName))
+                {
+                ReadStartElement(xmlNamespace, localName);
+                }
 
             string value = null;
 
-            if (!this.IsEmptyElement)
-            {
-                value = this.ReadValue();
-            }
+            if (!IsEmptyElement)
+                {
+                value = ReadValue();
+                }
 
             return value;
-        }
+            }
 
         /// <summary>
         /// Reads the element value.
         /// </summary>
         /// <returns>Element value.</returns>
         public string ReadElementValue()
-        {
-            this.EnsureCurrentNodeIsStartElement();
+            {
+            EnsureCurrentNodeIsStartElement();
 
-            return this.ReadElementValue(this.NamespacePrefix, this.LocalName);
-        }
+            return ReadElementValue(NamespacePrefix, LocalName);
+            }
 
         /// <summary>
         /// Reads the element value.
@@ -315,21 +313,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localName">Name of the local.</param>
         /// <returns>Element value.</returns>
         public T ReadElementValue<T>(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!this.IsStartElement(xmlNamespace, localName))
             {
-                this.ReadStartElement(xmlNamespace, localName);
-            }
+            if (!IsStartElement(xmlNamespace, localName))
+                {
+                ReadStartElement(xmlNamespace, localName);
+                }
 
             T value = default(T);
 
-            if (!this.IsEmptyElement)
-            {
-                value = this.ReadValue<T>();
-            }
+            if (!IsEmptyElement)
+                {
+                value = ReadValue<T>();
+                }
 
             return value;
-        }
+            }
 
         /// <summary>
         /// Reads the element value.
@@ -337,30 +335,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <typeparam name="T">Type of element value.</typeparam>
         /// <returns>Element value.</returns>
         public T ReadElementValue<T>()
-        {
-            this.EnsureCurrentNodeIsStartElement();
+            {
+            EnsureCurrentNodeIsStartElement();
 
-            string namespacePrefix = this.NamespacePrefix;
-            string localName = this.LocalName;
+            string namespacePrefix = NamespacePrefix;
+            string localName = LocalName;
 
             T value = default(T);
 
-            if (!this.IsEmptyElement)
-            {
-                value = this.ReadValue<T>();
-            }
+            if (!IsEmptyElement)
+                {
+                value = ReadValue<T>();
+                }
 
             return value;
-        }
+            }
 
         /// <summary>
         /// Reads the value.
         /// </summary>
         /// <returns>Value</returns>
         public string ReadValue()
-        {
-            return this.xmlReader.ReadString();
-        }
+            {
+            return xmlReader.ReadString();
+            }
 
         /// <summary>
         /// Tries to read value.
@@ -368,26 +366,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>True if value was read.</returns>
         public bool TryReadValue(ref string value)
-        {
-            if (!this.IsEmptyElement)
             {
-                this.Read();
+            if (!IsEmptyElement)
+                {
+                Read();
 
-                if (this.NodeType == XmlNodeType.Text)
-                {
-                    value = this.xmlReader.Value;
+                if (NodeType == XmlNodeType.Text)
+                    {
+                    value = xmlReader.Value;
                     return true;
-                }
+                    }
                 else
-                {
+                    {
                     return false;
+                    }
+                }
+            else
+                {
+                return false;
                 }
             }
-            else
-            {
-                return false;
-            }
-        }
 
         /// <summary>
         /// Reads the value.
@@ -395,64 +393,64 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <typeparam name="T">Type of value.</typeparam>
         /// <returns>Value.</returns>
         public T ReadValue<T>()
-        {
-            return EwsUtilities.Parse<T>(this.ReadValue());
-        }
+            {
+            return EwsUtilities.Parse<T>(ReadValue());
+            }
 
         /// <summary>
         /// Reads the base64 element value.
         /// </summary>
         /// <returns>Byte array.</returns>
         public byte[] ReadBase64ElementValue()
-        {
-            this.EnsureCurrentNodeIsStartElement();
+            {
+            EnsureCurrentNodeIsStartElement();
 
             byte[] buffer = new byte[ReadWriteBufferSize];
             int bytesRead;
 
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                do
+            using (MemoryStream memoryStream = new())
                 {
-                    bytesRead = this.xmlReader.ReadElementContentAsBase64(buffer, 0, ReadWriteBufferSize);
+                do
+                    {
+                    bytesRead = xmlReader.ReadElementContentAsBase64(buffer, 0, ReadWriteBufferSize);
 
                     if (bytesRead > 0)
-                    {
+                        {
                         memoryStream.Write(buffer, 0, bytesRead);
+                        }
                     }
-                }
                 while (bytesRead > 0);
-               
+
                 // Can use MemoryStream.GetBuffer() if the buffer's capacity and the number of bytes read
                 // are identical. Otherwise need to convert to byte array that's the size of the number of bytes read.
                 return (memoryStream.Length == memoryStream.Capacity) ? memoryStream.GetBuffer() : memoryStream.ToArray();
+                }
             }
-        }
 
         /// <summary>
         /// Reads the base64 element value.
         /// </summary>
         /// <param name="outputStream">The output stream.</param>
         public void ReadBase64ElementValue(Stream outputStream)
-        {
-            this.EnsureCurrentNodeIsStartElement();
+            {
+            EnsureCurrentNodeIsStartElement();
 
             byte[] buffer = new byte[ReadWriteBufferSize];
             int bytesRead;
 
             do
-            {
-                bytesRead = this.xmlReader.ReadElementContentAsBase64(buffer, 0, ReadWriteBufferSize);
+                {
+                bytesRead = xmlReader.ReadElementContentAsBase64(buffer, 0, ReadWriteBufferSize);
 
                 if (bytesRead > 0)
-                {
+                    {
                     outputStream.Write(buffer, 0, bytesRead);
+                    }
                 }
-            }
             while (bytesRead > 0);
 
             outputStream.Flush();
-        }
+            }
 
         /// <summary>
         /// Reads the start element.
@@ -460,12 +458,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="namespacePrefix">The namespace prefix.</param>
         /// <param name="localName">Name of the local.</param>
         public void ReadStartElement(string namespacePrefix, string localName)
-        {
-            this.InternalReadElement(
+            {
+            InternalReadElement(
                 namespacePrefix,
                 localName,
                 XmlNodeType.Element);
-        }
+            }
 
         /// <summary>
         /// Reads the start element.
@@ -473,12 +471,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void ReadStartElement(XmlNamespace xmlNamespace, string localName)
-        {
-            this.InternalReadElement(
+            {
+            InternalReadElement(
                 xmlNamespace,
                 localName,
                 XmlNodeType.Element);
-        }
+            }
 
         /// <summary>
         /// Reads the end element.
@@ -486,12 +484,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="namespacePrefix">The namespace prefix.</param>
         /// <param name="elementName">Name of the element.</param>
         public void ReadEndElement(string namespacePrefix, string elementName)
-        {
-            this.InternalReadElement(
+            {
+            InternalReadElement(
                 namespacePrefix,
                 elementName,
                 XmlNodeType.EndElement);
-        }
+            }
 
         /// <summary>
         /// Reads the end element.
@@ -499,12 +497,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void ReadEndElement(XmlNamespace xmlNamespace, string localName)
-        {
-            this.InternalReadElement(
+            {
+            InternalReadElement(
                 xmlNamespace,
                 localName,
                 XmlNodeType.EndElement);
-        }
+            }
 
         /// <summary>
         /// Reads the end element if necessary.
@@ -512,15 +510,15 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void ReadEndElementIfNecessary(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!(this.IsStartElement(xmlNamespace, localName) && this.IsEmptyElement))
             {
-                if (!this.IsEndElement(xmlNamespace, localName))
+            if (!(IsStartElement(xmlNamespace, localName) && IsEmptyElement))
                 {
-                    this.ReadEndElement(xmlNamespace, localName);
+                if (!IsEndElement(xmlNamespace, localName))
+                    {
+                    ReadEndElement(xmlNamespace, localName);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Determines whether current element is a start element.
@@ -531,11 +529,11 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is a start element; otherwise, <c>false</c>.
         /// </returns>
         public bool IsStartElement(string namespacePrefix, string localName)
-        {
+            {
             string fullyQualifiedName = FormatElementName(namespacePrefix, localName);
 
-            return this.NodeType == XmlNodeType.Element && this.xmlReader.Name == fullyQualifiedName;
-        }
+            return NodeType == XmlNodeType.Element && xmlReader.Name == fullyQualifiedName;
+            }
 
         /// <summary>
         /// Determines whether current element is a start element.
@@ -546,11 +544,11 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is a start element; otherwise, <c>false</c>.
         /// </returns>
         public bool IsStartElement(XmlNamespace xmlNamespace, string localName)
-        {
-            return (this.LocalName == localName) && this.IsStartElement() &&
-                ((this.NamespacePrefix == EwsUtilities.GetNamespacePrefix(xmlNamespace)) ||
-                (this.NamespaceUri == EwsUtilities.GetNamespaceUri(xmlNamespace)));
-        }
+            {
+            return (LocalName == localName) && IsStartElement() &&
+                ((NamespacePrefix == EwsUtilities.GetNamespacePrefix(xmlNamespace)) ||
+                (NamespaceUri == EwsUtilities.GetNamespaceUri(xmlNamespace)));
+            }
 
         /// <summary>
         /// Determines whether current element is a start element.
@@ -559,9 +557,9 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is a start element; otherwise, <c>false</c>.
         /// </returns>
         public bool IsStartElement()
-        {
-            return this.NodeType == XmlNodeType.Element;
-        }
+            {
+            return NodeType == XmlNodeType.Element;
+            }
 
         /// <summary>
         /// Determines whether current element is a end element.
@@ -572,11 +570,11 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is an end element; otherwise, <c>false</c>.
         /// </returns>
         public bool IsEndElement(string namespacePrefix, string localName)
-        {
+            {
             string fullyQualifiedName = FormatElementName(namespacePrefix, localName);
 
-            return this.NodeType == XmlNodeType.EndElement && this.xmlReader.Name == fullyQualifiedName;
-        }
+            return NodeType == XmlNodeType.EndElement && xmlReader.Name == fullyQualifiedName;
+            }
 
         /// <summary>
         /// Determines whether current element is a end element.
@@ -587,11 +585,11 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is an end element; otherwise, <c>false</c>.
         /// </returns>
         public bool IsEndElement(XmlNamespace xmlNamespace, string localName)
-        {
-            return (this.LocalName == localName) && (this.NodeType == XmlNodeType.EndElement) &&
-                ((this.NamespacePrefix == EwsUtilities.GetNamespacePrefix(xmlNamespace)) ||
-                (this.NamespaceUri == EwsUtilities.GetNamespaceUri(xmlNamespace)));
-        }
+            {
+            return (LocalName == localName) && (NodeType == XmlNodeType.EndElement) &&
+                ((NamespacePrefix == EwsUtilities.GetNamespacePrefix(xmlNamespace)) ||
+                (NamespaceUri == EwsUtilities.GetNamespaceUri(xmlNamespace)));
+            }
 
         /// <summary>
         /// Skips the element.
@@ -599,24 +597,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="namespacePrefix">The namespace prefix.</param>
         /// <param name="localName">Name of the local.</param>
         public void SkipElement(string namespacePrefix, string localName)
-        {
-            if (!this.IsEndElement(namespacePrefix, localName))
             {
-                if (!this.IsStartElement(namespacePrefix, localName))
+            if (!IsEndElement(namespacePrefix, localName))
                 {
-                    this.ReadStartElement(namespacePrefix, localName);
-                }
-
-                if (!this.IsEmptyElement)
-                {
-                    do
+                if (!IsStartElement(namespacePrefix, localName))
                     {
-                        this.Read();
+                    ReadStartElement(namespacePrefix, localName);
                     }
-                    while (!this.IsEndElement(namespacePrefix, localName));
+
+                if (!IsEmptyElement)
+                    {
+                    do
+                        {
+                        Read();
+                        }
+                    while (!IsEndElement(namespacePrefix, localName));
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Skips the element.
@@ -624,32 +622,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void SkipElement(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!this.IsEndElement(xmlNamespace, localName))
             {
-                if (!this.IsStartElement(xmlNamespace, localName))
+            if (!IsEndElement(xmlNamespace, localName))
                 {
-                    this.ReadStartElement(xmlNamespace, localName);
-                }
-
-                if (!this.IsEmptyElement)
-                {
-                    do
+                if (!IsStartElement(xmlNamespace, localName))
                     {
-                        this.Read();
+                    ReadStartElement(xmlNamespace, localName);
                     }
-                    while (!this.IsEndElement(xmlNamespace, localName));
+
+                if (!IsEmptyElement)
+                    {
+                    do
+                        {
+                        Read();
+                        }
+                    while (!IsEndElement(xmlNamespace, localName));
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Skips the current element.
         /// </summary>
         public void SkipCurrentElement()
-        {
-            this.SkipElement(this.NamespacePrefix, this.LocalName);
-        }
+            {
+            SkipElement(NamespacePrefix, LocalName);
+            }
 
         /// <summary>
         /// Ensures the current node is start element.
@@ -657,31 +655,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void EnsureCurrentNodeIsStartElement(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!this.IsStartElement(xmlNamespace, localName))
             {
+            if (!IsStartElement(xmlNamespace, localName))
+                {
                 throw new ServiceXmlDeserializationException(
                     string.Format(
                         Strings.ElementNotFound,
                         localName,
                         xmlNamespace));
+                }
             }
-        }
 
         /// <summary>
         /// Ensures the current node is start element.
         /// </summary>
         public void EnsureCurrentNodeIsStartElement()
-        {
-            if (this.NodeType != XmlNodeType.Element)
             {
+            if (NodeType != XmlNodeType.Element)
+                {
                 throw new ServiceXmlDeserializationException(
                     string.Format(
                         Strings.ExpectedStartElement,
-                        this.xmlReader.Name,
-                        this.NodeType));
+                        xmlReader.Name,
+                        NodeType));
+                }
             }
-        }
 
         /// <summary>
         /// Ensures the current node is end element.
@@ -689,19 +687,19 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The XML namespace.</param>
         /// <param name="localName">Name of the local.</param>
         public void EnsureCurrentNodeIsEndElement(XmlNamespace xmlNamespace, string localName)
-        {
-            if (!this.IsEndElement(xmlNamespace, localName))
             {
-                if (!(this.IsStartElement(xmlNamespace, localName) && this.IsEmptyElement))
+            if (!IsEndElement(xmlNamespace, localName))
                 {
+                if (!(IsStartElement(xmlNamespace, localName) && IsEmptyElement))
+                    {
                     throw new ServiceXmlDeserializationException(
                         string.Format(
                             Strings.ElementNotFound,
                             localName,
                             xmlNamespace));
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Reads the Outer XML at the given location.
@@ -710,14 +708,14 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Outer XML as string.
         /// </returns>
         public string ReadOuterXml()
-        {
-            if (!this.IsStartElement())
             {
+            if (!IsStartElement())
+                {
                 throw new ServiceXmlDeserializationException(Strings.CurrentPositionNotElementStart);
-            }
+                }
 
-            return this.xmlReader.ReadOuterXml();
-        }
+            return xmlReader.ReadOuterXml();
+            }
 
         /// <summary>
         /// Reads the Inner XML at the given location.
@@ -726,23 +724,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Inner XML as string.
         /// </returns>
         public string ReadInnerXml()
-        {
-            if (!this.IsStartElement())
             {
+            if (!IsStartElement())
+                {
                 throw new ServiceXmlDeserializationException(Strings.CurrentPositionNotElementStart);
-            }
+                }
 
-            return this.xmlReader.ReadInnerXml();
-        }
+            return xmlReader.ReadInnerXml();
+            }
 
         /// <summary>
         /// Gets the XML reader for node.
         /// </summary>
         /// <returns></returns>
         internal XmlReader GetXmlReaderForNode()
-        {
-            return this.xmlReader.ReadSubtree();
-        }
+            {
+            return xmlReader.ReadSubtree();
+            }
 
         /// <summary>
         /// Reads to the next descendant element with the specified local name and namespace.
@@ -750,10 +748,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlNamespace">The namespace of the element you with to move to.</param>
         /// <param name="localName">The local name of the element you wish to move to.</param>
         public void ReadToDescendant(XmlNamespace xmlNamespace, string localName)
-        {
-            this.xmlReader.ReadToDescendant(localName, EwsUtilities.GetNamespaceUri(xmlNamespace));
-        }
-        
+            {
+            xmlReader.ReadToDescendant(localName, EwsUtilities.GetNamespaceUri(xmlNamespace));
+            }
+
         /// <summary>
         /// Gets a value indicating whether this instance has attributes.
         /// </summary>
@@ -761,9 +759,9 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if this instance has attributes; otherwise, <c>false</c>.
         /// </value>
         public bool HasAttributes
-        {
-            get { return this.xmlReader.AttributeCount > 0; }
-        }
+            {
+            get { return xmlReader.AttributeCount > 0; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether current element is empty.
@@ -772,53 +770,53 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if current element is empty element; otherwise, <c>false</c>.
         /// </value>
         public bool IsEmptyElement
-        {
-            get { return this.xmlReader.IsEmptyElement; }
-        }
+            {
+            get { return xmlReader.IsEmptyElement; }
+            }
 
         /// <summary>
         /// Gets the local name of the current element.
         /// </summary>
         /// <value>The local name of the current element.</value>
         public string LocalName
-        {
-            get { return this.xmlReader.LocalName; }
-        }
+            {
+            get { return xmlReader.LocalName; }
+            }
 
         /// <summary>
         /// Gets the namespace prefix.
         /// </summary>
         /// <value>The namespace prefix.</value>
         public string NamespacePrefix
-        {
-            get { return this.xmlReader.Prefix; }
-        }
+            {
+            get { return xmlReader.Prefix; }
+            }
 
         /// <summary>
         /// Gets the namespace URI.
         /// </summary>
         /// <value>The namespace URI.</value>
         public string NamespaceUri
-        {
-            get { return this.xmlReader.NamespaceURI; }
-        }
+            {
+            get { return xmlReader.NamespaceURI; }
+            }
 
         /// <summary>
         /// Gets the type of the node.
         /// </summary>
         /// <value>The type of the node.</value>
         public XmlNodeType NodeType
-        {
-            get { return this.xmlReader.NodeType; }
-        }
+            {
+            get { return xmlReader.NodeType; }
+            }
 
         /// <summary>
         /// Gets the type of the prev node.
         /// </summary>
         /// <value>The type of the prev node.</value>
         public XmlNodeType PrevNodeType
-        {
-            get { return this.prevNodeType; }
+            {
+            get { return prevNodeType; }
+            }
         }
     }
-}

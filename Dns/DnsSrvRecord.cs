@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Dns
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
     /// <summary>
     /// Represents a DNS SRV Record.
     /// </summary>
     internal class DnsSrvRecord : DnsRecord
-    {
+        {
         /// <summary>The string representing the target host</summary>
         private string target;
 
@@ -52,63 +51,63 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// <param name="header">Dns dnsRecord header</param>
         /// <param name="dataPointer">Pointer to the data portion of the dnsRecord</param>
         internal override void Load(DnsRecordHeader header, IntPtr dataPointer)
-        {
+            {
             base.Load(header, dataPointer);
 
             Win32DnsSrvRecord record = (Win32DnsSrvRecord)Marshal.PtrToStructure(dataPointer, typeof(Win32DnsSrvRecord));
-            this.target = record.NameTarget;
-            this.priority = record.Priority;
-            this.weight = record.Weight;
-            this.port = record.Port;
-        }
+            target = record.NameTarget;
+            priority = record.Priority;
+            weight = record.Weight;
+            port = record.Port;
+            }
 
         /// <summary>
         /// Gets the matching type of DNS dnsRecord.
         /// </summary>
         /// <value>The type of the dnsRecord.</value>
         internal override DnsRecordType RecordType
-        {
+            {
             get { return DnsRecordType.SRV; }
-        }
+            }
 
         /// <summary>
         /// Get the name target field of the DNS dnsRecord.
         /// </summary>
         internal string NameTarget
-        {
-            get { return this.target; }
-        }
+            {
+            get { return target; }
+            }
 
         /// <summary>
         /// Gwet the priority field of this DNS SRV Record.
         /// </summary>
         internal int Priority
-        {
-            get { return this.priority; }
-        }
+            {
+            get { return priority; }
+            }
 
         /// <summary>
         /// Get the weight field of this DNS SRV Record.
         /// </summary>
         internal int Weight
-        {
-            get { return this.weight; }
-        }
+            {
+            get { return weight; }
+            }
 
         /// <summary>
         /// Gets the port field of the DNS SRV dnsRecord.
         /// </summary>
         internal int Port
-        {
-            get { return this.port; }
-        }
+            {
+            get { return port; }
+            }
 
         /// <summary>
         ///  Win32DnsSrvRecord - native format SRV dnsRecord returned by DNS API
         /// </summary>
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private struct Win32DnsSrvRecord
-        {
+            {
             /// <summary>Represents the common DNS record header.</summary>
             public DnsRecordHeader Header;
 
@@ -129,6 +128,6 @@ namespace Microsoft.Exchange.WebServices.Dns
 
             /// <summary>Reserved. Used to keep pointers DWORD aligned.</summary>
             public UInt16 Pad; // keep ptrs ulong aligned
+            }
         }
     }
-}

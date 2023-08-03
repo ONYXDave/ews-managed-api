@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Flags]
     public enum TraceFlags : long
-    {
+        {
         /// <summary>
         /// No tracing.
         /// </summary>
@@ -97,5 +97,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// All trace types enabled.
         /// </summary>
         All = Int64.MaxValue,
+        }
     }
-}

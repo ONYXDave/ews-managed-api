@@ -24,11 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     // The values in this enumeration must match the values of the
     // DistinguishedFolderIdNameType type in the schema.
 
@@ -36,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Defines well known folder names.
     /// </summary>
     public enum WellKnownFolderName
-    {
+        {
         /// <summary>
         /// The Calendar folder.
         /// </summary>
@@ -333,5 +329,5 @@ namespace Microsoft.Exchange.WebServices.Data
 
         //// Note when you adding new folder id here, please update sources\test\Services\src\ComponentTests\GlobalVersioningControl.cs
         //// IsExchange2013Folder method accordingly.
+        }
     }
-}

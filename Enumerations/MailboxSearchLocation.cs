@@ -23,15 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Xml.Serialization;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the location for mailbox search.
     /// </summary>
     public enum MailboxSearchLocation
-    {
+        {
         /// <summary>
         /// Primary only (Exchange 2013 or later).
         /// </summary>
@@ -49,5 +47,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2013)]
         All,
+        }
     }
-}

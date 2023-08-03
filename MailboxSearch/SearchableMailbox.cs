@@ -24,22 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents searchable mailbox object
     /// </summary>
     public sealed class SearchableMailbox
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         public SearchableMailbox()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
@@ -52,22 +50,22 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="isMembershipGroup">Is a membership group</param>
         /// <param name="referenceId">Reference id</param>
         public SearchableMailbox(
-            Guid guid, 
-            string smtpAddress, 
+            Guid guid,
+            string smtpAddress,
             bool isExternalMailbox,
             string externalEmailAddress,
-            string displayName, 
-            bool isMembershipGroup, 
+            string displayName,
+            bool isMembershipGroup,
             string referenceId)
-        {
-            this.Guid = guid;
-            this.SmtpAddress = smtpAddress;
-            this.IsExternalMailbox = isExternalMailbox;
-            this.ExternalEmailAddress = externalEmailAddress;
-            this.DisplayName = displayName;
-            this.IsMembershipGroup = isMembershipGroup;
-            this.ReferenceId = referenceId;
-        }
+            {
+            Guid = guid;
+            SmtpAddress = smtpAddress;
+            IsExternalMailbox = isExternalMailbox;
+            ExternalEmailAddress = externalEmailAddress;
+            DisplayName = displayName;
+            IsMembershipGroup = isMembershipGroup;
+            ReferenceId = referenceId;
+            }
 
         /// <summary>
         /// Load from xml
@@ -75,10 +73,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader</param>
         /// <returns>Searchable mailbox object</returns>
         internal static SearchableMailbox LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.SearchableMailbox);
 
-            SearchableMailbox searchableMailbox = new SearchableMailbox();
+            SearchableMailbox searchableMailbox = new();
             searchableMailbox.Guid = new Guid(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Guid));
             searchableMailbox.SmtpAddress = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.PrimarySmtpAddress);
             bool isExternalMailbox = false;
@@ -92,7 +90,7 @@ namespace Microsoft.Exchange.WebServices.Data
             searchableMailbox.ReferenceId = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.ReferenceId);
 
             return searchableMailbox;
-        }
+            }
 
         /// <summary>
         /// Guid
@@ -128,5 +126,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Reference id
         /// </summary>
         public string ReferenceId { get; set; }
+        }
     }
-}

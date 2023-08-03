@@ -24,15 +24,13 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-    
+    {
+
     /// <summary>
     /// Represents the InsightValue.
     /// </summary>
     public class InsightValue : ComplexProperty
-    {
+        {
         private long updatedUtcTicks;
 
         /// <summary>
@@ -44,16 +42,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the UpdatedUtcTicks
         /// </summary>
         public long UpdatedUtcTicks
-        {
-            get
             {
-                return this.updatedUtcTicks;
-            }
+            get
+                {
+                return updatedUtcTicks;
+                }
 
             set
-            {
-                this.SetFieldValue<long>(ref this.updatedUtcTicks, value);
+                {
+                SetFieldValue<long>(ref updatedUtcTicks, value);
+                }
             }
         }
     }
-}

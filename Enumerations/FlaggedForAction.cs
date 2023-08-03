@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the follow-up actions that may be stamped on a message.
     /// </summary>
     public enum FlaggedForAction
-    {
+        {
         /// <summary>
         /// The message is flagged with any action.
         /// </summary>
@@ -84,5 +84,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The recipient is requested to review the message.
         /// </summary>
         Review
+        }
     }
-}

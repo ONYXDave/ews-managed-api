@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of aggregation to perform.
     /// </summary>
     public enum AggregateType
-    {
+        {
         /// <summary>
         /// The maximum value is calculated.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The minimum value is calculated.
         /// </summary>
         Maximum
+        }
     }
-}

@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents an abstract Delete request.
     /// </summary>
     /// <typeparam name="TResponse">The type of the response.</typeparam>
     internal abstract class DeleteRequest<TResponse> : MultiResponseServiceRequest<TResponse>
         where TResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Delete mode. Default is SoftDelete.
         /// </summary>
@@ -48,28 +44,28 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorHandlingMode"> Indicates how errors should be handled.</param>
         internal DeleteRequest(ExchangeService service, ServiceErrorHandling errorHandlingMode)
             : base(service, errorHandlingMode)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Writes XML attributes.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
 
-            writer.WriteAttributeValue(XmlAttributeNames.DeleteType, this.DeleteMode);
-        }
+            writer.WriteAttributeValue(XmlAttributeNames.DeleteType, DeleteMode);
+            }
 
         /// <summary>
         /// Gets or sets the delete mode.
         /// </summary>
         /// <value>The delete mode.</value>
         public DeleteMode DeleteMode
-        {
-            get { return this.deleteMode; }
-            set { this.deleteMode = value; }
+            {
+            get { return deleteMode; }
+            set { deleteMode = value; }
+            }
         }
     }
-}

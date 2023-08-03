@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Net;
-    using System.Xml;
 
     /// <summary>
     /// WebCredentials wraps an instance of ICredentials used for password-based authentication schemes such as basic, digest, NTLM, and Kerberos authentication.
     /// </summary>
     public sealed class WebCredentials : ExchangeCredentials
-    {
+        {
         private ICredentials credentials;
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public WebCredentials()
             : this(CredentialCache.DefaultNetworkCredentials)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebCredentials"/> class using
@@ -51,11 +50,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="credentials">Credentials to use.</param>
         public WebCredentials(ICredentials credentials)
-        {
+            {
             EwsUtilities.ValidateParam(credentials, "credentials");
 
             this.credentials = credentials;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebCredentials"/> class.
@@ -64,8 +63,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="password">The password.</param>
         public WebCredentials(string username, string password)
             : this(new NetworkCredential(username, password))
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebCredentials"/> class.
@@ -78,29 +77,29 @@ namespace Microsoft.Exchange.WebServices.Data
             string password,
             string domain)
             : this(new NetworkCredential(
-                username, 
+                username,
                 password,
                 domain))
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Applies NetworkCredential associated with this instance to a service request.
         /// </summary>
         /// <param name="request">The request.</param>
         internal override void PrepareWebRequest(IEwsHttpWebRequest request)
-        {
-            request.Credentials = this.credentials;
-        }
+            {
+            request.Credentials = credentials;
+            }
 
         /// <summary>
         /// Gets the Credentials from this instance.
         /// </summary>
         /// <value>The credentials.</value>
         public ICredentials Credentials
-        {
-            get { return this.credentials; }
-        }
+            {
+            get { return credentials; }
+            }
 
         /// <summary>
         /// Adjusts the URL endpoint based on the credentials. 
@@ -109,8 +108,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="url">The URL.</param>
         /// <returns>The unchanged URL.</returns>
         internal override Uri AdjustUrl(Uri url)
-        {
+            {
             return url;
+            }
         }
     }
-}

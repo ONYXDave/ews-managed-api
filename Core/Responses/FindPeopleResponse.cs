@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.Xml;
 
@@ -33,27 +32,27 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents the response to a Persona search operation.
     /// </summary>
     internal sealed class FindPeopleResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="FindPeopleResponse"/> class.
         /// </summary>
         internal FindPeopleResponse()
             : base()
-        {
-            this.Results = new FindPeopleResults();
-            this.Sources = new List<string>();
-        }
+            {
+            Results = new FindPeopleResults();
+            Sources = new List<string>();
+            }
 
         /// <summary>
         /// Gets the collection of Personas in results.
         /// </summary>
         internal ICollection<Persona> Personas
-        {
-            get
             {
-                return this.Results.Personas;
+            get
+                {
+                return Results.Personas;
+                }
             }
-        }
 
         /// <summary>
         /// Gets FindPersona results.
@@ -76,69 +75,69 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             EwsUtilities.Assert(
-                   this.Results.Personas != null,
+                   Results.Personas != null,
                    "FindPeopleResponse.ReadElementsFromXml",
                    "Personas is null.");
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.People);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
+                        {
                         Persona item = EwsUtilities.CreateEwsObjectFromXmlElementName<Persona>(reader.Service, reader.LocalName);
 
                         if (item == null)
-                        {
+                            {
                             reader.SkipCurrentElement();
-                        }
+                            }
                         else
-                        {
+                            {
                             // Don't clear propertyBag because all properties have been initialized in the persona constructor.
                             item.LoadFromXml(reader, false, null, false);
-                            this.Results.Personas.Add(item);
+                            Results.Personas.Add(item);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.People));
-            }
+                }
 
             reader.Read();
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.TotalNumberOfPeopleInView) && !reader.IsEmptyElement)
-            {
-                this.Results.TotalCount = reader.ReadElementValue<int>();
+                {
+                Results.TotalCount = reader.ReadElementValue<int>();
                 reader.Read();
-            }
+                }
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.FirstMatchingRowIndex) && !reader.IsEmptyElement)
-            {
-                this.Results.FirstMatchingRowIndex = reader.ReadElementValue<int>();
+                {
+                Results.FirstMatchingRowIndex = reader.ReadElementValue<int>();
                 reader.Read();
-            }
+                }
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.FirstLoadedRowIndex) && !reader.IsEmptyElement)
-            {
-                this.Results.FirstLoadedRowIndex = reader.ReadElementValue<int>();
+                {
+                Results.FirstLoadedRowIndex = reader.ReadElementValue<int>();
                 reader.Read();
-            }
+                }
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.FindPeopleTransactionId) && !reader.IsEmptyElement)
-            {
-                this.TransactionId = reader.ReadElementValue<string>();
+                {
+                TransactionId = reader.ReadElementValue<string>();
                 reader.Read();
-            }
-   
+                }
+
             // Future proof by skipping any additional elements before returning
             while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.FindPeopleResponse))
-            {
+                {
                 reader.Read();
+                }
             }
         }
     }
-}

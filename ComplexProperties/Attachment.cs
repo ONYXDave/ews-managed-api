@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents an attachment to an item.
     /// </summary>
     public abstract class Attachment : ComplexProperty
-    {
+        {
         private Item owner;
         private string id;
         private string name;
@@ -50,34 +49,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="owner">The owner.</param>
         internal Attachment(Item owner)
-        {
+            {
             this.owner = owner;
 
             if (owner != null)
-            {
-                this.service = this.owner.Service;
+                {
+                service = this.owner.Service;
+                }
             }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Attachment"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal Attachment(ExchangeService service)
-        {
+            {
             this.service = service;
-        }
+            }
 
         /// <summary>
         /// Throws exception if this is not a new service object.
         /// </summary>
         internal void ThrowIfThisIsNotNew()
-        {
-            if (!this.IsNew)
             {
+            if (!IsNew)
+                {
                 throw new InvalidOperationException(Strings.AttachmentCannotBeUpdated);
+                }
             }
-        }
 
         /// <summary>
         /// Sets value of field.
@@ -90,142 +89,142 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="field">The field.</param>
         /// <param name="value">The value.</param>
         internal override void SetFieldValue<T>(ref T field, T value)
-        {
-            this.ThrowIfThisIsNotNew();
+            {
+            ThrowIfThisIsNotNew();
             base.SetFieldValue<T>(ref field, value);
-        }
+            }
 
         /// <summary>
         /// Gets the Id of the attachment.
         /// </summary>
         public string Id
-        {
-            get { return this.id; }
-            internal set { this.id = value; }
-        }
+            {
+            get { return id; }
+            internal set { id = value; }
+            }
 
         /// <summary>
         /// Gets or sets the name of the attachment.
         /// </summary>
         public string Name
-        {
-            get { return this.name; }
-            set { this.SetFieldValue<string>(ref this.name, value); }
-        }
+            {
+            get { return name; }
+            set { SetFieldValue<string>(ref name, value); }
+            }
 
         /// <summary>
         /// Gets or sets the content type of the attachment.
         /// </summary>
         public string ContentType
-        {
-            get { return this.contentType; }
-            set { this.SetFieldValue<string>(ref this.contentType, value); }
-        }
+            {
+            get { return contentType; }
+            set { SetFieldValue<string>(ref contentType, value); }
+            }
 
         /// <summary>
         /// Gets or sets the content Id of the attachment. ContentId can be used as a custom way to identify
         /// an attachment in order to reference it from within the body of the item the attachment belongs to.
         /// </summary>
         public string ContentId
-        {
-            get { return this.contentId; }
-            set { this.SetFieldValue<string>(ref this.contentId, value); }
-        }
+            {
+            get { return contentId; }
+            set { SetFieldValue<string>(ref contentId, value); }
+            }
 
         /// <summary>
         /// Gets or sets the content location of the attachment. ContentLocation can be used to associate
         /// an attachment with a Url defining its location on the Web.
         /// </summary>
         public string ContentLocation
-        {
-            get { return this.contentLocation; }
-            set { this.SetFieldValue<string>(ref this.contentLocation, value); }
-        }
+            {
+            get { return contentLocation; }
+            set { SetFieldValue<string>(ref contentLocation, value); }
+            }
 
         /// <summary>
         /// Gets the size of the attachment.
         /// </summary>
         public int Size
-        {
-            get
             {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "Size");
+            get
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "Size");
 
-                return this.size;
-            }
+                return size;
+                }
 
             internal set
-            {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "Size");
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "Size");
 
-                this.SetFieldValue<int>(ref this.size, value);
+                SetFieldValue<int>(ref size, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the date and time when this attachment was last modified.
         /// </summary>
         public DateTime LastModifiedTime
-        {
-            get
             {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "LastModifiedTime");
+            get
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "LastModifiedTime");
 
-                return this.lastModifiedTime;
-            }
+                return lastModifiedTime;
+                }
 
             internal set
-            {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "LastModifiedTime");
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "LastModifiedTime");
 
-                this.SetFieldValue<DateTime>(ref this.lastModifiedTime, value);
+                SetFieldValue<DateTime>(ref lastModifiedTime, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this is an inline attachment.
         /// Inline attachments are not visible to end users.
         /// </summary>
         public bool IsInline
-        {
-            get
             {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "IsInline");
+            get
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "IsInline");
 
-                return this.isInline;
-            }
+                return isInline;
+                }
 
             set
-            {
-                EwsUtilities.ValidatePropertyVersion(this.service, ExchangeVersion.Exchange2010, "IsInline");
+                {
+                EwsUtilities.ValidatePropertyVersion(service, ExchangeVersion.Exchange2010, "IsInline");
 
-                this.SetFieldValue<bool>(ref this.isInline, value);
+                SetFieldValue<bool>(ref isInline, value);
+                }
             }
-        }
 
         /// <summary>
         /// True if the attachment has not yet been saved, false otherwise.
         /// </summary>
         internal bool IsNew
-        {
-            get { return string.IsNullOrEmpty(this.Id); }
-        }
+            {
+            get { return string.IsNullOrEmpty(Id); }
+            }
 
         /// <summary>
         /// Gets the owner of the attachment.
         /// </summary>
         internal Item Owner
-        {
-            get { return this.owner; }
-        }
+            {
+            get { return owner; }
+            }
 
         /// <summary>
         /// Gets the related exchange service.
         /// </summary>
         internal ExchangeService Service
-        {
-            get { return this.service; }
-        }
+            {
+            get { return service; }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -239,64 +238,64 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.AttachmentId:
-                    this.id = reader.ReadAttributeValue(XmlAttributeNames.Id);
+                    id = reader.ReadAttributeValue(XmlAttributeNames.Id);
 
-                    if (this.Owner != null)
-                    {
+                    if (Owner != null)
+                        {
                         string rootItemChangeKey = reader.ReadAttributeValue(XmlAttributeNames.RootItemChangeKey);
 
                         if (!string.IsNullOrEmpty(rootItemChangeKey))
-                        {
-                            this.Owner.RootItemId.ChangeKey = rootItemChangeKey;
+                            {
+                            Owner.RootItemId.ChangeKey = rootItemChangeKey;
+                            }
                         }
-                    }
                     reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.AttachmentId);
                     return true;
                 case XmlElementNames.Name:
-                    this.name = reader.ReadElementValue();
+                    name = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.ContentType:
-                    this.contentType = reader.ReadElementValue();
+                    contentType = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.ContentId:
-                    this.contentId = reader.ReadElementValue();
+                    contentId = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.ContentLocation:
-                    this.contentLocation = reader.ReadElementValue();
+                    contentLocation = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.Size:
-                    this.size = reader.ReadElementValue<int>();
+                    size = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.LastModifiedTime:
-                    this.lastModifiedTime = reader.ReadElementValueAsDateTime().Value;
+                    lastModifiedTime = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 case XmlElementNames.IsInline:
-                    this.isInline = reader.ReadElementValue<bool>();
+                    isInline = reader.ReadElementValue<bool>();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.Name, this.Name);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentType, this.ContentType);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentId, this.ContentId);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentLocation, this.ContentLocation);
-            if (writer.Service.RequestedServerVersion > ExchangeVersion.Exchange2007_SP1)
             {
-                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.IsInline, this.IsInline);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.Name, Name);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentType, ContentType);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentId, ContentId);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.ContentLocation, ContentLocation);
+            if (writer.Service.RequestedServerVersion > ExchangeVersion.Exchange2007_SP1)
+                {
+                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.IsInline, IsInline);
+                }
             }
-        }
 
         /// <summary>
         /// Load the attachment.
@@ -304,27 +303,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="bodyType">Type of the body.</param>
         /// <param name="additionalProperties">The additional properties.</param>
         internal void InternalLoad(BodyType? bodyType, IEnumerable<PropertyDefinitionBase> additionalProperties)
-        {
-            this.service.GetAttachment(
+            {
+            service.GetAttachment(
                 this,
                 bodyType,
                 additionalProperties);
-        }
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         /// <param name="attachmentIndex">Index of this attachment.</param>
         internal virtual void Validate(int attachmentIndex)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads the attachment. Calling this method results in a call to EWS.
         /// </summary>
         public void Load()
-        {
-            this.InternalLoad(null, null);
+            {
+            InternalLoad(null, null);
+            }
         }
     }
-}

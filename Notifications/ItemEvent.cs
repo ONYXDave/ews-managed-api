@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents an event that applies to an item.
     /// </summary>
     public sealed class ItemEvent : NotificationEvent
-    {
+        {
         /// <summary>
         /// Id of the item this event applies to.
         /// </summary>
@@ -51,52 +51,52 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="timestamp">The event timestamp.</param>
         internal ItemEvent(EventType eventType, DateTime timestamp)
             : base(eventType, timestamp)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Load from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void InternalLoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.InternalLoadFromXml(reader);
 
-            this.itemId = new ItemId();
-            this.itemId.LoadFromXml(reader, reader.LocalName);
+            itemId = new ItemId();
+            itemId.LoadFromXml(reader, reader.LocalName);
 
             reader.Read();
 
-            this.ParentFolderId = new FolderId();
-            this.ParentFolderId.LoadFromXml(reader, XmlElementNames.ParentFolderId);
+            ParentFolderId = new FolderId();
+            ParentFolderId.LoadFromXml(reader, XmlElementNames.ParentFolderId);
 
-            switch (this.EventType)
-            {
+            switch (EventType)
+                {
                 case EventType.Moved:
                 case EventType.Copied:
                     reader.Read();
 
-                    this.oldItemId = new ItemId();
-                    this.oldItemId.LoadFromXml(reader, reader.LocalName);
+                    oldItemId = new ItemId();
+                    oldItemId.LoadFromXml(reader, reader.LocalName);
 
                     reader.Read();
 
-                    this.OldParentFolderId = new FolderId();
-                    this.OldParentFolderId.LoadFromXml(reader, reader.LocalName);
+                    OldParentFolderId = new FolderId();
+                    OldParentFolderId.LoadFromXml(reader, reader.LocalName);
                     break;
 
                 default:
                     break;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Id of the item this event applies to.
         /// </summary>
         public ItemId ItemId
-        {
-            get { return this.itemId; }
-        }
+            {
+            get { return itemId; }
+            }
 
         /// <summary>
         /// Gets the Id of the item that was moved or copied. OldItemId is only meaningful
@@ -104,8 +104,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// all other event types, OldItemId is null.
         /// </summary>
         public ItemId OldItemId
-        {
-            get { return this.oldItemId; }
+            {
+            get { return oldItemId; }
+            }
         }
     }
-}

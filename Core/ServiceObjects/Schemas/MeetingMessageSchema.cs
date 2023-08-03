@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,19 +32,19 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class MeetingMessageSchema : EmailMessageSchema
-    {
+        {
         /// <summary>
         /// Field URIs for MeetingMessage.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string AssociatedCalendarItemId = "meeting:AssociatedCalendarItemId";
             public const string IsDelegated = "meeting:IsDelegated";
             public const string IsOutOfDate = "meeting:IsOutOfDate";
             public const string HasBeenProcessed = "meeting:HasBeenProcessed";
             public const string ResponseType = "meeting:ResponseType";
             public const string IsOrganizer = "cal:IsOrganizer";
-        }
+            }
 
         /// <summary>
         /// Defines the AssociatedAppointmentId property.
@@ -55,7 +55,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.AssociatedCalendarItemId,
                 FieldUris.AssociatedCalendarItemId,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ItemId(); });
+                delegate () { return new ItemId(); });
 
         /// <summary>
         /// Defines the IsDelegated property.
@@ -133,7 +133,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 ExchangeVersion.Exchange2013);
 
         // This must be after the declaration of property definitions
-        internal static new readonly MeetingMessageSchema Instance = new MeetingMessageSchema();
+        internal static new readonly MeetingMessageSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -142,26 +142,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(AssociatedAppointmentId);
-            this.RegisterProperty(IsDelegated);
-            this.RegisterProperty(IsOutOfDate);
-            this.RegisterProperty(HasBeenProcessed);
-            this.RegisterProperty(ResponseType);
-            this.RegisterProperty(ICalUid);
-            this.RegisterProperty(ICalRecurrenceId);
-            this.RegisterProperty(ICalDateTimeStamp);
-            this.RegisterProperty(IsOrganizer);
-        }
+            RegisterProperty(AssociatedAppointmentId);
+            RegisterProperty(IsDelegated);
+            RegisterProperty(IsOutOfDate);
+            RegisterProperty(HasBeenProcessed);
+            RegisterProperty(ResponseType);
+            RegisterProperty(ICalUid);
+            RegisterProperty(ICalRecurrenceId);
+            RegisterProperty(ICalDateTimeStamp);
+            RegisterProperty(IsOrganizer);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MeetingMessageSchema"/> class.
         /// </summary>
         internal MeetingMessageSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

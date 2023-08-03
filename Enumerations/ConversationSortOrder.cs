@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the order in which conversation nodes should be returned by GetConversationItems.
     /// </summary>
     public enum ConversationSortOrder
-    {
+        {
         /// <summary>
         /// Tree order, ascending
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Chronological order, descending.
         /// </summary>
         DateOrderDescending,
+        }
     }
-}

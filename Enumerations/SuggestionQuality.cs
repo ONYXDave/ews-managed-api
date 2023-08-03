@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the quality of an availability suggestion.
     /// </summary>
     public enum SuggestionQuality
-    {
+        {
         /// <summary>
         /// The suggestion is excellent.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The suggestion is poor.
         /// </summary>
         Poor
+        }
     }
-}

@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-
+    {
     /// <summary>
     /// Represents the collection of profile insight values. 
     /// </summary>
     public sealed class ProfileInsightValueCollection : ComplexPropertyCollection<ProfileInsightValue>
-    {
+        {
         /// <summary>
         /// XML element name
         /// </summary>
@@ -43,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal ProfileInsightValueCollection()
             : this(XmlElementNames.ProfileInsightValue)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates a new instance of the <see cref="ProfileInsightValueCollection"/> class.
@@ -52,9 +49,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="collectionItemXmlElementName">Name of the collection item XML element.</param>
         internal ProfileInsightValueCollection(string collectionItemXmlElementName)
             : base()
-        {
+            {
             this.collectionItemXmlElementName = collectionItemXmlElementName;
-        }
+            }
 
         /// <summary>
         /// Creates a ProfileInsightValue object from an XML element name.
@@ -62,16 +59,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">The XML element name from which to create the ProfileInsightValue.</param>
         /// <returns>A ProfileInsightValue object.</returns>
         internal override ProfileInsightValue CreateComplexProperty(string xmlElementName)
-        {
-            if (xmlElementName == this.collectionItemXmlElementName)
             {
+            if (xmlElementName == collectionItemXmlElementName)
+                {
                 return new ProfileInsightValue();
-            }
+                }
             else
-            {
+                {
                 return null;
+                }
             }
-        }
 
         /// <summary>
         /// Retrieves the XML element name corresponding to the provided PersonInsight object.
@@ -79,17 +76,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="insight">The ProfileInsightValue object from which to determine the XML element name.</param>
         /// <returns>The XML element name corresponding to the provided ProfileInsightValue object.</returns>
         internal override string GetCollectionItemXmlElementName(ProfileInsightValue insight)
-        {
-            return this.collectionItemXmlElementName;
-        }
+            {
+            return collectionItemXmlElementName;
+            }
 
         /// <summary>
         /// Determine whether we should write collection to XML or not.
         /// </summary>
         /// <returns>Always true, even if the collection is empty.</returns>
         internal override bool ShouldWriteToRequest()
-        {
+            {
             return true;
+            }
         }
     }
-}

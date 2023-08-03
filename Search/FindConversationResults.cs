@@ -24,26 +24,23 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the results of an conversation search operation.
     /// </summary>
     public sealed class FindConversationResults
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="FindConversationResults"/> class.
         /// </summary>
         internal FindConversationResults()
-        {
-            this.Conversations = new Collection<Conversation>();
-            this.HighlightTerms = new Collection<HighlightTerm>();
-            this.TotalCount = null;
-       }
+            {
+            Conversations = new Collection<Conversation>();
+            HighlightTerms = new Collection<HighlightTerm>();
+            TotalCount = null;
+            }
 
         /// <summary>
         /// Gets a collection containing the conversations that were found by the search operation.
@@ -64,5 +61,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the indexed offset of the first conversation by the search operation.
         /// </summary>
         public int? IndexedOffset { get; internal set; }
+        }
     }
-}

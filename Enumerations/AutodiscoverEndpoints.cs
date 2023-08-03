@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Defines the types of Autodiscover endpoints that are available.
     /// </summary>
     [Flags]
     internal enum AutodiscoverEndpoints
-    {
+        {
         /// <summary>
         /// No endpoints available.
         /// </summary>
@@ -69,5 +67,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The OAuth endpoint
         /// </summary>
         OAuth = 32,
+        }
     }
-}

@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an AQS highlight term. 
     /// </summary>
     public sealed class HighlightTerm : ComplexProperty
-    {
+        {
         /// <summary>
         /// Term scope.
         /// </summary>
@@ -45,30 +45,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal HighlightTerm()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets term scope.
         /// </summary>
         public string Scope
-        {
-            get
             {
-                return this.scope;
+            get
+                {
+                return scope;
+                }
             }
-        }
 
         /// <summary>
         /// Gets term value.
         /// </summary>
         public string Value
-        {
-            get
             {
-                return this.value;
+            get
+                {
+                return value;
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -76,18 +76,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.HighlightTermScope:
-                    this.scope = reader.ReadElementValue();
+                    scope = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.HighlightTermValue:
-                    this.value = reader.ReadElementValue();
+                    value = reader.ReadElementValue();
                     return true;
                 default:
                     return false;
+                }
             }
         }
     }
-}

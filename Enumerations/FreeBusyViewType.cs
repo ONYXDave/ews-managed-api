@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of free/busy information returned by a GetUserAvailability operation.
     /// </summary>
     public enum FreeBusyViewType
-    {
+        {
         /// <summary>
         /// No view could be returned. This value cannot be specified in a call to GetUserAvailability.
         /// </summary>
@@ -74,5 +70,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// running Exchange 2003, MergedOnly will be returned. Otherwise, FreeBusyMerged or DetailedMerged will be returned.
         /// </summary>
         DetailedMerged
+        }
     }
-}

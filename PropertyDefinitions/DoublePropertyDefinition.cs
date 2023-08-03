@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents double-precision floating point property definition.
     /// </summary>
     internal sealed class DoublePropertyDefinition : GenericPropertyDefinition<double>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="DoublePropertyDefinition"/> class.
         /// </summary>
@@ -47,7 +47,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
+            {
+            }
         }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a delegate user's permission level on a specific folder.
     /// </summary>
     public enum DelegateFolderPermissionLevel
-    {
+        {
         /// <summary>
         /// The delegate has no permission.
         /// </summary>
@@ -58,5 +54,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The delegate has custom permissions.
         /// </summary>
         Custom
+        }
     }
-}

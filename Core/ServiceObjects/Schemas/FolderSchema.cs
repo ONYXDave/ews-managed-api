@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class FolderSchema : ServiceObjectSchema
-    {
+        {
         /// <summary>
         /// Field URIs for folders.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string FolderId = "folder:FolderId";
             public const string ParentFolderId = "folder:ParentFolderId";
             public const string DisplayName = "folder:DisplayName";
@@ -51,7 +51,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string PolicyTag = "folder:PolicyTag";
             public const string ArchiveTag = "folder:ArchiveTag";
             public const string DistinguishedFolderId = "folder:DistinguishedFolderId";
-        }
+            }
 
         /// <summary>
         /// Defines the Id property.
@@ -63,7 +63,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.FolderId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new FolderId(); });
+                delegate () { return new FolderId(); });
 
         /// <summary>
         /// Defines the FolderClass property.
@@ -86,7 +86,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ParentFolderId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new FolderId(); });
+                delegate () { return new FolderId(); });
 
         /// <summary>
         /// Defines the ChildFolderCount property.
@@ -142,7 +142,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ManagedFolderInformation,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ManagedFolderInformation(); });
+                delegate () { return new ManagedFolderInformation(); });
 
         /// <summary>
         /// Defines the EffectiveRights property.
@@ -187,7 +187,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PolicyTag,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new PolicyTag(); });
+                delegate () { return new PolicyTag(); });
 
         /// <summary>
         /// Defines the ArchiveTag property.
@@ -199,10 +199,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ArchiveTag,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new ArchiveTag(); });
+                delegate () { return new ArchiveTag(); });
 
         // This must be declared after the property definitions
-        internal static readonly FolderSchema Instance = new FolderSchema();
+        internal static readonly FolderSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -211,23 +211,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(Id);
-            this.RegisterProperty(ParentFolderId);
-            this.RegisterProperty(FolderClass);
-            this.RegisterProperty(DisplayName);
-            this.RegisterProperty(TotalCount);
-            this.RegisterProperty(ChildFolderCount);
-            this.RegisterProperty(ServiceObjectSchema.ExtendedProperties);
-            this.RegisterProperty(ManagedFolderInformation);
-            this.RegisterProperty(EffectiveRights);
-            this.RegisterProperty(Permissions);
-            this.RegisterProperty(UnreadCount);
-            this.RegisterProperty(WellKnownFolderName);
-            this.RegisterProperty(PolicyTag);
-            this.RegisterProperty(ArchiveTag);
+            RegisterProperty(Id);
+            RegisterProperty(ParentFolderId);
+            RegisterProperty(FolderClass);
+            RegisterProperty(DisplayName);
+            RegisterProperty(TotalCount);
+            RegisterProperty(ChildFolderCount);
+            RegisterProperty(ServiceObjectSchema.ExtendedProperties);
+            RegisterProperty(ManagedFolderInformation);
+            RegisterProperty(EffectiveRights);
+            RegisterProperty(Permissions);
+            RegisterProperty(UnreadCount);
+            RegisterProperty(WellKnownFolderName);
+            RegisterProperty(PolicyTag);
+            RegisterProperty(ArchiveTag);
+            }
         }
     }
-}

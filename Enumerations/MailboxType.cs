@@ -23,15 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Xml.Serialization;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the type of an EmailAddress object.
     /// </summary>
     public enum MailboxType
-    {
+        {
         /// <summary>
         /// Unknown mailbox type (Exchange 2010 or later).
         /// </summary>
@@ -77,5 +75,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2015)]
         GroupMailbox,
+        }
     }
-}

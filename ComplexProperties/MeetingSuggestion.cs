@@ -24,22 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.IO;
 
     /// <summary>
     /// Represents an MeetingSuggestion object.
     /// </summary>
     public sealed class MeetingSuggestion : ExtractedEntity
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="MeetingSuggestion"/> class.
         /// </summary>
         internal MeetingSuggestion()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the meeting suggestion Attendees.
@@ -77,37 +76,37 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NlgAttendees:
-                    this.Attendees = new EmailUserEntityCollection();
-                    this.Attendees.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAttendees);
+                    Attendees = new EmailUserEntityCollection();
+                    Attendees.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAttendees);
                     return true;
 
                 case XmlElementNames.NlgLocation:
-                    this.Location = reader.ReadElementValue();
+                    Location = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgSubject:
-                    this.Subject = reader.ReadElementValue();
+                    Subject = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgMeetingString:
-                    this.MeetingString = reader.ReadElementValue();
+                    MeetingString = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgStartTime:
-                    this.StartTime = reader.ReadElementValueAsDateTime();
+                    StartTime = reader.ReadElementValueAsDateTime();
                     return true;
 
                 case XmlElementNames.NlgEndTime:
-                    this.EndTime = reader.ReadElementValueAsDateTime();
+                    EndTime = reader.ReadElementValueAsDateTime();
                     return true;
-                
+
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
         }
     }
-}

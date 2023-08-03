@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents byte array property definition.
     /// </summary>
     internal sealed class ByteArrayPropertyDefinition : TypedPropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ByteArrayPropertyDefinition"/> class.
         /// </summary>
@@ -49,8 +49,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -58,9 +58,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>Byte array value.</returns>
         internal override object Parse(string value)
-        {
+            {
             return Convert.FromBase64String(value);
-        }
+            }
 
         /// <summary>
         /// Converts byte array property to a string.
@@ -68,24 +68,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>Byte array value.</returns>
         internal override string ToString(object value)
-        {
+            {
             return Convert.ToBase64String((byte[])value);
-        }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal override bool IsNullable
-        {
+            {
             get { return true; }
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(byte[]); }
+            }
         }
     }
-}

@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a property definition for properties of type TimeZoneInfo.
     /// </summary>
     internal class StartTimeZonePropertyDefinition : TimeZonePropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="StartTimeZonePropertyDefinition"/> class.
         /// </summary>
@@ -51,19 +50,19 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Registers associated internal properties.
         /// </summary>
         /// <param name="properties">The list in which to add the associated properties.</param>
         internal override void RegisterAssociatedInternalProperties(List<PropertyDefinition> properties)
-        {
+            {
             base.RegisterAssociatedInternalProperties(properties);
 
             properties.Add(AppointmentSchema.MeetingTimeZone);
-        }
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -75,45 +74,45 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             object value = propertyBag[this];
 
             if (value != null)
-            {
-                if (writer.Service.RequestedServerVersion == ExchangeVersion.Exchange2007_SP1)
                 {
+                if (writer.Service.RequestedServerVersion == ExchangeVersion.Exchange2007_SP1)
+                    {
                     ExchangeService service = writer.Service as ExchangeService;
                     if (service != null && service.Exchange2007CompatibilityMode == false)
-                    {
-                        MeetingTimeZone meetingTimeZone = new MeetingTimeZone((TimeZoneInfo)value);
+                        {
+                        MeetingTimeZone meetingTimeZone = new((TimeZoneInfo)value);
                         meetingTimeZone.WriteToXml(writer, XmlElementNames.MeetingTimeZone);
+                        }
                     }
-                }
                 else
-                {
+                    {
                     base.WritePropertyValueToXml(
                         writer,
                         propertyBag,
                         isUpdateOperation);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Writes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteToXml(EwsServiceXmlWriter writer)
-        {
+            {
             if (writer.Service.RequestedServerVersion == ExchangeVersion.Exchange2007_SP1)
-            {
+                {
                 AppointmentSchema.MeetingTimeZone.WriteToXml(writer);
-            }
+                }
             else
-            {
+                {
                 base.WriteToXml(writer);
+                }
             }
-        }
 
         /// <summary>
         /// Determines whether the specified flag is set.
@@ -124,15 +123,15 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if the specified flag is set; otherwise, <c>false</c>.
         /// </returns>
         internal override bool HasFlag(PropertyDefinitionFlags flag, ExchangeVersion? version)
-        {
+            {
             if (version.HasValue && (version.Value == ExchangeVersion.Exchange2007_SP1))
-            {
+                {
                 return AppointmentSchema.MeetingTimeZone.HasFlag(flag, version);
-            }
+                }
             else
-            {
+                {
                 return base.HasFlag(flag, version);
+                }
             }
         }
     }
-}

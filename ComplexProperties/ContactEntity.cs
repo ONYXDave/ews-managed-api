@@ -24,22 +24,19 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.IO;
-
+    {
     /// <summary>
     /// Represents an ContactEntity object.
     /// </summary>
     public sealed class ContactEntity : ExtractedEntity
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactEntity"/> class.
         /// </summary>
         internal ContactEntity()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the contact entity PersonName.
@@ -82,44 +79,44 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NlgPersonName:
-                    this.PersonName = reader.ReadElementValue();
+                    PersonName = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgBusinessName:
-                    this.BusinessName = reader.ReadElementValue();
+                    BusinessName = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgPhoneNumbers:
-                    this.PhoneNumbers = new ContactPhoneEntityCollection();
-                    this.PhoneNumbers.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgPhoneNumbers);
+                    PhoneNumbers = new ContactPhoneEntityCollection();
+                    PhoneNumbers.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgPhoneNumbers);
                     return true;
 
                 case XmlElementNames.NlgUrls:
-                    this.Urls = new StringList(XmlElementNames.NlgUrl);
-                    this.Urls.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgUrls);
+                    Urls = new StringList(XmlElementNames.NlgUrl);
+                    Urls.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgUrls);
                     return true;
 
                 case XmlElementNames.NlgEmailAddresses:
-                    this.EmailAddresses = new StringList(XmlElementNames.NlgEmailAddress);
-                    this.EmailAddresses.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgEmailAddresses);
+                    EmailAddresses = new StringList(XmlElementNames.NlgEmailAddress);
+                    EmailAddresses.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgEmailAddresses);
                     return true;
 
                 case XmlElementNames.NlgAddresses:
-                    this.Addresses = new StringList(XmlElementNames.NlgAddress);
-                    this.Addresses.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAddresses);
+                    Addresses = new StringList(XmlElementNames.NlgAddress);
+                    Addresses.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.NlgAddresses);
                     return true;
 
                 case XmlElementNames.NlgContactString:
-                    this.ContactString = reader.ReadElementValue();
+                    ContactString = reader.ReadElementValue();
                     return true;
 
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
         }
     }
-}

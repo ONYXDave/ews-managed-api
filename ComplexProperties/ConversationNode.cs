@@ -24,15 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Represents the response to a GetConversationItems operation.
     /// </summary>
     public sealed class ConversationNode : ComplexProperty
-    {
+        {
         private PropertySet propertySet;
 
         /// <summary>
@@ -41,9 +40,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">The property set.</param>
         internal ConversationNode(PropertySet propertySet)
             : base()
-        {
+            {
             this.propertySet = propertySet;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the Internet message id of the node.
@@ -66,31 +65,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InternetMessageId:
-                    this.InternetMessageId = reader.ReadElementValue();
+                    InternetMessageId = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.ParentInternetMessageId:
-                    this.ParentInternetMessageId = reader.ReadElementValue();
+                    ParentInternetMessageId = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.Items:
-                    this.Items = reader.ReadServiceObjectsCollectionFromXml<Item>(
+                    Items = reader.ReadServiceObjectsCollectionFromXml<Item>(
                                         XmlNamespace.Types,
                                         XmlElementNames.Items,
-                                        this.GetObjectInstance,
+                                        GetObjectInstance,
                                         true,               /* clearPropertyBag */
-                                        this.propertySet,   /* requestedPropertySet */
+                                        propertySet,   /* requestedPropertySet */
                                         false);             /* summaryPropertiesOnly */
                     return true;
 
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the item instance.
@@ -99,17 +98,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Item.</returns>
         private Item GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
+            {
             return EwsUtilities.CreateEwsObjectFromXmlElementName<Item>(service, xmlElementName);
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal string GetXmlElementName()
-        {
+            {
             return XmlElementNames.ConversationNode;
+            }
         }
     }
-}

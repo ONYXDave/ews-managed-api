@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Identifies the user configuration properties to retrieve.
     /// </summary>
     [Flags]
     public enum UserConfigurationProperties
-    {
+        {
         /// <summary>
         /// Retrieve the Id property.
         /// </summary>
@@ -58,9 +56,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <summary>
         /// Retrieve all properties.
         /// </summary>
-        All = UserConfigurationProperties.Id | 
-            UserConfigurationProperties.Dictionary | 
-            UserConfigurationProperties.XmlData | 
+        All = UserConfigurationProperties.Id |
+            UserConfigurationProperties.Dictionary |
+            UserConfigurationProperties.XmlData |
             UserConfigurationProperties.BinaryData
+        }
     }
-}

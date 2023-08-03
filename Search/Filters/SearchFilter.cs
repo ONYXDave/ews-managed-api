@@ -24,24 +24,19 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the base search filter class. Use descendant search filter classes such as SearchFilter.IsEqualTo,
     /// SearchFilter.ContainsSubstring and SearchFilter.SearchFilterCollection to define search filters.
     /// </summary>
     public abstract partial class SearchFilter : ComplexProperty
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchFilter"/> class.
         /// </summary>
         internal SearchFilter()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -49,7 +44,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>SearchFilter.</returns>
         internal static SearchFilter LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement();
 
             string localName = reader.LocalName;
@@ -57,12 +52,12 @@ namespace Microsoft.Exchange.WebServices.Data
             SearchFilter searchFilter = GetSearchFilterInstance(localName);
 
             if (searchFilter != null)
-            {
+                {
                 searchFilter.LoadFromXml(reader, reader.LocalName);
-            }
+                }
 
             return searchFilter;
-        }
+            }
 
         /// <summary>
         /// Gets the search filter instance.
@@ -70,10 +65,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="localName">Name of the local.</param>
         /// <returns></returns>
         private static SearchFilter GetSearchFilterInstance(string localName)
-        {
+            {
             SearchFilter searchFilter;
             switch (localName)
-            {
+                {
                 case XmlElementNames.Exists:
                     searchFilter = new Exists();
                     break;
@@ -113,9 +108,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 default:
                     searchFilter = null;
                     break;
-            }
+                }
             return searchFilter;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -128,8 +123,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal virtual void WriteToXml(EwsServiceXmlWriter writer)
-        {
-            base.WriteToXml(writer, this.GetXmlElementName());
+            {
+            base.WriteToXml(writer, GetXmlElementName());
+            }
         }
     }
-}

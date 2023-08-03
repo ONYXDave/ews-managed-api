@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the ProfileInsightValue.
     /// </summary>
     public sealed class ProfileInsightValue : InsightValue
-    {
+        {
         private string fullName;
         private string firstName;
         private string lastName;
@@ -46,89 +43,89 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the FullName
         /// </summary>
         public string FullName
-        {
-            get
             {
-                return this.fullName;
+            get
+                {
+                return fullName;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the FirstName
         /// </summary>
         public string FirstName
-        {
-            get
             {
-                return this.firstName;
+            get
+                {
+                return firstName;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the LastName
         /// </summary>
         public string LastName
-        {
-            get
             {
-                return this.lastName;
+            get
+                {
+                return lastName;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the EmailAddress
         /// </summary>
         public string EmailAddress
-        {
-            get
             {
-                return this.emailAddress;
+            get
+                {
+                return emailAddress;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Avatar
         /// </summary>
         public string Avatar
-        {
-            get
             {
-                return this.avatar;
+            get
+                {
+                return avatar;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the JoinedUtcTicks
         /// </summary>
         public long JoinedUtcTicks
-        {
-            get
             {
-                return this.joinedUtcTicks;
+            get
+                {
+                return joinedUtcTicks;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the ProfilePicture
         /// </summary>
         public UserProfilePicture ProfilePicture
-        {
-            get
             {
-                return this.profilePicture;
+            get
+                {
+                return profilePicture;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Title
         /// </summary>
         public string Title
-        {
-            get
             {
-                return this.title;
+            get
+                {
+                return title;
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -136,46 +133,46 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.FullName:
-                    this.fullName = reader.ReadElementValue();
+                    fullName = reader.ReadElementValue();
                     break;
                 case XmlElementNames.FirstName:
-                    this.firstName = reader.ReadElementValue();
+                    firstName = reader.ReadElementValue();
                     break;
                 case XmlElementNames.LastName:
-                    this.lastName = reader.ReadElementValue();
+                    lastName = reader.ReadElementValue();
                     break;
                 case XmlElementNames.EmailAddress:
-                    this.emailAddress = reader.ReadElementValue();
+                    emailAddress = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Avatar:
-                    this.avatar = reader.ReadElementValue();
+                    avatar = reader.ReadElementValue();
                     break;
                 case XmlElementNames.JoinedUtcTicks:
-                    this.joinedUtcTicks = reader.ReadElementValue<long>();
+                    joinedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.ProfilePicture:
-                    var picture = new UserProfilePicture();
+                    UserProfilePicture picture = new();
                     picture.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.ProfilePicture);
-                    this.profilePicture = picture;
+                    profilePicture = picture;
                     break;
                 case XmlElementNames.Title:
-                    this.title = reader.ReadElementValue();
+                    title = reader.ReadElementValue();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

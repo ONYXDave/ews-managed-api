@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.ObjectModel;
 
     /// <summary>
     /// Represents the set of actions available for a rule.
     /// </summary>
     public sealed class RuleActions : ComplexProperty
-    {
+        {
         /// <summary>
         /// SMS recipient address type.
         /// </summary>
@@ -107,13 +107,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal RuleActions()
             : base()
-        {
-            this.assignCategories = new StringList();
-            this.forwardAsAttachmentToRecipients = new EmailAddressCollection(XmlElementNames.Address);
-            this.forwardToRecipients = new EmailAddressCollection(XmlElementNames.Address);
-            this.redirectToRecipients = new EmailAddressCollection(XmlElementNames.Address);
-            this.sendSMSAlertToRecipients = new Collection<MobilePhone>();
-        }
+            {
+            assignCategories = new StringList();
+            forwardAsAttachmentToRecipients = new EmailAddressCollection(XmlElementNames.Address);
+            forwardToRecipients = new EmailAddressCollection(XmlElementNames.Address);
+            redirectToRecipients = new EmailAddressCollection(XmlElementNames.Address);
+            sendSMSAlertToRecipients = new Collection<MobilePhone>();
+            }
 
         /// <summary>
         /// Gets the categories that should be stamped on incoming messages. 
@@ -121,46 +121,46 @@ namespace Microsoft.Exchange.WebServices.Data
         /// AssignCategories to null.
         /// </summary>
         public StringList AssignCategories
-        {
-            get
             {
-                return this.assignCategories;
+            get
+                {
+                return assignCategories;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the Id of the folder incoming messages should be copied to.
         /// To disable copying incoming messages to a folder, set CopyToFolder to null.
         /// </summary>
         public FolderId CopyToFolder
-        {
-            get
             {
-                return this.copyToFolder;
-            }
+            get
+                {
+                return copyToFolder;
+                }
 
             set
-            {
-                this.SetFieldValue<FolderId>(ref this.copyToFolder, value);
+                {
+                SetFieldValue<FolderId>(ref copyToFolder, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether incoming messages should be
         /// automatically moved to the Deleted Items folder.
         /// </summary>
         public bool Delete
-        {
-            get
             {
-                return this.delete;
-            }
+            get
+                {
+                return delete;
+                }
 
             set
-            {
-                this.SetFieldValue<bool>(ref this.delete, value);
+                {
+                SetFieldValue<bool>(ref delete, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the e-mail addresses to which incoming messages should be 
@@ -168,24 +168,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// as attachments, empty the ForwardAsAttachmentToRecipients list.
         /// </summary>
         public EmailAddressCollection ForwardAsAttachmentToRecipients
-        {
-            get
             {
-                return this.forwardAsAttachmentToRecipients;
+            get
+                {
+                return forwardAsAttachmentToRecipients;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the e-mail addresses to which incoming messages should be forwarded. 
         /// To disable forwarding incoming messages, empty the ForwardToRecipients list.
         /// </summary>
         public EmailAddressCollection ForwardToRecipients
-        {
-            get
             {
-                return this.forwardToRecipients;
+            get
+                {
+                return forwardToRecipients;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the importance that should be stamped on incoming 
@@ -193,34 +193,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// importance, set MarkImportance to null.
         /// </summary>
         public Importance? MarkImportance
-        {
-            get
             {
-                return this.markImportance;
-            }
+            get
+                {
+                return markImportance;
+                }
 
             set
-            {
-                this.SetFieldValue<Importance?>(ref this.markImportance, value);
+                {
+                SetFieldValue<Importance?>(ref markImportance, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether incoming messages should be 
         /// marked as read.
         /// </summary>
         public bool MarkAsRead
-        {
-            get
             {
-                return this.markAsRead;
-            }
+            get
+                {
+                return markAsRead;
+                }
 
             set
-            {
-                this.SetFieldValue<bool>(ref this.markAsRead, value);
+                {
+                SetFieldValue<bool>(ref markAsRead, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the Id of the folder to which incoming messages should be
@@ -228,17 +228,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// CopyToFolder to null.
         /// </summary>
         public FolderId MoveToFolder
-        {
-            get
             {
-                return this.moveToFolder;
-            }
+            get
+                {
+                return moveToFolder;
+                }
 
             set
-            {
-                this.SetFieldValue<FolderId>(ref this.moveToFolder, value);
+                {
+                SetFieldValue<FolderId>(ref moveToFolder, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether incoming messages should be 
@@ -247,17 +247,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// been saved into the recipient's mailbox, use the Delete action.
         /// </summary>
         public bool PermanentDelete
-        {
-            get
             {
-                return this.permanentDelete;
-            }
+            get
+                {
+                return permanentDelete;
+                }
 
             set
-            {
-                this.SetFieldValue<bool>(ref this.permanentDelete, value);
+                {
+                SetFieldValue<bool>(ref permanentDelete, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the e-mail addresses to which incoming messages should be 
@@ -266,12 +266,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// maintains the original sender and recipients. 
         /// </summary>
         public EmailAddressCollection RedirectToRecipients
-        {
-            get
             {
-                return this.redirectToRecipients;
+            get
+                {
+                return redirectToRecipients;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the phone numbers to which an SMS alert should be sent. To disable
@@ -279,12 +279,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// SendSMSAlertToRecipients list.
         /// </summary>
         public Collection<MobilePhone> SendSMSAlertToRecipients
-        {
-            get
             {
-                return this.sendSMSAlertToRecipients;
+            get
+                {
+                return sendSMSAlertToRecipients;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the Id of the template message that should be sent
@@ -292,34 +292,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// ServerReplyWithMessage to null. 
         /// </summary>
         public ItemId ServerReplyWithMessage
-        {
-            get
             {
-                return this.serverReplyWithMessage;
-            }
+            get
+                {
+                return serverReplyWithMessage;
+                }
 
             set
-            {
-                this.SetFieldValue<ItemId>(ref this.serverReplyWithMessage, value);
+                {
+                SetFieldValue<ItemId>(ref serverReplyWithMessage, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether subsequent rules should be
         /// evaluated. 
         /// </summary>
         public bool StopProcessingRules
-        {
-            get
             {
-                return this.stopProcessingRules;
-            }
+            get
+                {
+                return stopProcessingRules;
+                }
 
             set
-            {
-                this.SetFieldValue<bool>(ref this.stopProcessingRules, value);
+                {
+                SetFieldValue<bool>(ref stopProcessingRules, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -327,168 +327,168 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.AssignCategories:
-                    this.assignCategories.LoadFromXml(reader, reader.LocalName);
+                    assignCategories.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.CopyToFolder:
                     reader.ReadStartElement(XmlNamespace.NotSpecified, XmlElementNames.FolderId);
-                    this.copyToFolder = new FolderId();
-                    this.copyToFolder.LoadFromXml(reader, XmlElementNames.FolderId);
+                    copyToFolder = new FolderId();
+                    copyToFolder.LoadFromXml(reader, XmlElementNames.FolderId);
                     reader.ReadEndElement(XmlNamespace.NotSpecified, XmlElementNames.CopyToFolder);
                     return true;
                 case XmlElementNames.Delete:
-                    this.delete = reader.ReadElementValue<bool>();
+                    delete = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.ForwardAsAttachmentToRecipients:
-                    this.forwardAsAttachmentToRecipients.LoadFromXml(reader, reader.LocalName);
+                    forwardAsAttachmentToRecipients.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.ForwardToRecipients:
-                    this.forwardToRecipients.LoadFromXml(reader, reader.LocalName);
+                    forwardToRecipients.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.MarkImportance:
-                    this.markImportance = reader.ReadElementValue<Importance>();
+                    markImportance = reader.ReadElementValue<Importance>();
                     return true;
                 case XmlElementNames.MarkAsRead:
-                    this.markAsRead = reader.ReadElementValue<bool>();
+                    markAsRead = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.MoveToFolder:
                     reader.ReadStartElement(XmlNamespace.NotSpecified, XmlElementNames.FolderId);
-                    this.moveToFolder = new FolderId();
-                    this.moveToFolder.LoadFromXml(reader, XmlElementNames.FolderId);
+                    moveToFolder = new FolderId();
+                    moveToFolder.LoadFromXml(reader, XmlElementNames.FolderId);
                     reader.ReadEndElement(XmlNamespace.NotSpecified, XmlElementNames.MoveToFolder);
                     return true;
                 case XmlElementNames.PermanentDelete:
-                    this.permanentDelete = reader.ReadElementValue<bool>();
+                    permanentDelete = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.RedirectToRecipients:
-                    this.redirectToRecipients.LoadFromXml(reader, reader.LocalName);
+                    redirectToRecipients.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.SendSMSAlertToRecipients:
-                    EmailAddressCollection smsRecipientCollection = new EmailAddressCollection(XmlElementNames.Address);
+                    EmailAddressCollection smsRecipientCollection = new(XmlElementNames.Address);
                     smsRecipientCollection.LoadFromXml(reader, reader.LocalName);
-                    this.sendSMSAlertToRecipients = ConvertSMSRecipientsFromEmailAddressCollectionToMobilePhoneCollection(smsRecipientCollection);
+                    sendSMSAlertToRecipients = ConvertSMSRecipientsFromEmailAddressCollectionToMobilePhoneCollection(smsRecipientCollection);
                     return true;
                 case XmlElementNames.ServerReplyWithMessage:
-                    this.serverReplyWithMessage = new ItemId();
-                    this.serverReplyWithMessage.LoadFromXml(reader, reader.LocalName);
+                    serverReplyWithMessage = new ItemId();
+                    serverReplyWithMessage.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.StopProcessingRules:
-                    this.stopProcessingRules = reader.ReadElementValue<bool>();
+                    stopProcessingRules = reader.ReadElementValue<bool>();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.AssignCategories.Count > 0)
             {
-                this.AssignCategories.WriteToXml(writer, XmlElementNames.AssignCategories);
-            }
+            if (AssignCategories.Count > 0)
+                {
+                AssignCategories.WriteToXml(writer, XmlElementNames.AssignCategories);
+                }
 
-            if (this.CopyToFolder != null)
-            {
+            if (CopyToFolder != null)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.CopyToFolder);
-                this.CopyToFolder.WriteToXml(writer);
+                CopyToFolder.WriteToXml(writer);
                 writer.WriteEndElement();
-            }
+                }
 
-            if (this.Delete != false)
-            {
+            if (Delete != false)
+                {
                 writer.WriteElementValue(
-                    XmlNamespace.Types, 
-                    XmlElementNames.Delete, 
-                    this.Delete);
-            }
+                    XmlNamespace.Types,
+                    XmlElementNames.Delete,
+                    Delete);
+                }
 
-            if (this.ForwardAsAttachmentToRecipients.Count > 0)
-            {
-                this.ForwardAsAttachmentToRecipients.WriteToXml(writer, XmlElementNames.ForwardAsAttachmentToRecipients);
-            }
+            if (ForwardAsAttachmentToRecipients.Count > 0)
+                {
+                ForwardAsAttachmentToRecipients.WriteToXml(writer, XmlElementNames.ForwardAsAttachmentToRecipients);
+                }
 
-            if (this.ForwardToRecipients.Count > 0)
-            {
-                this.ForwardToRecipients.WriteToXml(writer, XmlElementNames.ForwardToRecipients);
-            }
+            if (ForwardToRecipients.Count > 0)
+                {
+                ForwardToRecipients.WriteToXml(writer, XmlElementNames.ForwardToRecipients);
+                }
 
-            if (this.MarkImportance.HasValue)
-            {
+            if (MarkImportance.HasValue)
+                {
                 writer.WriteElementValue(
-                    XmlNamespace.Types, 
-                    XmlElementNames.MarkImportance, 
-                    this.MarkImportance.Value);
-            }
+                    XmlNamespace.Types,
+                    XmlElementNames.MarkImportance,
+                    MarkImportance.Value);
+                }
 
-            if (this.MarkAsRead != false)
-            {
+            if (MarkAsRead != false)
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.MarkAsRead,
-                    this.MarkAsRead);
-            }
+                    MarkAsRead);
+                }
 
-            if (this.MoveToFolder != null)
-            {
+            if (MoveToFolder != null)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.MoveToFolder);
-                this.MoveToFolder.WriteToXml(writer);
+                MoveToFolder.WriteToXml(writer);
                 writer.WriteEndElement();
-            }
+                }
 
-            if (this.PermanentDelete != false)
-            {
+            if (PermanentDelete != false)
+                {
                 writer.WriteElementValue(
-                    XmlNamespace.Types, 
-                    XmlElementNames.PermanentDelete, 
-                    this.PermanentDelete);
-            }
+                    XmlNamespace.Types,
+                    XmlElementNames.PermanentDelete,
+                    PermanentDelete);
+                }
 
-            if (this.RedirectToRecipients.Count > 0)
-            {
-                this.RedirectToRecipients.WriteToXml(writer, XmlElementNames.RedirectToRecipients);
-            }
+            if (RedirectToRecipients.Count > 0)
+                {
+                RedirectToRecipients.WriteToXml(writer, XmlElementNames.RedirectToRecipients);
+                }
 
-            if (this.SendSMSAlertToRecipients.Count > 0)
-            {
-                EmailAddressCollection emailCollection = ConvertSMSRecipientsFromMobilePhoneCollectionToEmailAddressCollection(this.SendSMSAlertToRecipients);
+            if (SendSMSAlertToRecipients.Count > 0)
+                {
+                EmailAddressCollection emailCollection = ConvertSMSRecipientsFromMobilePhoneCollectionToEmailAddressCollection(SendSMSAlertToRecipients);
                 emailCollection.WriteToXml(writer, XmlElementNames.SendSMSAlertToRecipients);
-            }
+                }
 
-            if (this.ServerReplyWithMessage != null)
-            {
-                this.ServerReplyWithMessage.WriteToXml(writer, XmlElementNames.ServerReplyWithMessage);
-            }
+            if (ServerReplyWithMessage != null)
+                {
+                ServerReplyWithMessage.WriteToXml(writer, XmlElementNames.ServerReplyWithMessage);
+                }
 
-            if (this.StopProcessingRules != false)
-            {
+            if (StopProcessingRules != false)
+                {
                 writer.WriteElementValue(
-                    XmlNamespace.Types, 
-                    XmlElementNames.StopProcessingRules, 
-                    this.StopProcessingRules);
+                    XmlNamespace.Types,
+                    XmlElementNames.StopProcessingRules,
+                    StopProcessingRules);
+                }
             }
-        }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            base.InternalValidate();
-            EwsUtilities.ValidateParam(this.forwardAsAttachmentToRecipients, "ForwardAsAttachmentToRecipients");
-            EwsUtilities.ValidateParam(this.forwardToRecipients, "ForwardToRecipients");
-            EwsUtilities.ValidateParam(this.redirectToRecipients, "RedirectToRecipients");
-            foreach (MobilePhone sendSMSAlertToRecipient in this.sendSMSAlertToRecipients)
             {
+            base.InternalValidate();
+            EwsUtilities.ValidateParam(forwardAsAttachmentToRecipients, "ForwardAsAttachmentToRecipients");
+            EwsUtilities.ValidateParam(forwardToRecipients, "ForwardToRecipients");
+            EwsUtilities.ValidateParam(redirectToRecipients, "RedirectToRecipients");
+            foreach (MobilePhone sendSMSAlertToRecipient in sendSMSAlertToRecipients)
+                {
                 EwsUtilities.ValidateParam(sendSMSAlertToRecipient, "SendSMSAlertToRecipient");
+                }
             }
-        }
 
         /// <summary>
         /// Convert the SMS recipient list from EmailAddressCollection type to MobilePhone collection type.
@@ -496,15 +496,15 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="emailCollection">Recipient list in EmailAddressCollection type.</param>
         /// <returns>A MobilePhone collection object containing all SMS recipient in MobilePhone type. </returns>
         private static Collection<MobilePhone> ConvertSMSRecipientsFromEmailAddressCollectionToMobilePhoneCollection(EmailAddressCollection emailCollection)
-        {
-            Collection<MobilePhone> mobilePhoneCollection = new Collection<MobilePhone>();
-            foreach (EmailAddress emailAddress in emailCollection)
             {
+            Collection<MobilePhone> mobilePhoneCollection = new();
+            foreach (EmailAddress emailAddress in emailCollection)
+                {
                 mobilePhoneCollection.Add(new MobilePhone(emailAddress.Name, emailAddress.Address));
-            }
+                }
 
             return mobilePhoneCollection;
-        }
+            }
 
         /// <summary>
         /// Convert the SMS recipient list from MobilePhone collection type to EmailAddressCollection type.
@@ -512,18 +512,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="recipientCollection">Recipient list in a MobilePhone collection type.</param>
         /// <returns>An EmailAddressCollection object containing recipients with "MOBILE" address type. </returns>
         private static EmailAddressCollection ConvertSMSRecipientsFromMobilePhoneCollectionToEmailAddressCollection(Collection<MobilePhone> recipientCollection)
-        {
-            EmailAddressCollection emailCollection = new EmailAddressCollection(XmlElementNames.Address);
-            foreach (MobilePhone recipient in recipientCollection)
             {
-                EmailAddress emailAddress = new EmailAddress(
-                    recipient.Name, 
-                    recipient.PhoneNumber, 
+            EmailAddressCollection emailCollection = new(XmlElementNames.Address);
+            foreach (MobilePhone recipient in recipientCollection)
+                {
+                EmailAddress emailAddress = new(
+                    recipient.Name,
+                    recipient.PhoneNumber,
                     RuleActions.MobileType);
                 emailCollection.Add(emailAddress);
-            }
+                }
 
             return emailCollection;
+            }
         }
     }
-}

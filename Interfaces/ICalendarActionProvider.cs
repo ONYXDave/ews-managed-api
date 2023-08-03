@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Interface defintion of a group of methods that are common to items that return CalendarActionResults
     /// </summary>
     internal interface ICalendarActionProvider
-    {
+        {
         /// <summary>
         /// Implements the Accept method.
         /// </summary>
@@ -63,5 +63,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>A new DeclineMeetingInvitationMessage.</returns>
         DeclineMeetingInvitationMessage CreateDeclineMessage();
+        }
     }
-}

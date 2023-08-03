@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
 
     /// <summary>
     /// Represents the definition of a folder or item property.
     /// </summary>
     public abstract class PropertyDefinition : ServiceObjectPropertyDefinition
-    {
+        {
         private string xmlElementName;
         private PropertyDefinitionFlags flags;
         private string name;
@@ -48,11 +48,11 @@ namespace Microsoft.Exchange.WebServices.Data
             string uri,
             ExchangeVersion version)
             : base(uri)
-        {
+            {
             this.xmlElementName = xmlElementName;
-            this.flags = PropertyDefinitionFlags.None;
+            flags = PropertyDefinitionFlags.None;
             this.version = version;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyDefinition"/> class.
@@ -65,11 +65,11 @@ namespace Microsoft.Exchange.WebServices.Data
             PropertyDefinitionFlags flags,
             ExchangeVersion version)
             : base()
-        {
+            {
             this.xmlElementName = xmlElementName;
             this.flags = flags;
             this.version = version;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyDefinition"/> class.
@@ -84,9 +84,9 @@ namespace Microsoft.Exchange.WebServices.Data
             PropertyDefinitionFlags flags,
             ExchangeVersion version)
             : this(xmlElementName, uri, version)
-        {
+            {
             this.flags = flags;
-        }
+            }
 
         /// <summary>
         /// Determines whether the specified flag is set.
@@ -96,9 +96,9 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if the specified flag is set; otherwise, <c>false</c>.
         /// </returns>
         internal bool HasFlag(PropertyDefinitionFlags flag)
-        {
-            return this.HasFlag(flag, null);
-        }
+            {
+            return HasFlag(flag, null);
+            }
 
         /// <summary>
         /// Determines whether the specified flag is set.
@@ -109,17 +109,17 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if the specified flag is set; otherwise, <c>false</c>.
         /// </returns>
         internal virtual bool HasFlag(PropertyDefinitionFlags flag, ExchangeVersion? version)
-        {
-            return (this.flags & flag) == flag;
-        }
+            {
+            return (flags & flag) == flag;
+            }
 
         /// <summary>
         /// Registers associated internal properties.
         /// </summary>
         /// <param name="properties">The list in which to add the associated properties.</param>
         internal virtual void RegisterAssociatedInternalProperties(List<PropertyDefinition> properties)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets a list of associated internal properties.
@@ -130,30 +130,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// register the MeetingTimeZone property definition that is internal.
         /// </remarks>
         internal List<PropertyDefinition> GetAssociatedInternalProperties()
-        {
-            List<PropertyDefinition> properties = new List<PropertyDefinition>();
+            {
+            List<PropertyDefinition> properties = new();
 
-            this.RegisterAssociatedInternalProperties(properties);
+            RegisterAssociatedInternalProperties(properties);
 
             return properties;
-        }
+            }
 
         /// <summary>
         /// Gets the minimum Exchange version that supports this property.
         /// </summary>
         /// <value>The version.</value>
         public override ExchangeVersion Version
-        {
-            get { return this.version; }
-        }
+            {
+            get { return version; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal virtual bool IsNullable
-        {
+            {
             get { return true; }
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -178,31 +178,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value>The name of the XML element.</value>
         internal string XmlElementName
-        {
-            get { return this.xmlElementName; }
-        }
+            {
+            get { return xmlElementName; }
+            }
 
         /// <summary>
         /// Gets the name of the property.
         /// </summary>
         public string Name
-        {
-            get
             {
-                // Name is initialized at read time for all PropertyDefinition instances using Reflection.
-                if (string.IsNullOrEmpty(this.name))
+            get
                 {
+                // Name is initialized at read time for all PropertyDefinition instances using Reflection.
+                if (string.IsNullOrEmpty(name))
+                    {
                     ServiceObjectSchema.InitializeSchemaPropertyNames();
+                    }
+
+                return name;
                 }
 
-                return this.name;
-            }
-
             internal set
-            {
-                this.name = value;
+                {
+                name = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the property definition's printable name.
@@ -211,8 +211,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The property definition's printable name.
         /// </returns>
         internal override string GetPrintableName()
-        {
-            return this.Name;
+            {
+            return Name;
+            }
         }
     }
-}

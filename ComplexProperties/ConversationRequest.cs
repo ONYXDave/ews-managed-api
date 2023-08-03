@@ -24,18 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// 
     /// </summary>
     public sealed class ConversationRequest : ComplexProperty, ISelfValidate
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConversationRequest"/> class.
         /// </summary>
         public ConversationRequest()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConversationRequest"/> class.
@@ -43,10 +43,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="conversationId">The conversation id.</param>
         /// <param name="syncState">State of the sync.</param>
         public ConversationRequest(ConversationId conversationId, string syncState)
-        {
-            this.ConversationId = conversationId;
-            this.SyncState = syncState;
-        }
+            {
+            ConversationId = conversationId;
+            SyncState = syncState;
+            }
 
         /// <summary>
         /// Gets or sets the conversation id.
@@ -64,25 +64,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="writer">The writer.</param>
         /// <param name="xmlElementName">Name of the XML element.</param>
         internal override void WriteToXml(EwsServiceXmlWriter writer, string xmlElementName)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, xmlElementName);
 
-            this.ConversationId.WriteToXml(writer);
+            ConversationId.WriteToXml(writer);
 
-            if (this.SyncState != null)
-            {
-                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SyncState, this.SyncState);
-            }
+            if (SyncState != null)
+                {
+                writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SyncState, SyncState);
+                }
 
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            EwsUtilities.ValidateParam(this.ConversationId, "ConversationId");
+            {
+            EwsUtilities.ValidateParam(ConversationId, "ConversationId");
+            }
         }
     }
-}

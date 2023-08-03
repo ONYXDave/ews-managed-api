@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the parameters associated with a search folder.
     /// </summary>
     public sealed class SearchFolderParameters : ComplexProperty
-    {
+        {
         private SearchFolderTraversal traversal;
-        private FolderIdCollection rootFolderIds = new FolderIdCollection();
+        private FolderIdCollection rootFolderIds = new();
         private SearchFilter searchFilter;
 
         /// <summary>
@@ -39,18 +39,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal SearchFolderParameters()
             : base()
-        {
-            this.rootFolderIds.OnChange += this.PropertyChanged;
-        }
+            {
+            rootFolderIds.OnChange += PropertyChanged;
+            }
 
         /// <summary>
         /// Property changed.
         /// </summary>
         /// <param name="complexProperty">The complex property.</param>
         private void PropertyChanged(ComplexProperty complexProperty)
-        {
-            this.Changed();
-        }
+            {
+            Changed();
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -58,116 +58,116 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.BaseFolderIds:
-                    this.RootFolderIds.InternalClear();
-                    this.RootFolderIds.LoadFromXml(reader, reader.LocalName);
+                    RootFolderIds.InternalClear();
+                    RootFolderIds.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.Restriction:
                     reader.Read();
-                    this.searchFilter = SearchFilter.LoadFromXml(reader);
+                    searchFilter = SearchFilter.LoadFromXml(reader);
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Reads the attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.Traversal = reader.ReadAttributeValue<SearchFolderTraversal>(XmlAttributeNames.Traversal);
-        }
+            {
+            Traversal = reader.ReadAttributeValue<SearchFolderTraversal>(XmlAttributeNames.Traversal);
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.Traversal, this.Traversal);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.Traversal, Traversal);
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.SearchFilter != null)
             {
+            if (SearchFilter != null)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Restriction);
-                this.SearchFilter.WriteToXml(writer);
+                SearchFilter.WriteToXml(writer);
                 writer.WriteEndElement(); // Restriction
-            }
+                }
 
-            this.RootFolderIds.WriteToXml(writer, XmlElementNames.BaseFolderIds);
-        }
+            RootFolderIds.WriteToXml(writer, XmlElementNames.BaseFolderIds);
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal void Validate()
-        {
-            // Search folder must have at least one root folder id.
-            if (this.RootFolderIds.Count == 0)
             {
+            // Search folder must have at least one root folder id.
+            if (RootFolderIds.Count == 0)
+                {
                 throw new ServiceValidationException(Strings.SearchParametersRootFolderIdsEmpty);
-            }
+                }
 
             // Validate the search filter
-            if (this.SearchFilter != null)
-            {
-                this.SearchFilter.InternalValidate();
+            if (SearchFilter != null)
+                {
+                SearchFilter.InternalValidate();
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the traversal mode for the search folder.
         /// </summary>
         public SearchFolderTraversal Traversal
-        {
-            get { return this.traversal; }
-            set { this.SetFieldValue<SearchFolderTraversal>(ref this.traversal, value); }
-        }
+            {
+            get { return traversal; }
+            set { SetFieldValue<SearchFolderTraversal>(ref traversal, value); }
+            }
 
         /// <summary>
         /// Gets the list of root folders the search folder searches in.
         /// </summary>
         public FolderIdCollection RootFolderIds
-        {
-            get { return this.rootFolderIds; }
-        }
+            {
+            get { return rootFolderIds; }
+            }
 
         /// <summary>
         /// Gets or sets the search filter associated with the search folder. Available search filter classes include
         /// SearchFilter.IsEqualTo, SearchFilter.ContainsSubstring and SearchFilter.SearchFilterCollection.
         /// </summary>
         public SearchFilter SearchFilter
-        {
+            {
             get
-            {
-                return this.searchFilter;
-            }
-
-            set
-            {
-                if (this.searchFilter != null)
                 {
-                    this.searchFilter.OnChange -= this.PropertyChanged;
+                return searchFilter;
                 }
 
-                this.SetFieldValue<SearchFilter>(ref this.searchFilter, value);
-
-                if (this.searchFilter != null)
+            set
                 {
-                    this.searchFilter.OnChange += this.PropertyChanged;
+                if (searchFilter != null)
+                    {
+                    searchFilter.OnChange -= PropertyChanged;
+                    }
+
+                SetFieldValue<SearchFilter>(ref searchFilter, value);
+
+                if (searchFilter != null)
+                    {
+                    searchFilter.OnChange += PropertyChanged;
+                    }
                 }
             }
         }
     }
-}

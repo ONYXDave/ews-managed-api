@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents non indexable item statistic.
     /// </summary>
     public sealed class NonIndexableItemStatistic
-    {
+        {
         /// <summary>
         /// Mailbox legacy DN
         /// </summary>
@@ -55,32 +53,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader</param>
         /// <returns>List of non indexable item statistic object</returns>
         internal static List<NonIndexableItemStatistic> LoadFromXml(EwsServiceXmlReader reader)
-        {
-            List<NonIndexableItemStatistic> results = new List<NonIndexableItemStatistic>();
+            {
+            List<NonIndexableItemStatistic> results = new();
 
             reader.Read();
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.NonIndexableItemStatistics))
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
                     if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.NonIndexableItemStatistic))
-                    {
+                        {
                         string mailbox = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Mailbox);
                         int itemCount = reader.ReadElementValue<int>(XmlNamespace.Types, XmlElementNames.ItemCount);
                         string errorMessage = null;
                         if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.ErrorMessage))
-                        {
+                            {
                             errorMessage = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.ErrorMessage);
-                        }
+                            }
 
                         results.Add(new NonIndexableItemStatistic { Mailbox = mailbox, ItemCount = itemCount, ErrorMessage = errorMessage });
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.NonIndexableItemStatistics));
-            }
+                }
 
             return results;
+            }
         }
     }
-}

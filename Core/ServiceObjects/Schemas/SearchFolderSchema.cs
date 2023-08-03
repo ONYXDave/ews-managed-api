@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,14 +32,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class SearchFolderSchema : FolderSchema
-    {
+        {
         /// <summary>
         /// Field URIs for search folders.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string SearchParameters = "folder:SearchParameters";
-        }
+            }
 
         /// <summary>
         /// Defines the SearchParameters property.
@@ -51,10 +51,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.SearchParameters,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.AutoInstantiateOnRead,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new SearchFolderParameters(); });
+                delegate () { return new SearchFolderParameters(); });
 
         // This must be declared after the property definitions
-        internal static new readonly SearchFolderSchema Instance = new SearchFolderSchema();
+        internal static new readonly SearchFolderSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -63,10 +63,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(SearchParameters);
+            RegisterProperty(SearchParameters);
+            }
         }
     }
-}

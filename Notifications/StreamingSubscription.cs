@@ -24,22 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents a streaming subscription.
     /// </summary>
     public sealed class StreamingSubscription : SubscriptionBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamingSubscription"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal StreamingSubscription(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance with the specified subscription id, for continuing an existing subscription.
@@ -48,17 +48,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="subscriptionId">The id of a previously created streaming subscription.</param>
         public StreamingSubscription(ExchangeService service, string subscriptionId)
             : base(service)
-        {
-            this.Id = subscriptionId;
-        }
+            {
+            Id = subscriptionId;
+            }
 
         /// <summary>
         /// Unsubscribes from the streaming subscription.
         /// </summary>
         public void Unsubscribe()
-        {
-            this.Service.Unsubscribe(this.Id);
-        }
+            {
+            Service.Unsubscribe(Id);
+            }
 
         /// <summary>
         /// Begins an asynchronous request to unsubscribe from the streaming subscription. 
@@ -67,39 +67,39 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="state">An object that contains state information for this request.</param>
         /// <returns>An IAsyncResult that references the asynchronous request.</returns>
         public IAsyncResult BeginUnsubscribe(AsyncCallback callback, object state)
-        {
-            return this.Service.BeginUnsubscribe(callback, state, this.Id);
-        }
+            {
+            return Service.BeginUnsubscribe(callback, state, Id);
+            }
 
         /// <summary>
         /// Ends an asynchronous request to unsubscribe from the streaming subscription. 
         /// </summary>
         /// <param name="asyncResult">An IAsyncResult that references the asynchronous request.</param>
         public void EndUnsubscribe(IAsyncResult asyncResult)
-        {
-            this.Service.EndUnsubscribe(asyncResult);
-        }
+            {
+            Service.EndUnsubscribe(asyncResult);
+            }
 
         /// <summary>
         /// Gets the service used to create this subscription.
         /// </summary>
         public new ExchangeService Service
-        {
-            get
             {
+            get
+                {
                 return base.Service;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a value indicating whether this subscription uses watermarks.
         /// </summary>
         protected override bool UsesWatermark
-        {
-            get
             {
+            get
+                {
                 return false;
+                }
             }
         }
     }
-}

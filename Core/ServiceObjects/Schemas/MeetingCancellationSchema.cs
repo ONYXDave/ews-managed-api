@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class MeetingCancellationSchema : MeetingMessageSchema
-    {
+        {
         /// <summary>
         /// Defines the Start property.
         /// </summary>
@@ -76,7 +76,7 @@ namespace Microsoft.Exchange.WebServices.Data
             AppointmentSchema.EnhancedLocation;
 
         // This must be after the declaration of property definitions
-        internal static new readonly MeetingCancellationSchema Instance = new MeetingCancellationSchema();
+        internal static new readonly MeetingCancellationSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -85,23 +85,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(Start);
-            this.RegisterProperty(End);
-            this.RegisterProperty(Location);
-            this.RegisterProperty(Recurrence);
-            this.RegisterProperty(AppointmentType);
-            this.RegisterProperty(EnhancedLocation);
-        }
+            RegisterProperty(Start);
+            RegisterProperty(End);
+            RegisterProperty(Location);
+            RegisterProperty(Recurrence);
+            RegisterProperty(AppointmentType);
+            RegisterProperty(EnhancedLocation);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MeetingMessageSchema"/> class.
         /// </summary>
         internal MeetingCancellationSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

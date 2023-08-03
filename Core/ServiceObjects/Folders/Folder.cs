@@ -24,23 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-
+    {
     /// <summary>
     /// Represents a generic folder.
     /// </summary>
     [ServiceObjectDefinition(XmlElementNames.Folder)]
     public class Folder : ServiceObject
-    {
+        {
         /// <summary>
         /// Initializes an unsaved local instance of <see cref="Folder"/>. To bind to an existing folder, use Folder.Bind() instead.
         /// </summary>
         /// <param name="service">EWS service to which this object belongs.</param>
         public Folder(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Binds to an existing folder, whatever its actual type is, and loads the specified set of properties.
@@ -54,9 +52,9 @@ namespace Microsoft.Exchange.WebServices.Data
             ExchangeService service,
             FolderId id,
             PropertySet propertySet)
-        {
+            {
             return service.BindToFolder<Folder>(id, propertySet);
-        }
+            }
 
         /// <summary>
         /// Binds to an existing folder, whatever its actual type is, and loads its first class properties.
@@ -66,12 +64,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="id">The Id of the folder to bind to.</param>
         /// <returns>A Folder instance representing the folder corresponding to the specified Id.</returns>
         public static Folder Bind(ExchangeService service, FolderId id)
-        {
+            {
             return Folder.Bind(
                 service,
                 id,
                 PropertySet.FirstClassProperties);
-        }
+            }
 
         /// <summary>
         /// Binds to an existing folder, whatever its actual type is, and loads the specified set of properties.
@@ -85,12 +83,12 @@ namespace Microsoft.Exchange.WebServices.Data
             ExchangeService service,
             WellKnownFolderName name,
             PropertySet propertySet)
-        {
+            {
             return Folder.Bind(
                 service,
                 new FolderId(name),
                 propertySet);
-        }
+            }
 
         /// <summary>
         /// Binds to an existing folder, whatever its actual type is, and loads its first class properties.
@@ -100,82 +98,82 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="name">The name of the folder to bind to.</param>
         /// <returns>A Folder instance representing the folder with the specified name.</returns>
         public static Folder Bind(ExchangeService service, WellKnownFolderName name)
-        {
+            {
             return Folder.Bind(
                 service,
                 new FolderId(name),
                 PropertySet.FirstClassProperties);
-        }
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
 
             // Validate folder permissions
-            if (this.PropertyBag.Contains(FolderSchema.Permissions))
-            {
-                this.Permissions.Validate();
+            if (PropertyBag.Contains(FolderSchema.Permissions))
+                {
+                Permissions.Validate();
+                }
             }
-        }
 
         /// <summary>
         /// Internal method to return the schema associated with this type of object.
         /// </summary>
         /// <returns>The schema associated with this type of object.</returns>
         internal override ServiceObjectSchema GetSchema()
-        {
+            {
             return FolderSchema.Instance;
-        }
+            }
 
         /// <summary>
         /// Gets the minimum required server version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this service object type is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2007_SP1;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the change XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetChangeXmlElementName()
-        {
+            {
             return XmlElementNames.FolderChange;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the set field XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetSetFieldXmlElementName()
-        {
+            {
             return XmlElementNames.SetFolderField;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the delete field XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetDeleteFieldXmlElementName()
-        {
+            {
             return XmlElementNames.DeleteFolderField;
-        }
+            }
 
         /// <summary>
         /// Loads the specified set of properties on the object.
         /// </summary>
         /// <param name="propertySet">The properties to load.</param>
         internal override void InternalLoad(PropertySet propertySet)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            this.Service.LoadPropertiesForFolder(this, propertySet);
-        }
+            Service.LoadPropertiesForFolder(this, propertySet);
+            }
 
         /// <summary>
         /// Deletes the object.
@@ -187,20 +185,20 @@ namespace Microsoft.Exchange.WebServices.Data
             DeleteMode deleteMode,
             SendCancellationsMode? sendCancellationsMode,
             AffectedTaskOccurrence? affectedTaskOccurrences)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            this.Service.DeleteFolder( this.Id, deleteMode);
-        }
+            Service.DeleteFolder(Id, deleteMode);
+            }
 
         /// <summary>
         /// Deletes the folder. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="deleteMode">Deletion mode.</param>
         public void Delete(DeleteMode deleteMode)
-        {
-            this.InternalDelete(deleteMode, null, null);
-        }
+            {
+            InternalDelete(deleteMode, null, null);
+            }
 
         /// <summary>
         /// Empties the folder. Calling this method results in a call to EWS.
@@ -210,78 +208,78 @@ namespace Microsoft.Exchange.WebServices.Data
         public void Empty(
             DeleteMode deleteMode,
             bool deleteSubFolders)
-        {
-            this.ThrowIfThisIsNew();
-            this.Service.EmptyFolder(
-                this.Id,
+            {
+            ThrowIfThisIsNew();
+            Service.EmptyFolder(
+                Id,
                 deleteMode,
                 deleteSubFolders);
-        }
+            }
 
         /// <summary>
         /// Marks all items in folder as read. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="suppressReadReceipts">If true, suppress sending read receipts for items.</param>
         public void MarkAllItemsAsRead(bool suppressReadReceipts)
-        {
-            this.ThrowIfThisIsNew();
-            this.Service.MarkAllItemsAsRead(
-                this.Id,
+            {
+            ThrowIfThisIsNew();
+            Service.MarkAllItemsAsRead(
+                Id,
                 true,
                 suppressReadReceipts);
-        }
+            }
 
         /// <summary>
         /// Marks all items in folder as read. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="suppressReadReceipts">If true, suppress sending read receipts for items.</param>
         public void MarkAllItemsAsUnread(bool suppressReadReceipts)
-        {
-            this.ThrowIfThisIsNew();
-            this.Service.MarkAllItemsAsRead(
-                this.Id,
+            {
+            ThrowIfThisIsNew();
+            Service.MarkAllItemsAsRead(
+                Id,
                 false,
                 suppressReadReceipts);
-        }
+            }
 
         /// <summary>
         /// Saves this folder in a specific folder. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="parentFolderId">The Id of the folder in which to save this folder.</param>
         public void Save(FolderId parentFolderId)
-        {
-            this.ThrowIfThisIsNotNew();
+            {
+            ThrowIfThisIsNotNew();
 
             EwsUtilities.ValidateParam(parentFolderId, "parentFolderId");
 
-            if (this.IsDirty)
-            {
-                this.Service.CreateFolder(this, parentFolderId);
+            if (IsDirty)
+                {
+                Service.CreateFolder(this, parentFolderId);
+                }
             }
-        }
 
         /// <summary>
         /// Saves this folder in a specific folder. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="parentFolderName">The name of the folder in which to save this folder.</param>
         public void Save(WellKnownFolderName parentFolderName)
-        {
-            this.Save(new FolderId(parentFolderName));
-        }
+            {
+            Save(new FolderId(parentFolderName));
+            }
 
         /// <summary>
         /// Applies the local changes that have been made to this folder. Calling this method results in a call to EWS.
         /// </summary>
         public void Update()
-        {
-            if (this.IsDirty)
             {
-                if (this.PropertyBag.GetIsUpdateCallNecessary())
+            if (IsDirty)
                 {
-                    this.Service.UpdateFolder(this);
+                if (PropertyBag.GetIsUpdateCallNecessary())
+                    {
+                    Service.UpdateFolder(this);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Copies this folder into a specific folder. Calling this method results in a call to EWS.
@@ -289,13 +287,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="destinationFolderId">The Id of the folder in which to copy this folder.</param>
         /// <returns>A Folder representing the copy of this folder.</returns>
         public Folder Copy(FolderId destinationFolderId)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
             EwsUtilities.ValidateParam(destinationFolderId, "destinationFolderId");
 
-            return this.Service.CopyFolder(this.Id, destinationFolderId);
-        }
+            return Service.CopyFolder(Id, destinationFolderId);
+            }
 
         /// <summary>
         /// Copies this folder into the specified folder. Calling this method results in a call to EWS.
@@ -303,9 +301,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="destinationFolderName">The name of the folder in which to copy this folder.</param>
         /// <returns>A Folder representing the copy of this folder.</returns>
         public Folder Copy(WellKnownFolderName destinationFolderName)
-        {
-            return this.Copy(new FolderId(destinationFolderName));
-        }
+            {
+            return Copy(new FolderId(destinationFolderName));
+            }
 
         /// <summary>
         /// Moves this folder to a specific folder. Calling this method results in a call to EWS.
@@ -313,13 +311,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="destinationFolderId">The Id of the folder in which to move this folder.</param>
         /// <returns>A new folder representing this folder in its new location. After Move completes, this folder does not exist anymore.</returns>
         public Folder Move(FolderId destinationFolderId)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
             EwsUtilities.ValidateParam(destinationFolderId, "destinationFolderId");
 
-            return this.Service.MoveFolder(this.Id, destinationFolderId);
-        }
+            return Service.MoveFolder(Id, destinationFolderId);
+            }
 
         /// <summary>
         /// Moves this folder to the specified folder. Calling this method results in a call to EWS.
@@ -327,9 +325,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="destinationFolderName">The name of the folder in which to move this folder.</param>
         /// <returns>A new folder representing this folder in its new location. After Move completes, this folder does not exist anymore.</returns>
         public Folder Move(WellKnownFolderName destinationFolderName)
-        {
-            return this.Move(new FolderId(destinationFolderName));
-        }
+            {
+            return Move(new FolderId(destinationFolderName));
+            }
 
         /// <summary>
         /// Find items.
@@ -344,17 +342,17 @@ namespace Microsoft.Exchange.WebServices.Data
             ViewBase view,
             Grouping groupBy)
             where TItem : Item
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            return this.Service.FindItems<TItem>(
-                new FolderId[] { this.Id },
+            return Service.FindItems<TItem>(
+                new FolderId[] { Id },
                 null, /* searchFilter */
                 queryString,
                 view,
                 groupBy,
                 ServiceErrorHandling.ThrowOnError);
-        }
+            }
 
         /// <summary>
         /// Find items.
@@ -371,17 +369,17 @@ namespace Microsoft.Exchange.WebServices.Data
             ViewBase view,
             Grouping groupBy)
             where TItem : Item
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            return this.Service.FindItems<TItem>(
-                new FolderId[] { this.Id },
+            return Service.FindItems<TItem>(
+                new FolderId[] { Id },
                 searchFilter,
                 null, /* queryString */
                 view,
                 groupBy,
                 ServiceErrorHandling.ThrowOnError);
-        }
+            }
 
         /// <summary>
         /// Obtains a list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -392,16 +390,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="view">The view controlling the number of items returned.</param>
         /// <returns>An object representing the results of the search operation.</returns>
         public FindItemsResults<Item> FindItems(SearchFilter searchFilter, ItemView view)
-        {
+            {
             EwsUtilities.ValidateParamAllowNull(searchFilter, "searchFilter");
 
-            ServiceResponseCollection<FindItemResponse<Item>> responses = this.InternalFindItems<Item>(
+            ServiceResponseCollection<FindItemResponse<Item>> responses = InternalFindItems<Item>(
                 searchFilter,
-                view, 
+                view,
                 null /* groupBy */);
 
             return responses[0].Results;
-        }
+            }
 
         /// <summary>
         /// Obtains a list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -410,13 +408,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="view">The view controlling the number of items returned.</param>
         /// <returns>An object representing the results of the search operation.</returns>
         public FindItemsResults<Item> FindItems(string queryString, ItemView view)
-        {
+            {
             EwsUtilities.ValidateParamAllowNull(queryString, "queryString");
 
-            ServiceResponseCollection<FindItemResponse<Item>> responses = this.InternalFindItems<Item>(queryString, view, null /* groupBy */);
+            ServiceResponseCollection<FindItemResponse<Item>> responses = InternalFindItems<Item>(queryString, view, null /* groupBy */);
 
             return responses[0].Results;
-        }
+            }
 
         /// <summary>
         /// Obtains a list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -424,14 +422,14 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="view">The view controlling the number of items returned.</param>
         /// <returns>An object representing the results of the search operation.</returns>
         public FindItemsResults<Item> FindItems(ItemView view)
-        {
-            ServiceResponseCollection<FindItemResponse<Item>> responses = this.InternalFindItems<Item>(
+            {
+            ServiceResponseCollection<FindItemResponse<Item>> responses = InternalFindItems<Item>(
                 (SearchFilter)null,
                 view,
                 null /* groupBy */ );
 
             return responses[0].Results;
-        }
+            }
 
         /// <summary>
         /// Obtains a grouped list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -443,17 +441,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="groupBy">The grouping criteria.</param>
         /// <returns>A collection of grouped items representing the contents of this folder.</returns>
         public GroupedFindItemsResults<Item> FindItems(SearchFilter searchFilter, ItemView view, Grouping groupBy)
-        {
+            {
             EwsUtilities.ValidateParam(groupBy, "groupBy");
             EwsUtilities.ValidateParamAllowNull(searchFilter, "searchFilter");
 
-            ServiceResponseCollection<FindItemResponse<Item>> responses = this.InternalFindItems<Item>(
+            ServiceResponseCollection<FindItemResponse<Item>> responses = InternalFindItems<Item>(
                 searchFilter,
-                view, 
+                view,
                 groupBy);
 
             return responses[0].GroupedFindResults;
-        }
+            }
 
         /// <summary>
         /// Obtains a grouped list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -463,13 +461,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="groupBy">The grouping criteria.</param>
         /// <returns>A collection of grouped items representing the contents of this folder.</returns>
         public GroupedFindItemsResults<Item> FindItems(string queryString, ItemView view, Grouping groupBy)
-        {
+            {
             EwsUtilities.ValidateParam(groupBy, "groupBy");
 
-            ServiceResponseCollection<FindItemResponse<Item>> responses = this.InternalFindItems<Item>(queryString, view, groupBy);
+            ServiceResponseCollection<FindItemResponse<Item>> responses = InternalFindItems<Item>(queryString, view, groupBy);
 
             return responses[0].GroupedFindResults;
-        }
+            }
 
         /// <summary>
         /// Obtains a list of folders by searching the sub-folders of this folder. Calling this method results in a call to EWS.
@@ -477,11 +475,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="view">The view controlling the number of folders returned.</param>
         /// <returns>An object representing the results of the search operation.</returns>
         public FindFoldersResults FindFolders(FolderView view)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            return this.Service.FindFolders(this.Id, view);
-        }
+            return Service.FindFolders(Id, view);
+            }
 
         /// <summary>
         /// Obtains a list of folders by searching the sub-folders of this folder. Calling this method results in a call to EWS.
@@ -492,11 +490,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="view">The view controlling the number of folders returned.</param>
         /// <returns>An object representing the results of the search operation.</returns>
         public FindFoldersResults FindFolders(SearchFilter searchFilter, FolderView view)
-        {
-            this.ThrowIfThisIsNew();
+            {
+            ThrowIfThisIsNew();
 
-            return this.Service.FindFolders(this.Id, searchFilter, view);
-        }
+            return Service.FindFolders(Id, searchFilter, view);
+            }
 
         /// <summary>
         /// Obtains a grouped list of items by searching the contents of this folder. Calling this method results in a call to EWS.
@@ -505,23 +503,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="groupBy">The grouping criteria.</param>
         /// <returns>A collection of grouped items representing the contents of this folder.</returns>
         public GroupedFindItemsResults<Item> FindItems(ItemView view, Grouping groupBy)
-        {
+            {
             EwsUtilities.ValidateParam(groupBy, "groupBy");
 
-            return this.FindItems(
+            return FindItems(
                 (SearchFilter)null,
                 view,
                 groupBy);
-        }
+            }
 
         /// <summary>
         /// Get the property definition for the Id property.
         /// </summary>
         /// <returns>A PropertyDefinition instance.</returns>
         internal override PropertyDefinition GetIdPropertyDefinition()
-        {
+            {
             return FolderSchema.Id;
-        }
+            }
 
         /// <summary>
         /// Sets the extended property.
@@ -529,9 +527,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="extendedPropertyDefinition">The extended property definition.</param>
         /// <param name="value">The value.</param>
         public void SetExtendedProperty(ExtendedPropertyDefinition extendedPropertyDefinition, object value)
-        {
-            this.ExtendedProperties.SetExtendedProperty(extendedPropertyDefinition, value);
-        }
+            {
+            ExtendedProperties.SetExtendedProperty(extendedPropertyDefinition, value);
+            }
 
         /// <summary>
         /// Removes an extended property.
@@ -539,18 +537,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="extendedPropertyDefinition">The extended property definition.</param>
         /// <returns>True if property was removed.</returns>
         public bool RemoveExtendedProperty(ExtendedPropertyDefinition extendedPropertyDefinition)
-        {
-            return this.ExtendedProperties.RemoveExtendedProperty(extendedPropertyDefinition);
-        }
+            {
+            return ExtendedProperties.RemoveExtendedProperty(extendedPropertyDefinition);
+            }
 
         /// <summary>
         /// Gets a list of extended properties defined on this object.
         /// </summary>
         /// <returns>Extended properties collection.</returns>
         internal override ExtendedPropertyCollection GetExtendedProperties()
-        {
-            return this.ExtendedProperties;
-        }
+            {
+            return ExtendedProperties;
+            }
 
         #region Properties
 
@@ -558,140 +556,140 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the Id of the folder.
         /// </summary>
         public FolderId Id
-        {
-            get { return (FolderId)this.PropertyBag[this.GetIdPropertyDefinition()]; }
-        }
+            {
+            get { return (FolderId)PropertyBag[GetIdPropertyDefinition()]; }
+            }
 
         /// <summary>
         /// Gets the Id of this folder's parent folder.
         /// </summary>
         public FolderId ParentFolderId
-        {
-            get { return (FolderId)this.PropertyBag[FolderSchema.ParentFolderId]; }
-        }
+            {
+            get { return (FolderId)PropertyBag[FolderSchema.ParentFolderId]; }
+            }
 
         /// <summary>
         /// Gets the number of child folders this folder has.
         /// </summary>
         public int ChildFolderCount
-        {
-            get { return (int)this.PropertyBag[FolderSchema.ChildFolderCount]; }
-        }
+            {
+            get { return (int)PropertyBag[FolderSchema.ChildFolderCount]; }
+            }
 
         /// <summary>
         /// Gets or sets the display name of the folder.
         /// </summary>
         public string DisplayName
-        {
-            get { return (string)this.PropertyBag[FolderSchema.DisplayName]; }
-            set { this.PropertyBag[FolderSchema.DisplayName] = value; }
-        }
+            {
+            get { return (string)PropertyBag[FolderSchema.DisplayName]; }
+            set { PropertyBag[FolderSchema.DisplayName] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the custom class name of this folder.
         /// </summary>
         public string FolderClass
-        {
-            get { return (string)this.PropertyBag[FolderSchema.FolderClass]; }
-            set { this.PropertyBag[FolderSchema.FolderClass] = value; }
-        }
+            {
+            get { return (string)PropertyBag[FolderSchema.FolderClass]; }
+            set { PropertyBag[FolderSchema.FolderClass] = value; }
+            }
 
         /// <summary>
         /// Gets the total number of items contained in the folder.
         /// </summary>
         public int TotalCount
-        {
-            get { return (int)this.PropertyBag[FolderSchema.TotalCount]; }
-        }
+            {
+            get { return (int)PropertyBag[FolderSchema.TotalCount]; }
+            }
 
         /// <summary>
         /// Gets a list of extended properties associated with the folder.
         /// </summary>
         public ExtendedPropertyCollection ExtendedProperties
-        {
-            get { return (ExtendedPropertyCollection)this.PropertyBag[ServiceObjectSchema.ExtendedProperties]; }
-        }
+            {
+            get { return (ExtendedPropertyCollection)PropertyBag[ServiceObjectSchema.ExtendedProperties]; }
+            }
 
         /// <summary>
         /// Gets the Email Lifecycle Management (ELC) information associated with the folder.
         /// </summary>
         public ManagedFolderInformation ManagedFolderInformation
-        {
-            get { return (ManagedFolderInformation)this.PropertyBag[FolderSchema.ManagedFolderInformation]; }
-        }
+            {
+            get { return (ManagedFolderInformation)PropertyBag[FolderSchema.ManagedFolderInformation]; }
+            }
 
         /// <summary>
         /// Gets a value indicating the effective rights the current authenticated user has on the folder.
         /// </summary>
         public EffectiveRights EffectiveRights
-        {
-            get { return (EffectiveRights)this.PropertyBag[FolderSchema.EffectiveRights]; }
-        }
+            {
+            get { return (EffectiveRights)PropertyBag[FolderSchema.EffectiveRights]; }
+            }
 
         /// <summary>
         /// Gets a list of permissions for the folder.
         /// </summary>
         public FolderPermissionCollection Permissions
-        {
-            get { return (FolderPermissionCollection)this.PropertyBag[FolderSchema.Permissions]; }
-        }
+            {
+            get { return (FolderPermissionCollection)PropertyBag[FolderSchema.Permissions]; }
+            }
 
         /// <summary>
         /// Gets the number of unread items in the folder.
         /// </summary>
         public int UnreadCount
-        {
-            get { return (int)this.PropertyBag[FolderSchema.UnreadCount]; }
-        }
+            {
+            get { return (int)PropertyBag[FolderSchema.UnreadCount]; }
+            }
 
         /// <summary>
         /// Gets or sets the policy tag.
         /// </summary>
         public PolicyTag PolicyTag
-        {
-            get { return (PolicyTag)this.PropertyBag[FolderSchema.PolicyTag]; }
-            set { this.PropertyBag[FolderSchema.PolicyTag] = value; }
-        }
+            {
+            get { return (PolicyTag)PropertyBag[FolderSchema.PolicyTag]; }
+            set { PropertyBag[FolderSchema.PolicyTag] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the archive tag.
         /// </summary>
         public ArchiveTag ArchiveTag
-        {
-            get { return (ArchiveTag)this.PropertyBag[FolderSchema.ArchiveTag]; }
-            set { this.PropertyBag[FolderSchema.ArchiveTag] = value; }
-        }
+            {
+            get { return (ArchiveTag)PropertyBag[FolderSchema.ArchiveTag]; }
+            set { PropertyBag[FolderSchema.ArchiveTag] = value; }
+            }
 
         /// <summary>
         /// Gets the well known name of this folder, if any, as a string.
         /// </summary>
         /// <value>The well known name of this folder as a string, or null if this folder isn't a well known folder.</value>
         public string WellKnownFolderNameAsString
-        {
-            get { return (string)this.PropertyBag[FolderSchema.WellKnownFolderName]; }
-        }
+            {
+            get { return (string)PropertyBag[FolderSchema.WellKnownFolderName]; }
+            }
 
         /// <summary>
         /// Gets the well known name of this folder, if any.
         /// </summary>
         /// <value>The well known name of this folder, or null if this folder isn't a well known folder.</value>
         public WellKnownFolderName? WellKnownFolderName
-        {
-            get
             {
+            get
+                {
                 WellKnownFolderName result;
 
-                if (EwsUtilities.TryParse<WellKnownFolderName>(this.WellKnownFolderNameAsString, out result))
-                {
+                if (EwsUtilities.TryParse<WellKnownFolderName>(WellKnownFolderNameAsString, out result))
+                    {
                     return result;
-                }
+                    }
                 else
-                {
+                    {
                     return null;
+                    }
                 }
             }
-        }
 
         #endregion
+        }
     }
-}

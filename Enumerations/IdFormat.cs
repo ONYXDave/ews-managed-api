@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines supported Id formats in ConvertId operations.
     /// </summary>
     public enum IdFormat
-    {
+        {
         /// <summary>
         /// The EWS Id format used in Exchange 2007 RTM.
         /// </summary>
@@ -63,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Outlook Web Access Id format.
         /// </summary>
         OwaId
+        }
     }
-}

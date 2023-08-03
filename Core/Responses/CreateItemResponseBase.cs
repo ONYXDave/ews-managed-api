@@ -24,18 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the base response class for item creation operations.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     internal abstract class CreateItemResponseBase : ServiceResponse
-    {
+        {
         private List<Item> items;
 
         /// <summary>
@@ -51,31 +49,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal CreateItemResponseBase()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
-            this.items = reader.ReadServiceObjectsCollectionFromXml<Item>(
+            items = reader.ReadServiceObjectsCollectionFromXml<Item>(
                 XmlElementNames.Items,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 false,  /* clearPropertyBag */
                 null,   /* requestedPropertySet */
                 false); /* summaryPropertiesOnly */
-        }
+            }
 
         /// <summary>
         /// Gets the items.
         /// </summary>
         public List<Item> Items
-        {
-            get { return this.items; }
+            {
+            get { return items; }
+            }
         }
     }
-}

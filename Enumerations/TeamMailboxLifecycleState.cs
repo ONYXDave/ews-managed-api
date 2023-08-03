@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// TeamMailbox lifecycle state
     /// </summary>
     public enum TeamMailboxLifecycleState
-    {
+        {
         /// <summary>
         /// Active
         /// </summary>
@@ -53,5 +53,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [EwsEnum("PendingDelete")]
         PendingDelete,
+        }
     }
-}

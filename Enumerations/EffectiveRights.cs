@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Defines the effective user rights associated with an item or folder.
     /// </summary>
     [Flags]
     public enum EffectiveRights
-    {
+        {
         /// <summary>
         /// The user has no acces right on the item or folder.
         /// </summary>
@@ -74,5 +72,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The user can view private items.
         /// </summary>
         ViewPrivateItems = 64
+        }
     }
-}

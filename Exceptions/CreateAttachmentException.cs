@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Runtime.Serialization;
 
@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public sealed class CreateAttachmentException : BatchServiceResponseException<CreateAttachmentResponse>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of CreateAttachmentException.
         /// </summary>
@@ -43,8 +43,8 @@ namespace Microsoft.Exchange.WebServices.Data
             ServiceResponseCollection<CreateAttachmentResponse> serviceResponses,
             string message)
             : base(serviceResponses, message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of CreateAttachmentException.
@@ -57,17 +57,17 @@ namespace Microsoft.Exchange.WebServices.Data
             string message,
             Exception innerException)
             : base(serviceResponses, message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.CreateAttachmentException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		private CreateAttachmentException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.CreateAttachmentException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        private CreateAttachmentException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

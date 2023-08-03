@@ -24,11 +24,8 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the base class for accept, tentatively accept and decline response messages.
@@ -37,24 +34,24 @@ namespace Microsoft.Exchange.WebServices.Data
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class CalendarResponseMessage<TMessage> : CalendarResponseMessageBase<TMessage>
         where TMessage : EmailMessage
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarResponseMessage&lt;TMessage&gt;"/> class.
         /// </summary>
         /// <param name="referenceItem">The reference item.</param>
         internal CalendarResponseMessage(Item referenceItem)
             : base(referenceItem)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Internal method to return the schema associated with this type of object.
         /// </summary>
         /// <returns>The schema associated with this type of object.</returns>
         internal override ServiceObjectSchema GetSchema()
-        {
+            {
             return CalendarResponseObjectSchema.Instance;
-        }
+            }
 
         #region Properties
 
@@ -62,74 +59,74 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets or sets the body of the response.
         /// </summary>
         public MessageBody Body
-        {
-            get { return (MessageBody)this.PropertyBag[ItemSchema.Body]; }
-            set { this.PropertyBag[ItemSchema.Body] = value; }
-        }
+            {
+            get { return (MessageBody)PropertyBag[ItemSchema.Body]; }
+            set { PropertyBag[ItemSchema.Body] = value; }
+            }
 
         /// <summary>
         /// Gets a list of recipients the response will be sent to.
         /// </summary>
         public EmailAddressCollection ToRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.ToRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.ToRecipients]; }
+            }
 
         /// <summary>
         /// Gets a list of recipients the response will be sent to as Cc.
         /// </summary>
         public EmailAddressCollection CcRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.CcRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.CcRecipients]; }
+            }
 
         /// <summary>
         /// Gets a list of recipients this response will be sent to as Bcc.
         /// </summary>
         public EmailAddressCollection BccRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.BccRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.BccRecipients]; }
+            }
 
         // TODO : Does this need to be exposed?
         internal string ItemClass
-        {
-            get { return (string)this.PropertyBag[ItemSchema.ItemClass]; }
-            set { this.PropertyBag[ItemSchema.ItemClass] = value; }
-        }
+            {
+            get { return (string)PropertyBag[ItemSchema.ItemClass]; }
+            set { PropertyBag[ItemSchema.ItemClass] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the sensitivity of this response.
         /// </summary>
         public Sensitivity Sensitivity
-        {
-            get { return (Sensitivity)this.PropertyBag[ItemSchema.Sensitivity]; }
-            set { this.PropertyBag[ItemSchema.Sensitivity] = value; }
-        }
+            {
+            get { return (Sensitivity)PropertyBag[ItemSchema.Sensitivity]; }
+            set { PropertyBag[ItemSchema.Sensitivity] = value; }
+            }
 
         /// <summary>
         /// Gets a list of attachments to this response.
         /// </summary>
         public AttachmentCollection Attachments
-        {
-            get { return (AttachmentCollection)this.PropertyBag[ItemSchema.Attachments]; }
-        }
+            {
+            get { return (AttachmentCollection)PropertyBag[ItemSchema.Attachments]; }
+            }
 
         // TODO : Does this need to be exposed?
         internal InternetMessageHeaderCollection InternetMessageHeaders
-        {
-            get { return (InternetMessageHeaderCollection)this.PropertyBag[ItemSchema.InternetMessageHeaders]; }
-        }
+            {
+            get { return (InternetMessageHeaderCollection)PropertyBag[ItemSchema.InternetMessageHeaders]; }
+            }
 
         /// <summary>
         /// Gets or sets the sender of this response.
         /// </summary>
         public EmailAddress Sender
-        {
-            get { return (EmailAddress)this.PropertyBag[EmailMessageSchema.Sender]; }
-            set { this.PropertyBag[EmailMessageSchema.Sender] = value; }
-        }
+            {
+            get { return (EmailAddress)PropertyBag[EmailMessageSchema.Sender]; }
+            set { PropertyBag[EmailMessageSchema.Sender] = value; }
+            }
 
         #endregion
+        }
     }
-}

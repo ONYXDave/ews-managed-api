@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the response to an individual folder creation operation.
     /// </summary>
     internal sealed class CreateFolderResponse : ServiceResponse
-    {
+        {
         private Folder folder;
 
         /// <summary>
@@ -42,9 +40,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="folder">The folder.</param>
         internal CreateFolderResponse(Folder folder)
             : base()
-        {
+            {
             this.folder = folder;
-        }
+            }
 
         /// <summary>
         /// Gets the object instance.
@@ -53,44 +51,44 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Folder.</returns>
         private Folder GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
-            if (this.folder != null)
             {
-                return this.folder;
-            }
+            if (folder != null)
+                {
+                return folder;
+                }
             else
-            {
+                {
                 return EwsUtilities.CreateEwsObjectFromXmlElementName<Folder>(service, xmlElementName);
+                }
             }
-        }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             List<Folder> folders = reader.ReadServiceObjectsCollectionFromXml<Folder>(
                 XmlElementNames.Folders,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 false,  /* clearPropertyBag */
                 null,   /* requestedPropertySet */
                 false); /* summaryPropertiesOnly */
 
-            this.folder = folders[0];
-        }
+            folder = folders[0];
+            }
 
         /// <summary>
         /// Clears the change log of the created folder if the creation succeeded.
         /// </summary>
         internal override void Loaded()
-        {
-            if (this.Result == ServiceResult.Success)
             {
-                this.folder.ClearChangeLog();
+            if (Result == ServiceResult.Success)
+                {
+                folder.ClearChangeLog();
+                }
             }
         }
     }
-}

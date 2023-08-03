@@ -24,22 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents mailbox hold status
     /// </summary>
     public sealed class MailboxHoldStatus
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         public MailboxHoldStatus()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
@@ -48,11 +47,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="status">Hold status</param>
         /// <param name="additionalInfo">Additional info</param>
         public MailboxHoldStatus(string mailbox, HoldStatus status, string additionalInfo)
-        {
+            {
             Mailbox = mailbox;
             Status = status;
             AdditionalInfo = additionalInfo;
-        }
+            }
 
         /// <summary>
         /// Mailbox
@@ -68,25 +67,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Additional info
         /// </summary>
         public string AdditionalInfo { get; set; }
-    }
+        }
 
     /// <summary>
     /// Represents mailbox hold result
     /// </summary>
     public sealed class MailboxHoldResult
-    {
+        {
         /// <summary>
         /// Load from xml
         /// </summary>
         /// <param name="reader">The reader</param>
         /// <returns>Mailbox hold object</returns>
         internal static MailboxHoldResult LoadFromXml(EwsServiceXmlReader reader)
-        {
-            List<MailboxHoldStatus> statuses = new List<MailboxHoldStatus>();
+            {
+            List<MailboxHoldStatus> statuses = new();
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.MailboxHoldResult);
 
-            MailboxHoldResult holdResult = new MailboxHoldResult();
+            MailboxHoldResult holdResult = new();
             holdResult.HoldId = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.HoldId);
 
             // the query could be empty means there won't be Query element, hence needs to read and check
@@ -94,28 +93,28 @@ namespace Microsoft.Exchange.WebServices.Data
             reader.Read();
             holdResult.Query = string.Empty;
             if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.Query))
-            {
+                {
                 holdResult.Query = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Query);
                 reader.ReadStartElement(XmlNamespace.Types, XmlElementNames.MailboxHoldStatuses);
-            }
+                }
 
             do
-            {
+                {
                 reader.Read();
                 if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.MailboxHoldStatus))
-                {
+                    {
                     string mailbox = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Mailbox);
                     HoldStatus status = (HoldStatus)Enum.Parse(typeof(HoldStatus), reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Status));
                     string additionalInfo = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.AdditionalInfo);
                     statuses.Add(new MailboxHoldStatus(mailbox, status, additionalInfo));
+                    }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.MailboxHoldResult));
 
             holdResult.Statuses = statuses.Count == 0 ? null : statuses.ToArray();
 
             return holdResult;
-        }
+            }
 
         /// <summary>
         /// Hold id
@@ -131,5 +130,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Collection of mailbox status
         /// </summary>
         public MailboxHoldStatus[] Statuses { get; set; }
+        }
     }
-}

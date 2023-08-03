@@ -24,24 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Drawing;
-    using System.IO;
-    using Microsoft.Exchange.WebServices.Data.Enumerations;
-
+    {
     /// <summary>
     /// Represents the results of a GetUserPhoto operation.
     /// </summary>
     public sealed class SetUserPhotoResults
-    {
+        {
         /// <summary>
         /// Creates a new instance of the <see cref="Microsoft.Exchange.WebServices.Data.GetUserPhotoResults"/> class.
         /// </summary>
         internal SetUserPhotoResults()
-        {
+            {
+            }
+
         }
-        
     }
-}

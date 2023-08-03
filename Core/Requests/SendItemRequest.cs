@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a SendItem request.
     /// </summary>
     internal sealed class SendItemRequest : MultiResponseServiceRequest<ServiceResponse>
-    {
+        {
         private IEnumerable<Item> items;
         private FolderId savedCopyDestinationFolderId;
 
@@ -41,15 +39,15 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Asserts the valid.
         /// </summary>
         internal override void Validate()
-        {
-            base.Validate();
-            EwsUtilities.ValidateParam(this.Items, "Items");
-
-            if (this.SavedCopyDestinationFolderId != null)
             {
-                this.SavedCopyDestinationFolderId.Validate(this.Service.RequestedServerVersion);
+            base.Validate();
+            EwsUtilities.ValidateParam(Items, "Items");
+
+            if (SavedCopyDestinationFolderId != null)
+                {
+                SavedCopyDestinationFolderId.Validate(Service.RequestedServerVersion);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the service response.
@@ -58,90 +56,90 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseIndex">Index of the response.</param>
         /// <returns>Service response.</returns>
         internal override ServiceResponse CreateServiceResponse(ExchangeService service, int responseIndex)
-        {
+            {
             return new ServiceResponse();
-        }
+            }
 
         /// <summary>
         /// Gets the expected response message count.
         /// </summary>
         /// <returns>Number of expected response messages.</returns>
         internal override int GetExpectedResponseMessageCount()
-        {
-            return EwsUtilities.GetEnumeratedObjectCount(this.Items);
-        }
+            {
+            return EwsUtilities.GetEnumeratedObjectCount(Items);
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.SendItem;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.SendItemResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response message XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseMessageXmlElementName()
-        {
+            {
             return XmlElementNames.SendItemResponseMessage;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
 
             writer.WriteAttributeValue(
                 XmlAttributeNames.SaveItemToFolder,
-                this.SavedCopyDestinationFolderId != null);
-        }
+                SavedCopyDestinationFolderId != null);
+            }
 
         /// <summary>
         /// Writes the elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ItemIds);
 
-            foreach (Item item in this.Items)
-            {
+            foreach (Item item in Items)
+                {
                 item.Id.WriteToXml(writer, XmlElementNames.ItemId);
-            }
+                }
 
             writer.WriteEndElement(); // ItemIds
 
-            if (this.SavedCopyDestinationFolderId != null)
-            {
+            if (SavedCopyDestinationFolderId != null)
+                {
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.SavedItemFolderId);
-                this.SavedCopyDestinationFolderId.WriteToXml(writer);
+                SavedCopyDestinationFolderId.WriteToXml(writer);
                 writer.WriteEndElement();
+                }
             }
-        }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2007_SP1;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SendItemRequest"/> class.
@@ -150,27 +148,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorHandlingMode"> Indicates how errors should be handled.</param>
         internal SendItemRequest(ExchangeService service, ServiceErrorHandling errorHandlingMode)
             : base(service, errorHandlingMode)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
         /// <value>The items.</value>
         public IEnumerable<Item> Items
-        {
-            get { return this.items; }
-            set { this.items = value; }
-        }
+            {
+            get { return items; }
+            set { items = value; }
+            }
 
         /// <summary>
         /// Gets or sets the saved copy destination folder id.
         /// </summary>
         /// <value>The saved copy destination folder id.</value>
         public FolderId SavedCopyDestinationFolderId
-        {
-            get { return this.savedCopyDestinationFolderId; }
-            set { this.savedCopyDestinationFolderId = value; }
+            {
+            get { return savedCopyDestinationFolderId; }
+            set { savedCopyDestinationFolderId = value; }
+            }
         }
     }
-}

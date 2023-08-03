@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a physical address index.
     /// </summary>
     public enum PhysicalAddressIndex
-    {
+        {
         /// <summary>
         /// None.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The alternate address.
         /// </summary>
         Other
+        }
     }
-}

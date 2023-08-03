@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Dns
-{
+    {
     /// <summary>
     ///  DNS record types.
     /// </summary>
     internal enum DnsRecordType : ushort
-    {
+        {
         /// <summary>
         ///  RFC 1034/1035 Address Record
         /// </summary>        
@@ -44,7 +44,7 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// Start of Authority Record
         /// </summary>
         SOA = 0x0006,
-        
+
         /// <summary>
         /// Pointer Record
         /// </summary>
@@ -69,5 +69,5 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// Service location - RFC 2052
         /// </summary>
         SRV = 0x0021,
+        }
     }
-}

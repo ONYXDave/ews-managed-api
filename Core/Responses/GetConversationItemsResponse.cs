@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.ObjectModel;
-
+    {
     /// <summary>
     /// Represents the response to a GetConversationItems operation.
     /// </summary>
     public sealed class GetConversationItemsResponse : ServiceResponse
-    {
+        {
         private PropertySet propertySet;
 
         /// <summary>
@@ -40,9 +38,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">The property set.</param>
         internal GetConversationItemsResponse(PropertySet propertySet)
             : base()
-        {
+            {
             this.propertySet = propertySet;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the conversation.
@@ -55,11 +53,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.Conversation = new ConversationResponse(this.propertySet);
+            {
+            Conversation = new ConversationResponse(propertySet);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.Conversation);
-            this.Conversation.LoadFromXml(reader, XmlNamespace.Messages, XmlElementNames.Conversation);
+            Conversation.LoadFromXml(reader, XmlNamespace.Messages, XmlElementNames.Conversation);
+            }
         }
     }
-}

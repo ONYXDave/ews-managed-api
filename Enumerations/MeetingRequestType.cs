@@ -24,21 +24,17 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of a meeting request.
     /// </summary>
     public enum MeetingRequestType
-    {
+        {
         /// <summary>
         /// Undefined meeting request type.
         /// </summary>
         None,
-        
+
         /// <summary>
         /// The meeting request is an update to the original meeting.
         /// </summary>
@@ -68,5 +64,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The meeting update was forwarded to a delegate, and this copy is informational.
         /// </summary>
         PrincipalWantsCopy
+        }
     }
-}

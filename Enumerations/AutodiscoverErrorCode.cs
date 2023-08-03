@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the error codes that can be returned by the Autodiscover service.
     /// </summary>
     public enum AutodiscoverErrorCode
-    {
+        {
         /// <summary>
         /// There was no Error.
         /// </summary>
@@ -88,5 +84,5 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Internal server error.
         /// </summary>
         InternalServerError,
+        }
     }
-}

@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an operation to update an existing rule.
     /// </summary>
     public sealed class SetRuleOperation : RuleOperation
-    {
+        {
         /// <summary>
         /// Inbox rule to be updated.
         /// </summary>
@@ -40,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public SetRuleOperation()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SetRuleOperation"/> class.
@@ -49,25 +49,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="rule">The inbox rule to update.</param>
         public SetRuleOperation(Rule rule)
             : base()
-        {
+            {
             this.rule = rule;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the rule to be updated.
         /// </summary>
         public Rule Rule
-        {
-            get
             {
-                return this.rule;
-            }
+            get
+                {
+                return rule;
+                }
 
             set
-            {
-                this.SetFieldValue<Rule>(ref this.rule, value);
+                {
+                SetFieldValue<Rule>(ref rule, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -75,44 +75,44 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.Rule:
-                    this.rule = new Rule();
-                    this.rule.LoadFromXml(reader, reader.LocalName);
+                    rule = new Rule();
+                    rule.LoadFromXml(reader, reader.LocalName);
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.Rule.WriteToXml(writer, XmlElementNames.Rule);
-        }
+            {
+            Rule.WriteToXml(writer, XmlElementNames.Rule);
+            }
 
         /// <summary>
         ///  Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            EwsUtilities.ValidateParam(this.rule, "Rule");
-        }
+            {
+            EwsUtilities.ValidateParam(rule, "Rule");
+            }
 
         /// <summary>
         /// Gets the Xml element name of the SetRuleOperation object.
         /// </summary>
         internal override string XmlElementName
-        {
-            get
             {
+            get
+                {
                 return XmlElementNames.SetRuleOperation;
+                }
             }
         }
     }
-}

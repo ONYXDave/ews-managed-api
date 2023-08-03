@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// XML attribute names.
     /// </summary>
     internal static class XmlAttributeNames
-    {
+        {
         public const string XmlNs = "xmlns";
         public const string Id = "Id";
         public const string ChangeKey = "ChangeKey";
@@ -124,5 +124,5 @@ namespace Microsoft.Exchange.WebServices.Data
         // xsi attributes
         public const string Nil = "nil";
         public const string Type = "type";
+        }
     }
-}

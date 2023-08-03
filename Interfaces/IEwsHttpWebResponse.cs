@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.IO;
     using System.Net;
@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Interface representing HTTP web response.
     /// </summary>
     internal interface IEwsHttpWebResponse : IDisposable
-    {
+        {
         /// <summary>
         /// Closes the response stream.
         /// </summary>
@@ -88,5 +88,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>System.Version that contains the HTTP protocol version of the response.</returns>
         Version ProtocolVersion { get; }
+        }
     }
-}

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the response to an individual attachment deletion operation.
     /// </summary>
     public sealed class DeleteAttachmentResponse : ServiceResponse
-    {
+        {
         private Attachment attachment;
 
         /// <summary>
@@ -42,40 +38,40 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="attachment">The attachment.</param>
         internal DeleteAttachmentResponse(Attachment attachment)
             : base()
-        {
+            {
             EwsUtilities.Assert(
                 attachment != null,
                 "DeleteAttachmentResponse.ctor",
                 "attachment is null");
 
             this.attachment = attachment;
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.RootItemId);
 
             string changeKey = reader.ReadAttributeValue(XmlAttributeNames.RootItemChangeKey);
-            if (!string.IsNullOrEmpty(changeKey) && this.attachment.Owner != null)
-            {
-                this.attachment.Owner.RootItemId.ChangeKey = changeKey;
-            }
+            if (!string.IsNullOrEmpty(changeKey) && attachment.Owner != null)
+                {
+                attachment.Owner.RootItemId.ChangeKey = changeKey;
+                }
 
             reader.ReadEndElementIfNecessary(XmlNamespace.Messages, XmlElementNames.RootItemId);
-        }
+            }
 
         /// <summary>
         /// Gets the attachment that was deleted.
         /// </summary>
         internal Attachment Attachment
-        {
-            get { return this.attachment; }
+            {
+            get { return attachment; }
+            }
         }
     }
-}

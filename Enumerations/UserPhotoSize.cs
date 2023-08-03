@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the different user photo sizes that can be requested
     /// </summary>
     public static class UserPhotoSize
-    {
+        {
         /// <summary>Image of size 48x48</summary>
         public static readonly string HR48x48 = "HR48x48";
 
@@ -56,5 +56,5 @@ namespace Microsoft.Exchange.WebServices.Data
 
         /// <summary>Image of size 648x648</summary>
         public static readonly string HR648x648 = "HR648x648";
+        }
     }
-}

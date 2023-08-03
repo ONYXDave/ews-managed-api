@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     /// <typeparam name="TPropertyValue">Property value type. Constrained to be a value type.</typeparam>
     internal class GenericPropertyDefinition<TPropertyValue> : TypedPropertyDefinition where TPropertyValue : struct
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericPropertyDefinition&lt;T&gt;"/> class.
         /// </summary>
@@ -47,8 +47,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericPropertyDefinition&lt;T&gt;"/> class.
@@ -67,8 +67,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericPropertyDefinition&lt;T&gt;"/> class.
@@ -90,8 +90,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 flags,
                 version,
                 isNullable)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -99,16 +99,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>Value of string.</returns>
         internal override object Parse(string value)
-        {
+            {
             return EwsUtilities.Parse<TPropertyValue>(value);
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
-            get { return this.IsNullable ? typeof(Nullable<TPropertyValue>) : typeof(TPropertyValue); }
+            {
+            get { return IsNullable ? typeof(Nullable<TPropertyValue>) : typeof(TPropertyValue); }
+            }
         }
     }
-}

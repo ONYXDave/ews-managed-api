@@ -24,27 +24,25 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents Enhanced Location.
     /// </summary>
     public sealed class EnhancedLocation : ComplexProperty
-    {
+        {
         private string displayName;
         private string annotation;
         private PersonaPostalAddress personaPostalAddress;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnhancedLocation"/> class.
         /// </summary>
         internal EnhancedLocation()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnhancedLocation"/> class.
@@ -52,8 +50,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="displayName">The location DisplayName.</param>
         public EnhancedLocation(string displayName)
             : this(displayName, String.Empty, new PersonaPostalAddress())
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnhancedLocation"/> class.
@@ -62,8 +60,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="annotation">The annotation on the location.</param>
         public EnhancedLocation(string displayName, string annotation)
             : this(displayName, annotation, new PersonaPostalAddress())
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnhancedLocation"/> class.
@@ -73,12 +71,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="personaPostalAddress">The persona postal address.</param>
         public EnhancedLocation(string displayName, string annotation, PersonaPostalAddress personaPostalAddress)
             : this()
-        {
+            {
             this.displayName = displayName;
             this.annotation = annotation;
             this.personaPostalAddress = personaPostalAddress;
             this.personaPostalAddress.OnChange += new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
-        }
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -86,94 +84,94 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.LocationDisplayName:
-                    this.displayName = reader.ReadValue<string>();
+                    displayName = reader.ReadValue<string>();
                     return true;
                 case XmlElementNames.LocationAnnotation:
-                    this.annotation = reader.ReadValue<string>();
+                    annotation = reader.ReadValue<string>();
                     return true;
                 case XmlElementNames.PersonaPostalAddress:
-                    this.personaPostalAddress = new PersonaPostalAddress();
-                    this.personaPostalAddress.LoadFromXml(reader);
-                    this.personaPostalAddress.OnChange += new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
+                    personaPostalAddress = new PersonaPostalAddress();
+                    personaPostalAddress.LoadFromXml(reader);
+                    personaPostalAddress.OnChange += new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the Location DisplayName.
         /// </summary>
         public string DisplayName
-        {
-            get { return this.displayName; }
-            set { this.SetFieldValue<string>(ref this.displayName, value); }
-        }
+            {
+            get { return displayName; }
+            set { SetFieldValue<string>(ref displayName, value); }
+            }
 
         /// <summary>
         /// Gets or sets the Location Annotation.
         /// </summary>
         public string Annotation
-        {
-            get { return this.annotation; }
-            set { this.SetFieldValue<string>(ref this.annotation, value); }
-        }
+            {
+            get { return annotation; }
+            set { SetFieldValue<string>(ref annotation, value); }
+            }
 
         /// <summary>
         /// Gets or sets the Persona Postal Address.
         /// </summary>
         public PersonaPostalAddress PersonaPostalAddress
-        {
-            get { return this.personaPostalAddress; }
-            set
             {
-                if (!this.personaPostalAddress.Equals(value))
+            get { return personaPostalAddress; }
+            set
                 {
-                    if (this.personaPostalAddress != null)
+                if (!personaPostalAddress.Equals(value))
                     {
-                        this.personaPostalAddress.OnChange -= new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
+                    if (personaPostalAddress != null)
+                        {
+                        personaPostalAddress.OnChange -= new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
+                        }
+
+                    SetFieldValue<PersonaPostalAddress>(ref personaPostalAddress, value);
+
+                    personaPostalAddress.OnChange += new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
                     }
-
-                    this.SetFieldValue<PersonaPostalAddress>(ref this.personaPostalAddress, value);
-
-                    this.personaPostalAddress.OnChange += new ComplexPropertyChangedDelegate(PersonaPostalAddress_OnChange);
                 }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.LocationDisplayName, this.displayName);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.LocationAnnotation, this.annotation);
-            this.personaPostalAddress.WriteToXml(writer);
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.LocationDisplayName, displayName);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.LocationAnnotation, annotation);
+            personaPostalAddress.WriteToXml(writer);
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
+            {
             base.InternalValidate();
-            EwsUtilities.ValidateParam(this.displayName, "DisplayName");
-            EwsUtilities.ValidateParamAllowNull(this.annotation, "Annotation");
-            EwsUtilities.ValidateParamAllowNull(this.personaPostalAddress, "PersonaPostalAddress");
-        }
+            EwsUtilities.ValidateParam(displayName, "DisplayName");
+            EwsUtilities.ValidateParamAllowNull(annotation, "Annotation");
+            EwsUtilities.ValidateParamAllowNull(personaPostalAddress, "PersonaPostalAddress");
+            }
 
         /// <summary>
         /// PersonaPostalAddress OnChange.
         /// </summary>
         /// <param name="complexProperty">ComplexProperty object.</param>
         private void PersonaPostalAddress_OnChange(ComplexProperty complexProperty)
-        {
-            this.Changed();
+            {
+            Changed();
+            }
         }
     }
-}

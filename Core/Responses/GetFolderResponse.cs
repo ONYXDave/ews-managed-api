@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the response to an individual folder retrieval operation.
     /// </summary>
     public sealed class GetFolderResponse : ServiceResponse
-    {
+        {
         private Folder folder;
         private PropertySet propertySet;
 
@@ -44,7 +42,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">The property set from the request.</param>
         internal GetFolderResponse(Folder folder, PropertySet propertySet)
             : base()
-        {
+            {
             this.folder = folder;
             this.propertySet = propertySet;
 
@@ -52,25 +50,25 @@ namespace Microsoft.Exchange.WebServices.Data
                 this.propertySet != null,
                 "GetFolderResponse.ctor",
                 "PropertySet should not be null");
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             List<Folder> folders = reader.ReadServiceObjectsCollectionFromXml<Folder>(
                 XmlElementNames.Folders,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 true,               /* clearPropertyBag */
-                this.propertySet,   /* requestedPropertySet */
+                propertySet,   /* requestedPropertySet */
                 false);             /* summaryPropertiesOnly */
 
-            this.folder = folders[0];
-        }
+            folder = folders[0];
+            }
 
         /// <summary>
         /// Gets the folder instance.
@@ -79,23 +77,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Folder.</returns>
         private Folder GetObjectInstance(ExchangeService service, string xmlElementName)
-        {
-            if (this.Folder != null)
             {
-                return this.Folder;
-            }
+            if (Folder != null)
+                {
+                return Folder;
+                }
             else
-            {
+                {
                 return EwsUtilities.CreateEwsObjectFromXmlElementName<Folder>(service, xmlElementName);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the folder that was retrieved.
         /// </summary>
         public Folder Folder
-        {
-            get { return this.folder; }
+            {
+            get { return folder; }
+            }
         }
     }
-}

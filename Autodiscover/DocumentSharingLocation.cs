@@ -24,16 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
+    {
+    using Microsoft.Exchange.WebServices.Data;
     using System.Collections.Generic;
     using System.Xml;
-    using Microsoft.Exchange.WebServices.Data;
 
     /// <summary>
     /// Represents a sharing location.
     /// </summary>
     public sealed class DocumentSharingLocation
-    {
+        {
         /// <summary>
         /// The URL of the web service to use to manipulate documents at the 
         /// sharing location.
@@ -84,50 +84,50 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// documents at the sharing location.
         /// </summary>
         public string ServiceUrl
-        {
-            get
             {
-                return this.serviceUrl;
-            }
+            get
+                {
+                return serviceUrl;
+                }
 
             private set
-            {
-                this.serviceUrl = value;
+                {
+                serviceUrl = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the URL of the sharing location (for viewing the 
         /// contents in a web browser).
         /// </summary>
         public string LocationUrl
-        {
-            get
             {
-                return this.locationUrl;
-            }
+            get
+                {
+                return locationUrl;
+                }
 
             private set
-            {
-                this.locationUrl = value;
+                {
+                locationUrl = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the display name of the location.
         /// </summary>
         public string DisplayName
-        {
-            get
             {
-                return this.displayName;
-            }
+            get
+                {
+                return displayName;
+                }
 
             private set
-            {
-                this.displayName = value;
+                {
+                displayName = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the space-separated list of file extensions that are 
@@ -137,51 +137,51 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Example:  "docx pptx xlsx"
         /// </remarks>
         public IEnumerable<string> SupportedFileExtensions
-        {
-            get
             {
-                return this.supportedFileExtensions;
-            }
+            get
+                {
+                return supportedFileExtensions;
+                }
 
             private set
-            {
-                this.supportedFileExtensions = value;
+                {
+                supportedFileExtensions = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a flag indicating whether external users (outside the 
         /// enterprise/tenant) can view documents at the location.
         /// </summary>
         public bool ExternalAccessAllowed
-        {
-            get
             {
-                return this.externalAccessAllowed;
-            }
+            get
+                {
+                return externalAccessAllowed;
+                }
 
             private set
-            {
-                this.externalAccessAllowed = value;
+                {
+                externalAccessAllowed = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a flag indicating whether anonymous users can view
         /// documents at the location.
         /// </summary>
         public bool AnonymousAccessAllowed
-        {
-            get
             {
-                return this.anonymousAccessAllowed;
-            }
+            get
+                {
+                return anonymousAccessAllowed;
+                }
 
             private set
-            {
-                this.anonymousAccessAllowed = value;
+                {
+                anonymousAccessAllowed = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a flag indicating whether the user can modify 
@@ -196,41 +196,41 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// permissions for team and project sites.
         /// </remarks>
         public bool CanModifyPermissions
-        {
-            get
             {
-                return this.canModifyPermissions;
-            }
+            get
+                {
+                return canModifyPermissions;
+                }
 
             private set
-            {
-                this.canModifyPermissions = value;
+                {
+                canModifyPermissions = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets a flag indicating whether this location is the user's
         /// default location.  This will generally be their My Site.
         /// </summary>
         public bool IsDefault
-        {
-            get
             {
-                return this.isDefault;
-            }
+            get
+                {
+                return isDefault;
+                }
 
             private set
-            {
-                this.isDefault = value;
+                {
+                isDefault = value;
+                }
             }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentSharingLocation"/> class.
         /// </summary>
         private DocumentSharingLocation()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads DocumentSharingLocation instance from XML.
@@ -238,17 +238,17 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="reader">The reader.</param>
         /// <returns>DocumentSharingLocation.</returns>
         internal static DocumentSharingLocation LoadFromXml(EwsXmlReader reader)
-        {
-            DocumentSharingLocation location = new DocumentSharingLocation();
+            {
+            DocumentSharingLocation location = new();
 
             do
-            {
+                {
                 reader.Read();
 
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.ServiceUrl:
                             location.ServiceUrl = reader.ReadElementValue<string>();
                             break;
@@ -262,15 +262,15 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                             break;
 
                         case XmlElementNames.SupportedFileExtensions:
-                            List<string> fileExtensions = new List<string>();
+                            List<string> fileExtensions = new();
                             reader.Read();
                             while (reader.IsStartElement(XmlNamespace.Autodiscover, XmlElementNames.FileExtension))
-                            {                                
+                                {
                                 string extension = reader.ReadElementValue<string>();
                                 fileExtensions.Add(extension);
                                 reader.Read();
-                            }
-                            
+                                }
+
                             location.SupportedFileExtensions = fileExtensions;
                             break;
 
@@ -292,12 +292,12 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
 
                         default:
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Autodiscover, XmlElementNames.DocumentSharingLocation));
 
             return location;
+            }
         }
     }
-}

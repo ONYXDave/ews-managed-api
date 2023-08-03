@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -36,7 +36,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Utility class to convert between MAPI Property type values and strings.
     /// </summary>
     internal class MapiTypeConverter
-    {
+        {
         /// <summary>
         /// Assume DateTime values are in UTC.
         /// </summary>
@@ -45,10 +45,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <summary>
         /// Map from MAPI property type to converter entry.
         /// </summary>
-        private static LazyMember<MapiTypeConverterMap> mapiTypeConverterMap = new LazyMember<MapiTypeConverterMap>(
-            delegate()
+        private static LazyMember<MapiTypeConverterMap> mapiTypeConverterMap = new(
+            delegate ()
             {
-                MapiTypeConverterMap map = new MapiTypeConverterMap();
+                MapiTypeConverterMap map = new();
 
                 map.Add(
                     MapiPropertyType.ApplicationTime,
@@ -58,52 +58,52 @@ namespace Microsoft.Exchange.WebServices.Data
                     MapiPropertyType.ApplicationTimeArray,
                     new MapiTypeConverterMapEntry(typeof(double)) { IsArray = true });
 
-                var byteConverter = new MapiTypeConverterMapEntry(typeof(byte[]))
+                MapiTypeConverterMapEntry byteConverter = new(typeof(byte[]))
                     {
-                        Parse = (s) => string.IsNullOrEmpty(s) ? null : Convert.FromBase64String(s),
-                        ConvertToString = (o) => Convert.ToBase64String((byte[])o),
+                    Parse = (s) => string.IsNullOrEmpty(s) ? null : Convert.FromBase64String(s),
+                    ConvertToString = (o) => Convert.ToBase64String((byte[])o),
                     };
 
                 map.Add(
                     MapiPropertyType.Binary,
                     byteConverter);
 
-                var byteArrayConverter = new MapiTypeConverterMapEntry(typeof(byte[]))
+                MapiTypeConverterMapEntry byteArrayConverter = new(typeof(byte[]))
                     {
-                        Parse = (s) => string.IsNullOrEmpty(s) ? null : Convert.FromBase64String(s),
-                        ConvertToString = (o) => Convert.ToBase64String((byte[])o),
-                        IsArray = true
+                    Parse = (s) => string.IsNullOrEmpty(s) ? null : Convert.FromBase64String(s),
+                    ConvertToString = (o) => Convert.ToBase64String((byte[])o),
+                    IsArray = true
                     };
 
                 map.Add(
                     MapiPropertyType.BinaryArray,
                     byteArrayConverter);
 
-                var boolConverter = new MapiTypeConverterMapEntry(typeof(bool))
+                MapiTypeConverterMapEntry boolConverter = new(typeof(bool))
                     {
-                        Parse = (s) => Convert.ChangeType(s, typeof(bool), CultureInfo.InvariantCulture),
-                        ConvertToString = (o) => ((bool)o).ToString(CultureInfo.InvariantCulture).ToLower(),
+                    Parse = (s) => Convert.ChangeType(s, typeof(bool), CultureInfo.InvariantCulture),
+                    ConvertToString = (o) => ((bool)o).ToString(CultureInfo.InvariantCulture).ToLower(),
                     };
 
                 map.Add(
                     MapiPropertyType.Boolean,
                     boolConverter);
 
-                var clsidConverter = new MapiTypeConverterMapEntry(typeof(Guid))
+                MapiTypeConverterMapEntry clsidConverter = new(typeof(Guid))
                     {
-                        Parse = (s) => new Guid(s),
-                        ConvertToString = (o) => ((Guid)o).ToString(),
+                    Parse = (s) => new Guid(s),
+                    ConvertToString = (o) => ((Guid)o).ToString(),
                     };
 
                 map.Add(
                     MapiPropertyType.CLSID,
                     clsidConverter);
 
-                var clsidArrayConverter = new MapiTypeConverterMapEntry(typeof(Guid))
+                MapiTypeConverterMapEntry clsidArrayConverter = new(typeof(Guid))
                     {
-                        Parse = (s) => new Guid(s),
-                        ConvertToString = (o) => ((Guid)o).ToString(),
-                        IsArray = true
+                    Parse = (s) => new Guid(s),
+                    ConvertToString = (o) => ((Guid)o).ToString(),
+                    IsArray = true
                     };
 
                 map.Add(
@@ -141,9 +141,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 map.Add(
                     MapiPropertyType.Integer,
                     new MapiTypeConverterMapEntry(typeof(Int32))
-                    {
+                        {
                         Parse = (s) => MapiTypeConverter.ParseMapiIntegerValue(s)
-                    });
+                        });
 
                 map.Add(
                     MapiPropertyType.IntegerArray,
@@ -157,19 +157,19 @@ namespace Microsoft.Exchange.WebServices.Data
                     MapiPropertyType.LongArray,
                     new MapiTypeConverterMapEntry(typeof(Int64)) { IsArray = true });
 
-                var objectConverter = new MapiTypeConverterMapEntry(typeof(string))
+                MapiTypeConverterMapEntry objectConverter = new(typeof(string))
                     {
-                        Parse = (s) => s
+                    Parse = (s) => s
                     };
 
                 map.Add(
                     MapiPropertyType.Object,
                     objectConverter);
 
-                var objectArrayConverter = new MapiTypeConverterMapEntry(typeof(string))
+                MapiTypeConverterMapEntry objectArrayConverter = new(typeof(string))
                     {
-                        Parse = (s) => s,
-                        IsArray = true
+                    Parse = (s) => s,
+                    IsArray = true
                     };
 
                 map.Add(
@@ -184,40 +184,40 @@ namespace Microsoft.Exchange.WebServices.Data
                     MapiPropertyType.ShortArray,
                     new MapiTypeConverterMapEntry(typeof(Int16)) { IsArray = true });
 
-                var stringConverter = new MapiTypeConverterMapEntry(typeof(string))
+                MapiTypeConverterMapEntry stringConverter = new(typeof(string))
                     {
-                        Parse = (s) => s
+                    Parse = (s) => s
                     };
 
                 map.Add(
                     MapiPropertyType.String,
                     stringConverter);
 
-                var stringArrayConverter = new MapiTypeConverterMapEntry(typeof(string))
+                MapiTypeConverterMapEntry stringArrayConverter = new(typeof(string))
                     {
-                        Parse = (s) => s,
-                        IsArray = true
+                    Parse = (s) => s,
+                    IsArray = true
                     };
 
                 map.Add(
                     MapiPropertyType.StringArray,
                     stringArrayConverter);
 
-                var sysTimeConverter = new MapiTypeConverterMapEntry(typeof(DateTime))
+                MapiTypeConverterMapEntry sysTimeConverter = new(typeof(DateTime))
                     {
-                        Parse = (s) => DateTime.Parse(s, CultureInfo.InvariantCulture, UtcDataTimeStyles),
-                        ConvertToString = (o) => EwsUtilities.DateTimeToXSDateTime((DateTime)o) // Can't use DataTime.ToString()
+                    Parse = (s) => DateTime.Parse(s, CultureInfo.InvariantCulture, UtcDataTimeStyles),
+                    ConvertToString = (o) => EwsUtilities.DateTimeToXSDateTime((DateTime)o) // Can't use DataTime.ToString()
                     };
 
                 map.Add(
                     MapiPropertyType.SystemTime,
                     sysTimeConverter);
 
-                var sysTimeArrayConverter = new MapiTypeConverterMapEntry(typeof(DateTime))
+                MapiTypeConverterMapEntry sysTimeArrayConverter = new(typeof(DateTime))
                     {
-                        IsArray = true,
-                        Parse = (s) => DateTime.Parse(s, CultureInfo.InvariantCulture, UtcDataTimeStyles),
-                        ConvertToString = (o) => EwsUtilities.DateTimeToXSDateTime((DateTime)o) // Can't use DataTime.ToString()
+                    IsArray = true,
+                    Parse = (s) => DateTime.Parse(s, CultureInfo.InvariantCulture, UtcDataTimeStyles),
+                    ConvertToString = (o) => EwsUtilities.DateTimeToXSDateTime((DateTime)o) // Can't use DataTime.ToString()
                     };
 
                 map.Add(
@@ -225,7 +225,7 @@ namespace Microsoft.Exchange.WebServices.Data
                     sysTimeArrayConverter);
 
                 return map;
-            });
+                });
 
         /// <summary>
         /// Converts the string list to array.
@@ -234,7 +234,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="strings">Strings.</param>
         /// <returns>Array of objects.</returns>
         internal static Array ConvertToValue(MapiPropertyType mapiPropType, IEnumerable<string> strings)
-        {
+            {
             EwsUtilities.ValidateParam(strings, "strings");
 
             MapiTypeConverterMapEntry typeConverter = MapiTypeConverterMap[mapiPropType];
@@ -242,13 +242,13 @@ namespace Microsoft.Exchange.WebServices.Data
 
             int index = 0;
             foreach (string stringValue in strings)
-            {
+                {
                 object value = typeConverter.ConvertToValueOrDefault(stringValue);
                 array.SetValue(value, index++);
-            }
+                }
 
             return array;
-        }
+            }
 
         /// <summary>
         /// Converts a string to value consistent with MAPI type.
@@ -257,9 +257,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="stringValue">String to convert to a value.</param>
         /// <returns></returns>
         internal static object ConvertToValue(MapiPropertyType mapiPropType, string stringValue)
-        {
+            {
             return MapiTypeConverterMap[mapiPropType].ConvertToValue(stringValue);
-        }
+            }
 
         /// <summary>
         /// Converts a value to a string.
@@ -268,11 +268,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">Value to convert to string.</param>
         /// <returns>String value.</returns>
         internal static string ConvertToString(MapiPropertyType mapiPropType, object value)
-        {
+            {
             return (value == null)
                     ? string.Empty
                     : MapiTypeConverterMap[mapiPropType].ConvertToString(value);
-        }
+            }
 
         /// <summary>
         /// Change value to a value of compatible type.
@@ -281,11 +281,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>Compatible value.</returns>
         internal static object ChangeType(MapiPropertyType mapiType, object value)
-        {
+            {
             EwsUtilities.ValidateParam(value, "value");
 
             return MapiTypeConverterMap[mapiType].ChangeType(value);
-        }
+            }
 
         /// <summary>
         /// Converts a MAPI Integer value.
@@ -297,17 +297,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="s">The string value.</param>
         /// <returns>Integer value or the original string if the value could not be parsed as such.</returns>
         internal static object ParseMapiIntegerValue(string s)
-        {
+            {
             int intValue;
             if (Int32.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out intValue))
-            {
+                {
                 return intValue;
-            }
+                }
             else
-            {
+                {
                 return s;
+                }
             }
-        }
 
         /// <summary>
         /// Determines whether MapiPropertyType is an array type.
@@ -315,17 +315,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="mapiType">Type of the mapi.</param>
         /// <returns>True if this is an array type.</returns>
         internal static bool IsArrayType(MapiPropertyType mapiType)
-        {
+            {
             return MapiTypeConverterMap[mapiType].IsArray;
-        }
+            }
 
         /// <summary>
         /// Gets the MAPI type converter map.
         /// </summary>
         /// <value>The MAPI type converter map.</value>
         internal static MapiTypeConverterMap MapiTypeConverterMap
-        {
+            {
             get { return mapiTypeConverterMap.Member; }
+            }
         }
     }
-}

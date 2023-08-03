@@ -23,15 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Xml.Serialization;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the folder type of a retention policy tag.
     /// </summary>
     public enum ElcFolderType
-    {
+        {
         /// <summary>
         /// Calendar folder.
         /// </summary>
@@ -127,5 +125,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Non IPM Subtree root.
         /// </summary>
         NonIpmRoot = 19,
+        }
     }
-}

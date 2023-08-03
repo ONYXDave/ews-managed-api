@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the conflict types that can be returned in meeting time suggestions.
     /// </summary>
     public enum ConflictType
-    {
+        {
         /// <summary>
         /// There is a conflict with an indicidual attendee.
         /// </summary>
@@ -49,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// There is a conflict with an unresolvable attendee or an attendee that is not a user, group, or contact.
         /// </summary>
         UnknownAttendeeConflict
+        }
     }
-}

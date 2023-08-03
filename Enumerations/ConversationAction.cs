@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines actions applicable to Conversation.
     /// </summary>
     internal enum ConversationActionType
-    {
+        {
         /// <summary>
         /// Categorizes every current and future message in the conversation
         /// </summary>
@@ -75,5 +75,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Flag current items in context folder in the conversation with provided flag state.
         /// </summary>
         Flag,
+        }
     }
-}

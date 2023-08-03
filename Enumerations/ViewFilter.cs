@@ -23,15 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Xml.Serialization;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the view filter for queries.
     /// </summary>
     public enum ViewFilter
-    {
+        {
         /// <summary>
         /// Show all item (no filter)
         /// </summary>
@@ -97,5 +95,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2013)]
         SuggestionsDelete = 10,
+        }
     }
-}

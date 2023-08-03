@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents an item attachment.
     /// </summary>
     public class ItemAttachment : Attachment
-    {
+        {
         /// <summary>
         /// The item associated with the attachment.
         /// </summary>
@@ -45,8 +44,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="owner">The owner of the attachment.</param>
         internal ItemAttachment(Item owner)
             : base(owner)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemAttachment"/> class.
@@ -54,55 +53,55 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service.</param>
         internal ItemAttachment(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the item associated with the attachment.
         /// </summary>
         public Item Item
-        {
-            get
             {
-                return this.item;
-            }
+            get
+                {
+                return item;
+                }
 
             internal set
-            {
-                this.ThrowIfThisIsNotNew();
+                {
+                ThrowIfThisIsNotNew();
 
-                if (this.item != null)
-                {
-                    this.item.OnChange -= this.ItemChanged;
-                }
-                this.item = value;
-                if (this.item != null)
-                {
-                    this.item.OnChange += this.ItemChanged;
+                if (item != null)
+                    {
+                    item.OnChange -= ItemChanged;
+                    }
+                item = value;
+                if (item != null)
+                    {
+                    item.OnChange += ItemChanged;
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Implements the OnChange event handler for the item associated with the attachment.
         /// </summary>
         /// <param name="serviceObject">The service object that triggered the OnChange event.</param>
         private void ItemChanged(ServiceObject serviceObject)
-        {
-            if (this.Owner != null)
             {
-                this.Owner.PropertyBag.Changed();
+            if (Owner != null)
+                {
+                Owner.PropertyBag.Changed();
+                }
             }
-        }
 
         /// <summary>
         /// Obtains EWS XML element name for this object.
         /// </summary>
         /// <returns>The XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.ItemAttachment;
-        }
+            }
 
         /// <summary>
         /// Tries to read the element at the current position of the reader.
@@ -110,21 +109,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader to read the element from.</param>
         /// <returns>True if the element was read, false otherwise.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
+            {
             bool result = base.TryReadElementFromXml(reader);
 
             if (!result)
-            {
-                this.item = EwsUtilities.CreateItemFromXmlElementName(this, reader.LocalName);
-
-                if (this.item != null)
                 {
-                    this.item.LoadFromXml(reader, true /* clearPropertyBag */);
+                item = EwsUtilities.CreateItemFromXmlElementName(this, reader.LocalName);
+
+                if (item != null)
+                    {
+                    item.LoadFromXml(reader, true /* clearPropertyBag */);
+                    }
                 }
-            }
 
             return result;
-        }
+            }
 
         /// <summary>
         /// For ItemAttachment, AttachmentId and Item should be patched. 
@@ -132,7 +131,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader"></param>
         /// <returns></returns>
         internal override bool TryReadElementFromXmlToPatch(EwsServiceXmlReader reader)
-        {
+            {
             // update the attachment id.
             base.TryReadElementFromXml(reader);
 
@@ -140,66 +139,66 @@ namespace Microsoft.Exchange.WebServices.Data
             Type itemClass = EwsUtilities.GetItemTypeFromXmlElementName(reader.LocalName);
 
             if (itemClass != null)
-            {
-                if (this.item == null || this.item.GetType() != itemClass)
                 {
+                if (item == null || item.GetType() != itemClass)
+                    {
                     throw new ServiceLocalException(Strings.AttachmentItemTypeMismatch);
+                    }
+
+                item.LoadFromXml(reader, false /* clearPropertyBag */);
+                return true;
                 }
 
-                this.item.LoadFromXml(reader, false /* clearPropertyBag */);
-                return true;
-            }
-
             return false;
-        }
+            }
 
         /// <summary>
         /// Writes the properties of this object as XML elements.
         /// </summary>
         /// <param name="writer">The writer to write the elements to.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteElementsToXml(writer);
 
-            this.Item.WriteToXml(writer);
-        }
+            Item.WriteToXml(writer);
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         /// <param name="attachmentIndex">Index of this attachment.</param>
         internal override void Validate(int attachmentIndex)
-        {
-            if (string.IsNullOrEmpty(this.Name))
             {
+            if (string.IsNullOrEmpty(Name))
+                {
                 throw new ServiceValidationException(string.Format(Strings.ItemAttachmentMustBeNamed, attachmentIndex));
-            }
+                }
 
             // Recurse through any items attached to item attachment.
-            this.Item.Attachments.Validate();
-        }
+            Item.Attachments.Validate();
+            }
 
         /// <summary>
         /// Loads this attachment.
         /// </summary>
         /// <param name="additionalProperties">The optional additional properties to load.</param>
         public void Load(params PropertyDefinitionBase[] additionalProperties)
-        {
-            this.InternalLoad(
+            {
+            InternalLoad(
                 null /* bodyType */,
                 additionalProperties);
-        }
+            }
 
         /// <summary>
         /// Loads this attachment.
         /// </summary>
         /// <param name="additionalProperties">The optional additional properties to load.</param>
         public void Load(IEnumerable<PropertyDefinitionBase> additionalProperties)
-        {
-            this.InternalLoad(
+            {
+            InternalLoad(
                 null /* bodyType */,
                 additionalProperties);
-        }
+            }
 
         /// <summary>
         /// Loads this attachment.
@@ -207,11 +206,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="bodyType">The body type to load.</param>
         /// <param name="additionalProperties">The optional additional properties to load.</param>
         public void Load(BodyType bodyType, params PropertyDefinitionBase[] additionalProperties)
-        {
-            this.InternalLoad(
+            {
+            InternalLoad(
                 bodyType,
                 additionalProperties);
-        }
+            }
 
         /// <summary>
         /// Loads this attachment.
@@ -219,10 +218,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="bodyType">The body type to load.</param>
         /// <param name="additionalProperties">The optional additional properties to load.</param>
         public void Load(BodyType bodyType, IEnumerable<PropertyDefinitionBase> additionalProperties)
-        {
-            this.InternalLoad(
+            {
+            InternalLoad(
                 bodyType,
                 additionalProperties);
+            }
         }
     }
-}

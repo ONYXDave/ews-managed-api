@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Xml;
 
     /// <summary>
     /// Represents the OutOfOfficeInsightValue.
     /// </summary>
     public sealed class OutOfOfficeInsightValue : InsightValue
-    {
+        {
         private DateTime startTime;
         private DateTime endTime;
         private string culture = CultureInfo.CurrentCulture.Name;
@@ -44,45 +42,45 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Get the start date and time.
         /// </summary>
         public DateTime StartTime
-        {
-            get
             {
-                return this.startTime;
+            get
+                {
+                return startTime;
+                }
             }
-        }
 
         /// <summary>
         /// Get the end date and time.
         /// </summary>
         public DateTime EndTime
-        {
+            {
             get
-            { 
-                return this.endTime; 
+                {
+                return endTime;
+                }
             }
-        }
 
         /// <summary>
         /// Get the culture of the reply.
         /// </summary>
         public string Culture
-        {
-            get 
-            { 
-                return this.culture; 
+            {
+            get
+                {
+                return culture;
+                }
             }
-        }
 
         /// <summary>
         /// Get the reply message.
         /// </summary>
         public string Message
-        {
+            {
             get
-            { 
-                return this.message; 
+                {
+                return message;
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -90,29 +88,29 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.StartTime:
-                    this.startTime = reader.ReadElementValueAsDateTime(XmlNamespace.Types, XmlElementNames.StartTime).Value;
+                    startTime = reader.ReadElementValueAsDateTime(XmlNamespace.Types, XmlElementNames.StartTime).Value;
                     break;
                 case XmlElementNames.EndTime:
-                    this.endTime = reader.ReadElementValueAsDateTime(XmlNamespace.Types, XmlElementNames.EndTime).Value;
+                    endTime = reader.ReadElementValueAsDateTime(XmlNamespace.Types, XmlElementNames.EndTime).Value;
                     break;
                 case XmlElementNames.Culture:
-                    this.culture = reader.ReadElementValue();
+                    culture = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Message:
-                    this.message = reader.ReadElementValue();
+                    message = reader.ReadElementValue();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

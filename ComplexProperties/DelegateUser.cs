@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a delegate user.
     /// </summary>
     public sealed class DelegateUser : ComplexProperty
-    {
-        private UserId userId = new UserId();
-        private DelegatePermissions permissions = new DelegatePermissions();
+        {
+        private UserId userId = new();
+        private DelegatePermissions permissions = new();
         private bool receiveCopiesOfMeetingMessages;
         private bool viewPrivateItems;
 
@@ -44,13 +40,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public DelegateUser()
             : base()
-        {
+            {
             // Confusing error message refers to Calendar folder permissions when adding delegate access for a user
             // without including Calendar Folder permissions.
             //
-            this.receiveCopiesOfMeetingMessages = false;
-            this.viewPrivateItems = false;
-        }
+            receiveCopiesOfMeetingMessages = false;
+            viewPrivateItems = false;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateUser"/> class.
@@ -58,9 +54,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="primarySmtpAddress">The primary SMTP address of the delegate user.</param>
         public DelegateUser(string primarySmtpAddress)
             : this()
-        {
-            this.userId.PrimarySmtpAddress = primarySmtpAddress;
-        }
+            {
+            userId.PrimarySmtpAddress = primarySmtpAddress;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateUser"/> class.
@@ -68,43 +64,43 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="standardUser">The standard delegate user.</param>
         public DelegateUser(StandardUser standardUser)
             : this()
-        {
-            this.userId.StandardUser = standardUser;
-        }
+            {
+            userId.StandardUser = standardUser;
+            }
 
         /// <summary>
         /// Gets the user Id of the delegate user.
         /// </summary>
         public UserId UserId
-        {
-            get { return this.userId; }
-        }
+            {
+            get { return userId; }
+            }
 
         /// <summary>
         /// Gets the list of delegate user's permissions.
         /// </summary>
         public DelegatePermissions Permissions
-        {
-            get { return this.permissions; }
-        }
+            {
+            get { return permissions; }
+            }
 
         /// <summary>
         /// Gets or sets a value indicating if the delegate user should receive copies of meeting requests.
         /// </summary>
         public bool ReceiveCopiesOfMeetingMessages
-        {
-            get { return this.receiveCopiesOfMeetingMessages; }
-            set { this.receiveCopiesOfMeetingMessages = value; }
-        }
+            {
+            get { return receiveCopiesOfMeetingMessages; }
+            set { receiveCopiesOfMeetingMessages = value; }
+            }
 
         /// <summary>
         /// Gets or sets a value indicating if the delegate user should be able to view the principal's private items.
         /// </summary>
         public bool ViewPrivateItems
-        {
-            get { return this.viewPrivateItems; }
-            set { this.viewPrivateItems = value; }
-        }
+            {
+            get { return viewPrivateItems; }
+            set { viewPrivateItems = value; }
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -112,77 +108,77 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Returns true if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.UserId:
-                    this.userId = new UserId();
-                    this.userId.LoadFromXml(reader, reader.LocalName);
+                    userId = new UserId();
+                    userId.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.DelegatePermissions:
-                    this.permissions.Reset();
-                    this.permissions.LoadFromXml(reader, reader.LocalName);
+                    permissions.Reset();
+                    permissions.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.ReceiveCopiesOfMeetingMessages:
-                    this.receiveCopiesOfMeetingMessages = reader.ReadElementValue<bool>();
+                    receiveCopiesOfMeetingMessages = reader.ReadElementValue<bool>();
                     return true;
                 case XmlElementNames.ViewPrivateItems:
-                    this.viewPrivateItems = reader.ReadElementValue<bool>();
+                    viewPrivateItems = reader.ReadElementValue<bool>();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.UserId.WriteToXml(writer, XmlElementNames.UserId);
-            this.Permissions.WriteToXml(writer, XmlElementNames.DelegatePermissions);
+            {
+            UserId.WriteToXml(writer, XmlElementNames.UserId);
+            Permissions.WriteToXml(writer, XmlElementNames.DelegatePermissions);
 
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.ReceiveCopiesOfMeetingMessages,
-                this.ReceiveCopiesOfMeetingMessages);
-        
+                ReceiveCopiesOfMeetingMessages);
+
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.ViewPrivateItems,
-                this.ViewPrivateItems);
-        }
+                ViewPrivateItems);
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
-            if (this.UserId == null)
             {
+            if (UserId == null)
+                {
                 throw new ServiceValidationException(Strings.UserIdForDelegateUserNotSpecified);
-            }
-            else if (!this.UserId.IsValid())
-            {
+                }
+            else if (!UserId.IsValid())
+                {
                 throw new ServiceValidationException(Strings.DelegateUserHasInvalidUserId);
+                }
             }
-        }
 
         /// <summary>
         /// Validates this instance for AddDelegate.
         /// </summary>
         internal void ValidateAddDelegate()
-        {
-            this.permissions.ValidateAddDelegate();
-        }
+            {
+            permissions.ValidateAddDelegate();
+            }
 
         /// <summary>
         /// Validates this instance for UpdateDelegate.
         /// </summary>
         internal void ValidateUpdateDelegate()
-        {
-            this.permissions.ValidateUpdateDelegate();
+            {
+            permissions.ValidateUpdateDelegate();
+            }
         }
     }
-}

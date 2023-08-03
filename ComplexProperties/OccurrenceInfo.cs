@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Encapsulates information on the occurrence of a recurring appointment.
     /// </summary>
     public sealed class OccurrenceInfo : ComplexProperty
-    {
+        {
         private ItemId itemId;
         private DateTime start;
         private DateTime end;
@@ -41,8 +41,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="OccurrenceInfo"/> class.
         /// </summary>
         internal OccurrenceInfo()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -50,57 +50,57 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.ItemId:
-                    this.itemId = new ItemId();
-                    this.itemId.LoadFromXml(reader, reader.LocalName);
+                    itemId = new ItemId();
+                    itemId.LoadFromXml(reader, reader.LocalName);
                     return true;
                 case XmlElementNames.Start:
-                    this.start = reader.ReadElementValueAsDateTime().Value;
+                    start = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 case XmlElementNames.End:
-                    this.end = reader.ReadElementValueAsDateTime().Value;
+                    end = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 case XmlElementNames.OriginalStart:
-                    this.originalStart = reader.ReadElementValueAsDateTime().Value;
+                    originalStart = reader.ReadElementValueAsDateTime().Value;
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Id of the occurrence.
         /// </summary>
         public ItemId ItemId
-        {
-            get { return this.itemId; }
-        }
+            {
+            get { return itemId; }
+            }
 
         /// <summary>
         /// Gets the start date and time of the occurrence.
         /// </summary>
         public DateTime Start
-        {
-            get { return this.start; }
-        }
+            {
+            get { return start; }
+            }
 
         /// <summary>
         /// Gets the end date and time of the occurrence.
         /// </summary>
         public DateTime End
-        {
-            get { return this.end; }
-        }
+            {
+            get { return end; }
+            }
 
         /// <summary>
         /// Gets the original start date and time of the occurrence.
         /// </summary>
         public DateTime OriginalStart
-        {
-            get { return this.originalStart; }
+            {
+            get { return originalStart; }
+            }
         }
     }
-}

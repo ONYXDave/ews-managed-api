@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the DelveDocument.
     /// </summary>
     public sealed class DelveDocument : InsightValue
-    {
+        {
         private double rank;
         private string author;
         private string created;
@@ -48,161 +45,161 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the Rank
         /// </summary>
         public double Rank
-        {
-            get
             {
-                return this.rank;
-            }
+            get
+                {
+                return rank;
+                }
 
             set
-            {
-                this.SetFieldValue<double>(ref this.rank, value);
+                {
+                SetFieldValue<double>(ref rank, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Author
         /// </summary>
         public string Author
-        {
-            get
             {
-                return this.author;
-            }
+            get
+                {
+                return author;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.author, value);
+                {
+                SetFieldValue<string>(ref author, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Created
         /// </summary>
         public string Created
-        {
-            get
             {
-                return this.created;
-            }
+            get
+                {
+                return created;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.created, value);
+                {
+                SetFieldValue<string>(ref created, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the LastModifiedTime
         /// </summary>
         public string LastModifiedTime
-        {
-            get
             {
-                return this.lastModifiedTime;
-            }
+            get
+                {
+                return lastModifiedTime;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.lastModifiedTime, value);
+                {
+                SetFieldValue<string>(ref lastModifiedTime, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the DefaultEncodingURL
         /// </summary>
         public string DefaultEncodingURL
-        {
-            get
             {
-                return this.defaultEncodingURL;
-            }
+            get
+                {
+                return defaultEncodingURL;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.defaultEncodingURL, value);
+                {
+                SetFieldValue<string>(ref defaultEncodingURL, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the FileType
         /// </summary>
         public string FileType
-        {
-            get
             {
-                return this.fileType;
-            }
+            get
+                {
+                return fileType;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.fileType, value);
+                {
+                SetFieldValue<string>(ref fileType, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Title
         /// </summary>
         public string Title
-        {
-            get
             {
-                return this.title;
-            }
+            get
+                {
+                return title;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.title, value);
+                {
+                SetFieldValue<string>(ref title, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the DocumentId
         /// </summary>
         public string DocumentId
-        {
-            get
             {
-                return this.documentId;
-            }
+            get
+                {
+                return documentId;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.documentId, value);
+                {
+                SetFieldValue<string>(ref documentId, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the PreviewURL
         /// </summary>
         public string PreviewURL
-        {
-            get
             {
-                return this.previewURL;
-            }
+            get
+                {
+                return previewURL;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.previewURL, value);
+                {
+                SetFieldValue<string>(ref previewURL, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the LastEditor
         /// </summary>
         public string LastEditor
-        {
-            get
             {
-                return this.lastEditor;
-            }
+            get
+                {
+                return lastEditor;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.lastEditor, value);
+                {
+                SetFieldValue<string>(ref lastEditor, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -210,50 +207,50 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Rank:
-                    this.Rank = reader.ReadElementValue<double>();
+                    Rank = reader.ReadElementValue<double>();
                     break;
                 case XmlElementNames.Author:
-                    this.Author = reader.ReadElementValue();
+                    Author = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Created:
-                    this.Created = reader.ReadElementValue();
+                    Created = reader.ReadElementValue();
                     break;
                 case XmlElementNames.LastModifiedTime:
-                    this.LastModifiedTime = reader.ReadElementValue();
+                    LastModifiedTime = reader.ReadElementValue();
                     break;
                 case XmlElementNames.DefaultEncodingURL:
-                    this.DefaultEncodingURL = reader.ReadElementValue();
+                    DefaultEncodingURL = reader.ReadElementValue();
                     break;
                 case XmlElementNames.FileType:
-                    this.FileType = reader.ReadElementValue();
+                    FileType = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Title:
-                    this.Title = reader.ReadElementValue();
+                    Title = reader.ReadElementValue();
                     break;
                 case XmlElementNames.DocumentId:
-                    this.DocumentId = reader.ReadElementValue();
+                    DocumentId = reader.ReadElementValue();
                     break;
                 case XmlElementNames.PreviewURL:
-                    this.PreviewURL = reader.ReadElementValue();
+                    PreviewURL = reader.ReadElementValue();
                     break;
                 case XmlElementNames.LastEditor:
-                    this.LastEditor = reader.ReadElementValue();
+                    LastEditor = reader.ReadElementValue();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

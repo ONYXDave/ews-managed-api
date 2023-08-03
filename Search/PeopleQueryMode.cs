@@ -24,26 +24,24 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
 
     /// <summary>
     /// Represents the results of a People Index search operation.
     /// </summary>
     public sealed class PeopleQueryMode
-    {
+        {
         /// <summary>
         /// This mode will attempt to find a good match as quickly as possible
         /// among the various potential sources. This is a good setting to use
         /// by default.
         /// </summary>
         public static PeopleQueryMode Auto
-        {
+            {
             get { return autoInstance; }
-        }
+            }
 
         /// <summary>
         /// The Source string for Auto
@@ -53,7 +51,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <summary>
         /// The field for the auto mode
         /// </summary>
-        private static PeopleQueryMode autoInstance = new PeopleQueryMode();
+        private static PeopleQueryMode autoInstance = new();
 
         /// <summary>
         /// The sources used for this mode.
@@ -64,25 +62,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Creates a new instance of the <see cref="PeopleQueryMode"/> class.
         /// </summary>
         private PeopleQueryMode()
-        {
-            this.Sources = new HashSet<string>(new string[] { AutoSourceString });
-        }
+            {
+            Sources = new HashSet<string>(new string[] { AutoSourceString });
+            }
 
         /// <summary>
         /// Creates a new instance of the <see cref="PeopleQueryMode"/> class.
         /// </summary>
         /// <param name="sources">The sources to use. See <see cref="PeopleQuerySource"/> for sources</param>
         public PeopleQueryMode(IEnumerable<string> sources)
-        {
+            {
             EwsUtilities.ValidateParam(sources, "sources");
 
-            this.Sources = new HashSet<string>(sources);
+            Sources = new HashSet<string>(sources);
 
             // The call should either be auto or a list of real sources, so disallow this constructor from passing Auto
-            if (this.Sources.Contains(AutoSourceString))
-            {
+            if (Sources.Contains(AutoSourceString))
+                {
                 throw new ArgumentException("Cannot pass 'Auto' as a source");
+                }
             }
         }
     }
-}

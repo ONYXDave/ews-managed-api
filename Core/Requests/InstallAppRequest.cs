@@ -24,17 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.IO;
-    using System.Text;
 
     /// <summary>
     /// Represents a InstallApp request.
     /// </summary>
     internal sealed class InstallAppRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="InstallAppRequest"/> class.
         /// </summary>
@@ -45,55 +42,55 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="sendWelcomeEmail">Whether to send email on installation</param>
         internal InstallAppRequest(ExchangeService service, Stream manifestStream, string marketplaceAssetId, string marketplaceContentMarket, bool sendWelcomeEmail)
             : base(service)
-        {
+            {
             this.manifestStream = manifestStream;
             this.marketplaceAssetId = marketplaceAssetId;
             this.marketplaceContentMarket = marketplaceContentMarket;
             this.sendWelcomeEmail = sendWelcomeEmail;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.InstallAppRequest;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Manifest);
 
             writer.WriteBase64ElementValue(manifestStream);
 
-            if (!string.IsNullOrEmpty(this.marketplaceAssetId))
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MarketplaceAssetId, this.marketplaceAssetId);
-
-                if (!string.IsNullOrEmpty(this.marketplaceContentMarket))
+            if (!string.IsNullOrEmpty(marketplaceAssetId))
                 {
-                    writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MarketplaceContentMarket, this.marketplaceContentMarket);
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MarketplaceAssetId, marketplaceAssetId);
+
+                if (!string.IsNullOrEmpty(marketplaceContentMarket))
+                    {
+                    writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.MarketplaceContentMarket, marketplaceContentMarket);
+                    }
+
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SendWelcomeEmail, sendWelcomeEmail);
                 }
 
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SendWelcomeEmail, this.sendWelcomeEmail);
-            }
-
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.InstallAppResponse;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -101,31 +98,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            InstallAppResponse response = new InstallAppResponse();
+            {
+            InstallAppResponse response = new();
             response.LoadFromXml(reader, XmlElementNames.InstallAppResponse);
             return response;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal InstallAppResponse Execute()
-        {
-            InstallAppResponse serviceResponse = (InstallAppResponse)this.InternalExecute();
+            {
+            InstallAppResponse serviceResponse = (InstallAppResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// The plain text manifest stream. 
@@ -146,5 +143,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Whether to send welcome email or not
         /// </summary>
         private readonly bool sendWelcomeEmail;
+        }
     }
-}

@@ -24,38 +24,38 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the Id of an occurrence of a recurring appointment.
     /// </summary>
     public sealed class RecurringAppointmentMasterId : ItemId
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecurringAppointmentMasterId"/> class.
         /// </summary>
         /// <param name="occurrenceId">The Id of an occurrence in the recurring series.</param>
         public RecurringAppointmentMasterId(string occurrenceId)
             : base(occurrenceId)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.RecurringMasterItemId;
-        }
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.OccurrenceId, this.UniqueId);
-            writer.WriteAttributeValue(XmlAttributeNames.ChangeKey, this.ChangeKey);
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.OccurrenceId, UniqueId);
+            writer.WriteAttributeValue(XmlAttributeNames.ChangeKey, ChangeKey);
+            }
         }
     }
-}

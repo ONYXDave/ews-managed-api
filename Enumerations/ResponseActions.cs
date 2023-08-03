@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Defines the response actions that can be taken on an item.
     /// </summary>
     [Flags]
     public enum ResponseActions
-    {
+        {
         /// <summary>
         /// No action can be taken.
         /// </summary>
@@ -89,5 +87,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A reply to the item can be posted.
         /// </summary>
         PostReply = 512
+        }
     }
-}

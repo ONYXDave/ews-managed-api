@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a GetClientExtension request.
     /// </summary>
     internal sealed class GetClientExtensionRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// The list of extension IDs to return. 
         /// </summary>
@@ -98,7 +94,7 @@ namespace Microsoft.Exchange.WebServices.Data
             StringList userDisabledExtensionIds,
             bool isDebug)
                 : base(service)
-        {
+            {
             this.requestedExtensionIds = requestedExtensionIds;
             this.shouldReturnEnabledOnly = shouldReturnEnabledOnly;
             this.isUserScope = isUserScope;
@@ -106,72 +102,72 @@ namespace Microsoft.Exchange.WebServices.Data
             this.userEnabledExtensionIds = userEnabledExtensionIds;
             this.userDisabledExtensionIds = userDisabledExtensionIds;
             this.isDebug = isDebug;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetClientExtensionRequest;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (null != this.requestedExtensionIds && this.requestedExtensionIds.Count > 0)
             {
+            if (null != requestedExtensionIds && requestedExtensionIds.Count > 0)
+                {
                 writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ClientExtensionRequestedIds);
                 requestedExtensionIds.WriteElementsToXml(writer);
                 writer.WriteEndElement();
-            }
-            
-            if (this.isUserScope)
-            {
-                writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ClientExtensionUserRequest);
-
-                writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionUserIdentity, this.userId);
-
-                if (shouldReturnEnabledOnly)
-                {
-                    writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionEnabledOnly, this.shouldReturnEnabledOnly);
                 }
 
-                if (null != this.userEnabledExtensionIds && this.userEnabledExtensionIds.Count > 0)
+            if (isUserScope)
                 {
+                writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.ClientExtensionUserRequest);
+
+                writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionUserIdentity, userId);
+
+                if (shouldReturnEnabledOnly)
+                    {
+                    writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionEnabledOnly, shouldReturnEnabledOnly);
+                    }
+
+                if (null != userEnabledExtensionIds && userEnabledExtensionIds.Count > 0)
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.ClientExtensionUserEnabled);
                     userEnabledExtensionIds.WriteElementsToXml(writer);
                     writer.WriteEndElement();
-                }
+                    }
 
-                if (null != this.userDisabledExtensionIds && this.userDisabledExtensionIds.Count > 0)
-                {
+                if (null != userDisabledExtensionIds && userDisabledExtensionIds.Count > 0)
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.ClientExtensionUserDisabled);
                     userDisabledExtensionIds.WriteElementsToXml(writer);
                     writer.WriteEndElement();
-                }
+                    }
 
                 writer.WriteEndElement();
-            }
+                }
 
             if (isDebug)
-            {
+                {
                 writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ClientExtensionIsDebug, isDebug);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetClientExtensionResponse;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -179,30 +175,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetClientExtensionResponse response = new GetClientExtensionResponse();
+            {
+            GetClientExtensionResponse response = new();
             response.LoadFromXml(reader, XmlElementNames.GetClientExtensionResponse);
             return response;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetClientExtensionResponse Execute()
-        {
-            GetClientExtensionResponse serviceResponse = (GetClientExtensionResponse)this.InternalExecute();
+            {
+            GetClientExtensionResponse serviceResponse = (GetClientExtensionResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
+            }
         }
     }
-}

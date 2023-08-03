@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the Id of a public folder expressed in a specific format.
     /// </summary>
     public class AlternatePublicFolderId : AlternateIdBase
-    {
+        {
         /// <summary>
         /// Name of schema type used for AlternatePublicFolderId element.
         /// </summary>
@@ -40,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public AlternatePublicFolderId()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of AlternatePublicFolderId.
@@ -50,47 +50,47 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="folderId">The Id of the public folder.</param>
         public AlternatePublicFolderId(IdFormat format, string folderId)
             : base(format)
-        {
-            this.FolderId = folderId;
-        }
+            {
+            FolderId = folderId;
+            }
 
         /// <summary>
         /// The Id of the public folder.
         /// </summary>
         public string FolderId
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.AlternatePublicFolderId;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
 
-            writer.WriteAttributeValue(XmlAttributeNames.FolderId, this.FolderId);
-        }
+            writer.WriteAttributeValue(XmlAttributeNames.FolderId, FolderId);
+            }
 
         /// <summary>
         /// Loads the attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void LoadAttributesFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.LoadAttributesFromXml(reader);
 
-            this.FolderId = reader.ReadAttributeValue(XmlAttributeNames.FolderId);
+            FolderId = reader.ReadAttributeValue(XmlAttributeNames.FolderId);
+            }
         }
     }
-}

@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the response to a InstallApp operation.
     /// Today this class doesn't add extra functionality. Keep this class here so future
     /// we can return extension info up-on installation complete. 
     /// </summary>
     internal sealed class InstallAppResponse : ServiceResponse
-    {
+        {
         private bool? wasFirstInstall;
 
         /// <summary>
@@ -43,29 +39,29 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public InstallAppResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
-            if (this.ErrorCode == ServiceError.NoError && reader.IsStartElement(XmlNamespace.NotSpecified, XmlElementNames.WasFirstInstall))
-            {
-                this.wasFirstInstall = reader.ReadElementValue<bool>(XmlNamespace.NotSpecified, XmlElementNames.WasFirstInstall);
+            if (ErrorCode == ServiceError.NoError && reader.IsStartElement(XmlNamespace.NotSpecified, XmlElementNames.WasFirstInstall))
+                {
+                wasFirstInstall = reader.ReadElementValue<bool>(XmlNamespace.NotSpecified, XmlElementNames.WasFirstInstall);
+                }
             }
-        }
 
         /// <summary>
         /// Was this first install
         /// </summary>
         public bool? WasFirstInstall
-        {
-            get { return this.wasFirstInstall; }
+            {
+            get { return wasFirstInstall; }
+            }
         }
     }
-}

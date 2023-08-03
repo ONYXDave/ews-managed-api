@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Runtime.Serialization;
 
@@ -34,14 +34,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public class TimeZoneConversionException : ServiceLocalException
-    {
+        {
         /// <summary>
         /// ServiceLocalException Constructor.
         /// </summary>
         public TimeZoneConversionException()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceLocalException Constructor.
@@ -49,8 +49,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="message">Error message text.</param>
         public TimeZoneConversionException(string message)
             : base(message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceLocalException Constructor.
@@ -59,17 +59,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="innerException">Inner exception.</param>
         public TimeZoneConversionException(string message, Exception innerException)
             : base(message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.TimeZoneConversionException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected TimeZoneConversionException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-	    {
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.TimeZoneConversionException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected TimeZoneConversionException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a user's read access permission on items in a non-calendar folder.
     /// </summary>
     public enum FolderPermissionReadAccess
-    {
+        {
         /// <summary>
         /// The user has no read access on the items in the folder.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The user has access to the full details of items.
         /// </summary>
         FullDetails
+        }
     }
-}

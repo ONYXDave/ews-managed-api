@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
 
     /// <summary>
     /// Represents a collection of members of GroupMember type.
     /// </summary>
     public sealed class GroupMemberCollection : ComplexPropertyCollection<GroupMember>, ICustomUpdateSerializer
-    {
+        {
         /// <summary>
         /// If the collection is cleared, then store PDL members collection is updated with "SetItemField".
         /// If the collection is not cleared, then store PDL members collection is updated with "AppendToItemField".
@@ -45,8 +44,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public GroupMemberCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Finds the member with the specified key in the collection.
@@ -55,36 +54,36 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">The key of the member to find.</param>
         /// <returns>The member with the specified key.</returns>
         public GroupMember Find(string key)
-        {
+            {
             EwsUtilities.ValidateParam(key, "key");
 
-            foreach (GroupMember item in this.Items)
-            {
-                if (item.Key == key)
+            foreach (GroupMember item in Items)
                 {
+                if (item.Key == key)
+                    {
                     return item;
+                    }
                 }
-            }
 
             return null;
-        }
+            }
 
         /// <summary>
         /// Clears the collection.
         /// </summary>
         public void Clear()
-        {
+            {
             // mark the whole collection for deletion
-            this.InternalClear();
-            this.collectionIsCleared = true;
-        }
+            InternalClear();
+            collectionIsCleared = true;
+            }
 
         /// <summary>
         /// Adds a member to the collection.
         /// </summary>
         /// <param name="member">The member to add.</param>
         public void Add(GroupMember member)
-        {
+            {
             EwsUtilities.ValidateParam(member, "member");
 
             EwsUtilities.Assert(
@@ -93,35 +92,35 @@ namespace Microsoft.Exchange.WebServices.Data
                 "member.Key is not null.");
 
             EwsUtilities.Assert(
-                !this.Contains(member),
+                !Contains(member),
                 "GroupMemberCollection.Add",
                 "The member is already in the collection");
 
-            this.InternalAdd(member);
-        }
+            InternalAdd(member);
+            }
 
         /// <summary>
         /// Adds multiple members to the collection.
         /// </summary>
         /// <param name="members">The members to add.</param>
         public void AddRange(IEnumerable<GroupMember> members)
-        {
+            {
             EwsUtilities.ValidateParam(members, "members");
 
             foreach (GroupMember member in members)
-            {
-                this.Add(member);
+                {
+                Add(member);
+                }
             }
-        }
 
         /// <summary>
         /// Adds a member linked to a Contact Group.
         /// </summary>
         /// <param name="contactGroupId">The Id of the contact group.</param>
         public void AddContactGroup(ItemId contactGroupId)
-        {
-            this.Add(new GroupMember(contactGroupId));
-        }
+            {
+            Add(new GroupMember(contactGroupId));
+            }
 
         /// <summary>
         /// Adds a member linked to a specific contact's e-mail address.
@@ -129,27 +128,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="contactId">The Id of the contact.</param>
         /// <param name="addressToLink">The contact's address to link to.</param>
         public void AddPersonalContact(ItemId contactId, string addressToLink)
-        {
-            this.Add(new GroupMember(contactId, addressToLink));
-        }
+            {
+            Add(new GroupMember(contactId, addressToLink));
+            }
 
         /// <summary>
         /// Adds a member linked to a contact's first available e-mail address.
         /// </summary>
         /// <param name="contactId">The Id of the contact.</param>
         public void AddPersonalContact(ItemId contactId)
-        {
-            this.AddPersonalContact(contactId, null);
-        }
+            {
+            AddPersonalContact(contactId, null);
+            }
 
         /// <summary>
         /// Adds a member linked to an Active Directory user.
         /// </summary>
         /// <param name="smtpAddress">The SMTP address of the member.</param>
         public void AddDirectoryUser(string smtpAddress)
-        {
-            this.AddDirectoryUser(smtpAddress, EmailAddress.SmtpRoutingType);
-        }
+            {
+            AddDirectoryUser(smtpAddress, EmailAddress.SmtpRoutingType);
+            }
 
         /// <summary>
         /// Adds a member linked to an Active Directory user.
@@ -157,18 +156,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="address">The address of the member.</param>
         /// <param name="routingType">The routing type of the address.</param>
         public void AddDirectoryUser(string address, string routingType)
-        {
-            this.Add(new GroupMember(address, routingType, MailboxType.Mailbox));
-        }
+            {
+            Add(new GroupMember(address, routingType, MailboxType.Mailbox));
+            }
 
         /// <summary>
         /// Adds a member linked to an Active Directory contact.
         /// </summary>
         /// <param name="smtpAddress">The SMTP address of the Active Directory contact.</param>
         public void AddDirectoryContact(string smtpAddress)
-        {
-            this.AddDirectoryContact(smtpAddress, EmailAddress.SmtpRoutingType);
-        }
+            {
+            AddDirectoryContact(smtpAddress, EmailAddress.SmtpRoutingType);
+            }
 
         /// <summary>
         /// Adds a member linked to an Active Directory contact.
@@ -176,27 +175,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="address">The address of the Active Directory contact.</param>
         /// <param name="routingType">The routing type of the address.</param>
         public void AddDirectoryContact(string address, string routingType)
-        {
-            this.Add(new GroupMember(address, routingType, MailboxType.Contact));
-        }
+            {
+            Add(new GroupMember(address, routingType, MailboxType.Contact));
+            }
 
         /// <summary>
         /// Adds a member linked to a Public Group.
         /// </summary>
         /// <param name="smtpAddress">The SMTP address of the Public Group.</param>
         public void AddPublicGroup(string smtpAddress)
-        {
-            this.Add(new GroupMember(smtpAddress, EmailAddress.SmtpRoutingType, MailboxType.PublicGroup));
-        }
+            {
+            Add(new GroupMember(smtpAddress, EmailAddress.SmtpRoutingType, MailboxType.PublicGroup));
+            }
 
         /// <summary>
         /// Adds a member linked to a mail-enabled Public Folder.
         /// </summary>
         /// <param name="smtpAddress">The SMTP address of the mail-enabled Public Folder.</param>
         public void AddDirectoryPublicFolder(string smtpAddress)
-        {
-            this.Add(new GroupMember(smtpAddress, EmailAddress.SmtpRoutingType, MailboxType.PublicFolder));
-        }
+            {
+            Add(new GroupMember(smtpAddress, EmailAddress.SmtpRoutingType, MailboxType.PublicFolder));
+            }
 
         /// <summary>
         /// Adds a one-off member.
@@ -205,9 +204,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="address">The address of the member.</param>
         /// <param name="routingType">The routing type of the address.</param>
         public void AddOneOff(string displayName, string address, string routingType)
-        {
-            this.Add(new GroupMember(displayName, address, routingType));
-        }
+            {
+            Add(new GroupMember(displayName, address, routingType));
+            }
 
         /// <summary>
         /// Adds a one-off member.
@@ -215,9 +214,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="displayName">The display name of the member.</param>
         /// <param name="smtpAddress">The SMTP address of the member.</param>
         public void AddOneOff(string displayName, string smtpAddress)
-        {
-            this.AddOneOff(displayName, smtpAddress, EmailAddress.SmtpRoutingType);
-        }
+            {
+            AddOneOff(displayName, smtpAddress, EmailAddress.SmtpRoutingType);
+            }
 
         /// <summary>
         /// Adds a member that is linked to a specific e-mail address of a contact.
@@ -225,23 +224,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="contact">The contact to link to.</param>
         /// <param name="emailAddressKey">The contact's e-mail address to link to.</param>
         public void AddContactEmailAddress(Contact contact, EmailAddressKey emailAddressKey)
-        {
-            this.Add(new GroupMember(contact, emailAddressKey));
-        }
+            {
+            Add(new GroupMember(contact, emailAddressKey));
+            }
 
         /// <summary>
         /// Removes a member at the specified index.
         /// </summary>
         /// <param name="index">The index of the member to remove.</param>
         public void RemoveAt(int index)
-        {
-            if (index < 0 || index >= this.Count)
             {
+            if (index < 0 || index >= Count)
+                {
                 throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-            }
+                }
 
-            this.InternalRemoveAt(index);
-        }
+            InternalRemoveAt(index);
+            }
 
         /// <summary>
         /// Removes a member from the collection.
@@ -249,9 +248,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="member">The member to remove.</param>
         /// <returns>True if the group member was successfully removed from the collection, false otherwise.</returns>
         public bool Remove(GroupMember member)
-        {
-            return this.InternalRemove(member);
-        }
+            {
+            return InternalRemove(member);
+            }
 
         /// <summary>
         /// Writes the update to XML.
@@ -264,37 +263,37 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             ServiceObject ownerObject,
             PropertyDefinition propertyDefinition)
-        {
-            if (this.collectionIsCleared)
             {
-                if (this.AddedItems.Count == 0)
+            if (collectionIsCleared)
                 {
+                if (AddedItems.Count == 0)
+                    {
                     // Delete the whole members collection
-                    this.WriteDeleteMembersCollectionToXml(writer);
-                }
+                    WriteDeleteMembersCollectionToXml(writer);
+                    }
                 else
-                {
+                    {
                     // The collection is cleared, so Set
-                    this.WriteSetOrAppendMembersToXml(writer, this.AddedItems, true);
+                    WriteSetOrAppendMembersToXml(writer, AddedItems, true);
+                    }
                 }
-            }
             else
-            {
+                {
                 // The collection is not cleared, i.e. dl.Members.Clear() is not called.
                 // Append AddedItems.
-                this.WriteSetOrAppendMembersToXml(writer, this.AddedItems, false);
+                WriteSetOrAppendMembersToXml(writer, AddedItems, false);
 
                 // Since member replacement is not supported by server
                 // Delete old ModifiedItems, then recreate new instead.
-                this.WriteDeleteMembersToXml(writer, this.ModifiedItems);
-                this.WriteSetOrAppendMembersToXml(writer, this.ModifiedItems, false);
+                WriteDeleteMembersToXml(writer, ModifiedItems);
+                WriteSetOrAppendMembersToXml(writer, ModifiedItems, false);
 
                 // Delete RemovedItems.
-                this.WriteDeleteMembersToXml(writer, this.RemovedItems);
-            }
+                WriteDeleteMembersToXml(writer, RemovedItems);
+                }
 
             return true;
-        }
+            }
 
         /// <summary>
         /// Writes the deletion update to XML.
@@ -303,9 +302,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="ewsObject">The ews object.</param>
         /// <returns>True if property generated serialization.</returns>
         bool ICustomUpdateSerializer.WriteDeleteUpdateToXml(EwsServiceXmlWriter writer, ServiceObject ewsObject)
-        {
+            {
             return false;
-        }
+            }
 
         /// <summary>
         /// Creates a GroupMember object from an XML element name.
@@ -313,18 +312,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">The XML element name from which to create the e-mail address.</param>
         /// <returns>An GroupMember object.</returns>
         internal override GroupMember CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new GroupMember();
-        }
+            }
 
         /// <summary>
         /// Clears the change log.
         /// </summary>
         internal override void ClearChangeLog()
-        {
+            {
             base.ClearChangeLog();
-            this.collectionIsCleared = false;
-        }
+            collectionIsCleared = false;
+            }
 
         /// <summary>
         /// Retrieves the XML element name corresponding to the provided GroupMember object.
@@ -332,20 +331,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="member">The GroupMember object from which to determine the XML element name.</param>
         /// <returns>The XML element name corresponding to the provided GroupMember object.</returns>
         internal override string GetCollectionItemXmlElementName(GroupMember member)
-        {
+            {
             return XmlElementNames.Member;
-        }
+            }
 
         /// <summary>
         /// Delete the whole members collection.
         /// </summary>
         /// <param name="writer">Xml writer.</param>
         private void WriteDeleteMembersCollectionToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.DeleteItemField);
             ContactGroupSchema.Members.WriteToXml(writer);
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Generate XML to delete individual members.
@@ -353,22 +352,22 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="writer">Xml writer.</param>
         /// <param name="members">Members to delete.</param>
         private void WriteDeleteMembersToXml(EwsServiceXmlWriter writer, List<GroupMember> members)
-        {
-            if (members.Count != 0)
             {
-                GroupMemberPropertyDefinition memberPropDef = new GroupMemberPropertyDefinition();
+            if (members.Count != 0)
+                {
+                GroupMemberPropertyDefinition memberPropDef = new();
 
                 foreach (GroupMember member in members)
-                {
+                    {
                     writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.DeleteItemField);
 
                     memberPropDef.Key = member.Key;
                     memberPropDef.WriteToXml(writer);
 
                     writer.WriteEndElement();   // DeleteItemField
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Generate XML to Set or Append members.
@@ -379,9 +378,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="members">Members to set or append.</param>
         /// <param name="setMode">True - set members, false - append members.</param>
         private void WriteSetOrAppendMembersToXml(EwsServiceXmlWriter writer, List<GroupMember> members, bool setMode)
-        {
-            if (members.Count != 0)
             {
+            if (members.Count != 0)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, setMode ? XmlElementNames.SetItemField : XmlElementNames.AppendToItemField);
 
                 ContactGroupSchema.Members.WriteToXml(writer);
@@ -390,30 +389,30 @@ namespace Microsoft.Exchange.WebServices.Data
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Members);
 
                 foreach (GroupMember member in members)
-                {
+                    {
                     member.WriteToXml(writer, XmlElementNames.Member);
-                }
+                    }
 
                 writer.WriteEndElement();   // Members
                 writer.WriteEndElement();   // Group
                 writer.WriteEndElement();   // setMode ? SetItemField : AppendItemField
+                }
             }
-        }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
+            {
             base.InternalValidate();
 
-            foreach (GroupMember groupMember in this.ModifiedItems)
-            {
-                if (string.IsNullOrEmpty(groupMember.Key))
+            foreach (GroupMember groupMember in ModifiedItems)
                 {
+                if (string.IsNullOrEmpty(groupMember.Key))
+                    {
                     throw new ServiceValidationException(Strings.ContactGroupMemberCannotBeUpdatedWithoutBeingLoadedFirst);
+                    }
                 }
             }
         }
     }
-}

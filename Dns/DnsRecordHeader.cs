@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Dns
-{
+    {
     using System;
     using System.Runtime.InteropServices;
 
@@ -33,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Dns
     /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     internal struct DnsRecordHeader
-    {
+        {
         /// <summary>
         /// Pointer to the next DNS dnsRecord.
         /// </summary>
@@ -64,5 +64,5 @@ namespace Microsoft.Exchange.WebServices.Dns
         /// Reserved for future use.
         /// </summary>
         internal UInt32 Reserved;
+        }
     }
-}

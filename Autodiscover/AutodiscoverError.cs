@@ -24,13 +24,11 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-    using System.Xml;
+    {
     using Microsoft.Exchange.WebServices.Data;
+    using System;
+    using System.ComponentModel;
+    using System.Xml;
 
     /// <summary>
     /// Represents an error returned by the Autodiscover service.
@@ -38,7 +36,7 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
     [Serializable]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class AutodiscoverError
-    {
+        {
         private string time;
         private string id;
         private int errorCode;
@@ -49,8 +47,8 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Initializes a new instance of the <see cref="AutodiscoverError"/> class.
         /// </summary>
         private AutodiscoverError()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the XML through the specified reader and creates an Autodiscover error.
@@ -58,20 +56,20 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="reader">The reader.</param>
         /// <returns>An Autodiscover error.</returns>
         internal static AutodiscoverError Parse(EwsXmlReader reader)
-        {
-            AutodiscoverError error = new AutodiscoverError();
+            {
+            AutodiscoverError error = new();
 
             error.time = reader.ReadAttributeValue(XmlAttributeNames.Time);
             error.id = reader.ReadAttributeValue(XmlAttributeNames.Id);
 
             do
-            {
+                {
                 reader.Read();
 
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.ErrorCode:
                             error.errorCode = reader.ReadElementValue<int>();
                             break;
@@ -84,52 +82,52 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                         default:
                             reader.SkipCurrentElement();
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.NotSpecified, XmlElementNames.Error));
 
             return error;
-        }
+            }
 
         /// <summary>
         /// Gets the time when the error was returned.
         /// </summary>
         public string Time
-        {
-            get { return this.time; }
-        }
+            {
+            get { return time; }
+            }
 
         /// <summary>
         /// Gets a hash of the name of the computer that is running Microsoft Exchange Server that has the Client Access server role installed.
         /// </summary>
         public string Id
-        {
-            get { return this.id; }
-        }
+            {
+            get { return id; }
+            }
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         public int ErrorCode
-        {
-            get { return this.errorCode; }
-        }
+            {
+            get { return errorCode; }
+            }
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         public string Message
-        {
-            get { return this.message; }
-        }
+            {
+            get { return message; }
+            }
 
         /// <summary>
         /// Gets the debug data.
         /// </summary>
         public string DebugData
-        {
-            get { return this.debugData; }
+            {
+            get { return debugData; }
+            }
         }
     }
-}

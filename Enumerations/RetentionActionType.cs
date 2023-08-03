@@ -23,20 +23,18 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Xml.Serialization;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the action of a retention policy tag.
     /// </summary>
     public enum RetentionActionType
-    {
+        {
         /// <summary>
         /// Never tags (RetentionEnabled = false) do not have retention action in the FAI.
         /// </summary>
         None = 0,
-        
+
         /// <summary>
         /// Expired items will be moved to the Deleted Items folder.
         /// </summary>
@@ -67,5 +65,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Expired items will be moved to the archive.
         /// </summary>
         MoveToArchive = 6,
+        }
     }
-}

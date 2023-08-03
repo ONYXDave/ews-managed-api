@@ -24,11 +24,9 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents the results of an item search operation.
@@ -36,7 +34,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// <typeparam name="TItem">The type of item returned by the search operation.</typeparam>
     public sealed class GroupedFindItemsResults<TItem> : IEnumerable<ItemGroup<TItem>>
         where TItem : Item
-    {
+        {
         private int totalCount;
         private int? nextPageOffset;
         private bool moreAvailable;
@@ -44,50 +42,50 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <summary>
         /// List of ItemGroups.
         /// </summary>
-        private Collection<ItemGroup<TItem>> itemGroups = new Collection<ItemGroup<TItem>>();
+        private Collection<ItemGroup<TItem>> itemGroups = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GroupedFindItemsResults&lt;TItem&gt;"/> class.
         /// </summary>
         internal GroupedFindItemsResults()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the total number of items matching the search criteria available in the searched folder.
         /// </summary>
         public int TotalCount
-        {
-            get { return this.totalCount; }
-            internal set { this.totalCount = value; }
-        }
+            {
+            get { return totalCount; }
+            internal set { totalCount = value; }
+            }
 
         /// <summary>
         /// Gets the offset that should be used with ItemView to retrieve the next page of items in a FindItems operation.
         /// </summary>
         public int? NextPageOffset
-        {
-            get { return this.nextPageOffset; }
-            internal set { this.nextPageOffset = value; }
-        }
+            {
+            get { return nextPageOffset; }
+            internal set { nextPageOffset = value; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether more items corresponding to the search criteria
         /// are available in the searched folder. 
         /// </summary>
         public bool MoreAvailable
-        {
-            get { return this.moreAvailable; }
-            internal set { this.moreAvailable = value; }
-        }
+            {
+            get { return moreAvailable; }
+            internal set { moreAvailable = value; }
+            }
 
         /// <summary>
         /// Gets the item groups returned by the search operation.
         /// </summary>
         public Collection<ItemGroup<TItem>> ItemGroups
-        {
-            get { return this.itemGroups; }
-        }
+            {
+            get { return itemGroups; }
+            }
 
         #region IEnumerable<ItemGroup<TItem>> Members
 
@@ -98,9 +96,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
         /// </returns>
         public IEnumerator<ItemGroup<TItem>> GetEnumerator()
-        {
-            return this.itemGroups.GetEnumerator();
-        }
+            {
+            return itemGroups.GetEnumerator();
+            }
 
         #endregion
 
@@ -113,10 +111,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
         /// </returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.itemGroups.GetEnumerator();
-        }
+            {
+            return itemGroups.GetEnumerator();
+            }
 
         #endregion
+        }
     }
-}

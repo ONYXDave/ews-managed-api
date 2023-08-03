@@ -24,11 +24,8 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Xml;
 
     /// <summary>
@@ -37,7 +34,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// <typeparam name="TItem">The type of items that the opeartion returned.</typeparam>
     internal sealed class FindItemResponse<TItem> : ServiceResponse
         where TItem : Item
-    {
+        {
         private FindItemsResults<TItem> results;
         private bool isGrouped;
         private GroupedFindItemsResults<TItem> groupedFindResults;
@@ -50,7 +47,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">The property set.</param>
         internal FindItemResponse(bool isGrouped, PropertySet propertySet)
             : base()
-        {
+            {
             this.isGrouped = isGrouped;
             this.propertySet = propertySet;
 
@@ -58,14 +55,14 @@ namespace Microsoft.Exchange.WebServices.Data
                 this.propertySet != null,
                 "FindItemResponse.ctor",
                 "PropertySet should not be null");
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.RootFolder);
 
             int totalItemsInView = reader.ReadAttributeValue<int>(XmlAttributeNames.TotalItemsInView);
@@ -74,50 +71,50 @@ namespace Microsoft.Exchange.WebServices.Data
             // Ignore IndexedPagingOffset attribute if moreItemsAvailable is false.
             int? nextPageOffset = moreItemsAvailable ? reader.ReadNullableAttributeValue<int>(XmlAttributeNames.IndexedPagingOffset) : null;
 
-            if (!this.isGrouped)
-            {
-                this.results = new FindItemsResults<TItem>();
-                this.results.TotalCount = totalItemsInView;
-                this.results.NextPageOffset = nextPageOffset;
-                this.results.MoreAvailable = moreItemsAvailable;
+            if (!isGrouped)
+                {
+                results = new FindItemsResults<TItem>();
+                results.TotalCount = totalItemsInView;
+                results.NextPageOffset = nextPageOffset;
+                results.MoreAvailable = moreItemsAvailable;
                 InternalReadItemsFromXml(
                     reader,
-                    this.propertySet,
-                    this.results.Items);
-            }
+                    propertySet,
+                    results.Items);
+                }
             else
-            {
-                this.groupedFindResults = new GroupedFindItemsResults<TItem>();
-                this.groupedFindResults.TotalCount = totalItemsInView;
-                this.groupedFindResults.NextPageOffset = nextPageOffset;
-                this.groupedFindResults.MoreAvailable = moreItemsAvailable;
+                {
+                groupedFindResults = new GroupedFindItemsResults<TItem>();
+                groupedFindResults.TotalCount = totalItemsInView;
+                groupedFindResults.NextPageOffset = nextPageOffset;
+                groupedFindResults.MoreAvailable = moreItemsAvailable;
 
                 reader.ReadStartElement(XmlNamespace.Types, XmlElementNames.Groups);
 
-                if (!reader.IsEmptyElement) 
-                {
-                    do
+                if (!reader.IsEmptyElement)
                     {
+                    do
+                        {
                         reader.Read();
 
                         if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.GroupedItems))
-                        {
+                            {
                             string groupIndex = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.GroupIndex);
 
-                            List<TItem> itemList = new List<TItem>();
+                            List<TItem> itemList = new();
                             InternalReadItemsFromXml(
                                 reader,
-                                this.propertySet,
+                                propertySet,
                                 itemList);
 
                             reader.ReadEndElement(XmlNamespace.Types, XmlElementNames.GroupedItems);
 
-                            this.groupedFindResults.ItemGroups.Add(new ItemGroup<TItem>(groupIndex, itemList));
+                            groupedFindResults.ItemGroups.Add(new ItemGroup<TItem>(groupIndex, itemList));
+                            }
                         }
-                    }
                     while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.Groups));
+                    }
                 }
-            }
 
             reader.ReadEndElement(XmlNamespace.Messages, XmlElementNames.RootFolder);
 
@@ -125,25 +122,25 @@ namespace Microsoft.Exchange.WebServices.Data
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.HighlightTerms) &&
                 !reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        HighlightTerm term = new HighlightTerm();
+                        {
+                        HighlightTerm term = new();
 
                         term.LoadFromXml(
                             reader,
                             XmlNamespace.Types,
                             XmlElementNames.HighlightTerm);
-                        this.results.HighlightTerms.Add(term);
+                        results.HighlightTerms.Add(term);
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.HighlightTerms));
+                }
             }
-        }
 
         /// <summary>
         /// Read items from XML.
@@ -155,7 +152,7 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlReader reader,
             PropertySet propertySet,
             IList<TItem> destinationList)
-        {
+            {
             EwsUtilities.Assert(
                 destinationList != null,
                 "FindItemResponse.InternalReadItemsFromXml",
@@ -163,21 +160,21 @@ namespace Microsoft.Exchange.WebServices.Data
 
             reader.ReadStartElement(XmlNamespace.Types, XmlElementNames.Items);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
+                        {
                         TItem item = EwsUtilities.CreateEwsObjectFromXmlElementName<TItem>(reader.Service, reader.LocalName);
 
                         if (item == null)
-                        {
+                            {
                             reader.SkipCurrentElement();
-                        }
+                            }
                         else
-                        {
+                            {
                             item.LoadFromXml(
                                         reader,
                                         true, /* clearPropertyBag */
@@ -185,12 +182,12 @@ namespace Microsoft.Exchange.WebServices.Data
                                         true  /* summaryPropertiesOnly */);
 
                             destinationList.Add(item);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.Items));
+                }
             }
-        }
 
         /// <summary>
         /// Creates an item instance.
@@ -199,25 +196,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Item</returns>
         private TItem CreateItemInstance(ExchangeService service, string xmlElementName)
-        {
+            {
             return EwsUtilities.CreateEwsObjectFromXmlElementName<TItem>(service, xmlElementName);
-        }
+            }
 
         /// <summary>
         /// Gets a grouped list of items matching the specified search criteria that were found in Exchange. ItemGroups is
         /// null if the search operation did not specify grouping options.
         /// </summary>
         public GroupedFindItemsResults<TItem> GroupedFindResults
-        {
-            get { return this.groupedFindResults; }
-        }
+            {
+            get { return groupedFindResults; }
+            }
 
         /// <summary>
         /// Gets the results of the search operation.
         /// </summary>
         public FindItemsResults<TItem> Results
-        {
-            get { return this.results; }
+            {
+            get { return results; }
+            }
         }
     }
-}

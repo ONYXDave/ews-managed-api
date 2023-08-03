@@ -24,19 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a class that can self-validate.
     /// </summary>
     internal interface ISelfValidate
-    {
+        {
         /// <summary>
         /// Validates this instance.
         /// </summary>
         void Validate();
+        }
     }
-}

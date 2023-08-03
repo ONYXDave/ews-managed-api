@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class ContactSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// FieldURIs for contacts.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string FileAs = "contacts:FileAs";
             public const string FileAsMapping = "contacts:FileAsMapping";
             public const string DisplayName = "contacts:DisplayName";
@@ -88,7 +88,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string DirectoryId = "contacts:DirectoryId";
             public const string ManagerMailbox = "contacts:ManagerMailbox";
             public const string DirectReports = "contacts:DirectReports";
-        }
+            }
 
         /// <summary>
         /// Defines the FileAs property.
@@ -177,7 +177,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.CompleteName,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new CompleteName(); });
+                delegate () { return new CompleteName(); });
 
         /// <summary>
         /// Defines the CompanyName property.
@@ -200,7 +200,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.EmailAddresses,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddressDictionary(); });
+                delegate () { return new EmailAddressDictionary(); });
 
         /// <summary>
         /// Defines the PhysicalAddresses property.
@@ -212,7 +212,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PhysicalAddresses,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new PhysicalAddressDictionary(); });
+                delegate () { return new PhysicalAddressDictionary(); });
 
         /// <summary>
         /// Defines the PhoneNumbers property.
@@ -224,7 +224,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PhoneNumbers,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new PhoneNumberDictionary(); });
+                delegate () { return new PhoneNumberDictionary(); });
 
         /// <summary>
         /// Defines the AssistantName property.
@@ -272,7 +272,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Children,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the Companies property.
@@ -284,7 +284,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Companies,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the ContactSource property.
@@ -329,7 +329,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ImAddresses,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ImAddressDictionary(); });
+                delegate () { return new ImAddressDictionary(); });
 
         /// <summary>
         /// Defines the JobTitle property.
@@ -440,7 +440,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.HasPicture,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010);
-        
+
         #region Directory Only Properties
 
         /// <summary>
@@ -475,7 +475,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PhoneticLastName,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1);
-          
+
         /// <summary>
         /// Defines the Alias property.
         /// </summary>
@@ -504,9 +504,9 @@ namespace Microsoft.Exchange.WebServices.Data
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly PropertyDefinition Photo =
             new ByteArrayPropertyDefinition(
-                XmlElementNames.Photo, 
-                FieldUris.Photo, 
-                PropertyDefinitionFlags.CanFind, 
+                XmlElementNames.Photo,
+                FieldUris.Photo,
+                PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1);
 
         /// <summary>
@@ -515,11 +515,11 @@ namespace Microsoft.Exchange.WebServices.Data
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly PropertyDefinition UserSMIMECertificate =
             new ComplexPropertyDefinition<ByteArrayArray>(
-                XmlElementNames.UserSMIMECertificate, 
-                FieldUris.UserSMIMECertificate, 
-                PropertyDefinitionFlags.CanFind, 
+                XmlElementNames.UserSMIMECertificate,
+                FieldUris.UserSMIMECertificate,
+                PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new ByteArrayArray(); });
+                delegate () { return new ByteArrayArray(); });
 
         /// <summary>
         /// Defines the MSExchangeCertificate property.
@@ -528,10 +528,10 @@ namespace Microsoft.Exchange.WebServices.Data
         public static readonly PropertyDefinition MSExchangeCertificate =
             new ComplexPropertyDefinition<ByteArrayArray>(
                 XmlElementNames.MSExchangeCertificate,
-                FieldUris.MSExchangeCertificate, 
-                PropertyDefinitionFlags.CanFind, 
+                FieldUris.MSExchangeCertificate,
+                PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new ByteArrayArray(); });
+                delegate () { return new ByteArrayArray(); });
 
         /// <summary>
         /// Defines the DirectoryId property.
@@ -555,7 +555,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the DirectReports property.
@@ -567,7 +567,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.DirectReports,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         #endregion
 
@@ -578,21 +578,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition EmailAddress1 =
-            new IndexedPropertyDefinition(FieldUris.EmailAddress, "EmailAddress1");
+            new(FieldUris.EmailAddress, "EmailAddress1");
 
         /// <summary>
         /// Defines the EmailAddress2 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition EmailAddress2 =
-            new IndexedPropertyDefinition(FieldUris.EmailAddress, "EmailAddress2");
+            new(FieldUris.EmailAddress, "EmailAddress2");
 
         /// <summary>
         /// Defines the EmailAddress3 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition EmailAddress3 =
-            new IndexedPropertyDefinition(FieldUris.EmailAddress, "EmailAddress3");
+            new(FieldUris.EmailAddress, "EmailAddress3");
 
         #endregion
 
@@ -603,21 +603,21 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition ImAddress1 =
-            new IndexedPropertyDefinition(FieldUris.ImAddress, "ImAddress1");
+            new(FieldUris.ImAddress, "ImAddress1");
 
         /// <summary>
         /// Defines the ImAddress2 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition ImAddress2 =
-            new IndexedPropertyDefinition(FieldUris.ImAddress, "ImAddress2");
+            new(FieldUris.ImAddress, "ImAddress2");
 
         /// <summary>
         /// Defines the ImAddress3 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition ImAddress3 =
-            new IndexedPropertyDefinition(FieldUris.ImAddress, "ImAddress3");
+            new(FieldUris.ImAddress, "ImAddress3");
 
         #endregion
 
@@ -628,133 +628,133 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition AssistantPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "AssistantPhone");
+            new(FieldUris.PhoneNumber, "AssistantPhone");
 
         /// <summary>
         /// Defines the BusinessFax property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessFax =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "BusinessFax");
+            new(FieldUris.PhoneNumber, "BusinessFax");
 
         /// <summary>
         /// Defines the BusinessPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "BusinessPhone");
+            new(FieldUris.PhoneNumber, "BusinessPhone");
 
         /// <summary>
         /// Defines the BusinessPhone2 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessPhone2 =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "BusinessPhone2");
+            new(FieldUris.PhoneNumber, "BusinessPhone2");
 
         /// <summary>
         /// Defines the Callback property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition Callback =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "Callback");
+            new(FieldUris.PhoneNumber, "Callback");
 
         /// <summary>
         /// Defines the CarPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition CarPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "CarPhone");
+            new(FieldUris.PhoneNumber, "CarPhone");
 
         /// <summary>
         /// Defines the CompanyMainPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition CompanyMainPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "CompanyMainPhone");
+            new(FieldUris.PhoneNumber, "CompanyMainPhone");
 
         /// <summary>
         /// Defines the HomeFax property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeFax =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "HomeFax");
+            new(FieldUris.PhoneNumber, "HomeFax");
 
         /// <summary>
         /// Defines the HomePhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomePhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "HomePhone");
+            new(FieldUris.PhoneNumber, "HomePhone");
 
         /// <summary>
         /// Defines the HomePhone2 property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomePhone2 =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "HomePhone2");
+            new(FieldUris.PhoneNumber, "HomePhone2");
 
         /// <summary>
         /// Defines the Isdn property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition Isdn =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "Isdn");
+            new(FieldUris.PhoneNumber, "Isdn");
 
         /// <summary>
         /// Defines the MobilePhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition MobilePhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "MobilePhone");
+            new(FieldUris.PhoneNumber, "MobilePhone");
 
         /// <summary>
         /// Defines the OtherFax property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherFax =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "OtherFax");
+            new(FieldUris.PhoneNumber, "OtherFax");
 
         /// <summary>
         /// Defines the OtherTelephone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherTelephone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "OtherTelephone");
+            new(FieldUris.PhoneNumber, "OtherTelephone");
 
         /// <summary>
         /// Defines the Pager property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition Pager =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "Pager");
+            new(FieldUris.PhoneNumber, "Pager");
 
         /// <summary>
         /// Defines the PrimaryPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition PrimaryPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "PrimaryPhone");
+            new(FieldUris.PhoneNumber, "PrimaryPhone");
 
         /// <summary>
         /// Defines the RadioPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition RadioPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "RadioPhone");
+            new(FieldUris.PhoneNumber, "RadioPhone");
 
         /// <summary>
         /// Defines the Telex property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition Telex =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "Telex");
+            new(FieldUris.PhoneNumber, "Telex");
 
         /// <summary>
         /// Defines the TtyTddPhone property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition TtyTddPhone =
-            new IndexedPropertyDefinition(FieldUris.PhoneNumber, "TtyTddPhone");
+            new(FieldUris.PhoneNumber, "TtyTddPhone");
 
         #endregion
 
@@ -765,35 +765,35 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessAddressStreet =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressStreet, "Business");
+            new(FieldUris.PhysicalAddressStreet, "Business");
 
         /// <summary>
         /// Defines the BusinessAddressCity property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessAddressCity =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCity, "Business");
+            new(FieldUris.PhysicalAddressCity, "Business");
 
         /// <summary>
         /// Defines the BusinessAddressState property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessAddressState =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressState, "Business");
+            new(FieldUris.PhysicalAddressState, "Business");
 
         /// <summary>
         /// Defines the BusinessAddressCountryOrRegion property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessAddressCountryOrRegion =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCountryOrRegion, "Business");
+            new(FieldUris.PhysicalAddressCountryOrRegion, "Business");
 
         /// <summary>
         /// Defines the BusinessAddressPostalCode property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition BusinessAddressPostalCode =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressPostalCode, "Business");
+            new(FieldUris.PhysicalAddressPostalCode, "Business");
 
         #endregion
 
@@ -804,35 +804,35 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeAddressStreet =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressStreet, "Home");
+            new(FieldUris.PhysicalAddressStreet, "Home");
 
         /// <summary>
         /// Defines the HomeAddressCity property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeAddressCity =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCity, "Home");
+            new(FieldUris.PhysicalAddressCity, "Home");
 
         /// <summary>
         /// Defines the HomeAddressState property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeAddressState =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressState, "Home");
+            new(FieldUris.PhysicalAddressState, "Home");
 
         /// <summary>
         /// Defines the HomeAddressCountryOrRegion property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeAddressCountryOrRegion =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCountryOrRegion, "Home");
+            new(FieldUris.PhysicalAddressCountryOrRegion, "Home");
 
         /// <summary>
         /// Defines the HomeAddressPostalCode property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition HomeAddressPostalCode =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressPostalCode, "Home");
+            new(FieldUris.PhysicalAddressPostalCode, "Home");
 
         #endregion
 
@@ -843,40 +843,40 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherAddressStreet =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressStreet, "Other");
+            new(FieldUris.PhysicalAddressStreet, "Other");
 
         /// <summary>
         /// Defines the OtherAddressCity property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherAddressCity =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCity, "Other");
+            new(FieldUris.PhysicalAddressCity, "Other");
 
         /// <summary>
         /// Defines the OtherAddressState property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherAddressState =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressState, "Other");
+            new(FieldUris.PhysicalAddressState, "Other");
 
         /// <summary>
         /// Defines the OtherAddressCountryOrRegion property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherAddressCountryOrRegion =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressCountryOrRegion, "Other");
+            new(FieldUris.PhysicalAddressCountryOrRegion, "Other");
 
         /// <summary>
         /// Defines the OtherAddressPostalCode property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
         public static readonly IndexedPropertyDefinition OtherAddressPostalCode =
-            new IndexedPropertyDefinition(FieldUris.PhysicalAddressPostalCode, "Other");
+            new(FieldUris.PhysicalAddressPostalCode, "Other");
 
         #endregion
 
         // This must be declared after the property definitions
-        internal static new readonly ContactSchema Instance = new ContactSchema();
+        internal static new readonly ContactSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -885,97 +885,97 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(FileAs);
-            this.RegisterProperty(FileAsMapping);
-            this.RegisterProperty(DisplayName);
-            this.RegisterProperty(GivenName);
-            this.RegisterProperty(Initials);
-            this.RegisterProperty(MiddleName);
-            this.RegisterProperty(NickName);
-            this.RegisterProperty(CompleteName);
-            this.RegisterProperty(CompanyName);
-            this.RegisterProperty(EmailAddresses);
-            this.RegisterProperty(PhysicalAddresses);
-            this.RegisterProperty(PhoneNumbers);
-            this.RegisterProperty(AssistantName);
-            this.RegisterProperty(Birthday);
-            this.RegisterProperty(BusinessHomePage);
-            this.RegisterProperty(Children);
-            this.RegisterProperty(Companies);
-            this.RegisterProperty(ContactSource);
-            this.RegisterProperty(Department);
-            this.RegisterProperty(Generation);
-            this.RegisterProperty(ImAddresses);
-            this.RegisterProperty(JobTitle);
-            this.RegisterProperty(Manager);
-            this.RegisterProperty(Mileage);
-            this.RegisterProperty(OfficeLocation);
-            this.RegisterProperty(PostalAddressIndex);
-            this.RegisterProperty(Profession);
-            this.RegisterProperty(SpouseName);
-            this.RegisterProperty(Surname);
-            this.RegisterProperty(WeddingAnniversary);
-            this.RegisterProperty(HasPicture);
-            this.RegisterProperty(PhoneticFullName);
-            this.RegisterProperty(PhoneticFirstName);
-            this.RegisterProperty(PhoneticLastName);
-            this.RegisterProperty(Alias);
-            this.RegisterProperty(Notes);
-            this.RegisterProperty(Photo);
-            this.RegisterProperty(UserSMIMECertificate);
-            this.RegisterProperty(MSExchangeCertificate);
-            this.RegisterProperty(DirectoryId);
-            this.RegisterProperty(ManagerMailbox);
-            this.RegisterProperty(DirectReports);
+            RegisterProperty(FileAs);
+            RegisterProperty(FileAsMapping);
+            RegisterProperty(DisplayName);
+            RegisterProperty(GivenName);
+            RegisterProperty(Initials);
+            RegisterProperty(MiddleName);
+            RegisterProperty(NickName);
+            RegisterProperty(CompleteName);
+            RegisterProperty(CompanyName);
+            RegisterProperty(EmailAddresses);
+            RegisterProperty(PhysicalAddresses);
+            RegisterProperty(PhoneNumbers);
+            RegisterProperty(AssistantName);
+            RegisterProperty(Birthday);
+            RegisterProperty(BusinessHomePage);
+            RegisterProperty(Children);
+            RegisterProperty(Companies);
+            RegisterProperty(ContactSource);
+            RegisterProperty(Department);
+            RegisterProperty(Generation);
+            RegisterProperty(ImAddresses);
+            RegisterProperty(JobTitle);
+            RegisterProperty(Manager);
+            RegisterProperty(Mileage);
+            RegisterProperty(OfficeLocation);
+            RegisterProperty(PostalAddressIndex);
+            RegisterProperty(Profession);
+            RegisterProperty(SpouseName);
+            RegisterProperty(Surname);
+            RegisterProperty(WeddingAnniversary);
+            RegisterProperty(HasPicture);
+            RegisterProperty(PhoneticFullName);
+            RegisterProperty(PhoneticFirstName);
+            RegisterProperty(PhoneticLastName);
+            RegisterProperty(Alias);
+            RegisterProperty(Notes);
+            RegisterProperty(Photo);
+            RegisterProperty(UserSMIMECertificate);
+            RegisterProperty(MSExchangeCertificate);
+            RegisterProperty(DirectoryId);
+            RegisterProperty(ManagerMailbox);
+            RegisterProperty(DirectReports);
 
-            this.RegisterIndexedProperty(EmailAddress1);
-            this.RegisterIndexedProperty(EmailAddress2);
-            this.RegisterIndexedProperty(EmailAddress3);
-            this.RegisterIndexedProperty(ImAddress1);
-            this.RegisterIndexedProperty(ImAddress2);
-            this.RegisterIndexedProperty(ImAddress3);
-            this.RegisterIndexedProperty(AssistantPhone);
-            this.RegisterIndexedProperty(BusinessFax);
-            this.RegisterIndexedProperty(BusinessPhone);
-            this.RegisterIndexedProperty(BusinessPhone2);
-            this.RegisterIndexedProperty(Callback);
-            this.RegisterIndexedProperty(CarPhone);
-            this.RegisterIndexedProperty(CompanyMainPhone);
-            this.RegisterIndexedProperty(HomeFax);
-            this.RegisterIndexedProperty(HomePhone);
-            this.RegisterIndexedProperty(HomePhone2);
-            this.RegisterIndexedProperty(Isdn);
-            this.RegisterIndexedProperty(MobilePhone);
-            this.RegisterIndexedProperty(OtherFax);
-            this.RegisterIndexedProperty(OtherTelephone);
-            this.RegisterIndexedProperty(Pager);
-            this.RegisterIndexedProperty(PrimaryPhone);
-            this.RegisterIndexedProperty(RadioPhone);
-            this.RegisterIndexedProperty(Telex);
-            this.RegisterIndexedProperty(TtyTddPhone);
-            this.RegisterIndexedProperty(BusinessAddressStreet);
-            this.RegisterIndexedProperty(BusinessAddressCity);
-            this.RegisterIndexedProperty(BusinessAddressState);
-            this.RegisterIndexedProperty(BusinessAddressCountryOrRegion);
-            this.RegisterIndexedProperty(BusinessAddressPostalCode);
-            this.RegisterIndexedProperty(HomeAddressStreet);
-            this.RegisterIndexedProperty(HomeAddressCity);
-            this.RegisterIndexedProperty(HomeAddressState);
-            this.RegisterIndexedProperty(HomeAddressCountryOrRegion);
-            this.RegisterIndexedProperty(HomeAddressPostalCode);
-            this.RegisterIndexedProperty(OtherAddressStreet);
-            this.RegisterIndexedProperty(OtherAddressCity);
-            this.RegisterIndexedProperty(OtherAddressState);
-            this.RegisterIndexedProperty(OtherAddressCountryOrRegion);
-            this.RegisterIndexedProperty(OtherAddressPostalCode);
-        }
+            RegisterIndexedProperty(EmailAddress1);
+            RegisterIndexedProperty(EmailAddress2);
+            RegisterIndexedProperty(EmailAddress3);
+            RegisterIndexedProperty(ImAddress1);
+            RegisterIndexedProperty(ImAddress2);
+            RegisterIndexedProperty(ImAddress3);
+            RegisterIndexedProperty(AssistantPhone);
+            RegisterIndexedProperty(BusinessFax);
+            RegisterIndexedProperty(BusinessPhone);
+            RegisterIndexedProperty(BusinessPhone2);
+            RegisterIndexedProperty(Callback);
+            RegisterIndexedProperty(CarPhone);
+            RegisterIndexedProperty(CompanyMainPhone);
+            RegisterIndexedProperty(HomeFax);
+            RegisterIndexedProperty(HomePhone);
+            RegisterIndexedProperty(HomePhone2);
+            RegisterIndexedProperty(Isdn);
+            RegisterIndexedProperty(MobilePhone);
+            RegisterIndexedProperty(OtherFax);
+            RegisterIndexedProperty(OtherTelephone);
+            RegisterIndexedProperty(Pager);
+            RegisterIndexedProperty(PrimaryPhone);
+            RegisterIndexedProperty(RadioPhone);
+            RegisterIndexedProperty(Telex);
+            RegisterIndexedProperty(TtyTddPhone);
+            RegisterIndexedProperty(BusinessAddressStreet);
+            RegisterIndexedProperty(BusinessAddressCity);
+            RegisterIndexedProperty(BusinessAddressState);
+            RegisterIndexedProperty(BusinessAddressCountryOrRegion);
+            RegisterIndexedProperty(BusinessAddressPostalCode);
+            RegisterIndexedProperty(HomeAddressStreet);
+            RegisterIndexedProperty(HomeAddressCity);
+            RegisterIndexedProperty(HomeAddressState);
+            RegisterIndexedProperty(HomeAddressCountryOrRegion);
+            RegisterIndexedProperty(HomeAddressPostalCode);
+            RegisterIndexedProperty(OtherAddressStreet);
+            RegisterIndexedProperty(OtherAddressCity);
+            RegisterIndexedProperty(OtherAddressState);
+            RegisterIndexedProperty(OtherAddressCountryOrRegion);
+            RegisterIndexedProperty(OtherAddressPostalCode);
+            }
 
         internal ContactSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

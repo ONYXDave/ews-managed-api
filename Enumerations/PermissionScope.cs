@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the scope of a user's permission on a folders.
     /// </summary>
     public enum PermissionScope
-    {
+        {
         /// <summary>
         /// The user does not have the associated permission.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The user has the associated permission on all items.
         /// </summary>
         All
+        }
     }
-}

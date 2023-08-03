@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a conflict in a meeting time suggestion.
     /// </summary>
     public sealed class Conflict : ComplexProperty
-    {
+        {
         private ConflictType conflictType;
         private int numberOfMembers;
         private int numberOfMembersAvailable;
@@ -47,9 +43,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="conflictType">The type of the conflict.</param>
         internal Conflict(ConflictType conflictType)
             : base()
-        {
+            {
             this.conflictType = conflictType;
-        }
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -57,80 +53,80 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if appropriate element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NumberOfMembers:
-                    this.numberOfMembers = reader.ReadElementValue<int>();
+                    numberOfMembers = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.NumberOfMembersAvailable:
-                    this.numberOfMembersAvailable = reader.ReadElementValue<int>();
+                    numberOfMembersAvailable = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.NumberOfMembersWithConflict:
-                    this.numberOfMembersWithConflict = reader.ReadElementValue<int>();
+                    numberOfMembersWithConflict = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.NumberOfMembersWithNoData:
-                    this.numberOfMembersWithNoData = reader.ReadElementValue<int>();
+                    numberOfMembersWithNoData = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.BusyType:
-                    this.freeBusyStatus = reader.ReadElementValue<LegacyFreeBusyStatus>();
+                    freeBusyStatus = reader.ReadElementValue<LegacyFreeBusyStatus>();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the type of the conflict.
         /// </summary>
         public ConflictType ConflictType
-        {
-            get { return this.conflictType; }
-        }
+            {
+            get { return conflictType; }
+            }
 
         /// <summary>
         /// Gets the number of users, resources, and rooms in the conflicting group. The value of this property
         /// is only meaningful when ConflictType is equal to ConflictType.GroupConflict.
         /// </summary>
         public int NumberOfMembers
-        {
-            get { return this.numberOfMembers; }
-        }
+            {
+            get { return numberOfMembers; }
+            }
 
         /// <summary>
         /// Gets the number of members who are available (whose status is Free) in the conflicting group. The value
         /// of this property is only meaningful when ConflictType is equal to ConflictType.GroupConflict.
         /// </summary>
         public int NumberOfMembersAvailable
-        {
-            get { return this.numberOfMembersAvailable; }
-        }
+            {
+            get { return numberOfMembersAvailable; }
+            }
 
         /// <summary>
         /// Gets the number of members who have a conflict (whose status is Busy, OOF or Tentative) in the conflicting
         /// group. The value of this property is only meaningful when ConflictType is equal to ConflictType.GroupConflict.
         /// </summary>
         public int NumberOfMembersWithConflict
-        {
-            get { return this.numberOfMembersWithConflict; }
-        }
+            {
+            get { return numberOfMembersWithConflict; }
+            }
 
         /// <summary>
         /// Gets the number of members who do not have published free/busy data in the conflicting group. The value
         /// of this property is only meaningful when ConflictType is equal to ConflictType.GroupConflict.
         /// </summary>
         public int NumberOfMembersWithNoData
-        {
-            get { return this.numberOfMembersWithNoData; }
-        }
+            {
+            get { return numberOfMembersWithNoData; }
+            }
 
         /// <summary>
         /// Gets the free/busy status of the conflicting attendee. The value of this property is only meaningful when
         /// ConflictType is equal to ConflictType.IndividualAttendee.
         /// </summary>
         public LegacyFreeBusyStatus FreeBusyStatus
-        {
-            get { return this.freeBusyStatus; }
+            {
+            get { return freeBusyStatus; }
+            }
         }
     }
-}

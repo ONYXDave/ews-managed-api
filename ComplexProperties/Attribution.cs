@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents an attribution of an attributed string
     /// </summary>
     public sealed class Attribution : ComplexProperty
-    {
+        {
         /// <summary>
         /// Attribution id
         /// </summary>
@@ -70,8 +70,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public Attribution()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates an instance with required values only
@@ -81,8 +81,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="displayName">Display name</param>
         public Attribution(string id, ItemId sourceId, string displayName)
             : this(id, sourceId, displayName, false, false, false, null)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates an instance with all values
@@ -96,18 +96,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="folderId">Folder id</param>
         public Attribution(string id, ItemId sourceId, string displayName, bool isWritable, bool isQuickContact, bool isHidden, FolderId folderId)
             : this()
-        {
+            {
             EwsUtilities.ValidateParam(id, "id");
             EwsUtilities.ValidateParam(displayName, "displayName");
 
-            this.Id = id;
-            this.SourceId = sourceId;
-            this.DisplayName = displayName;
-            this.IsWritable = isWritable;
-            this.IsQuickContact = isQuickContact;
-            this.IsHidden = isHidden;
-            this.FolderId = folderId;
-        }
+            Id = id;
+            SourceId = sourceId;
+            DisplayName = displayName;
+            IsWritable = isWritable;
+            IsQuickContact = isQuickContact;
+            IsHidden = isHidden;
+            FolderId = folderId;
+            }
 
         /// <summary>
         /// Tries to read element from XML
@@ -115,38 +115,38 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether reading succeeded</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.Id:
-                    this.Id = reader.ReadElementValue();
+                    Id = reader.ReadElementValue();
                     break;
                 case XmlElementNames.SourceId:
-                    this.SourceId = new ItemId();
-                    this.SourceId.LoadFromXml(reader, reader.LocalName);
+                    SourceId = new ItemId();
+                    SourceId.LoadFromXml(reader, reader.LocalName);
                     break;
                 case XmlElementNames.DisplayName:
-                    this.DisplayName = reader.ReadElementValue();
+                    DisplayName = reader.ReadElementValue();
                     break;
                 case XmlElementNames.IsWritable:
-                    this.IsWritable = reader.ReadElementValue<bool>();
+                    IsWritable = reader.ReadElementValue<bool>();
                     break;
                 case XmlElementNames.IsQuickContact:
-                    this.IsQuickContact = reader.ReadElementValue<bool>();
+                    IsQuickContact = reader.ReadElementValue<bool>();
                     break;
                 case XmlElementNames.IsHidden:
-                    this.IsHidden = reader.ReadElementValue<bool>();
+                    IsHidden = reader.ReadElementValue<bool>();
                     break;
                 case XmlElementNames.FolderId:
-                    this.FolderId = new FolderId();
-                    this.FolderId.LoadFromXml(reader, reader.LocalName);
+                    FolderId = new FolderId();
+                    FolderId.LoadFromXml(reader, reader.LocalName);
                     break;
 
                 default:
                     return base.TryReadElementFromXml(reader);
-            }
+                }
 
             return true;
+            }
         }
     }
-}

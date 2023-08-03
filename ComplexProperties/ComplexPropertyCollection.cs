@@ -24,11 +24,10 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents a collection of properties that can be sent to and retrieved from EWS.
@@ -37,11 +36,11 @@ namespace Microsoft.Exchange.WebServices.Data
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class ComplexPropertyCollection<TComplexProperty> : ComplexProperty, IEnumerable<TComplexProperty>, ICustomUpdateSerializer
         where TComplexProperty : ComplexProperty
-    {
-        private List<TComplexProperty> items = new List<TComplexProperty>();
-        private List<TComplexProperty> addedItems = new List<TComplexProperty>();
-        private List<TComplexProperty> modifiedItems = new List<TComplexProperty>();
-        private List<TComplexProperty> removedItems = new List<TComplexProperty>();
+        {
+        private List<TComplexProperty> items = new();
+        private List<TComplexProperty> addedItems = new();
+        private List<TComplexProperty> modifiedItems = new();
+        private List<TComplexProperty> removedItems = new();
 
         /// <summary>
         /// Creates the complex property.
@@ -62,15 +61,15 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal ComplexPropertyCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Item changed.
         /// </summary>
         /// <param name="complexProperty">The complex property.</param>
         internal void ItemChanged(ComplexProperty complexProperty)
-        {
+            {
             TComplexProperty property = complexProperty as TComplexProperty;
 
             EwsUtilities.Assert(
@@ -78,15 +77,15 @@ namespace Microsoft.Exchange.WebServices.Data
                 "ComplexPropertyCollection.ItemChanged",
                 string.Format("ComplexPropertyCollection.ItemChanged: the type of the complexProperty argument ({0}) is not supported.", complexProperty.GetType().Name));
 
-            if (!this.addedItems.Contains(property))
-            {
-                if (!this.modifiedItems.Contains(property))
+            if (!addedItems.Contains(property))
                 {
-                    this.modifiedItems.Add(property);
-                    this.Changed();
+                if (!modifiedItems.Contains(property))
+                    {
+                    modifiedItems.Add(property);
+                    Changed();
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Loads from XML.
@@ -94,12 +93,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="localElementName">Name of the local element.</param>
         internal override void LoadFromXml(EwsServiceXmlReader reader, string localElementName)
-        {
-            this.LoadFromXml(
+            {
+            LoadFromXml(
                 reader,
                 XmlNamespace.Types,
                 localElementName);
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -111,33 +110,33 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlReader reader,
             XmlNamespace xmlNamespace,
             string localElementName)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(xmlNamespace, localElementName);
 
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        TComplexProperty complexProperty = this.CreateComplexProperty(reader.LocalName);
+                        {
+                        TComplexProperty complexProperty = CreateComplexProperty(reader.LocalName);
 
                         if (complexProperty != null)
-                        {
+                            {
                             complexProperty.LoadFromXml(reader, reader.LocalName);
-                            this.InternalAdd(complexProperty, true);
-                        }
+                            InternalAdd(complexProperty, true);
+                            }
                         else
-                        {
+                            {
                             reader.SkipCurrentElement();
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(xmlNamespace, localElementName));
+                }
             }
-        }
 
         /// <summary>
         /// Loads from XML to update itself.
@@ -149,32 +148,32 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlReader reader,
             XmlNamespace xmlNamespace,
             string xmlElementName)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(xmlNamespace, xmlElementName);
 
             if (!reader.IsEmptyElement)
-            {
+                {
                 int index = 0;
                 do
-                {
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        TComplexProperty complexProperty = this.CreateComplexProperty(reader.LocalName);
+                        {
+                        TComplexProperty complexProperty = CreateComplexProperty(reader.LocalName);
                         TComplexProperty actualComplexProperty = this[index++];
 
                         if (complexProperty == null || !complexProperty.GetType().IsInstanceOfType(actualComplexProperty))
-                        {
+                            {
                             throw new ServiceLocalException(Strings.PropertyTypeIncompatibleWhenUpdatingCollection);
-                        }
+                            }
 
                         actualComplexProperty.UpdateFromXml(reader, xmlNamespace, reader.LocalName);
+                        }
                     }
-                }
                 while (!reader.IsEndElement(xmlNamespace, xmlElementName));
+                }
             }
-        }
 
         /// <summary>
         /// Writes to XML.
@@ -186,103 +185,103 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             XmlNamespace xmlNamespace,
             string xmlElementName)
-        {
-            if (this.ShouldWriteToRequest())
             {
+            if (ShouldWriteToRequest())
+                {
                 base.WriteToXml(
                     writer,
                     xmlNamespace,
                     xmlElementName);
+                }
             }
-        }
 
         /// <summary>
         /// Determine whether we should write collection to XML or not.
         /// </summary>
         /// <returns>True if collection contains at least one element.</returns>
         internal virtual bool ShouldWriteToRequest()
-        {
+            {
             // Only write collection if it has at least one element.
-            return this.Count > 0;
-        }
+            return Count > 0;
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            foreach (TComplexProperty complexProperty in this)
             {
-                complexProperty.WriteToXml(writer, this.GetCollectionItemXmlElementName(complexProperty));
+            foreach (TComplexProperty complexProperty in this)
+                {
+                complexProperty.WriteToXml(writer, GetCollectionItemXmlElementName(complexProperty));
+                }
             }
-        }
 
         /// <summary>
         /// Clears the change log.
         /// </summary>
         internal override void ClearChangeLog()
-        {
-            this.removedItems.Clear();
-            this.addedItems.Clear();
-            this.modifiedItems.Clear();
-        }
+            {
+            removedItems.Clear();
+            addedItems.Clear();
+            modifiedItems.Clear();
+            }
 
         /// <summary>
         /// Removes from change log.
         /// </summary>
         /// <param name="complexProperty">The complex property.</param>
         internal void RemoveFromChangeLog(TComplexProperty complexProperty)
-        {
-            this.removedItems.Remove(complexProperty);
-            this.modifiedItems.Remove(complexProperty);
-            this.addedItems.Remove(complexProperty);
-        }
+            {
+            removedItems.Remove(complexProperty);
+            modifiedItems.Remove(complexProperty);
+            addedItems.Remove(complexProperty);
+            }
 
         /// <summary>
         /// Gets the items.
         /// </summary>
         /// <value>The items.</value>
         internal List<TComplexProperty> Items
-        {
-            get { return this.items; }
-        }
+            {
+            get { return items; }
+            }
 
         /// <summary>
         /// Gets the added items.
         /// </summary>
         /// <value>The added items.</value>
         internal List<TComplexProperty> AddedItems
-        {
-            get { return this.addedItems; }
-        }
+            {
+            get { return addedItems; }
+            }
 
         /// <summary>
         /// Gets the modified items.
         /// </summary>
         /// <value>The modified items.</value>
         internal List<TComplexProperty> ModifiedItems
-        {
-            get { return this.modifiedItems; }
-        }
+            {
+            get { return modifiedItems; }
+            }
 
         /// <summary>
         /// Gets the removed items.
         /// </summary>
         /// <value>The removed items.</value>
         internal List<TComplexProperty> RemovedItems
-        {
-            get { return this.removedItems; }
-        }
+            {
+            get { return removedItems; }
+            }
 
         /// <summary>
         /// Add complex property.
         /// </summary>
         /// <param name="complexProperty">The complex property.</param>
         internal void InternalAdd(TComplexProperty complexProperty)
-        {
-            this.InternalAdd(complexProperty, false);
-        }
+            {
+            InternalAdd(complexProperty, false);
+            }
 
         /// <summary>
         /// Add complex property.
@@ -290,49 +289,49 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <param name="loading">If true, collection is being loaded.</param>
         private void InternalAdd(TComplexProperty complexProperty, bool loading)
-        {
+            {
             EwsUtilities.Assert(
                 complexProperty != null,
                 "ComplexPropertyCollection.InternalAdd",
                 "complexProperty is null");
 
-            if (!this.items.Contains(complexProperty))
-            {
-                this.items.Add(complexProperty);
-                if (!loading)
+            if (!items.Contains(complexProperty))
                 {
-                    this.removedItems.Remove(complexProperty);
-                    this.addedItems.Add(complexProperty);
+                items.Add(complexProperty);
+                if (!loading)
+                    {
+                    removedItems.Remove(complexProperty);
+                    addedItems.Add(complexProperty);
+                    }
+                complexProperty.OnChange += ItemChanged;
+                Changed();
                 }
-                complexProperty.OnChange += this.ItemChanged;
-                this.Changed();
             }
-        }
 
         /// <summary>
         /// Clear collection.
         /// </summary>
         internal void InternalClear()
-        {
-            while (this.Count > 0)
             {
-                this.InternalRemoveAt(0);
+            while (Count > 0)
+                {
+                InternalRemoveAt(0);
+                }
             }
-        }
 
         /// <summary>
         /// Remote entry at index.
         /// </summary>
         /// <param name="index">The index.</param>
         internal void InternalRemoveAt(int index)
-        {
+            {
             EwsUtilities.Assert(
-              index >= 0 && index < this.Count,
+              index >= 0 && index < Count,
               "ComplexPropertyCollection.InternalRemoveAt",
               "index is out of range.");
 
-            this.InternalRemove(this.items[index]);
-        }
+            InternalRemove(items[index]);
+            }
 
         /// <summary>
         /// Remove specified complex property.
@@ -340,33 +339,33 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>True if the complex property was successfully removed from the collection, false otherwise.</returns>
         internal bool InternalRemove(TComplexProperty complexProperty)
-        {
+            {
             EwsUtilities.Assert(
                 complexProperty != null,
                 "ComplexPropertyCollection.InternalRemove",
                 "complexProperty is null");
 
-            if (this.items.Remove(complexProperty))
-            {
-                complexProperty.OnChange -= this.ItemChanged;
+            if (items.Remove(complexProperty))
+                {
+                complexProperty.OnChange -= ItemChanged;
 
-                if (!this.addedItems.Contains(complexProperty))
-                {
-                    this.removedItems.Add(complexProperty);
-                }
+                if (!addedItems.Contains(complexProperty))
+                    {
+                    removedItems.Add(complexProperty);
+                    }
                 else
-                {
-                    this.addedItems.Remove(complexProperty);
-                }
-                this.modifiedItems.Remove(complexProperty);
-                this.Changed();
+                    {
+                    addedItems.Remove(complexProperty);
+                    }
+                modifiedItems.Remove(complexProperty);
+                Changed();
                 return true;
-            }
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Determines whether a specific property is in the collection.
@@ -374,9 +373,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The property to locate in the collection.</param>
         /// <returns>True if the property was found in the collection, false otherwise.</returns>
         public bool Contains(TComplexProperty complexProperty)
-        {
-            return this.items.Contains(complexProperty);
-        }
+            {
+            return items.Contains(complexProperty);
+            }
 
         /// <summary>
         /// Searches for a specific property and return its zero-based index within the collection.
@@ -384,17 +383,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The property to locate in the collection.</param>
         /// <returns>The zero-based index of the property within the collection.</returns>
         public int IndexOf(TComplexProperty complexProperty)
-        {
-            return this.items.IndexOf(complexProperty);
-        }
+            {
+            return items.IndexOf(complexProperty);
+            }
 
         /// <summary>
         /// Gets the total number of properties in the collection.
         /// </summary>
         public int Count
-        {
-            get { return this.items.Count; }
-        }
+            {
+            get { return items.Count; }
+            }
 
         /// <summary>
         /// Gets the property at the specified index.
@@ -402,17 +401,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="index">The zero-based index of the property to get.</param>
         /// <returns>The property at the specified index.</returns>
         public TComplexProperty this[int index]
-        {
-            get
             {
-                if (index < 0 || index >= this.Count)
+            get
                 {
+                if (index < 0 || index >= Count)
+                    {
                     throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-                }
+                    }
 
-                return this.items[index];
+                return items[index];
+                }
             }
-        }
 
         #region IEnumerable<TComplexProperty> Members
 
@@ -421,9 +420,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         public IEnumerator<TComplexProperty> GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
 
@@ -434,9 +433,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.items.GetEnumerator();
-        }
+            {
+            return items.GetEnumerator();
+            }
 
         #endregion
 
@@ -453,22 +452,22 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             ServiceObject ewsObject,
             PropertyDefinition propertyDefinition)
-        {
-            // If the collection is empty, delete the property.
-            if (this.Count == 0)
             {
+            // If the collection is empty, delete the property.
+            if (Count == 0)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetDeleteFieldXmlElementName());
                 propertyDefinition.WriteToXml(writer);
                 writer.WriteEndElement();
                 return true;
-            }
+                }
 
             // Otherwise, use the default XML serializer.
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes the deletion update to XML.
@@ -477,11 +476,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="ewsObject">The ews object.</param>
         /// <returns>True if property generated serialization.</returns>
         bool ICustomUpdateSerializer.WriteDeleteUpdateToXml(EwsServiceXmlWriter writer, ServiceObject ewsObject)
-        {
+            {
             // Use the default XML serializer.
             return false;
-        }
+            }
 
         #endregion
+        }
     }
-}

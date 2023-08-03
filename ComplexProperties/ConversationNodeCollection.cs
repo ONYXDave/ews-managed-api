@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.ComponentModel;
 
     /// <summary>
@@ -33,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ConversationNodeCollection : ComplexPropertyCollection<ConversationNode>
-    {
+        {
         private PropertySet propertySet;
 
         /// <summary>
@@ -42,9 +41,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertySet">The property set.</param>
         internal ConversationNodeCollection(PropertySet propertySet)
             : base()
-        {
+            {
             this.propertySet = propertySet;
-        }
+            }
 
         /// <summary>
         /// Creates the complex property.
@@ -52,9 +51,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>ConversationItem.</returns>
         internal override ConversationNode CreateComplexProperty(string xmlElementName)
-        {
-            return new ConversationNode(this.propertySet);
-        }
+            {
+            return new ConversationNode(propertySet);
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -62,8 +61,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(ConversationNode complexProperty)
-        {
+            {
             return complexProperty.GetXmlElementName();
+            }
         }
     }
-}

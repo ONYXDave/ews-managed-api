@@ -24,42 +24,38 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a GetSearchableMailboxesRequest request.
     /// </summary>
     internal sealed class GetSearchableMailboxesRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSearchableMailboxesRequest"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal GetSearchableMailboxesRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetSearchableMailboxesResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetSearchableMailboxes;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -67,40 +63,40 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetSearchableMailboxesResponse response = new GetSearchableMailboxesResponse();
-            response.LoadFromXml(reader, this.GetResponseXmlElementName());
+            {
+            GetSearchableMailboxesResponse response = new();
+            response.LoadFromXml(reader, GetResponseXmlElementName());
             return response;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchFilter, this.SearchFilter ?? string.Empty);
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ExpandGroupMembership, this.ExpandGroupMembership.ToString().ToLower());
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchFilter, SearchFilter ?? string.Empty);
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ExpandGroupMembership, ExpandGroupMembership.ToString().ToLower());
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetSearchableMailboxesResponse Execute()
-        {
-            GetSearchableMailboxesResponse serviceResponse = (GetSearchableMailboxesResponse)this.InternalExecute();
+            {
+            GetSearchableMailboxesResponse serviceResponse = (GetSearchableMailboxesResponse)InternalExecute();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Search filter
@@ -111,5 +107,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Expand group membership
         /// </summary>
         public bool ExpandGroupMembership { get; set; }
+        }
     }
-}

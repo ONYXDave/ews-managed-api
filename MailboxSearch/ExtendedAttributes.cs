@@ -24,30 +24,27 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Class ExtendedAttributes
     /// </summary>
     public sealed class ExtendedAttributes : List<ExtendedAttribute>
-    {
-    }
+        {
+        }
 
     /// <summary>
     /// Class ExtendedAttribute
     /// </summary>
     public sealed class ExtendedAttribute
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedAttribute"/> class.
         /// </summary>
         public ExtendedAttribute()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedAttribute"/> class.
@@ -55,10 +52,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
         public ExtendedAttribute(string name, string value)
-        {
-            this.Name = name;
-            this.Value = value;
-        }
+            {
+            Name = name;
+            Value = value;
+            }
 
         /// <summary>
         /// Gets or sets the name.
@@ -71,5 +68,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value>The value.</value>
         public string Value { get; set; }
+        }
     }
-}

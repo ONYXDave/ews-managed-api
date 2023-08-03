@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.ComponentModel;
 
     /// <summary>
@@ -32,13 +32,13 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class OccurrenceInfoCollection : ComplexPropertyCollection<OccurrenceInfo>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="OccurrenceInfoCollection"/> class.
         /// </summary>
         internal OccurrenceInfoCollection()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Creates the complex property.
@@ -46,16 +46,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>OccurenceInfo instance.</returns>
         internal override OccurrenceInfo CreateComplexProperty(string xmlElementName)
-        {
+            {
             if (xmlElementName == XmlElementNames.Occurrence)
-            {
+                {
                 return new OccurrenceInfo();
-            }
+                }
             else
-            {
+                {
                 return null;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -63,8 +63,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(OccurrenceInfo complexProperty)
-        {
+            {
             return XmlElementNames.Occurrence;
+            }
         }
     }
-}

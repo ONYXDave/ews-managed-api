@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines a logical operator as used by search filter collections.
     /// </summary>
     public enum LogicalOperator
-    {
+        {
         /// <summary>
         /// The AND operator.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The OR operator.
         /// </summary>
         Or
+        }
     }
-}

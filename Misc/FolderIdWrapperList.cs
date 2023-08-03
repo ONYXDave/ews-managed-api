@@ -24,68 +24,66 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a list a abstracted folder Ids.
     /// </summary>
     internal class FolderIdWrapperList : IEnumerable<AbstractFolderIdWrapper>
-    {
+        {
         /// <summary>
         /// List of <see cref="Microsoft.Exchange.WebServices.Data.AbstractFolderIdWrapper"/>.
         /// </summary>
-        private List<AbstractFolderIdWrapper> ids = new List<AbstractFolderIdWrapper>();
+        private List<AbstractFolderIdWrapper> ids = new();
 
         /// <summary>
         /// Adds the specified folder.
         /// </summary>
         /// <param name="folder">The folder.</param>
         internal void Add(Folder folder)
-        {
-            this.ids.Add(new FolderWrapper(folder));
-        }
+            {
+            ids.Add(new FolderWrapper(folder));
+            }
 
         /// <summary>
         /// Adds the range.
         /// </summary>
         /// <param name="folders">The folders.</param>
         internal void AddRange(IEnumerable<Folder> folders)
-        {
-            if (folders != null)
             {
-                foreach (Folder folder in folders)
+            if (folders != null)
                 {
-                    this.Add(folder);
+                foreach (Folder folder in folders)
+                    {
+                    Add(folder);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Adds the specified folder id.
         /// </summary>
         /// <param name="folderId">The folder id.</param>
         internal void Add(FolderId folderId)
-        {
-            this.ids.Add(new FolderIdWrapper(folderId));
-        }
+            {
+            ids.Add(new FolderIdWrapper(folderId));
+            }
 
         /// <summary>
         /// Adds the range of folder ids.
         /// </summary>
         /// <param name="folderIds">The folder ids.</param>
         internal void AddRange(IEnumerable<FolderId> folderIds)
-        {
-            if (folderIds != null)
             {
-                foreach (FolderId folderId in folderIds)
+            if (folderIds != null)
                 {
-                    this.Add(folderId);
+                foreach (FolderId folderId in folderIds)
+                    {
+                    Add(folderId);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Writes to XML.
@@ -97,49 +95,49 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             XmlNamespace ewsNamesapce,
             string xmlElementName)
-        {
-            if (this.Count > 0)
             {
+            if (Count > 0)
+                {
                 writer.WriteStartElement(ewsNamesapce, xmlElementName);
 
-                foreach (AbstractFolderIdWrapper folderIdWrapper in this.ids)
-                {
+                foreach (AbstractFolderIdWrapper folderIdWrapper in ids)
+                    {
                     folderIdWrapper.WriteToXml(writer);
-                }
+                    }
 
                 writer.WriteEndElement();
+                }
             }
-        }
 
         /// <summary>
         /// Gets the id count.
         /// </summary>
         /// <value>The count.</value>
         internal int Count
-        {
-            get { return this.ids.Count; }
-        }
+            {
+            get { return ids.Count; }
+            }
 
         /// <summary>
         /// Gets the <see cref="Microsoft.Exchange.WebServices.Data.AbstractFolderIdWrapper"/> at the specified index.
         /// </summary>
         /// <param name="index">the index</param>
         internal AbstractFolderIdWrapper this[int index]
-        {
-            get { return this.ids[index]; }
-        }
+            {
+            get { return ids[index]; }
+            }
 
         /// <summary>
         /// Validates list of folderIds against a specified request version.
         /// </summary>
         /// <param name="version">The version.</param>
         internal void Validate(ExchangeVersion version)
-        {
-            foreach (AbstractFolderIdWrapper folderIdWrapper in this.ids)
             {
+            foreach (AbstractFolderIdWrapper folderIdWrapper in ids)
+                {
                 folderIdWrapper.Validate(version);
+                }
             }
-        }
 
         #region IEnumerable<AbstractFolderIdWrapper> Members
 
@@ -148,9 +146,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         public IEnumerator<AbstractFolderIdWrapper> GetEnumerator()
-        {
-            return this.ids.GetEnumerator();
-        }
+            {
+            return ids.GetEnumerator();
+            }
 
         #endregion
 
@@ -161,10 +159,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.ids.GetEnumerator();
-        }
+            {
+            return ids.GetEnumerator();
+            }
 
         #endregion
+        }
     }
-}

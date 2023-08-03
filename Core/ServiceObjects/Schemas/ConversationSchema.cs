@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class ConversationSchema : ServiceObjectSchema
-    {
+        {
         /// <summary>
         /// Field URIs for Item.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string ConversationId = "conversation:ConversationId";
             public const string ConversationTopic = "conversation:ConversationTopic";
             public const string UniqueRecipients = "conversation:UniqueRecipients";
@@ -74,7 +74,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string DraftItemIds = "conversation:DraftItemIds";
             public const string HasIrm = "conversation:HasIrm";
             public const string GlobalHasIrm = "conversation:GlobalHasIrm";
-        }
+            }
 
         /// <summary>
         /// Defines the Id property.
@@ -86,7 +86,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ConversationId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new ConversationId(); });
+                delegate () { return new ConversationId(); });
 
         /// <summary>
         /// Defines the Topic property.
@@ -109,7 +109,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.UniqueRecipients,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the GlobalUniqueRecipients property.
@@ -121,7 +121,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalUniqueRecipients,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the UniqueUnreadSenders property.
@@ -133,7 +133,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.UniqueUnreadSenders,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the GlobalUniqueUnreadSenders property.
@@ -145,7 +145,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalUniqueUnreadSenders,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the UniqueSenders property.
@@ -157,7 +157,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.UniqueSenders,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the GlobalUniqueSenders property.
@@ -169,7 +169,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalUniqueSenders,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the LastDeliveryTime property.
@@ -203,7 +203,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Categories,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the GlobalCategories property.
@@ -215,7 +215,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalCategories,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the FlagStatus property.
@@ -305,7 +305,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1);
 
-                /// <summary>
+        /// <summary>
         /// Defines the Size property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
@@ -337,7 +337,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ItemClasses,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(XmlElementNames.ItemClass); });
+                delegate () { return new StringList(XmlElementNames.ItemClass); });
 
         /// <summary>
         /// Defines the GlobalItemClasses property.
@@ -349,7 +349,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalItemClasses,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new StringList(XmlElementNames.ItemClass); });
+                delegate () { return new StringList(XmlElementNames.ItemClass); });
 
         /// <summary>
         /// Defines the Importance property.
@@ -383,7 +383,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ItemIds,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new ItemIdCollection(); });
+                delegate () { return new ItemIdCollection(); });
 
         /// <summary>
         /// Defines the GlobalItemIds property.
@@ -395,7 +395,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.GlobalItemIds,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010_SP1,
-                delegate() { return new ItemIdCollection(); });
+                delegate () { return new ItemIdCollection(); });
 
         /// <summary>
         /// Defines the LastModifiedTime property.
@@ -487,7 +487,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 ExchangeVersion.Exchange2013);
 
         // This must be declared after the property definitions
-        internal static readonly ConversationSchema Instance = new ConversationSchema();
+        internal static readonly ConversationSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -496,53 +496,53 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(Id);
-            this.RegisterProperty(Topic);
-            this.RegisterProperty(UniqueRecipients);
-            this.RegisterProperty(GlobalUniqueRecipients);
-            this.RegisterProperty(UniqueUnreadSenders);
-            this.RegisterProperty(GlobalUniqueUnreadSenders);
-            this.RegisterProperty(UniqueSenders);
-            this.RegisterProperty(GlobalUniqueSenders);
-            this.RegisterProperty(LastDeliveryTime);
-            this.RegisterProperty(GlobalLastDeliveryTime);
-            this.RegisterProperty(Categories);
-            this.RegisterProperty(GlobalCategories);
-            this.RegisterProperty(FlagStatus);
-            this.RegisterProperty(GlobalFlagStatus);
-            this.RegisterProperty(HasAttachments);
-            this.RegisterProperty(GlobalHasAttachments);
-            this.RegisterProperty(MessageCount);
-            this.RegisterProperty(GlobalMessageCount);
-            this.RegisterProperty(UnreadCount);
-            this.RegisterProperty(GlobalUnreadCount);
-            this.RegisterProperty(Size);
-            this.RegisterProperty(GlobalSize);
-            this.RegisterProperty(ItemClasses);
-            this.RegisterProperty(GlobalItemClasses);
-            this.RegisterProperty(Importance);
-            this.RegisterProperty(GlobalImportance);
-            this.RegisterProperty(ItemIds);
-            this.RegisterProperty(GlobalItemIds);
-            this.RegisterProperty(LastModifiedTime);
-            this.RegisterProperty(InstanceKey);
-            this.RegisterProperty(Preview);
-            this.RegisterProperty(IconIndex);
-            this.RegisterProperty(GlobalIconIndex);
-            this.RegisterProperty(DraftItemIds);
-            this.RegisterProperty(HasIrm);
-            this.RegisterProperty(GlobalHasIrm);
-        }
+            RegisterProperty(Id);
+            RegisterProperty(Topic);
+            RegisterProperty(UniqueRecipients);
+            RegisterProperty(GlobalUniqueRecipients);
+            RegisterProperty(UniqueUnreadSenders);
+            RegisterProperty(GlobalUniqueUnreadSenders);
+            RegisterProperty(UniqueSenders);
+            RegisterProperty(GlobalUniqueSenders);
+            RegisterProperty(LastDeliveryTime);
+            RegisterProperty(GlobalLastDeliveryTime);
+            RegisterProperty(Categories);
+            RegisterProperty(GlobalCategories);
+            RegisterProperty(FlagStatus);
+            RegisterProperty(GlobalFlagStatus);
+            RegisterProperty(HasAttachments);
+            RegisterProperty(GlobalHasAttachments);
+            RegisterProperty(MessageCount);
+            RegisterProperty(GlobalMessageCount);
+            RegisterProperty(UnreadCount);
+            RegisterProperty(GlobalUnreadCount);
+            RegisterProperty(Size);
+            RegisterProperty(GlobalSize);
+            RegisterProperty(ItemClasses);
+            RegisterProperty(GlobalItemClasses);
+            RegisterProperty(Importance);
+            RegisterProperty(GlobalImportance);
+            RegisterProperty(ItemIds);
+            RegisterProperty(GlobalItemIds);
+            RegisterProperty(LastModifiedTime);
+            RegisterProperty(InstanceKey);
+            RegisterProperty(Preview);
+            RegisterProperty(IconIndex);
+            RegisterProperty(GlobalIconIndex);
+            RegisterProperty(DraftItemIds);
+            RegisterProperty(HasIrm);
+            RegisterProperty(GlobalHasIrm);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConversationSchema"/> class.
         /// </summary>
         internal ConversationSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

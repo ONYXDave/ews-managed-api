@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.IO;
     using System.Xml;
     using System.Xml.Schema;
@@ -33,16 +33,16 @@ namespace Microsoft.Exchange.WebServices.Data
     /// XmlSchema with protection against DTD parsing in read overloads.
     /// </summary>
     internal class SafeXmlSchema : XmlSchema
-    {
+        {
         #region Members
         /// <summary>
         /// Safe xml reader settings.
         /// </summary>
-        private static XmlReaderSettings defaultSettings = new XmlReaderSettings()
-        {
+        private static XmlReaderSettings defaultSettings = new()
+            {
             ProhibitDtd = true,
             XmlResolver = null
-        };
+            };
         #endregion
 
         #region Methods
@@ -53,12 +53,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="validationEventHandler">The validation event handler that receives information about the XML Schema syntax errors.</param>
         /// <returns>The XmlSchema object representing the XML Schema.</returns>
         public static new XmlSchema Read(Stream stream, ValidationEventHandler validationEventHandler)
-        {
-            using (XmlReader xr = XmlReader.Create(stream, SafeXmlSchema.defaultSettings))
             {
+            using (XmlReader xr = XmlReader.Create(stream, SafeXmlSchema.defaultSettings))
+                {
                 return XmlSchema.Read(xr, validationEventHandler);
+                }
             }
-        }
 
         /// <summary>
         /// Reads an XML Schema from the supplied TextReader.
@@ -67,12 +67,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="validationEventHandler">The validation event handler that receives information about the XML Schema syntax errors.</param>
         /// <returns>The XmlSchema object representing the XML Schema.</returns>
         public static new XmlSchema Read(TextReader reader, ValidationEventHandler validationEventHandler)
-        {
-            using (XmlReader xr = XmlReader.Create(reader, SafeXmlSchema.defaultSettings))
             {
+            using (XmlReader xr = XmlReader.Create(reader, SafeXmlSchema.defaultSettings))
+                {
                 return XmlSchema.Read(xr, validationEventHandler);
+                }
             }
-        }
 
         /// <summary>
         /// Reads an XML Schema from the supplied XmlReader.
@@ -81,18 +81,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="validationEventHandler">The validation event handler that receives information about the XML Schema syntax errors.</param>
         /// <returns>The XmlSchema object representing the XML Schema.</returns>
         public static new XmlSchema Read(XmlReader reader, ValidationEventHandler validationEventHandler)
-        {
+            {
             // we need to check to see if the reader is configured properly
             if (reader.Settings != null)
-            {
-                if (reader.Settings.ProhibitDtd != true)
                 {
+                if (reader.Settings.ProhibitDtd != true)
+                    {
                     throw new XmlDtdException();
+                    }
                 }
-            }
 
             return XmlSchema.Read(reader, validationEventHandler);
-        }
+            }
         #endregion
+        }
     }
-}

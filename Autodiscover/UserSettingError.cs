@@ -24,25 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-    using System.Xml;
+    {
     using Microsoft.Exchange.WebServices.Data;
+    using System.Xml;
 
     /// <summary>
     /// Represents an error from a GetUserSettings request.
     /// </summary>
     public sealed class UserSettingError
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSettingError"/> class.
         /// </summary>
         internal UserSettingError()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserSettingError"/> class.
@@ -54,66 +50,66 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
             AutodiscoverErrorCode errorCode,
             string errorMessage,
             string settingName)
-        {
-            this.ErrorCode = errorCode;
-            this.ErrorMessage = errorMessage;
-            this.SettingName = settingName;
-        }
+            {
+            ErrorCode = errorCode;
+            ErrorMessage = errorMessage;
+            SettingName = settingName;
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal void LoadFromXml(EwsXmlReader reader)
-        {
-            do
             {
+            do
+                {
                 reader.Read();
 
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.ErrorCode:
-                            this.ErrorCode = reader.ReadElementValue<AutodiscoverErrorCode>();
+                            ErrorCode = reader.ReadElementValue<AutodiscoverErrorCode>();
                             break;
                         case XmlElementNames.ErrorMessage:
-                            this.ErrorMessage = reader.ReadElementValue();
+                            ErrorMessage = reader.ReadElementValue();
                             break;
                         case XmlElementNames.SettingName:
-                            this.SettingName = reader.ReadElementValue();
+                            SettingName = reader.ReadElementValue();
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Autodiscover, XmlElementNames.UserSettingError));
-        }
+            }
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The error code.</value>
         public AutodiscoverErrorCode ErrorCode
-        {
+            {
             get; internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <value>The error message.</value>
         public string ErrorMessage
-        {
+            {
             get; internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the setting.
         /// </summary>
         /// <value>The name of the setting.</value>
         public string SettingName
-        {
+            {
             get; internal set;
+            }
         }
     }
-}

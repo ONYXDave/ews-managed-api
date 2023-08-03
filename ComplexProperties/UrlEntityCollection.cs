@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
 
@@ -34,26 +33,26 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class UrlEntityCollection : ComplexPropertyCollection<UrlEntity>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlEntityCollection"/> class.
         /// </summary>
         internal UrlEntityCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlEntityCollection"/> class.
         /// </summary>
         /// <param name="collection">The collection of objects to include.</param>
         internal UrlEntityCollection(IEnumerable<UrlEntity> collection)
-        {
-            if (collection != null)
             {
-                collection.ForEach(this.InternalAdd);
+            if (collection != null)
+                {
+                collection.ForEach(InternalAdd);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the complex property.
@@ -61,9 +60,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>UrlEntity.</returns>
         internal override UrlEntity CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new UrlEntity();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -71,8 +70,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(UrlEntity complexProperty)
-        {
+            {
             return XmlElementNames.NlgUrl;
+            }
         }
     }
-}

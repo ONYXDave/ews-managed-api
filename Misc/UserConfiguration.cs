@@ -24,18 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
     using System.Xml;
 
     /// <summary>
     /// Represents an object that can be used to store user-defined configuration settings.
     /// </summary>
     public class UserConfiguration
-    {
+        {
         private const ExchangeVersion ObjectVersion = ExchangeVersion.Exchange2010;
 
         // For consistency with ServiceObject behavior, access to ItemId is permitted for a new object.
@@ -44,7 +41,7 @@ namespace Microsoft.Exchange.WebServices.Data
             UserConfigurationProperties.Dictionary |
             UserConfigurationProperties.XmlData;
 
-        private const UserConfigurationProperties NoProperties = (UserConfigurationProperties)0;
+        private const UserConfigurationProperties NoProperties = 0;
 
         // TODO: Consider using SimplePropertyBag class to store XmlData & BinaryData property values.
         private ExchangeService service;
@@ -68,8 +65,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service to which the user configuration is bound.</param>
         public UserConfiguration(ExchangeService service)
             : this(service, PropertiesAvailableForNewObject)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Writes a byte array to Xml.
@@ -81,7 +78,7 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             byte[] byteArray,
             string xmlElementName)
-        {
+            {
             EwsUtilities.Assert(
                 writer != null,
                 "UserConfiguration.WriteByteArrayToXml",
@@ -94,12 +91,12 @@ namespace Microsoft.Exchange.WebServices.Data
             writer.WriteStartElement(XmlNamespace.Types, xmlElementName);
 
             if (byteArray != null && byteArray.Length > 0)
-            {
+                {
                 writer.WriteValue(Convert.ToBase64String(byteArray), xmlElementName);
-            }
+                }
 
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Writes to Xml.
@@ -113,7 +110,7 @@ namespace Microsoft.Exchange.WebServices.Data
             XmlNamespace xmlNamespace,
             string name,
             FolderId parentFolderId)
-        {
+            {
             EwsUtilities.Assert(
                 writer != null,
                 "UserConfiguration.WriteUserConfigurationNameToXml",
@@ -134,7 +131,7 @@ namespace Microsoft.Exchange.WebServices.Data
             parentFolderId.WriteToXml(writer);
 
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of <see cref="UserConfiguration"/> class.
@@ -142,113 +139,113 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service to which the user configuration is bound.</param>
         /// <param name="requestedProperties">The properties requested for this user configuration.</param>
         internal UserConfiguration(ExchangeService service, UserConfigurationProperties requestedProperties)
-        {
+            {
             EwsUtilities.ValidateParam(service, "service");
 
             if (service.RequestedServerVersion < UserConfiguration.ObjectVersion)
-            {
+                {
                 throw new ServiceVersionException(
                     string.Format(
                         Strings.ObjectTypeIncompatibleWithRequestVersion,
-                        this.GetType().Name,
+                        GetType().Name,
                         UserConfiguration.ObjectVersion));
-            }
+                }
 
             this.service = service;
-            this.isNew = true;
+            isNew = true;
 
-            this.InitializeProperties(requestedProperties);
-        }
+            InitializeProperties(requestedProperties);
+            }
 
         /// <summary>
         /// Gets the name of the user configuration.
         /// </summary>
         public string Name
-        {
-            get { return this.name; }
-            internal set { this.name = value; }
-        }
+            {
+            get { return name; }
+            internal set { name = value; }
+            }
 
         /// <summary>
         /// Gets the Id of the folder containing the user configuration.
         /// </summary>
         public FolderId ParentFolderId
-        {
-            get { return this.parentFolderId; }
-            internal set { this.parentFolderId = value; }
-        }
+            {
+            get { return parentFolderId; }
+            internal set { parentFolderId = value; }
+            }
 
         /// <summary>
         /// Gets the Id of the user configuration.
         /// </summary>
         public ItemId ItemId
-        {
-            get
             {
-                return this.itemId;
+            get
+                {
+                return itemId;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the dictionary of the user configuration.
         /// </summary>
         public UserConfigurationDictionary Dictionary
-        {
-            get
             {
-                return this.dictionary;
+            get
+                {
+                return dictionary;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the xml data of the user configuration.
         /// </summary>
         public byte[] XmlData
-        {
-            get
             {
-                this.ValidatePropertyAccess(UserConfigurationProperties.XmlData);
+            get
+                {
+                ValidatePropertyAccess(UserConfigurationProperties.XmlData);
 
-                return this.xmlData;
-            }
+                return xmlData;
+                }
 
             set
-            {
-                this.xmlData = value;
+                {
+                xmlData = value;
 
-                this.MarkPropertyForUpdate(UserConfigurationProperties.XmlData);
+                MarkPropertyForUpdate(UserConfigurationProperties.XmlData);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the binary data of the user configuration.
         /// </summary>
         public byte[] BinaryData
-        {
-            get
             {
-                this.ValidatePropertyAccess(UserConfigurationProperties.BinaryData);
+            get
+                {
+                ValidatePropertyAccess(UserConfigurationProperties.BinaryData);
 
-                return this.binaryData;
-            }
+                return binaryData;
+                }
 
             set
-            {
-                this.binaryData = value;
-                this.MarkPropertyForUpdate(UserConfigurationProperties.BinaryData);
+                {
+                binaryData = value;
+                MarkPropertyForUpdate(UserConfigurationProperties.BinaryData);
+                }
             }
-        }
 
         /// <summary>
         /// Gets a value indicating whether this user configuration has been modified.
         /// </summary>
         public bool IsDirty
-        {
-            get
             {
-                return (this.updatedProperties != NoProperties) || this.dictionary.IsDirty;
+            get
+                {
+                return (updatedProperties != NoProperties) || dictionary.IsDirty;
+                }
             }
-        }
 
         /// <summary>
         /// Binds to an existing user configuration and loads the specified properties.
@@ -264,7 +261,7 @@ namespace Microsoft.Exchange.WebServices.Data
             string name,
             FolderId parentFolderId,
             UserConfigurationProperties properties)
-        {
+            {
             UserConfiguration result = service.GetUserConfiguration(
                 name,
                 parentFolderId,
@@ -273,7 +270,7 @@ namespace Microsoft.Exchange.WebServices.Data
             result.isNew = false;
 
             return result;
-        }
+            }
 
         /// <summary>
         /// Binds to an existing user configuration and loads the specified properties.
@@ -289,13 +286,13 @@ namespace Microsoft.Exchange.WebServices.Data
             string name,
             WellKnownFolderName parentFolderName,
             UserConfigurationProperties properties)
-        {
+            {
             return UserConfiguration.Bind(
                 service,
                 name,
                 new FolderId(parentFolderName),
                 properties);
-        }
+            }
 
         /// <summary>
         /// Saves the user configuration. Calling this method results in a call to EWS.
@@ -303,26 +300,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="name">The name of the user configuration.</param>
         /// <param name="parentFolderId">The Id of the folder in which to save the user configuration.</param>
         public void Save(string name, FolderId parentFolderId)
-        {
+            {
             EwsUtilities.ValidateParam(name, "name");
             EwsUtilities.ValidateParam(parentFolderId, "parentFolderId");
 
-            parentFolderId.Validate(this.service.RequestedServerVersion);
+            parentFolderId.Validate(service.RequestedServerVersion);
 
-            if (!this.isNew)
-            {
+            if (!isNew)
+                {
                 throw new InvalidOperationException(Strings.CannotSaveNotNewUserConfiguration);
-            }
+                }
 
             this.parentFolderId = parentFolderId;
             this.name = name;
 
-            this.service.CreateUserConfiguration(this);
+            service.CreateUserConfiguration(this);
 
-            this.isNew = false;
+            isNew = false;
 
-            this.ResetIsDirty();
-        }
+            ResetIsDirty();
+            }
 
         /// <summary>
         /// Saves the user configuration. Calling this method results in a call to EWS.
@@ -330,56 +327,56 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="name">The name of the user configuration.</param>
         /// <param name="parentFolderName">The name of the folder in which to save the user configuration.</param>
         public void Save(string name, WellKnownFolderName parentFolderName)
-        {
-            this.Save(name, new FolderId(parentFolderName));
-        }
+            {
+            Save(name, new FolderId(parentFolderName));
+            }
 
         /// <summary>
         /// Updates the user configuration by applying local changes to the Exchange server.
         /// Calling this method results in a call to EWS.
         /// </summary>
         public void Update()
-        {
-            if (this.isNew)
             {
+            if (isNew)
+                {
                 throw new InvalidOperationException(Strings.CannotUpdateNewUserConfiguration);
-            }
+                }
 
-            if (this.IsPropertyUpdated(UserConfigurationProperties.BinaryData) ||
-                this.IsPropertyUpdated(UserConfigurationProperties.Dictionary) ||
-                this.IsPropertyUpdated(UserConfigurationProperties.XmlData))
-            {
-                this.service.UpdateUserConfiguration(this);
-            }
+            if (IsPropertyUpdated(UserConfigurationProperties.BinaryData) ||
+                IsPropertyUpdated(UserConfigurationProperties.Dictionary) ||
+                IsPropertyUpdated(UserConfigurationProperties.XmlData))
+                {
+                service.UpdateUserConfiguration(this);
+                }
 
-            this.ResetIsDirty();
-        }
+            ResetIsDirty();
+            }
 
         /// <summary>
         /// Deletes the user configuration. Calling this method results in a call to EWS.
         /// </summary>
         public void Delete()
-        {
-            if (this.isNew)
             {
+            if (isNew)
+                {
                 throw new InvalidOperationException(Strings.DeleteInvalidForUnsavedUserConfiguration);
-            }
+                }
             else
-            {
-                this.service.DeleteUserConfiguration(this.name, this.parentFolderId);
+                {
+                service.DeleteUserConfiguration(name, parentFolderId);
+                }
             }
-        }
 
         /// <summary>
         /// Loads the specified properties on the user configuration. Calling this method results in a call to EWS.
         /// </summary>
         /// <param name="properties">The properties to load.</param>
         public void Load(UserConfigurationProperties properties)
-        {
-            this.InitializeProperties(properties);
+            {
+            InitializeProperties(properties);
 
-            this.service.LoadPropertiesForUserConfiguration(this, properties);
-        }
+            service.LoadPropertiesForUserConfiguration(this, properties);
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -391,7 +388,7 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             XmlNamespace xmlNamespace,
             string xmlElementName)
-        {
+            {
             EwsUtilities.Assert(
                 writer != null,
                 "UserConfiguration.WriteToXml",
@@ -405,31 +402,31 @@ namespace Microsoft.Exchange.WebServices.Data
 
             // Write the UserConfigurationName element
             WriteUserConfigurationNameToXml(
-                writer, 
-                XmlNamespace.Types, 
-                this.name, 
-                this.parentFolderId);
+                writer,
+                XmlNamespace.Types,
+                name,
+                parentFolderId);
 
             // Write the Dictionary element
-            if (this.IsPropertyUpdated(UserConfigurationProperties.Dictionary))
-            {
-                this.dictionary.WriteToXml(writer, XmlElementNames.Dictionary);
-            }
+            if (IsPropertyUpdated(UserConfigurationProperties.Dictionary))
+                {
+                dictionary.WriteToXml(writer, XmlElementNames.Dictionary);
+                }
 
             // Write the XmlData element
-            if (this.IsPropertyUpdated(UserConfigurationProperties.XmlData))
-            {
-                this.WriteXmlDataToXml(writer);
-            }
+            if (IsPropertyUpdated(UserConfigurationProperties.XmlData))
+                {
+                WriteXmlDataToXml(writer);
+                }
 
             // Write the BinaryData element
-            if (this.IsPropertyUpdated(UserConfigurationProperties.BinaryData))
-            {
-                this.WriteBinaryDataToXml(writer);
-            }
+            if (IsPropertyUpdated(UserConfigurationProperties.BinaryData))
+                {
+                WriteBinaryDataToXml(writer);
+                }
 
             writer.WriteEndElement();
-        }
+            }
 
         /// <summary>
         /// Gets the base64 property value.
@@ -437,17 +434,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="bytes">The bytes.</param>
         /// <returns></returns>
         private string GetBase64PropertyValue(byte[] bytes)
-        {
+            {
             if (bytes == null ||
                 bytes.Length == 0)
-            {
+                {
                 return String.Empty;
-            }
+                }
             else
-            {
+                {
                 return Convert.ToBase64String(bytes);
+                }
             }
-        }
 
         /// <summary>
         /// Determines whether the specified property was updated.
@@ -455,23 +452,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="property">property to evaluate.</param>
         /// <returns>Boolean indicating whether to send the property Xml.</returns>
         private bool IsPropertyUpdated(UserConfigurationProperties property)
-        {
+            {
             bool isPropertyDirty = false;
             bool isPropertyEmpty = false;
 
             switch (property)
-            {
+                {
                 case UserConfigurationProperties.Dictionary:
-                    isPropertyDirty = this.Dictionary.IsDirty;
-                    isPropertyEmpty = this.Dictionary.Count == 0;
+                    isPropertyDirty = Dictionary.IsDirty;
+                    isPropertyEmpty = Dictionary.Count == 0;
                     break;
                 case UserConfigurationProperties.XmlData:
-                    isPropertyDirty = (property & this.updatedProperties) == property;
-                    isPropertyEmpty = (this.xmlData == null) || (this.xmlData.Length == 0);
+                    isPropertyDirty = (property & updatedProperties) == property;
+                    isPropertyEmpty = (xmlData == null) || (xmlData.Length == 0);
                     break;
                 case UserConfigurationProperties.BinaryData:
-                    isPropertyDirty = (property & this.updatedProperties) == property;
-                    isPropertyEmpty = (this.binaryData == null) || (this.binaryData.Length == 0);
+                    isPropertyDirty = (property & updatedProperties) == property;
+                    isPropertyEmpty = (binaryData == null) || (binaryData.Length == 0);
                     break;
                 default:
                     EwsUtilities.Assert(
@@ -479,20 +476,20 @@ namespace Microsoft.Exchange.WebServices.Data
                         "UserConfiguration.IsPropertyUpdated",
                         "property not supported: " + property.ToString());
                     break;
-            }
+                }
 
             // Consider the property updated, if it's been modified, and either 
             //    . there's a value or 
             //    . there's no value but the operation is update.
-            return isPropertyDirty && ((!isPropertyEmpty) || (!this.isNew));
-        }
+            return isPropertyDirty && ((!isPropertyEmpty) || (!isNew));
+            }
 
         /// <summary>
         /// Writes the XmlData property to Xml.
         /// </summary>
         /// <param name="writer">The writer.</param>
         private void WriteXmlDataToXml(EwsServiceXmlWriter writer)
-        {
+            {
             EwsUtilities.Assert(
                 writer != null,
                 "UserConfiguration.WriteXmlDataToXml",
@@ -500,16 +497,16 @@ namespace Microsoft.Exchange.WebServices.Data
 
             WriteByteArrayToXml(
                 writer,
-                this.xmlData,
+                xmlData,
                 XmlElementNames.XmlData);
-        }
+            }
 
         /// <summary>
         /// Writes the BinaryData property to Xml.
         /// </summary>
         /// <param name="writer">The writer.</param>
         private void WriteBinaryDataToXml(EwsServiceXmlWriter writer)
-        {
+            {
             EwsUtilities.Assert(
                 writer != null,
                 "UserConfiguration.WriteBinaryDataToXml",
@@ -517,16 +514,16 @@ namespace Microsoft.Exchange.WebServices.Data
 
             WriteByteArrayToXml(
                 writer,
-                this.binaryData,
+                binaryData,
                 XmlElementNames.BinaryData);
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal void LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             EwsUtilities.Assert(
                 reader != null,
                 "UserConfiguration.LoadFromXml",
@@ -536,37 +533,37 @@ namespace Microsoft.Exchange.WebServices.Data
             reader.Read(); // Position at first property element
 
             do
-            {
-                if (reader.NodeType == XmlNodeType.Element)
                 {
-                    switch (reader.LocalName)
+                if (reader.NodeType == XmlNodeType.Element)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.UserConfigurationName:
                             string responseName = reader.ReadAttributeValue(XmlAttributeNames.Name);
 
                             EwsUtilities.Assert(
-                                string.Compare(this.name, responseName, StringComparison.Ordinal) == 0,
+                                string.Compare(name, responseName, StringComparison.Ordinal) == 0,
                                 "UserConfiguration.LoadFromXml",
-                                "UserConfigurationName does not match: Expected: " + this.name + " Name in response: " + responseName);
-                            
+                                "UserConfigurationName does not match: Expected: " + name + " Name in response: " + responseName);
+
                             reader.SkipCurrentElement();
                             break;
 
                         case XmlElementNames.ItemId:
-                            this.itemId = new ItemId();
-                            this.itemId.LoadFromXml(reader, XmlElementNames.ItemId);
+                            itemId = new ItemId();
+                            itemId.LoadFromXml(reader, XmlElementNames.ItemId);
                             break;
 
                         case XmlElementNames.Dictionary:
-                            this.dictionary.LoadFromXml(reader, XmlElementNames.Dictionary);
+                            dictionary.LoadFromXml(reader, XmlElementNames.Dictionary);
                             break;
 
                         case XmlElementNames.XmlData:
-                            this.xmlData = Convert.FromBase64String(reader.ReadElementValue());
-                            break; 
+                            xmlData = Convert.FromBase64String(reader.ReadElementValue());
+                            break;
 
                         case XmlElementNames.BinaryData:
-                            this.binaryData = Convert.FromBase64String(reader.ReadElementValue());
+                            binaryData = Convert.FromBase64String(reader.ReadElementValue());
                             break;
 
                         default:
@@ -575,14 +572,14 @@ namespace Microsoft.Exchange.WebServices.Data
                                 "UserConfiguration.LoadFromXml",
                                 "Xml element not supported: " + reader.LocalName);
                             break;
+                        }
                     }
-                }
 
                 // If XmlData was loaded, read is skipped because GetXmlData positions the reader at the next property.
                 reader.Read();
-            }
+                }
             while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.UserConfiguration));
-        }
+            }
 
         /// <summary>
         /// Initializes properties.
@@ -595,45 +592,45 @@ namespace Microsoft.Exchange.WebServices.Data
         /// .  Refresh properties:  From the Load method.
         /// </remarks>
         private void InitializeProperties(UserConfigurationProperties requestedProperties)
-        {
-            this.itemId = null;
-            this.dictionary = new UserConfigurationDictionary();
-            this.xmlData = null;
-            this.binaryData = null;
-            this.propertiesAvailableForAccess = requestedProperties;
+            {
+            itemId = null;
+            dictionary = new UserConfigurationDictionary();
+            xmlData = null;
+            binaryData = null;
+            propertiesAvailableForAccess = requestedProperties;
 
-            this.ResetIsDirty();
-        }
+            ResetIsDirty();
+            }
 
         /// <summary>
         /// Resets flags to indicate that properties haven't been modified.
         /// </summary>
         private void ResetIsDirty()
-        {
-            this.updatedProperties = NoProperties;
-            this.dictionary.IsDirty = false;
-        }
+            {
+            updatedProperties = NoProperties;
+            dictionary.IsDirty = false;
+            }
 
         /// <summary>
         /// Determines whether the specified property may be accessed.
         /// </summary>
         /// <param name="property">Property to access.</param>
         private void ValidatePropertyAccess(UserConfigurationProperties property)
-        {
-            if ((property & this.propertiesAvailableForAccess) != property)
             {
+            if ((property & propertiesAvailableForAccess) != property)
+                {
                 throw new PropertyException(Strings.MustLoadOrAssignPropertyBeforeAccess, property.ToString());
+                }
             }
-        }
 
         /// <summary>
         /// Adds the passed property to updatedProperties.
         /// </summary>
         /// <param name="property">Property to update.</param>
         private void MarkPropertyForUpdate(UserConfigurationProperties property)
-        {
-            this.updatedProperties |= property;
-            this.propertiesAvailableForAccess |= property;
+            {
+            updatedProperties |= property;
+            propertiesAvailableForAccess |= property;
+            }
         }
     }
-}

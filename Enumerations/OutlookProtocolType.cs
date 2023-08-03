@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
+    {
     /// <summary>
     /// Defines supported Outlook protocls.
     /// </summary>
     internal enum OutlookProtocolType
-    {
+        {
         /// <summary>
         /// The Remote Procedure Call (RPC) protocol.
         /// </summary>
@@ -49,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// The protocol is unknown.
         /// </summary>
         Unknown,
+        }
     }
-}

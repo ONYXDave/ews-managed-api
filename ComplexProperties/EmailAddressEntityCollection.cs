@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
 
@@ -34,26 +33,26 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class EmailAddressEntityCollection : ComplexPropertyCollection<EmailAddressEntity>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailAddressEntityCollection"/> class.
         /// </summary>
         internal EmailAddressEntityCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailAddressEntityCollection"/> class.
         /// </summary>
         /// <param name="collection">The collection of objects to include.</param>
         internal EmailAddressEntityCollection(IEnumerable<EmailAddressEntity> collection)
-        {
-            if (collection != null)
             {
-                collection.ForEach(this.InternalAdd);
+            if (collection != null)
+                {
+                collection.ForEach(InternalAdd);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the complex property.
@@ -61,9 +60,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>EmailAddressEntity.</returns>
         internal override EmailAddressEntity CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new EmailAddressEntity();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -71,8 +70,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(EmailAddressEntity complexProperty)
-        {
+            {
             return XmlElementNames.NlgEmailAddress;
+            }
         }
     }
-}

@@ -24,22 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Represents the results of an Persona search operation.
     /// </summary>
     public sealed class PeopleQueryResults : IPeopleQueryResults
-    {
+        {
         /// <summary>
         /// Creates a new instance of the <see cref="PeopleQueryResults"/> class.
         /// </summary>
         internal PeopleQueryResults()
-        {
-            this.Personas = new List<Persona>();
-        }
+            {
+            Personas = new List<Persona>();
+            }
 
         /// <summary>
         /// Gets the Personas that were found by the search operation.
@@ -50,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the ID for this FindPeople call, which can be used for feedback
         /// </summary>
         public string TransactionId { get; internal set; }
+        }
     }
-}

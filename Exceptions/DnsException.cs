@@ -24,34 +24,34 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Dns
-{
+    {
     using System;
     using System.ComponentModel;
-	using System.Runtime.Serialization;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents an error that occurs when performing a DNS operation.
     /// </summary>
     [Serializable]
     internal class DnsException : Win32Exception
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="DnsException"/> class.
         /// </summary>
         /// <param name="errorCode">The error code.</param>
         internal DnsException(int errorCode)
             : base(errorCode)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.DnsException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected DnsException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.DnsException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected DnsException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

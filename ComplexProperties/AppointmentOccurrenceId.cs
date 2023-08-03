@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents the Id of an occurrence of a recurring appointment.
     /// </summary>
     public sealed class AppointmentOccurrenceId : ItemId
-    {
+        {
         /// <summary>
         /// Index of the occurrence.
         /// </summary>
@@ -44,49 +44,49 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="occurrenceIndex">The index of the occurrence.</param>
         public AppointmentOccurrenceId(string recurringMasterUniqueId, int occurrenceIndex)
             : base(recurringMasterUniqueId)
-        {
-            this.OccurrenceIndex = occurrenceIndex;
-        }
+            {
+            OccurrenceIndex = occurrenceIndex;
+            }
 
         /// <summary>
         /// Gets or sets the index of the occurrence. Note that the occurrence index starts at one not zero.
         /// </summary>
         public int OccurrenceIndex
-        {
-            get
-            { 
-                return this.occurrenceIndex;
-            }
-
-            set
             {
-                // The occurrence index has to be positive integer.
-                if (value < 1)
+            get
                 {
-                    throw new ArgumentException(Strings.OccurrenceIndexMustBeGreaterThanZero);
+                return occurrenceIndex;
                 }
 
-                this.occurrenceIndex = value;
+            set
+                {
+                // The occurrence index has to be positive integer.
+                if (value < 1)
+                    {
+                    throw new ArgumentException(Strings.OccurrenceIndexMustBeGreaterThanZero);
+                    }
+
+                occurrenceIndex = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.OccurrenceItemId;
-        }
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.RecurringMasterId, this.UniqueId);
-            writer.WriteAttributeValue(XmlAttributeNames.InstanceIndex, this.OccurrenceIndex);
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.RecurringMasterId, UniqueId);
+            writer.WriteAttributeValue(XmlAttributeNames.InstanceIndex, OccurrenceIndex);
+            }
         }
     }
-}

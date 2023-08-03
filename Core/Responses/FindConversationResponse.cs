@@ -24,9 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.Collections.ObjectModel;
     using System.Xml;
 
@@ -34,25 +32,25 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents the response to a Conversation search operation.
     /// </summary>
     internal sealed class FindConversationResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="FindConversationResponse"/> class.
         /// </summary>
         internal FindConversationResponse() : base()
-        {
-            this.Results = new FindConversationResults();
-        }
+            {
+            Results = new FindConversationResults();
+            }
 
         /// <summary>
         /// Gets the collection of conversations in results.
         /// </summary>
         internal Collection<Conversation> Conversations
-        {
-            get
             {
-                return this.Results.Conversations;
+            get
+                {
+                return Results.Conversations;
+                }
             }
-        }
 
         /// <summary>
         /// Gets FindConversation results.
@@ -65,84 +63,84 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             EwsUtilities.Assert(
-                   this.Results.Conversations != null,
+                   Results.Conversations != null,
                    "FindConversationResponse.ReadElementsFromXml",
                    "conversations is null.");
 
             EwsUtilities.Assert(
-                   this.Results.HighlightTerms != null,
+                   Results.HighlightTerms != null,
                    "FindConversationResponse.ReadElementsFromXml",
                    "highlightTerms is null.");
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.Conversations);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
+                        {
                         Conversation item = EwsUtilities.CreateEwsObjectFromXmlElementName<Conversation>(reader.Service, reader.LocalName);
 
                         if (item == null)
-                        {
+                            {
                             reader.SkipCurrentElement();
-                        }
+                            }
                         else
-                        {
+                            {
                             item.LoadFromXml(
                                         reader,
                                         true, /* clearPropertyBag */
                                         null,
                                         false  /* summaryPropertiesOnly */);
 
-                            this.Results.Conversations.Add(item);
+                            Results.Conversations.Add(item);
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.Conversations));
-            }
+                }
 
             reader.Read();
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.HighlightTerms) &&
                 !reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == XmlNodeType.Element)
-                    {
-                        HighlightTerm term = new HighlightTerm();
+                        {
+                        HighlightTerm term = new();
 
                         term.LoadFromXml(
                             reader,
                             XmlNamespace.Types,
                             XmlElementNames.HighlightTerm);
 
-                        this.Results.HighlightTerms.Add(term);
+                        Results.HighlightTerms.Add(term);
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.HighlightTerms));
-            }
+                }
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.TotalConversationsInView) && !reader.IsEmptyElement)
-            {
-                this.Results.TotalCount = reader.ReadElementValue<int>();
+                {
+                Results.TotalCount = reader.ReadElementValue<int>();
 
                 reader.Read();
-            }
+                }
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.IndexedOffset) && !reader.IsEmptyElement)
-            {
-                this.Results.IndexedOffset = reader.ReadElementValue<int>();
+                {
+                Results.IndexedOffset = reader.ReadElementValue<int>();
 
                 reader.Read();
+                }
             }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Runtime.Serialization;
 
@@ -33,14 +33,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public class ServiceRequestException : ServiceRemoteException
-    {
+        {
         /// <summary>
         /// ServiceRequestException Constructor.
         /// </summary>
         public ServiceRequestException()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceRequestException Constructor.
@@ -48,8 +48,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="message">Error message text.</param>
         public ServiceRequestException(string message)
             : base(message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceRequestException Constructor.
@@ -58,17 +58,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="innerException">Inner exception.</param>
         public ServiceRequestException(string message, Exception innerException)
             : base(message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceRequestException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected ServiceRequestException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-	    {
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceRequestException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected ServiceRequestException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

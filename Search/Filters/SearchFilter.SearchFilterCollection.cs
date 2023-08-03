@@ -24,23 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <content>
     /// Contains nested type SearchFilter.SearchFilterCollection.
     /// </content>
     public abstract partial class SearchFilter
-    {
+        {
         /// <summary>
         /// Represents a collection of search filters linked by a logical operator. Applications can
         /// use SearchFilterCollection to define complex search filters such as "Condition1 AND Condition2".
         /// </summary>
         public sealed class SearchFilterCollection : SearchFilter, IEnumerable<SearchFilter>
-        {
-            private List<SearchFilter> searchFilters = new List<SearchFilter>();
+            {
+            private List<SearchFilter> searchFilters = new();
             private LogicalOperator logicalOperator = LogicalOperator.And;
 
             /// <summary>
@@ -49,8 +48,8 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             public SearchFilterCollection()
                 : base()
-            {
-            }
+                {
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SearchFilterCollection"/> class.
@@ -58,9 +57,9 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="logicalOperator">The logical operator used to initialize the collection.</param>
             public SearchFilterCollection(LogicalOperator logicalOperator)
                 : base()
-            {
+                {
                 this.logicalOperator = logicalOperator;
-            }
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SearchFilterCollection"/> class.
@@ -69,9 +68,9 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="searchFilters">The search filters to add to the collection.</param>
             public SearchFilterCollection(LogicalOperator logicalOperator, params SearchFilter[] searchFilters)
                 : this(logicalOperator)
-            {
-                this.AddRange(searchFilters);
-            }
+                {
+                AddRange(searchFilters);
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SearchFilterCollection"/> class.
@@ -80,45 +79,45 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="searchFilters">The search filters to add to the collection.</param>
             public SearchFilterCollection(LogicalOperator logicalOperator, IEnumerable<SearchFilter> searchFilters)
                 : this(logicalOperator)
-            {
-                this.AddRange(searchFilters);
-            }
+                {
+                AddRange(searchFilters);
+                }
 
             /// <summary>
             /// Validate instance.
             /// </summary>
             internal override void InternalValidate()
-            {
-                for (int i = 0; i < this.Count; i++)
                 {
+                for (int i = 0; i < Count; i++)
+                    {
                     try
-                    {
+                        {
                         this[i].InternalValidate();
-                    }
+                        }
                     catch (ServiceValidationException e)
-                    {
+                        {
                         throw new ServiceValidationException(string.Format(Strings.SearchFilterAtIndexIsInvalid, i), e);
+                        }
                     }
                 }
-            }
 
             /// <summary>
             /// A search filter has changed.
             /// </summary>
             /// <param name="complexProperty">The complex property.</param>
             private void SearchFilterChanged(ComplexProperty complexProperty)
-            {
-                this.Changed();
-            }
+                {
+                Changed();
+                }
 
             /// <summary>
             /// Gets the name of the XML element.
             /// </summary>
             /// <returns>XML element name.</returns>
             internal override string GetXmlElementName()
-            {
-                return this.LogicalOperator.ToString();
-            }
+                {
+                return LogicalOperator.ToString();
+                }
 
             /// <summary>
             /// Tries to read element from XML.
@@ -126,93 +125,93 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="reader">The reader.</param>
             /// <returns>True if element was read.</returns>
             internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-            {
-                this.Add(SearchFilter.LoadFromXml(reader));
+                {
+                Add(SearchFilter.LoadFromXml(reader));
                 return true;
-            }
+                }
 
             /// <summary>
             /// Writes the elements to XML.
             /// </summary>
             /// <param name="writer">The writer.</param>
             internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-            {
-                foreach (SearchFilter searchFilter in this)
                 {
+                foreach (SearchFilter searchFilter in this)
+                    {
                     searchFilter.WriteToXml(writer);
+                    }
                 }
-            }
 
             /// <summary>
             /// Writes to XML.
             /// </summary>
             /// <param name="writer">The writer.</param>
             internal override void WriteToXml(EwsServiceXmlWriter writer)
-            {
+                {
                 // If there is only one filter in the collection, which developers tend to do,
                 // we need to not emit the collection and instead only emit the one filter within
                 // the collection. This is to work around the fact that EWS does not allow filter
                 // collections that have less than two elements.
-                if (this.Count == 1)
-                {
+                if (Count == 1)
+                    {
                     this[0].WriteToXml(writer);
-                }
+                    }
                 else
-                {
+                    {
                     base.WriteToXml(writer);
+                    }
                 }
-            }
 
             /// <summary>
             /// Adds a search filter of any type to the collection.
             /// </summary>
             /// <param name="searchFilter">The search filter to add. Available search filter classes include SearchFilter.IsEqualTo, SearchFilter.ContainsSubstring and SearchFilter.SearchFilterCollection.</param>
             public void Add(SearchFilter searchFilter)
-            {
-                if (searchFilter == null)
                 {
+                if (searchFilter == null)
+                    {
                     throw new ArgumentNullException("searchFilter");
-                }
+                    }
 
-                searchFilter.OnChange += this.SearchFilterChanged;
-                this.searchFilters.Add(searchFilter);
-                this.Changed();
-            }
+                searchFilter.OnChange += SearchFilterChanged;
+                searchFilters.Add(searchFilter);
+                Changed();
+                }
 
             /// <summary>
             /// Adds multiple search filters to the collection.
             /// </summary>
             /// <param name="searchFilters">The search filters to add. Available search filter classes include SearchFilter.IsEqualTo, SearchFilter.ContainsSubstring and SearchFilter.SearchFilterCollection.</param>
             public void AddRange(IEnumerable<SearchFilter> searchFilters)
-            {
-                if (searchFilters == null)
                 {
+                if (searchFilters == null)
+                    {
                     throw new ArgumentNullException("searchFilters");
-                }
+                    }
 
                 foreach (SearchFilter searchFilter in searchFilters)
-                {
-                    searchFilter.OnChange += this.SearchFilterChanged;
-                }
+                    {
+                    searchFilter.OnChange += SearchFilterChanged;
+                    }
                 this.searchFilters.AddRange(searchFilters);
-                this.Changed();
-            }
+                Changed();
+                }
 
             /// <summary>
             /// Clears the collection.
             /// </summary>
             public void Clear()
-            {
-                if (this.Count > 0)
                 {
-                    foreach (SearchFilter searchFilter in this)
+                if (Count > 0)
                     {
-                        searchFilter.OnChange -= this.SearchFilterChanged;
+                    foreach (SearchFilter searchFilter in this)
+                        {
+                        searchFilter.OnChange -= SearchFilterChanged;
+                        }
+                    searchFilters.Clear();
+                    Changed();
                     }
-                    this.searchFilters.Clear();
-                    this.Changed();
                 }
-            }
 
             /// <summary>
             /// Determines whether a specific search filter is in the collection.
@@ -220,52 +219,52 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="searchFilter">The search filter to locate in the collection.</param>
             /// <returns>True is the search filter was found in the collection, false otherwise.</returns>
             public bool Contains(SearchFilter searchFilter)
-            {
-                return this.searchFilters.Contains(searchFilter);
-            }
+                {
+                return searchFilters.Contains(searchFilter);
+                }
 
             /// <summary>
             /// Removes a search filter from the collection.
             /// </summary>
             /// <param name="searchFilter">The search filter to remove.</param>
             public void Remove(SearchFilter searchFilter)
-            {
+                {
                 if (searchFilter == null)
-                {
+                    {
                     throw new ArgumentNullException("searchFilter");
-                }
+                    }
 
-                if (this.Contains(searchFilter))
-                {
-                    searchFilter.OnChange -= this.SearchFilterChanged;
-                    this.searchFilters.Remove(searchFilter);
-                    this.Changed();
+                if (Contains(searchFilter))
+                    {
+                    searchFilter.OnChange -= SearchFilterChanged;
+                    searchFilters.Remove(searchFilter);
+                    Changed();
+                    }
                 }
-            }
 
             /// <summary>
             /// Removes the search filter at the specified index from the collection.
             /// </summary>
             /// <param name="index">The zero-based index of the search filter to remove.</param>
             public void RemoveAt(int index)
-            {
-                if (index < 0 || index >= this.Count)
                 {
+                if (index < 0 || index >= Count)
+                    {
                     throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-                }
+                    }
 
-                this[index].OnChange -= this.SearchFilterChanged;
-                this.searchFilters.RemoveAt(index);
-                this.Changed();
-            }
+                this[index].OnChange -= SearchFilterChanged;
+                searchFilters.RemoveAt(index);
+                Changed();
+                }
 
             /// <summary>
             /// Gets the total number of search filters in the collection.
             /// </summary>
             public int Count
-            {
-                get { return this.searchFilters.Count; }
-            }
+                {
+                get { return searchFilters.Count; }
+                }
 
             /// <summary>
             /// Gets or sets the search filter at the specified index.
@@ -273,36 +272,36 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="index">The zero-based index of the search filter to get or set.</param>
             /// <returns>The search filter at the specified index.</returns>
             public SearchFilter this[int index]
-            {
-                get
                 {
-                    if (index < 0 || index >= this.Count)
+                get
                     {
+                    if (index < 0 || index >= Count)
+                        {
                         throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-                    }
+                        }
 
-                    return this.searchFilters[index];
-                }
+                    return searchFilters[index];
+                    }
 
                 set
-                {
-                    if (index < 0 || index >= this.Count)
                     {
+                    if (index < 0 || index >= Count)
+                        {
                         throw new ArgumentOutOfRangeException("index", Strings.IndexIsOutOfRange);
-                    }
+                        }
 
-                    this.searchFilters[index] = value;
+                    searchFilters[index] = value;
+                    }
                 }
-            }
 
             /// <summary>
             /// Gets or sets the logical operator that links the serach filters in this collection.
             /// </summary>
             public LogicalOperator LogicalOperator
-            {
-                get { return this.logicalOperator; }
-                set { this.logicalOperator = value; }
-            }
+                {
+                get { return logicalOperator; }
+                set { logicalOperator = value; }
+                }
 
             #region IEnumerable<SearchCondition> Members
 
@@ -311,9 +310,9 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             /// <returns>An IEnumerator for the collection.</returns>
             public IEnumerator<SearchFilter> GetEnumerator()
-            {
-                return this.searchFilters.GetEnumerator();
-            }
+                {
+                return searchFilters.GetEnumerator();
+                }
 
             #endregion
 
@@ -324,11 +323,11 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             /// <returns>An IEnumerator for the collection.</returns>
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                return this.searchFilters.GetEnumerator();
-            }
+                {
+                return searchFilters.GetEnumerator();
+                }
 
             #endregion
+            }
         }
     }
-}

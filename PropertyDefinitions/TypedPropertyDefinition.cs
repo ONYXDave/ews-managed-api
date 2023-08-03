@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents typed property definition.
     /// </summary>
     internal abstract class TypedPropertyDefinition : PropertyDefinition
-    {
+        {
         private bool isNullable;
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
-            this.isNullable = false;
-        }
+            {
+            isNullable = false;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypedPropertyDefinition"/> class.
@@ -67,8 +67,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypedPropertyDefinition"/> class.
@@ -89,9 +89,9 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
+            {
             this.isNullable = isNullable;
-        }
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -104,9 +104,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets a value indicating whether this property definition is for a nullable type (ref, int?, bool?...).
         /// </summary>
         internal override bool IsNullable
-        {
-            get { return this.isNullable; }
-        }
+            {
+            get { return isNullable; }
+            }
 
         /// <summary>
         /// Convert instance to string.
@@ -114,9 +114,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>String representation of property value.</returns>
         internal virtual string ToString(object value)
-        {
+            {
             return value.ToString();
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
@@ -124,14 +124,14 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
         internal override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
-            string value = reader.ReadElementValue(XmlNamespace.Types, this.XmlElementName);
+            {
+            string value = reader.ReadElementValue(XmlNamespace.Types, XmlElementName);
 
             if (!string.IsNullOrEmpty(value))
-            {
-                propertyBag[this] = this.Parse(value);
+                {
+                propertyBag[this] = Parse(value);
+                }
             }
-        }
 
         /// <summary>
         /// Writes to XML.
@@ -143,13 +143,13 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             object value = propertyBag[this];
 
             if (value != null)
-            {
-                writer.WriteElementValue(XmlNamespace.Types, this.XmlElementName, this.Name, value);
+                {
+                writer.WriteElementValue(XmlNamespace.Types, XmlElementName, Name, value);
+                }
             }
         }
     }
-}

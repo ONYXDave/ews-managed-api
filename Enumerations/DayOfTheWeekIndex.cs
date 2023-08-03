@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the index of a week day within a month.
     /// </summary>
     public enum DayOfTheWeekIndex
-    {
+        {
         /// <summary>
         /// The first specific day of the week in the month. For example, the first Tuesday of the month. 
         /// </summary>
@@ -54,5 +54,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The last specific day of the week in the month. For example, the last Tuesday of the month.
         /// </summary>
         Last
+        }
     }
-}

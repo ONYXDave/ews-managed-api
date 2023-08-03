@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents a mailbox reference.
     /// </summary>
     public class Mailbox : ComplexProperty, ISearchStringProvider
-    {
+        {
         #region Constructors
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public Mailbox()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Mailbox"/> class.
@@ -46,9 +46,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="smtpAddress">The primary SMTP address of the mailbox.</param>
         public Mailbox(string smtpAddress)
             : this()
-        {
-            this.Address = smtpAddress;
-        }
+            {
+            Address = smtpAddress;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Mailbox"/> class.
@@ -57,9 +57,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="routingType">The routing type of the address used to reference the user mailbox.</param>
         public Mailbox(string address, string routingType)
             : this(address)
-        {
-            this.RoutingType = routingType;
-        }
+            {
+            RoutingType = routingType;
+            }
 
         #endregion
 
@@ -70,39 +70,39 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
         public bool IsValid
-        {
-            get { return !string.IsNullOrEmpty(this.Address); }
-        }
+            {
+            get { return !string.IsNullOrEmpty(Address); }
+            }
 
         /// <summary>
         /// Gets or sets the address used to refer to the user mailbox.
         /// </summary>
         public string Address
-        {
+            {
             get; set;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the routing type of the address used to refer to the user mailbox.
         /// </summary>
         public string RoutingType
-        {
+            {
             get; set;
-        }
+            }
 
         #endregion
 
         #region Operator overloads
-        
+
         /// <summary>
         /// Defines an implicit conversion between a string representing an SMTP address and Mailbox.
         /// </summary>
         /// <param name="smtpAddress">The SMTP address to convert to EmailAddress.</param>
         /// <returns>A Mailbox initialized with the specified SMTP address.</returns>
         public static implicit operator Mailbox(string smtpAddress)
-        {
+            {
             return new Mailbox(smtpAddress);
-        }
+            }
 
         #endregion
 
@@ -114,29 +114,29 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.EmailAddress:
-                    this.Address = reader.ReadElementValue();
+                    Address = reader.ReadElementValue();
                     return true;
                 case XmlElementNames.RoutingType:
-                    this.RoutingType = reader.ReadElementValue();
+                    RoutingType = reader.ReadElementValue();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.EmailAddress, this.Address);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.RoutingType, this.RoutingType);
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.EmailAddress, Address);
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.RoutingType, RoutingType);
+            }
 
         #endregion
 
@@ -147,9 +147,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>String representation of instance.</returns>
         string ISearchStringProvider.GetSearchString()
-        {
-            return this.Address;
-        }
+            {
+            return Address;
+            }
 
         #endregion
 
@@ -157,12 +157,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
+            {
             base.InternalValidate();
 
-            EwsUtilities.ValidateNonBlankStringParamAllowNull(this.Address, "address");
-            EwsUtilities.ValidateNonBlankStringParamAllowNull(this.RoutingType, "routingType");
-        }
+            EwsUtilities.ValidateNonBlankStringParamAllowNull(Address, "address");
+            EwsUtilities.ValidateNonBlankStringParamAllowNull(RoutingType, "routingType");
+            }
 
         #region Object method overrides
         /// <summary>
@@ -174,31 +174,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </returns>
         /// <exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
         public override bool Equals(object obj)
-        {
+            {
             if (object.ReferenceEquals(this, obj))
-            {
+                {
                 return true;
-            }
+                }
             else
-            {
+                {
                 Mailbox other = obj as Mailbox;
 
                 if (other == null)
-                {
+                    {
                     return false;
-                }
-                else if (((this.Address == null) && (other.Address == null)) ||
-                         ((this.Address != null) && this.Address.Equals(other.Address)))
-                {
-                    return ((this.RoutingType == null) && (other.RoutingType == null)) ||
-                           ((this.RoutingType != null) && this.RoutingType.Equals(other.RoutingType));
-                }
+                    }
+                else if (((Address == null) && (other.Address == null)) ||
+                         ((Address != null) && Address.Equals(other.Address)))
+                    {
+                    return ((RoutingType == null) && (other.RoutingType == null)) ||
+                           ((RoutingType != null) && RoutingType.Equals(other.RoutingType));
+                    }
                 else
-                {
+                    {
                     return false;
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Serves as a hash function for a particular type.
@@ -207,23 +207,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A hash code for the current <see cref="T:System.Object"/>.
         /// </returns>
         public override int GetHashCode()
-        {
-            if (!string.IsNullOrEmpty(this.Address))
             {
-                int hashCode = this.Address.GetHashCode();
-
-                if (!string.IsNullOrEmpty(this.RoutingType))
+            if (!string.IsNullOrEmpty(Address))
                 {
-                    hashCode ^= this.RoutingType.GetHashCode();
-                }
+                int hashCode = Address.GetHashCode();
+
+                if (!string.IsNullOrEmpty(RoutingType))
+                    {
+                    hashCode ^= RoutingType.GetHashCode();
+                    }
 
                 return hashCode;
-            }
+                }
             else
-            {
+                {
                 return base.GetHashCode();
+                }
             }
-        }
 
         /// <summary>
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
@@ -232,20 +232,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            if (!this.IsValid)
             {
+            if (!IsValid)
+                {
                 return string.Empty;
-            }
-            else if (!string.IsNullOrEmpty(this.RoutingType))
-            {
-                return this.RoutingType + ":" + this.Address;
-            }
+                }
+            else if (!string.IsNullOrEmpty(RoutingType))
+                {
+                return RoutingType + ":" + Address;
+                }
             else
-            {
-                return this.Address;
+                {
+                return Address;
+                }
             }
-        }
         #endregion
+        }
     }
-}

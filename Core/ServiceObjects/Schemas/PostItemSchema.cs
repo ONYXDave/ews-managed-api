@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,14 +32,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public sealed class PostItemSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// Field URIs for PostItem.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string PostedTime = "postitem:PostedTime";
-        }
+            }
 
         /// <summary>
         /// Defines the ConversationIndex property.
@@ -102,7 +102,7 @@ namespace Microsoft.Exchange.WebServices.Data
             EmailMessageSchema.Sender;
 
         // This must be after the declaration of property definitions
-        internal static new readonly PostItemSchema Instance = new PostItemSchema();
+        internal static new readonly PostItemSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -111,25 +111,25 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(ConversationIndex);
-            this.RegisterProperty(ConversationTopic);
-            this.RegisterProperty(From);
-            this.RegisterProperty(InternetMessageId);
-            this.RegisterProperty(IsRead);
-            this.RegisterProperty(PostedTime);
-            this.RegisterProperty(References);
-            this.RegisterProperty(Sender);
-        }
+            RegisterProperty(ConversationIndex);
+            RegisterProperty(ConversationTopic);
+            RegisterProperty(From);
+            RegisterProperty(InternetMessageId);
+            RegisterProperty(IsRead);
+            RegisterProperty(PostedTime);
+            RegisterProperty(References);
+            RegisterProperty(Sender);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostItemSchema"/> class.
         /// </summary>
         internal PostItemSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

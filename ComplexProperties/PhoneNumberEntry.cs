@@ -24,18 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents an entry of a PhoneNumberDictionary.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class PhoneNumberEntry : DictionaryEntryProperty<PhoneNumberKey>
-    {
+        {
         private string phoneNumber;
 
         /// <summary>
@@ -43,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal PhoneNumberEntry()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneNumberEntry"/> class.
@@ -53,35 +50,35 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="phoneNumber">The phone number.</param>
         internal PhoneNumberEntry(PhoneNumberKey key, string phoneNumber)
             : base(key)
-        {
+            {
             this.phoneNumber = phoneNumber;
-        }
+            }
 
         /// <summary>
         /// Reads the text value from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadTextValueFromXml(EwsServiceXmlReader reader)
-        {
-            this.phoneNumber = reader.ReadValue();
-        }
+            {
+            phoneNumber = reader.ReadValue();
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteValue(this.PhoneNumber, XmlElementNames.PhoneNumber);
-        }
+            {
+            writer.WriteValue(PhoneNumber, XmlElementNames.PhoneNumber);
+            }
 
         /// <summary>
         /// Gets or sets the phone number of the entry.
         /// </summary>
         public string PhoneNumber
-        {
-            get { return this.phoneNumber; }
-            set { this.SetFieldValue<string>(ref this.phoneNumber, value); }
+            {
+            get { return phoneNumber; }
+            set { SetFieldValue<string>(ref phoneNumber, value); }
+            }
         }
     }
-}

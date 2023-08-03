@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines how meeting requests are sent to delegates.
     /// </summary>
     public enum MeetingRequestsDeliveryScope
-    {
+        {
         /// <summary>
         /// Meeting requests are sent to delegates only.
         /// </summary>
@@ -55,5 +51,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         [RequiredServerVersion(ExchangeVersion.Exchange2010_SP1)]
         NoForward
+        }
     }
-}

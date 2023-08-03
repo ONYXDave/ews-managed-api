@@ -24,24 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the response to a subscription event retrieval operation.
     /// </summary>
     internal sealed class GetStreamingEventsResponse : ServiceResponse
-    {
-        private GetStreamingEventsResults results = new GetStreamingEventsResults();
+        {
+        private GetStreamingEventsResults results = new();
         private HangingServiceRequestBase request;
 
         /// <summary>
         /// Enumeration of ConnectionStatus that can be returned by the server.
         /// </summary>
         private enum ConnectionStatus
-        {
+            {
             /// <summary>
             /// Simple heartbeat
             /// </summary>
@@ -51,7 +49,7 @@ namespace Microsoft.Exchange.WebServices.Data
             /// Server is closing the connection.
             /// </summary>
             Closed
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetStreamingEventsResponse"/> class.
@@ -59,35 +57,35 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="request">Request to disconnect when we get a close message.</param>
         internal GetStreamingEventsResponse(HangingServiceRequestBase request)
             : base()
-        {
-            this.ErrorSubscriptionIds = new List<string>();
+            {
+            ErrorSubscriptionIds = new List<string>();
             this.request = request;
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             reader.Read();
 
             if (reader.LocalName == XmlElementNames.Notifications)
-            {
-                this.results.LoadFromXml(reader);
-            }
+                {
+                results.LoadFromXml(reader);
+                }
             else if (reader.LocalName == XmlElementNames.ConnectionStatus)
-            {
+                {
                 string connectionStatus = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.ConnectionStatus);
 
                 if (connectionStatus.Equals(ConnectionStatus.Closed.ToString()))
-                {
-                    this.request.Disconnect(HangingRequestDisconnectReason.Clean, null);
+                    {
+                    request.Disconnect(HangingRequestDisconnectReason.Clean, null);
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Loads extra error details from XML
@@ -99,48 +97,48 @@ namespace Microsoft.Exchange.WebServices.Data
         /// False if the element name does not match the expected element.
         /// </returns>
         internal override bool LoadExtraErrorDetailsFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
+            {
             bool baseReturnVal = base.LoadExtraErrorDetailsFromXml(reader, xmlElementName);
 
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.ErrorSubscriptionIds))
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.NodeType == System.Xml.XmlNodeType.Element &&
                         reader.LocalName == XmlElementNames.SubscriptionId)
-                    {
-                        this.ErrorSubscriptionIds.Add(
+                        {
+                        ErrorSubscriptionIds.Add(
                             reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.SubscriptionId));
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.ErrorSubscriptionIds));
 
                 return true;
-            }
+                }
             else
-            {
+                {
                 return baseReturnVal;
+                }
             }
-        }
 
         /// <summary>
         /// Gets event results from subscription.
         /// </summary>
         internal GetStreamingEventsResults Results
-        {
-            get { return this.results; }
-        }
+            {
+            get { return results; }
+            }
 
         /// <summary>
         /// Gets the error subscription ids.
         /// </summary>
         /// <value>The error subscription ids.</value>
         internal List<string> ErrorSubscriptionIds
-        {
+            {
             get;
             private set;
+            }
         }
     }
-}

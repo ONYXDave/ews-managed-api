@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents mailbox query object.
     /// </summary>
     public sealed class DiscoverySearchConfiguration
-    {
+        {
         /// <summary>
         /// Search Id
         /// </summary>
@@ -70,12 +68,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader</param>
         /// <returns>Discovery search configuration object</returns>
         internal static DiscoverySearchConfiguration LoadFromXml(EwsServiceXmlReader reader)
-        {
-            List<SearchableMailbox> mailboxes = new List<SearchableMailbox>();
+            {
+            List<SearchableMailbox> mailboxes = new();
 
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.DiscoverySearchConfiguration);
 
-            DiscoverySearchConfiguration configuration = new DiscoverySearchConfiguration();
+            DiscoverySearchConfiguration configuration = new();
             configuration.SearchId = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.SearchId);
 
             // the query could be empty means there won't be Query element, hence needs to read and check
@@ -86,55 +84,55 @@ namespace Microsoft.Exchange.WebServices.Data
             configuration.Language = string.Empty;
 
             do
-            {
+                {
                 reader.Read();
                 if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.SearchQuery))
-                {
+                    {
                     configuration.SearchQuery = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.SearchQuery);
                     reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.SearchQuery);
-                }
+                    }
                 else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.SearchableMailboxes))
-                {
+                    {
                     // search object without any source mailbox is possible, hence need to check if element is empty
                     if (!reader.IsEmptyElement)
-                    {
-                        while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.SearchableMailboxes))
                         {
+                        while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.SearchableMailboxes))
+                            {
                             reader.Read();
 
                             if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.SearchableMailbox))
-                            {
+                                {
                                 mailboxes.Add(SearchableMailbox.LoadFromXml(reader));
                                 reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.SearchableMailbox);
+                                }
                             }
                         }
                     }
-                }
                 else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.InPlaceHoldIdentity))
-                {
+                    {
                     configuration.InPlaceHoldIdentity = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.InPlaceHoldIdentity);
                     reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.InPlaceHoldIdentity);
-                }
+                    }
                 else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.ManagedByOrganization))
-                {
+                    {
                     configuration.ManagedByOrganization = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.ManagedByOrganization);
                     reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.ManagedByOrganization);
-                }
+                    }
                 else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.Language))
-                {
+                    {
                     configuration.Language = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Language);
                     reader.ReadEndElementIfNecessary(XmlNamespace.Types, XmlElementNames.Language);
-                }
+                    }
                 else
-                {
+                    {
                     break;
+                    }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.DiscoverySearchConfiguration));
 
             configuration.SearchableMailboxes = mailboxes.Count == 0 ? null : mailboxes.ToArray();
 
             return configuration;
+            }
         }
     }
-}

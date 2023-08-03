@@ -24,17 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
+    {
     /// <summary>
     /// Enum MailboxSearchScopeType
     /// </summary>
     internal enum MailboxSearchScopeType
-    {
+        {
         /// <summary>
         /// The legacy exchange DN
         /// </summary>
@@ -74,5 +69,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The auto detect
         /// </summary>
         AutoDetect = 7,
+        }
     }
-}

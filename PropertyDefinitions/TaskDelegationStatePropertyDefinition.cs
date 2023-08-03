@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents a task delegation property definition.
     /// </summary>
     internal sealed class TaskDelegationStatePropertyDefinition : GenericPropertyDefinition<TaskDelegationState>
-    {
+        {
         private const string NoMatch = "NoMatch";
         private const string OwnNew = "OwnNew";
         private const string Owned = "Owned";
@@ -52,8 +52,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -61,9 +61,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>TaskDelegationState value.</returns>
         internal override object Parse(string value)
-        {
-            switch (value)
             {
+            switch (value)
+                {
                 case NoMatch:
                     return TaskDelegationState.NoDelegation;
                 case OwnNew:
@@ -78,8 +78,8 @@ namespace Microsoft.Exchange.WebServices.Data
                         "TaskDelegationStatePropertyDefinition.Parse",
                         string.Format("TaskDelegationStatePropertyDefinition.Parse(): value {0} cannot be handled.", value));
                     return null; // To keep the compiler happy
+                }
             }
-        }
 
         /// <summary>
         /// Convert instance to string.
@@ -87,11 +87,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>TaskDelegationState value.</returns>
         internal override string ToString(object value)
-        {
+            {
             TaskDelegationState taskDelegationState = (TaskDelegationState)value;
 
             switch (taskDelegationState)
-            {
+                {
                 case TaskDelegationState.NoDelegation:
                     return NoMatch;
                 case TaskDelegationState.Unknown:
@@ -106,7 +106,7 @@ namespace Microsoft.Exchange.WebServices.Data
                         "TaskDelegationStatePropertyDefinition.ToString",
                         "Invalid TaskDelegationState value.");
                     return null; // To keep the compiler happy
+                }
             }
         }
     }
-}

@@ -24,18 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
+    {
     /// <summary>
     /// Defines the RequestedUnifiedGroupsSet class.
     /// </summary>
     public sealed class RequestedUnifiedGroupsSet : ComplexProperty, ISelfValidate
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestedUnifiedGroupsSet"/> class.
         /// </summary>
         public RequestedUnifiedGroupsSet()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestedUnifiedGroupsSet"/> class.
@@ -47,11 +47,11 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
             UnifiedGroupsFilterType filterType,
             UnifiedGroupsSortType sortType,
             SortDirection sortDirection)
-        {
-            this.FilterType = filterType;
-            this.SortType = sortType;
-            this.SortDirection = sortDirection;
-        }
+            {
+            FilterType = filterType;
+            SortType = sortType;
+            SortDirection = sortDirection;
+            }
 
         /// <summary>
         /// Gets or sets the sort type for the list of groups to be returned
@@ -74,13 +74,13 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// <param name="writer">The writer.</param>
         /// <param name="xmlElementName">Name of the XML element.</param>
         internal override void WriteToXml(EwsServiceXmlWriter writer, string xmlElementName)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, xmlElementName);
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SortType, this.SortType.ToString());
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.FilterType, this.FilterType.ToString());
-            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SortDirection, this.SortDirection.ToString());
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SortType, SortType.ToString());
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.FilterType, FilterType.ToString());
+            writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.SortDirection, SortDirection.ToString());
 
             writer.WriteEndElement();
+            }
         }
     }
-}

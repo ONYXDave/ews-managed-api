@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines e-mail address entries for a contact.
     /// </summary>
     public enum EmailAddressKey
-    {
+        {
         /// <summary>
         /// The first e-mail address.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The third e-mail address.
         /// </summary>
         EmailAddress3
+        }
     }
-}

@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Item index error
     /// </summary>
     public enum ItemIndexError
-    {
+        {
         /// <summary>
         /// None
         /// </summary>
@@ -68,13 +66,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Data is truncated
         /// </summary>
         MarsWriterTruncation,
-    }
+        }
 
     /// <summary>
     /// Represents non indexable item.
     /// </summary>
     public sealed class NonIndexableItem
-    {
+        {
         /// <summary>
         /// Item Identity
         /// </summary>
@@ -126,10 +124,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader</param>
         /// <returns>Non indexable item object</returns>
         internal static NonIndexableItem LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             NonIndexableItem result = null;
             if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.NonIndexableItemDetail))
-            {
+                {
                 ItemId itemId = null;
                 ItemIndexError errorCode = ItemIndexError.None;
                 string errorDescription = null;
@@ -141,46 +139,46 @@ namespace Microsoft.Exchange.WebServices.Data
                 string sortValue = null;
 
                 do
-                {
+                    {
                     reader.Read();
                     if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.ItemId))
-                    {
+                        {
                         itemId = new ItemId();
                         itemId.ReadAttributesFromXml(reader);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.ErrorDescription))
-                    {
+                        {
                         errorDescription = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.ErrorDescription);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.IsPartiallyIndexed))
-                    {
+                        {
                         isPartiallyIndexed = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.IsPartiallyIndexed);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.IsPermanentFailure))
-                    {
+                        {
                         isPermanentFailure = reader.ReadElementValue<bool>(XmlNamespace.Types, XmlElementNames.IsPermanentFailure);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.AttemptCount))
-                    {
+                        {
                         attemptCount = reader.ReadElementValue<int>(XmlNamespace.Types, XmlElementNames.AttemptCount);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.LastAttemptTime))
-                    {
+                        {
                         lastAttemptTime = reader.ReadElementValue<DateTime>(XmlNamespace.Types, XmlElementNames.LastAttemptTime);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.AdditionalInfo))
-                    {
+                        {
                         additionalInfo = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.AdditionalInfo);
-                    }
+                        }
                     else if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.SortValue))
-                    {
+                        {
                         sortValue = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.SortValue);
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.NonIndexableItemDetail));
 
                 result = new NonIndexableItem
-                {
+                    {
                     ItemId = itemId,
                     ErrorCode = errorCode,
                     ErrorDescription = errorDescription,
@@ -190,10 +188,10 @@ namespace Microsoft.Exchange.WebServices.Data
                     LastAttemptTime = lastAttemptTime,
                     AdditionalInfo = additionalInfo,
                     SortValue = sortValue,
-                };
-            }
+                    };
+                }
 
             return result;
+            }
         }
     }
-}

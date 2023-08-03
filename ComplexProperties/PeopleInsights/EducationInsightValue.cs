@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Collections.Generic;
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the EducationInsightValue.
     /// </summary>
     public sealed class EducationInsightValue : InsightValue
-    {
+        {
         private string institute;
         private string degree;
         private long startUtcTicks;
@@ -42,65 +39,65 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the Institute
         /// </summary>
         public string Institute
-        {
-            get
             {
-                return this.institute;
-            }
+            get
+                {
+                return institute;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.institute, value);
+                {
+                SetFieldValue<string>(ref institute, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the Degree
         /// </summary>
         public string Degree
-        {
-            get
             {
-                return this.degree;
-            }
+            get
+                {
+                return degree;
+                }
 
             set
-            {
-                this.SetFieldValue<string>(ref this.degree, value);
+                {
+                SetFieldValue<string>(ref degree, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the StartUtcTicks
         /// </summary>
         public long StartUtcTicks
-        {
-            get
             {
-                return this.startUtcTicks;
-            }
+            get
+                {
+                return startUtcTicks;
+                }
 
             set
-            {
-                this.SetFieldValue<long>(ref this.startUtcTicks, value);
+                {
+                SetFieldValue<long>(ref startUtcTicks, value);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the EndUtcTicks
         /// </summary>
         public long EndUtcTicks
-        {
-            get
             {
-                return this.endUtcTicks;
-            }
+            get
+                {
+                return endUtcTicks;
+                }
 
             set
-            {
-                this.SetFieldValue<long>(ref this.endUtcTicks, value);
+                {
+                SetFieldValue<long>(ref endUtcTicks, value);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -108,32 +105,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">XML reader</param>
         /// <returns>Whether the element was read</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.InsightSource:
-                    this.InsightSource = reader.ReadElementValue<string>();
+                    InsightSource = reader.ReadElementValue<string>();
                     break;
                 case XmlElementNames.UpdatedUtcTicks:
-                    this.UpdatedUtcTicks = reader.ReadElementValue<long>();
+                    UpdatedUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.Institute:
-                    this.Institute = reader.ReadElementValue();
+                    Institute = reader.ReadElementValue();
                     break;
                 case XmlElementNames.Degree:
-                    this.Degree = reader.ReadElementValue();
+                    Degree = reader.ReadElementValue();
                     break;
                 case XmlElementNames.StartUtcTicks:
-                    this.StartUtcTicks = reader.ReadElementValue<long>();
+                    StartUtcTicks = reader.ReadElementValue<long>();
                     break;
                 case XmlElementNames.EndUtcTicks:
-                    this.EndUtcTicks = reader.ReadElementValue<long>();
+                    EndUtcTicks = reader.ReadElementValue<long>();
                     break;
                 default:
                     return false;
-            }
+                }
 
             return true;
+            }
         }
     }
-}

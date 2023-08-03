@@ -24,17 +24,17 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
+    {
+    using Microsoft.Exchange.WebServices.Data;
     using System;
     using System.Runtime.Serialization;
-    using Microsoft.Exchange.WebServices.Data;
 
     /// <summary>
     /// Represents an exception that is thrown when the Autodiscover service returns an error.
     /// </summary>
     [Serializable]
     public class AutodiscoverRemoteException : ServiceRemoteException
-    {
+        {
         private readonly AutodiscoverError error;
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="error">The error.</param>
         public AutodiscoverRemoteException(AutodiscoverError error)
             : base()
-        {
+            {
             this.error = error;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AutodiscoverRemoteException"/> class.
@@ -54,9 +54,9 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="error">The error.</param>
         public AutodiscoverRemoteException(string message, AutodiscoverError error)
             : base(message)
-        {
+            {
             this.error = error;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AutodiscoverRemoteException"/> class.
@@ -69,41 +69,41 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
             AutodiscoverError error,
             Exception innerException)
             : base(message, innerException)
-        {
+            {
             this.error = error;
-		}
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.AutodiscoverRemoteException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		protected AutodiscoverRemoteException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-			this.error = (AutodiscoverError)info.GetValue("Error", typeof(AutodiscoverError));
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.AutodiscoverRemoteException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        protected AutodiscoverRemoteException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            error = (AutodiscoverError)info.GetValue("Error", typeof(AutodiscoverError));
+            }
 
-		/// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
-		/// <param name="info">The object that holds the serialized object data. </param>
-		/// <param name="context">The contextual information about the source or destination. </param>
-		/// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
-		public override void GetObjectData(SerializationInfo info, StreamingContext context)
-		{
-			EwsUtilities.Assert(info != null, "AutodiscoverRemoteException.GetObjectData", "info is null");
+        /// <summary>Sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the parameter name and additional exception information.</summary>
+        /// <param name="info">The object that holds the serialized object data. </param>
+        /// <param name="context">The contextual information about the source or destination. </param>
+        /// <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> object is a null reference (Nothing in Visual Basic). </exception>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+            EwsUtilities.Assert(info != null, "AutodiscoverRemoteException.GetObjectData", "info is null");
 
-			base.GetObjectData(info, context);
+            base.GetObjectData(info, context);
 
-			info.AddValue("Error", this.error, typeof(Uri));
-		}
+            info.AddValue("Error", error, typeof(Uri));
+            }
 
-		/// <summary>
-		/// Gets the error.
-		/// </summary>
-		/// <value>The error.</value>
-		public AutodiscoverError Error
-        {
-            get { return this.error; }
+        /// <summary>
+        /// Gets the error.
+        /// </summary>
+        /// <value>The error.</value>
+        public AutodiscoverError Error
+            {
+            get { return error; }
+            }
         }
     }
-}

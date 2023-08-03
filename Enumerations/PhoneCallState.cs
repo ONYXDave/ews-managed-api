@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// The PhoneCallState enumeration
     /// </summary>
     public enum PhoneCallState
-    {
+        {
         /// <summary>
         /// Idle
         /// </summary>
@@ -73,5 +69,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Forwarding
         /// </summary>
         Forwarding
+        }
     }
-}

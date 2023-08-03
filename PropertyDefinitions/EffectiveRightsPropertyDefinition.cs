@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents effective rights property definition.
     /// </summary>
     internal sealed class EffectiveRightsPropertyDefinition : PropertyDefinition
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="EffectiveRightsPropertyDefinition"/> class.
         /// </summary>
@@ -49,80 +49,80 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="propertyBag">The property bag.</param>
-        internal override sealed void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
-        {
+        internal sealed override void LoadPropertyValueFromXml(EwsServiceXmlReader reader, PropertyBag propertyBag)
+            {
             EffectiveRights value = EffectiveRights.None;
 
-            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, this.XmlElementName);
+            reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementName);
 
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        switch (reader.LocalName)
                         {
+                        switch (reader.LocalName)
+                            {
                             case XmlElementNames.CreateAssociated:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.CreateAssociated;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.CreateContents:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.CreateContents;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.CreateHierarchy:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.CreateHierarchy;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.Delete:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.Delete;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.Modify:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.Modify;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.Read:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.Read;
-                                }
+                                    }
                                 break;
                             case XmlElementNames.ViewPrivateItems:
                                 if (reader.ReadElementValue<bool>())
-                                {
+                                    {
                                     value |= EffectiveRights.ViewPrivateItems;
-                                }
+                                    }
                                 break;
+                            }
                         }
                     }
+                while (!reader.IsEndElement(XmlNamespace.Types, XmlElementName));
                 }
-                while (!reader.IsEndElement(XmlNamespace.Types, this.XmlElementName));
-            }
 
             propertyBag[this] = value;
-        }
+            }
 
         /// <summary>
         /// Writes to XML.
@@ -134,16 +134,16 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
+            {
             // EffectiveRights is a read-only property, no need to implement this.
-        }
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(EffectiveRights); }
+            }
         }
     }
-}

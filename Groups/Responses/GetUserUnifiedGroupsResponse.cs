@@ -24,66 +24,63 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
-    using System;
-    using System.Collections.Generic;
+    {
     using System.Collections.ObjectModel;
-    using System.Text;
 
     /// <summary>
     /// Represents a response to a GetUserUnifiedGroupsResponse operation
     /// </summary>
     internal sealed class GetUserUnifiedGroupsResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// The UnifiedGroups Sets associated with this response
         /// </summary>
-        private Collection<UnifiedGroupsSet> groupsSets = new Collection<UnifiedGroupsSet>();
+        private Collection<UnifiedGroupsSet> groupsSets = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserUnifiedGroupsResponse"/> class.
         /// </summary>
-         internal GetUserUnifiedGroupsResponse() :
-             base()
-        {
-        }
+        internal GetUserUnifiedGroupsResponse() :
+            base()
+            {
+            }
 
         /// <summary>
         /// Gets or sets the UnifiedGroupsSet associated with the response
         /// </summary>
-         public Collection<UnifiedGroupsSet> GroupsSets
-         { 
-             get
-             {
-                 return this.groupsSets;
-             }
-         }
+        public Collection<UnifiedGroupsSet> GroupsSets
+            {
+            get
+                {
+                return groupsSets;
+                }
+            }
 
-         /// <summary>
-         /// Read Conversations from XML.
-         /// </summary>
-         /// <param name="reader">The reader.</param>
-         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-         {
-             this.groupsSets.Clear();
-             base.ReadElementsFromXml(reader);
+        /// <summary>
+        /// Read Conversations from XML.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
+            {
+            groupsSets.Clear();
+            base.ReadElementsFromXml(reader);
 
-             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.GroupsSets);
+            reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.GroupsSets);
 
-             if (!reader.IsEmptyElement)
-             {
-                 reader.Read();
-                 while (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.UnifiedGroupsSet))
-                 {
-                     UnifiedGroupsSet unifiedGroupsSet = new UnifiedGroupsSet();
-                     unifiedGroupsSet.LoadFromXml(reader, XmlElementNames.UnifiedGroupsSet);
-                     this.groupsSets.Add(unifiedGroupsSet);
-                 }
+            if (!reader.IsEmptyElement)
+                {
+                reader.Read();
+                while (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.UnifiedGroupsSet))
+                    {
+                    UnifiedGroupsSet unifiedGroupsSet = new();
+                    unifiedGroupsSet.LoadFromXml(reader, XmlElementNames.UnifiedGroupsSet);
+                    groupsSets.Add(unifiedGroupsSet);
+                    }
 
-                 // Skip end element GroupsSets
-                 reader.EnsureCurrentNodeIsEndElement(XmlNamespace.NotSpecified, XmlElementNames.GroupsSets);
-                 reader.Read();
-             }
-         }
+                // Skip end element GroupsSets
+                reader.EnsureCurrentNodeIsEndElement(XmlNamespace.NotSpecified, XmlElementNames.GroupsSets);
+                reader.Read();
+                }
+            }
+        }
     }
-}

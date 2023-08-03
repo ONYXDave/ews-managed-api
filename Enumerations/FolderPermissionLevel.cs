@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     // TODO : Do we want to include more information about what those levels actually allow users to do?
 
     /// <summary>
     /// Defines permission levels for calendar folders.
     /// </summary>
     public enum FolderPermissionLevel
-    {
+        {
         /// <summary>
         /// No permission is granted.
         /// </summary>
@@ -95,5 +91,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The Custom level.
         /// </summary>
         Custom
+        }
     }
-}

@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents an entry of an PhysicalAddressDictionary.
     /// </summary>
     public sealed class PhysicalAddressEntry : DictionaryEntryProperty<PhysicalAddressKey>
-    {
+        {
         #region Fields
 
         private SimplePropertyBag<string> propertyBag;
@@ -47,10 +45,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public PhysicalAddressEntry()
             : base()
-        {
-            this.propertyBag = new SimplePropertyBag<string>();
-            this.propertyBag.OnChange += this.PropertyBagChanged;
-        }
+            {
+            propertyBag = new SimplePropertyBag<string>();
+            propertyBag.OnChange += PropertyBagChanged;
+            }
 
         #endregion
 
@@ -60,46 +58,46 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets or sets the street.
         /// </summary>
         public string Street
-        {
-            get { return (string)this.propertyBag[PhysicalAddressSchema.Street]; }
-            set { this.propertyBag[PhysicalAddressSchema.Street] = value; }
-        }
+            {
+            get { return (string)propertyBag[PhysicalAddressSchema.Street]; }
+            set { propertyBag[PhysicalAddressSchema.Street] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the city.
         /// </summary>
         public string City
-        {
-            get { return (string)this.propertyBag[PhysicalAddressSchema.City]; }
-            set { this.propertyBag[PhysicalAddressSchema.City] = value; }
-        }
+            {
+            get { return (string)propertyBag[PhysicalAddressSchema.City]; }
+            set { propertyBag[PhysicalAddressSchema.City] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the state.
         /// </summary>
         public string State
-        {
-            get { return (string)this.propertyBag[PhysicalAddressSchema.State]; }
-            set { this.propertyBag[PhysicalAddressSchema.State] = value; }
-        }
+            {
+            get { return (string)propertyBag[PhysicalAddressSchema.State]; }
+            set { propertyBag[PhysicalAddressSchema.State] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the country or region.
         /// </summary>
         public string CountryOrRegion
-        {
-            get { return (string)this.propertyBag[PhysicalAddressSchema.CountryOrRegion]; }
-            set { this.propertyBag[PhysicalAddressSchema.CountryOrRegion] = value; }
-        }
+            {
+            get { return (string)propertyBag[PhysicalAddressSchema.CountryOrRegion]; }
+            set { propertyBag[PhysicalAddressSchema.CountryOrRegion] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the postal code.
         /// </summary>
         public string PostalCode
-        {
-            get { return (string)this.propertyBag[PhysicalAddressSchema.PostalCode]; }
-            set { this.propertyBag[PhysicalAddressSchema.PostalCode] = value; }
-        }
+            {
+            get { return (string)propertyBag[PhysicalAddressSchema.PostalCode]; }
+            set { propertyBag[PhysicalAddressSchema.PostalCode] = value; }
+            }
 
         #endregion
 
@@ -109,9 +107,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Clears the change log.
         /// </summary>
         internal override void ClearChangeLog()
-        {
-            this.propertyBag.ClearChangeLog();
-        }
+            {
+            propertyBag.ClearChangeLog();
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -119,33 +117,33 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            if (PhysicalAddressSchema.XmlElementNames.Contains(reader.LocalName))
             {
-                this.propertyBag[reader.LocalName] = reader.ReadElementValue();
+            if (PhysicalAddressSchema.XmlElementNames.Contains(reader.LocalName))
+                {
+                propertyBag[reader.LocalName] = reader.ReadElementValue();
 
                 return true;
-            }
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            foreach (string xmlElementName in PhysicalAddressSchema.XmlElementNames)
             {
+            foreach (string xmlElementName in PhysicalAddressSchema.XmlElementNames)
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     xmlElementName,
-                    this.propertyBag[xmlElementName]);
+                    propertyBag[xmlElementName]);
+                }
             }
-        }
 
         /// <summary>
         /// Writes the update to XML.
@@ -158,53 +156,53 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             ServiceObject ewsObject,
             string ownerDictionaryXmlElementName)
-        {
-            List<string> fieldsToSet = new List<string>();
-
-            foreach (string xmlElementName in this.propertyBag.AddedItems)
             {
-                fieldsToSet.Add(xmlElementName);
-            }
+            List<string> fieldsToSet = new();
 
-            foreach (string xmlElementName in this.propertyBag.ModifiedItems)
-            {
+            foreach (string xmlElementName in propertyBag.AddedItems)
+                {
                 fieldsToSet.Add(xmlElementName);
-            }
+                }
+
+            foreach (string xmlElementName in propertyBag.ModifiedItems)
+                {
+                fieldsToSet.Add(xmlElementName);
+                }
 
             foreach (string xmlElementName in fieldsToSet)
-            {
+                {
                 writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetSetFieldXmlElementName());
 
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.IndexedFieldURI);
                 writer.WriteAttributeValue(XmlAttributeNames.FieldURI, GetFieldUri(xmlElementName));
-                writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, this.Key.ToString());
+                writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, Key.ToString());
                 writer.WriteEndElement(); // IndexedFieldURI
 
                 writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetXmlElementName());
                 writer.WriteStartElement(XmlNamespace.Types, ownerDictionaryXmlElementName);
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Entry);
-                this.WriteAttributesToXml(writer);
+                WriteAttributesToXml(writer);
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     xmlElementName,
-                    this.propertyBag[xmlElementName]);
+                    propertyBag[xmlElementName]);
                 writer.WriteEndElement(); // Entry
                 writer.WriteEndElement(); // ownerDictionaryXmlElementName
                 writer.WriteEndElement(); // ewsObject.GetXmlElementName()
 
                 writer.WriteEndElement(); // ewsObject.GetSetFieldXmlElementName()
-            }
+                }
 
-            foreach (string xmlElementName in this.propertyBag.RemovedItems)
-            {
-                this.InternalWriteDeleteFieldToXml(
+            foreach (string xmlElementName in propertyBag.RemovedItems)
+                {
+                InternalWriteDeleteFieldToXml(
                     writer,
                     ewsObject,
                     xmlElementName);
-            }
+                }
 
             return true;
-        }
+            }
 
         /// <summary>
         /// Writes the delete update to XML.
@@ -213,17 +211,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="ewsObject">The ews object.</param>
         /// <returns>True if update XML was written.</returns>
         internal override bool WriteDeleteUpdateToXml(EwsServiceXmlWriter writer, ServiceObject ewsObject)
-        {
-            foreach (string xmlElementName in PhysicalAddressSchema.XmlElementNames)
             {
-                this.InternalWriteDeleteFieldToXml(
+            foreach (string xmlElementName in PhysicalAddressSchema.XmlElementNames)
+                {
+                InternalWriteDeleteFieldToXml(
                     writer,
                     ewsObject,
                     xmlElementName);
-            }
+                }
 
             return true;
-        }
+            }
 
         #endregion
 
@@ -235,17 +233,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Field URI.</returns>
         private static string GetFieldUri(string xmlElementName)
-        {
+            {
             return "contacts:PhysicalAddress:" + xmlElementName;
-        }
+            }
 
         /// <summary>
         /// Property bag was changed.
         /// </summary>
         private void PropertyBagChanged()
-        {
-            this.Changed();
-        }
+            {
+            Changed();
+            }
 
         /// <summary>
         /// Write field deletion to XML.
@@ -257,14 +255,14 @@ namespace Microsoft.Exchange.WebServices.Data
             EwsServiceXmlWriter writer,
             ServiceObject ewsObject,
             string fieldXmlElementName)
-        {
+            {
             writer.WriteStartElement(XmlNamespace.Types, ewsObject.GetDeleteFieldXmlElementName());
             writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.IndexedFieldURI);
             writer.WriteAttributeValue(XmlAttributeNames.FieldURI, GetFieldUri(fieldXmlElementName));
-            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, this.Key.ToString());
+            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, Key.ToString());
             writer.WriteEndElement(); // IndexedFieldURI
             writer.WriteEndElement(); // ewsObject.GetDeleteFieldXmlElementName()
-        }
+            }
 
         #endregion
 
@@ -274,7 +272,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Schema definition for PhysicalAddress
         /// </summary>
         private static class PhysicalAddressSchema
-        {
+            {
             public const string Street = "Street";
             public const string City = "City";
             public const string State = "State";
@@ -284,28 +282,28 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <summary>
             /// List of XML element names.
             /// </summary>
-            private static LazyMember<List<string>> xmlElementNames = new LazyMember<List<string>>(
-                delegate()
+            private static LazyMember<List<string>> xmlElementNames = new(
+                delegate ()
                 {
-                    List<string> result = new List<string>();
+                    List<string> result = new();
                     result.Add(Street);
                     result.Add(City);
                     result.Add(State);
                     result.Add(CountryOrRegion);
                     result.Add(PostalCode);
                     return result;
-                });
+                    });
 
             /// <summary>
             /// Gets the XML element names.
             /// </summary>
             /// <value>The XML element names.</value>
             public static List<string> XmlElementNames
-            {
+                {
                 get { return xmlElementNames.Member; }
+                }
             }
-        }
 
         #endregion
+        }
     }
-}

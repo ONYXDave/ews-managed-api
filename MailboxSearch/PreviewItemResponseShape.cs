@@ -24,22 +24,18 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents preview item response shape
     /// </summary>
     public sealed class PreviewItemResponseShape
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
         public PreviewItemResponseShape()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
@@ -47,10 +43,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="baseShape">Preview item base shape</param>
         /// <param name="additionalProperties">Additional properties (must be in form of extended properties)</param>
         public PreviewItemResponseShape(PreviewItemBaseShape baseShape, ExtendedPropertyDefinition[] additionalProperties)
-        {
-            this.BaseShape = baseShape;
-            this.AdditionalProperties = additionalProperties;
-        }
+            {
+            BaseShape = baseShape;
+            AdditionalProperties = additionalProperties;
+            }
 
         /// <summary>
         /// Mailbox identifier
@@ -61,5 +57,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Additional properties (must be in form of extended properties)
         /// </summary>
         public ExtendedPropertyDefinition[] AdditionalProperties { get; set; }
+        }
     }
-}

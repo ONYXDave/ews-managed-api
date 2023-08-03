@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines the status of group members.
     /// </summary>
     public enum MemberStatus
-    {
+        {
         /// <summary>
         /// The member is unrecognized.
         /// </summary>
@@ -44,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The member is demoted.
         /// </summary>
         Demoted
+        }
     }
-}

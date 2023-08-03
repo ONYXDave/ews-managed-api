@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents an item Id provided by a ItemBase object.
     /// </summary>
     internal class ItemWrapper : AbstractItemIdWrapper
-    {
+        {
         /// <summary>
         /// The ItemBase object providing the Id.
         /// </summary>
@@ -44,7 +40,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="item">The ItemBase object provinding the Id.</param>
         internal ItemWrapper(Item item)
-        {
+            {
             EwsUtilities.Assert(
                 item != null,
                 "ItemWrapper.ctor",
@@ -55,24 +51,24 @@ namespace Microsoft.Exchange.WebServices.Data
                 "item does not have an Id");
 
             this.item = item;
-        }
+            }
 
         /// <summary>
         /// Obtains the ItemBase object associated with the wrapper.
         /// </summary>
         /// <returns>The ItemBase object associated with the wrapper.</returns>
         public override Item GetItem()
-        {
-            return this.item;
-        }
+            {
+            return item;
+            }
 
         /// <summary>
         /// Writes the Id encapsulated in the wrapper to XML.
         /// </summary>
         /// <param name="writer">The writer to write the Id to.</param>
         internal override void WriteToXml(EwsServiceXmlWriter writer)
-        {
-            this.item.Id.WriteToXml(writer);
+            {
+            item.Id.WriteToXml(writer);
+            }
         }
     }
-}

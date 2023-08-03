@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the Id of a public folder item expressed in a specific format.
     /// </summary>
     public class AlternatePublicFolderItemId : AlternatePublicFolderId
-    {
+        {
         /// <summary>
         /// Schema type associated with AlternatePublicFolderItemId.
         /// </summary>
@@ -49,8 +45,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public AlternatePublicFolderItemId()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternatePublicFolderItemId"/> class.
@@ -63,48 +59,48 @@ namespace Microsoft.Exchange.WebServices.Data
             string folderId,
             string itemId)
             : base(format, folderId)
-        {
+            {
             this.itemId = itemId;
-        }
+            }
 
         /// <summary>
         /// The Id of the public folder item.
         /// </summary>
         public string ItemId
-        {
-            get { return this.itemId; }
-            set { this.itemId = value; }
-        }
+            {
+            get { return itemId; }
+            set { itemId = value; }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.AlternatePublicFolderItemId;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
 
-            writer.WriteAttributeValue(XmlAttributeNames.ItemId, this.ItemId);
-        }
+            writer.WriteAttributeValue(XmlAttributeNames.ItemId, ItemId);
+            }
 
         /// <summary>
         /// Loads the attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void LoadAttributesFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.LoadAttributesFromXml(reader);
 
-            this.itemId = reader.ReadAttributeValue(XmlAttributeNames.ItemId);
+            itemId = reader.ReadAttributeValue(XmlAttributeNames.ItemId);
+            }
         }
     }
-}

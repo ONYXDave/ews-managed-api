@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the page direction for mailbox search.
     /// </summary>
     public enum SearchPageDirection
-    {
+        {
         /// <summary>
         /// Navigate to next page.
         /// </summary>
@@ -43,5 +39,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Navigate to previous page.
         /// </summary>
         Previous
+        }
     }
-}

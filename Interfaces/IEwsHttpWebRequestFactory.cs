@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Net;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Defines a factory interface for creating IEwsHttpWebRequest and IEwsHttpWebResponse instances.
     /// </summary>
     internal interface IEwsHttpWebRequestFactory
-    {
+        {
         /// <summary>
         /// Create a new instance of class that implements the <see cref="IEwsHttpWebRequest"/> interface.
         /// </summary>
@@ -48,5 +48,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="exception">The exception.</param>
         /// <returns></returns>
         IEwsHttpWebResponse CreateExceptionResponse(WebException exception);
+        }
     }
-}

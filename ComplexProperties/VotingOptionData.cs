@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Represents voting option information.
     /// </summary>
     public sealed class VotingOptionData : ComplexProperty
-    {
+        {
         private string displayName;
         private SendPrompt sendPrompt;
 
@@ -39,8 +37,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="VotingOptionData"/> class.
         /// </summary>
         internal VotingOptionData()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -48,34 +46,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.VotingOptionDisplayName:
-                    this.displayName = reader.ReadElementValue<string>();
+                    displayName = reader.ReadElementValue<string>();
                     return true;
                 case XmlElementNames.SendPrompt:
-                    this.sendPrompt = reader.ReadElementValue<SendPrompt>();
+                    sendPrompt = reader.ReadElementValue<SendPrompt>();
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the display name for the voting option.
         /// </summary>
         public string DisplayName
-        {
-            get { return this.displayName; }
-        }
+            {
+            get { return displayName; }
+            }
 
         /// <summary>
         /// Gets the send prompt.
         /// </summary>
         public SendPrompt SendPrompt
-        {
-            get { return this.sendPrompt; }
+            {
+            get { return sendPrompt; }
+            }
         }
     }
-}

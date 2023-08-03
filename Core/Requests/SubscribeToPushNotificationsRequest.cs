@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a "push" Subscribe request.
     /// </summary>
     internal class SubscribeToPushNotificationsRequest : SubscribeRequest<PushSubscription>
-    {
+        {
         private int frequency = 30;
         private Uri url;
         private string callerData;
@@ -44,56 +42,56 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="service">The service.</param>
         internal SubscribeToPushNotificationsRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Validate request.
         /// </summary>
         internal override void Validate()
-        {
-            base.Validate();
-            EwsUtilities.ValidateParam(this.Url, "Url");
-            if ((this.Frequency < 1) || (this.Frequency > 1440))
             {
-                throw new ArgumentException(string.Format(Strings.InvalidFrequencyValue, this.Frequency));
+            base.Validate();
+            EwsUtilities.ValidateParam(Url, "Url");
+            if ((Frequency < 1) || (Frequency > 1440))
+                {
+                throw new ArgumentException(string.Format(Strings.InvalidFrequencyValue, Frequency));
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the subscription XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetSubscriptionXmlElementName()
-        {
+            {
             return XmlElementNames.PushSubscriptionRequest;
-        }
+            }
 
         /// <summary>
         /// Internals the write elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void InternalWriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.StatusFrequency,
-                this.Frequency);
+                Frequency);
 
             writer.WriteElementValue(
                 XmlNamespace.Types,
                 XmlElementNames.URL,
-                this.Url.ToString());
+                Url.ToString());
 
-            if (this.Service.RequestedServerVersion >= ExchangeVersion.Exchange2013
-                && !String.IsNullOrEmpty(this.callerData))
-            {
+            if (Service.RequestedServerVersion >= ExchangeVersion.Exchange2013
+                && !String.IsNullOrEmpty(callerData))
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.CallerData,
-                    this.CallerData);
+                    CallerData);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the service response.
@@ -102,47 +100,47 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseIndex">Index of the response.</param>
         /// <returns>Service response.</returns>
         internal override SubscribeResponse<PushSubscription> CreateServiceResponse(ExchangeService service, int responseIndex)
-        {
+            {
             return new SubscribeResponse<PushSubscription>(new PushSubscription(service));
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2007_SP1;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the frequency.
         /// </summary>
         /// <value>The frequency.</value>
         public int Frequency
-        {
-            get { return this.frequency; }
-            set { this.frequency = value; }
-        }
+            {
+            get { return frequency; }
+            set { frequency = value; }
+            }
 
         /// <summary>
         /// Gets or sets the URL.
         /// </summary>
         /// <value>The URL.</value>
         public Uri Url
-        {
-            get { return this.url; }
-            set { this.url = value; }
-        }
+            {
+            get { return url; }
+            set { url = value; }
+            }
 
         /// <summary>
         /// Gets or sets the URL.
         /// </summary>
         /// <value>The URL.</value>
         public string CallerData
-        {
-            get { return this.callerData; }
-            set { this.callerData = value; }
+            {
+            get { return callerData; }
+            set { callerData = value; }
+            }
         }
     }
-}

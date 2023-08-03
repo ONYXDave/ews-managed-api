@@ -24,21 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
-    using System.Reflection;
-    using System.Text;
-    using System.Web.Services.Protocols;
     using System.Xml;
 
     /// <summary>
     /// Represents SoapFault details.
     /// </summary>
     internal class SoapFaultDetails
-    {
+        {
         #region Private Members
 
         private string faultCode;
@@ -81,7 +76,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// a few cases where SOAP faults may include MessageXml details (e.g. CASOverBudgetException includes
         /// BackoffTime value).
         /// </summary>
-        private Dictionary<string, string> errorDetails = new Dictionary<string, string>();
+        private Dictionary<string, string> errorDetails = new();
 
         #endregion
 
@@ -90,8 +85,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="SoapFaultDetails"/> class.
         /// </summary>
         private SoapFaultDetails()
-        {
-        }
+            {
+            }
 
         #endregion
 
@@ -102,16 +97,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="soapNamespace">The SOAP namespace to use.</param>
         /// <returns>SOAP fault details.</returns>
         internal static SoapFaultDetails Parse(EwsXmlReader reader, XmlNamespace soapNamespace)
-        {
-            SoapFaultDetails soapFaultDetails = new SoapFaultDetails();
+            {
+            SoapFaultDetails soapFaultDetails = new();
 
             do
-            {
+                {
                 reader.Read();
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.SOAPFaultCodeElementName:
                             soapFaultDetails.FaultCode = reader.ReadElementValue();
                             break;
@@ -130,88 +125,88 @@ namespace Microsoft.Exchange.WebServices.Data
 
                         default:
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(soapNamespace, XmlElementNames.SOAPFaultElementName));
 
             return soapFaultDetails;
-        }
+            }
 
         /// <summary>
         /// Parses the detail node.
         /// </summary>
         /// <param name="reader">The reader.</param>
         private void ParseDetailNode(EwsXmlReader reader)
-        {
-            do
             {
+            do
+                {
                 reader.Read();
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.EwsResponseCodeElementName:
                             try
-                            {
-                                this.ResponseCode = reader.ReadElementValue<ServiceError>();
-                            }
+                                {
+                                ResponseCode = reader.ReadElementValue<ServiceError>();
+                                }
                             catch (ArgumentException)
-                            {
+                                {
                                 // ServiceError couldn't be mapped to enum value, treat as an ISE
-                                this.ResponseCode = ServiceError.ErrorInternalServerError;
-                            }
+                                ResponseCode = ServiceError.ErrorInternalServerError;
+                                }
 
                             break;
 
                         case XmlElementNames.EwsMessageElementName:
-                            this.Message = reader.ReadElementValue();
+                            Message = reader.ReadElementValue();
                             break;
 
                         case XmlElementNames.EwsLineElementName:
-                            this.LineNumber = reader.ReadElementValue<int>();
+                            LineNumber = reader.ReadElementValue<int>();
                             break;
 
                         case XmlElementNames.EwsPositionElementName:
-                            this.PositionWithinLine = reader.ReadElementValue<int>();
+                            PositionWithinLine = reader.ReadElementValue<int>();
                             break;
 
                         case XmlElementNames.EwsErrorCodeElementName:
                             try
-                            {
-                                this.ErrorCode = reader.ReadElementValue<ServiceError>();
-                            }
+                                {
+                                ErrorCode = reader.ReadElementValue<ServiceError>();
+                                }
                             catch (ArgumentException)
-                            {
+                                {
                                 // ServiceError couldn't be mapped to enum value, treat as an ISE
-                                this.ErrorCode = ServiceError.ErrorInternalServerError;
-                            }
+                                ErrorCode = ServiceError.ErrorInternalServerError;
+                                }
 
                             break;
 
                         case XmlElementNames.EwsExceptionTypeElementName:
-                            this.ExceptionType = reader.ReadElementValue();
+                            ExceptionType = reader.ReadElementValue();
                             break;
 
                         case XmlElementNames.MessageXml:
-                            this.ParseMessageXml(reader);
+                            ParseMessageXml(reader);
                             break;
 
                         default:
                             // Ignore any other details
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.NotSpecified, XmlElementNames.SOAPDetailElementName));
-        }
+            }
 
         /// <summary>
         /// Parses the message XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         private void ParseMessageXml(EwsXmlReader reader)
-        {
+            {
             // E12 and E14 return the MessageXml element in different
             // namespaces (types namespace for E12, errors namespace in E14). To
             // avoid this problem, the parser will match the namespace from the
@@ -219,128 +214,128 @@ namespace Microsoft.Exchange.WebServices.Data
             XmlNamespace elementNS = EwsUtilities.GetNamespaceFromUri(reader.NamespaceUri);
 
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement() && !reader.IsEmptyElement)
-                    {
-                        switch (reader.LocalName)
                         {
+                        switch (reader.LocalName)
+                            {
                             case XmlElementNames.Value:
-                                this.errorDetails.Add(
+                                errorDetails.Add(
                                     reader.ReadAttributeValue(XmlAttributeNames.Name),
                                     reader.ReadElementValue());
                                 break;
 
                             default:
                                 break;
+                            }
                         }
                     }
-                }
                 while (!reader.IsEndElement(elementNS, XmlElementNames.MessageXml));
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the SOAP fault code.
         /// </summary>
         /// <value>The SOAP fault code.</value>
         internal string FaultCode
-        {
-            get { return this.faultCode; }
-            set { this.faultCode = value; }
-        }
+            {
+            get { return faultCode; }
+            set { faultCode = value; }
+            }
 
         /// <summary>
         /// Gets or sets the SOAP fault string.
         /// </summary>
         /// <value>The fault string.</value>
         internal string FaultString
-        {
-            get { return this.faultString; }
-            set { this.faultString = value; }
-        }
+            {
+            get { return faultString; }
+            set { faultString = value; }
+            }
 
         /// <summary>
         /// Gets or sets the SOAP fault actor.
         /// </summary>
         /// <value>The fault actor.</value>
         internal string FaultActor
-        {
-            get { return this.faultActor; }
-            set { this.faultActor = value; }
-        }
+            {
+            get { return faultActor; }
+            set { faultActor = value; }
+            }
 
         /// <summary>
         /// Gets or sets the response code.
         /// </summary>
         /// <value>The response code.</value>
         internal ServiceError ResponseCode
-        {
-            get { return this.responseCode; }
-            set { this.responseCode = value; }
-        }
+            {
+            get { return responseCode; }
+            set { responseCode = value; }
+            }
 
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
         /// <value>The message.</value>
         internal string Message
-        {
-            get { return this.message; }
-            set { this.message = value; }
-        }
+            {
+            get { return message; }
+            set { message = value; }
+            }
 
         /// <summary>
         /// Gets or sets the error code.
         /// </summary>
         /// <value>The error code.</value>
         internal ServiceError ErrorCode
-        {
-            get { return this.errorCode; }
-            set { this.errorCode = value; }
-        }
+            {
+            get { return errorCode; }
+            set { errorCode = value; }
+            }
 
         /// <summary>
         /// Gets or sets the type of the exception.
         /// </summary>
         /// <value>The type of the exception.</value>
         internal string ExceptionType
-        {
-            get { return this.exceptionType; }
-            set { this.exceptionType = value; }
-        }
+            {
+            get { return exceptionType; }
+            set { exceptionType = value; }
+            }
 
         /// <summary>
         /// Gets or sets the line number.
         /// </summary>
         /// <value>The line number.</value>
         internal int LineNumber
-        {
-            get { return this.lineNumber; }
-            set { this.lineNumber = value; }
-        }
+            {
+            get { return lineNumber; }
+            set { lineNumber = value; }
+            }
 
         /// <summary>
         /// Gets or sets the position within line.
         /// </summary>
         /// <value>The position within line.</value>
         internal int PositionWithinLine
-        {
-            get { return this.positionWithinLine; }
-            set { this.positionWithinLine = value; }
-        }
+            {
+            get { return positionWithinLine; }
+            set { positionWithinLine = value; }
+            }
 
         /// <summary>
         /// Gets or sets the error details dictionary.
         /// </summary>
         /// <value>The error details dictionary.</value>
         internal Dictionary<string, string> ErrorDetails
-        {
-            get { return this.errorDetails; }
-            set { this.errorDetails = value; }
+            {
+            get { return errorDetails; }
+            set { errorDetails = value; }
+            }
         }
     }
-}

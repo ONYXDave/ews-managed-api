@@ -24,11 +24,10 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.Net;
 
     /// <summary>
@@ -36,31 +35,31 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public class ServiceResponse
-    {
+        {
         private ServiceResult result;
         private ServiceError errorCode;
         private string errorMessage;
-        private Dictionary<string, string> errorDetails = new Dictionary<string, string>();
-        private Collection<PropertyDefinitionBase> errorProperties = new Collection<PropertyDefinitionBase>();
+        private Dictionary<string, string> errorDetails = new();
+        private Collection<PropertyDefinitionBase> errorProperties = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceResponse"/> class.
         /// </summary>
         internal ServiceResponse()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceResponse"/> class.
         /// </summary>
         /// <param name="soapFaultDetails">The SOAP fault details.</param>
         internal ServiceResponse(SoapFaultDetails soapFaultDetails)
-        {
-            this.result = ServiceResult.Error;
-            this.errorCode = soapFaultDetails.ResponseCode;
-            this.errorMessage = soapFaultDetails.FaultString;
-            this.errorDetails = soapFaultDetails.ErrorDetails;
-        }
+            {
+            result = ServiceResult.Error;
+            errorCode = soapFaultDetails.ResponseCode;
+            errorMessage = soapFaultDetails.FaultString;
+            errorDetails = soapFaultDetails.ErrorDetails;
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceResponse"/> class.
@@ -69,12 +68,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseCode">Response code</param>
         /// <param name="errorMessage">Detailed error message</param>
         internal ServiceResponse(ServiceError responseCode, string errorMessage)
-        {
-            this.result = ServiceResult.Error;
-            this.errorCode = responseCode;
+            {
+            result = ServiceResult.Error;
+            errorCode = responseCode;
             this.errorMessage = errorMessage;
-            this.errorDetails = null;
-        }
+            errorDetails = null;
+            }
 
         /// <summary>
         /// Loads response from XML.
@@ -82,146 +81,146 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <param name="xmlElementName">Name of the XML element.</param>
         internal void LoadFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
+            {
             if (!reader.IsStartElement(XmlNamespace.Messages, xmlElementName))
-            {
+                {
                 reader.ReadStartElement(XmlNamespace.Messages, xmlElementName);
-            }
-
-            this.result = reader.ReadAttributeValue<ServiceResult>(XmlAttributeNames.ResponseClass);
-
-            if (this.result == ServiceResult.Success || this.result == ServiceResult.Warning)
-            {
-                if (this.result == ServiceResult.Warning)
-                {
-                    this.errorMessage = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.MessageText);
                 }
 
-                this.errorCode = reader.ReadElementValue<ServiceError>(XmlNamespace.Messages, XmlElementNames.ResponseCode);
+            result = reader.ReadAttributeValue<ServiceResult>(XmlAttributeNames.ResponseClass);
 
-                if (this.result == ServiceResult.Warning)
+            if (result == ServiceResult.Success || result == ServiceResult.Warning)
                 {
+                if (result == ServiceResult.Warning)
+                    {
+                    errorMessage = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.MessageText);
+                    }
+
+                errorCode = reader.ReadElementValue<ServiceError>(XmlNamespace.Messages, XmlElementNames.ResponseCode);
+
+                if (result == ServiceResult.Warning)
+                    {
                     reader.ReadElementValue<int>(XmlNamespace.Messages, XmlElementNames.DescriptiveLinkKey);
-                }
+                    }
 
                 // If batch processing stopped, EWS returns an empty element. Skip over it.
-                if (this.BatchProcessingStopped)
-                {
-                    do
+                if (BatchProcessingStopped)
                     {
+                    do
+                        {
                         reader.Read();
-                    }
+                        }
                     while (!reader.IsEndElement(XmlNamespace.Messages, xmlElementName));
-                }
+                    }
                 else
-                {
-                    this.ReadElementsFromXml(reader);
+                    {
+                    ReadElementsFromXml(reader);
 
                     reader.ReadEndElementIfNecessary(XmlNamespace.Messages, xmlElementName);
+                    }
                 }
-            }
             else
-            {
-                this.errorMessage = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.MessageText);
-                this.errorCode = reader.ReadElementValue<ServiceError>(XmlNamespace.Messages, XmlElementNames.ResponseCode);
+                {
+                errorMessage = reader.ReadElementValue(XmlNamespace.Messages, XmlElementNames.MessageText);
+                errorCode = reader.ReadElementValue<ServiceError>(XmlNamespace.Messages, XmlElementNames.ResponseCode);
                 reader.ReadElementValue<int>(XmlNamespace.Messages, XmlElementNames.DescriptiveLinkKey);
 
                 while (!reader.IsEndElement(XmlNamespace.Messages, xmlElementName))
-                {
+                    {
                     reader.Read();
 
                     if (reader.IsStartElement())
-                    {
-                        if (!this.LoadExtraErrorDetailsFromXml(reader, reader.LocalName))
                         {
+                        if (!LoadExtraErrorDetailsFromXml(reader, reader.LocalName))
+                            {
                             reader.SkipCurrentElement();
+                            }
                         }
                     }
                 }
+
+            MapErrorCodeToErrorMessage();
+
+            Loaded();
             }
-
-            this.MapErrorCodeToErrorMessage();
-
-            this.Loaded();
-        }
 
         /// <summary>
         /// Parses the message XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         private void ParseMessageXml(EwsServiceXmlReader reader)
-        {
-            do
             {
+            do
+                {
                 reader.Read();
 
                 if (reader.IsStartElement())
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.Value:
-                            this.errorDetails.Add(reader.ReadAttributeValue(XmlAttributeNames.Name), reader.ReadElementValue());
+                            errorDetails.Add(reader.ReadAttributeValue(XmlAttributeNames.Name), reader.ReadElementValue());
                             break;
 
                         case XmlElementNames.FieldURI:
-                            this.errorProperties.Add(ServiceObjectSchema.FindPropertyDefinition(reader.ReadAttributeValue(XmlAttributeNames.FieldURI)));
+                            errorProperties.Add(ServiceObjectSchema.FindPropertyDefinition(reader.ReadAttributeValue(XmlAttributeNames.FieldURI)));
                             break;
 
                         case XmlElementNames.IndexedFieldURI:
-                            this.errorProperties.Add(
+                            errorProperties.Add(
                                 new IndexedPropertyDefinition(
                                     reader.ReadAttributeValue(XmlAttributeNames.FieldURI),
                                     reader.ReadAttributeValue(XmlAttributeNames.FieldIndex)));
                             break;
 
                         case XmlElementNames.ExtendedFieldURI:
-                            ExtendedPropertyDefinition extendedPropDef = new ExtendedPropertyDefinition();
+                            ExtendedPropertyDefinition extendedPropDef = new();
                             extendedPropDef.LoadFromXml(reader);
-                            this.errorProperties.Add(extendedPropDef);
+                            errorProperties.Add(extendedPropDef);
                             break;
 
                         default:
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.MessageXml));
-        }
+            }
 
         /// <summary>
         /// Called when the response has been loaded from XML.
         /// </summary>
         internal virtual void Loaded()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Called after the response has been loaded from XML in order to map error codes to "better" error messages.
         /// </summary>
         internal void MapErrorCodeToErrorMessage()
-        {
-            // Use a better error message when an item cannot be updated because its changeKey is old.
-            if (this.ErrorCode == ServiceError.ErrorIrresolvableConflict)
             {
-                this.ErrorMessage = Strings.ItemIsOutOfDate;
+            // Use a better error message when an item cannot be updated because its changeKey is old.
+            if (ErrorCode == ServiceError.ErrorIrresolvableConflict)
+                {
+                ErrorMessage = Strings.ItemIsOutOfDate;
+                }
             }
-        }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal virtual void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads the headers from a HTTP response
         /// </summary>
         /// <param name="responseHeaders">a collection of response headers</param>
         internal virtual void ReadHeader(WebHeaderCollection responseHeaders)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Loads extra error details from XML
@@ -231,61 +230,61 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <returns>True if the expected extra details is loaded; 
         /// False if the element name does not match the expected element. </returns>
         internal virtual bool LoadExtraErrorDetailsFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
-            if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.MessageXml) && !reader.IsEmptyElement)
             {
-                this.ParseMessageXml(reader);
+            if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.MessageXml) && !reader.IsEmptyElement)
+                {
+                ParseMessageXml(reader);
 
                 return true;
-            }
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Throws a ServiceResponseException if this response has its Result property set to Error.
         /// </summary>
         internal void ThrowIfNecessary()
-        {
-            this.InternalThrowIfNecessary();
-        }
+            {
+            InternalThrowIfNecessary();
+            }
 
         /// <summary>
         /// Internal method that throws a ServiceResponseException if this response has its Result property set to Error.
         /// </summary>
         internal virtual void InternalThrowIfNecessary()
-        {
-            if (this.Result == ServiceResult.Error)
             {
+            if (Result == ServiceResult.Error)
+                {
                 throw new ServiceResponseException(this);
+                }
             }
-        }
 
         /// <summary>
         /// Gets a value indicating whether a batch request stopped processing before the end.
         /// </summary>
         internal bool BatchProcessingStopped
-        {
-            get { return (this.result == ServiceResult.Warning) && (this.errorCode == ServiceError.ErrorBatchProcessingStopped); }
-        }
+            {
+            get { return (result == ServiceResult.Warning) && (errorCode == ServiceError.ErrorBatchProcessingStopped); }
+            }
 
         /// <summary>
         /// Gets the result associated with this response.
         /// </summary>
         public ServiceResult Result
-        {
-            get { return this.result; }
-        }
+            {
+            get { return result; }
+            }
 
         /// <summary>
         /// Gets the error code associated with this response.
         /// </summary>
         public ServiceError ErrorCode
-        {
-            get { return this.errorCode; }
-        }
+            {
+            get { return errorCode; }
+            }
 
         /// <summary>
         /// Gets a detailed error message associated with the response. If Result is set to Success, ErrorMessage returns null.
@@ -293,10 +292,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// was used to call the method that generated the response.
         /// </summary>
         public string ErrorMessage
-        {
-            get { return this.errorMessage; }
-            internal set { this.errorMessage = value; }
-        }
+            {
+            get { return errorMessage; }
+            internal set { errorMessage = value; }
+            }
 
         /// <summary>
         /// Gets error details associated with the response. If Result is set to Success, ErrorDetailsDictionary returns null.
@@ -305,9 +304,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value>The error details dictionary.</value>
         public IDictionary<string, string> ErrorDetails
-        {
-            get { return this.errorDetails; }
-        }
+            {
+            get { return errorDetails; }
+            }
 
         /// <summary>
         /// Gets information about property errors associated with the response. If Result is set to Success, ErrorProperties returns null.
@@ -316,8 +315,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <value>The error properties list.</value>
         public Collection<PropertyDefinitionBase> ErrorProperties
-        {
-            get { return this.errorProperties; }
+            {
+            get { return errorProperties; }
+            }
         }
     }
-}

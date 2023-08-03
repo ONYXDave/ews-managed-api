@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a suggested name resolution.
     /// </summary>
     public sealed class NameResolution
-    {
+        {
         private NameResolutionCollection owner;
-        private EmailAddress mailbox = new EmailAddress();
+        private EmailAddress mailbox = new();
         private Contact contact;
 
         /// <summary>
@@ -43,61 +39,61 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="owner">The owner.</param>
         internal NameResolution(NameResolutionCollection owner)
-        {
+            {
             EwsUtilities.Assert(
                 owner != null,
                 "NameResolution.ctor",
                 "owner is null.");
 
             this.owner = owner;
-        }
+            }
 
         /// <summary>
         /// Loads from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal void LoadFromXml(EwsServiceXmlReader reader)
-        {
+            {
             reader.ReadStartElement(XmlNamespace.Types, XmlElementNames.Resolution);
 
             reader.ReadStartElement(XmlNamespace.Types, XmlElementNames.Mailbox);
-            this.mailbox.LoadFromXml(reader, XmlElementNames.Mailbox);
+            mailbox.LoadFromXml(reader, XmlElementNames.Mailbox);
 
             reader.Read();
             if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.Contact))
-            {
-                this.contact = new Contact(this.owner.Session);
+                {
+                contact = new Contact(owner.Session);
 
                 // Contacts returned by ResolveNames should behave like Contact.Load with FirstClassPropertySet specified.
-                this.contact.LoadFromXml(
+                contact.LoadFromXml(
                                     reader,
                                     true,                               /* clearPropertyBag */
                                     PropertySet.FirstClassProperties,
                                     false);                             /* summaryPropertiesOnly */
 
                 reader.ReadEndElement(XmlNamespace.Types, XmlElementNames.Resolution);
-            }
+                }
             else
-            {
+                {
                 reader.EnsureCurrentNodeIsEndElement(XmlNamespace.Types, XmlElementNames.Resolution);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the mailbox of the suggested resolved name.
         /// </summary>
         public EmailAddress Mailbox
-        {
-            get { return this.mailbox; }
-        }
+            {
+            get { return mailbox; }
+            }
 
         /// <summary>
         /// Gets the contact information of the suggested resolved name. This property is only available when
         /// ResolveName is called with returnContactDetails = true.
         /// </summary>
         public Contact Contact
-        {
-            get { return this.contact; }
+            {
+            get { return contact; }
+            }
         }
     }
-}

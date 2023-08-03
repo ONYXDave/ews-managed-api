@@ -24,15 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Represents the response to a GetClientAccessToken operation.
     /// </summary>
     public sealed class GetClientAccessTokenResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetClientAccessTokenResponse"/> class.
         /// </summary>
@@ -40,26 +39,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="tokenType">Token type</param>
         internal GetClientAccessTokenResponse(string id, ClientAccessTokenType tokenType)
             : base()
-        {
-            this.Id = id;
-            this.TokenType = tokenType;
-        }
+            {
+            Id = id;
+            TokenType = tokenType;
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.Token);
-            this.Id = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Id);
-            this.TokenType = (ClientAccessTokenType)Enum.Parse(typeof(ClientAccessTokenType), reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TokenType));
-            this.TokenValue = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TokenValue);
-            this.TTL = int.Parse(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TTL));
+            Id = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Id);
+            TokenType = (ClientAccessTokenType)Enum.Parse(typeof(ClientAccessTokenType), reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TokenType));
+            TokenValue = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TokenValue);
+            TTL = int.Parse(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.TTL));
             reader.ReadEndElementIfNecessary(XmlNamespace.Messages, XmlElementNames.Token);
-        }
+            }
 
         /// <summary>
         /// Gets the Id.
@@ -80,5 +79,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the TTL value in minutes.
         /// </summary>
         public int TTL { get; private set; }
+        }
     }
-}

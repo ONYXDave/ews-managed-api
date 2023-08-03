@@ -24,68 +24,66 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the GetSearchableMailboxes response.
     /// </summary>
     public sealed class GetSearchableMailboxesResponse : ServiceResponse
-    {
-        List<SearchableMailbox> searchableMailboxes = new List<SearchableMailbox>();
+        {
+        private List<SearchableMailbox> searchableMailboxes = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSearchableMailboxesResponse"/> class.
         /// </summary>
         internal GetSearchableMailboxesResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
-            this.searchableMailboxes.Clear();
+            {
+            searchableMailboxes.Clear();
 
             base.ReadElementsFromXml(reader);
 
             reader.ReadStartElement(XmlNamespace.Messages, XmlElementNames.SearchableMailboxes);
             if (!reader.IsEmptyElement)
-            {
-                do
                 {
+                do
+                    {
                     reader.Read();
                     if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.SearchableMailbox))
-                    {
-                        this.searchableMailboxes.Add(SearchableMailbox.LoadFromXml(reader));
+                        {
+                        searchableMailboxes.Add(SearchableMailbox.LoadFromXml(reader));
+                        }
                     }
-                }
                 while (!reader.IsEndElement(XmlNamespace.Messages, XmlElementNames.SearchableMailboxes));
-            }
+                }
 
             reader.Read();
             if (reader.IsStartElement(XmlNamespace.Messages, XmlElementNames.FailedMailboxes))
-            {
-                this.FailedMailboxes = FailedSearchMailbox.LoadFailedMailboxesXml(XmlNamespace.Messages, reader);
+                {
+                FailedMailboxes = FailedSearchMailbox.LoadFailedMailboxesXml(XmlNamespace.Messages, reader);
+                }
             }
-        }
 
         /// <summary>
         /// Searchable mailboxes result
         /// </summary>
         public SearchableMailbox[] SearchableMailboxes
-        {
-            get { return this.searchableMailboxes.ToArray(); }
-        }
+            {
+            get { return searchableMailboxes.ToArray(); }
+            }
 
         /// <summary>
         /// Failed mailboxes
         /// </summary>
         public FailedSearchMailbox[] FailedMailboxes { get; set; }
+        }
     }
-}

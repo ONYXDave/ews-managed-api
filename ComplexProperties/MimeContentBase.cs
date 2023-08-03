@@ -23,18 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Security.Cryptography;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the MIME content of an item.
     /// </summary>
     public abstract class MimeContentBase : ComplexProperty
-    {
+        {
         /// <summary>
         /// characterSet returned 
         /// </summary>
@@ -44,63 +39,63 @@ namespace Microsoft.Exchange.WebServices.Data
         /// content received
         /// </summary>
         private byte[] content;
-    
+
         /// <summary>
         /// Reads attributes from XML.
         /// This should always be UTF-8 for MimeContentUTF8
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.characterSet = reader.ReadAttributeValue<string>(XmlAttributeNames.CharacterSet);
-        }
+            {
+            characterSet = reader.ReadAttributeValue<string>(XmlAttributeNames.CharacterSet);
+            }
 
         /// <summary>
         /// Reads text value from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadTextValueFromXml(EwsServiceXmlReader reader)
-        {
-            this.content = System.Convert.FromBase64String(reader.ReadValue());
-        }
+            {
+            content = System.Convert.FromBase64String(reader.ReadValue());
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.CharacterSet, this.CharacterSet);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.CharacterSet, CharacterSet);
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (this.Content != null && this.Content.Length > 0)
             {
-                writer.WriteBase64ElementValue(this.Content);
+            if (Content != null && Content.Length > 0)
+                {
+                writer.WriteBase64ElementValue(Content);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the character set of the content.
         /// </summary>
         public string CharacterSet
-        {
-            get { return this.characterSet; }
-            set { this.SetFieldValue<string>(ref this.characterSet, value); }
-        }
+            {
+            get { return characterSet; }
+            set { SetFieldValue<string>(ref characterSet, value); }
+            }
 
         /// <summary>
         /// Gets or sets the content.
         /// </summary>
         public byte[] Content
-        {
-            get { return this.content; }
-            set { this.SetFieldValue<byte[]>(ref this.content, value); }
+            {
+            get { return content; }
+            set { SetFieldValue<byte[]>(ref content, value); }
+            }
         }
     }
-}

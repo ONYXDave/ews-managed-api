@@ -24,55 +24,51 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents a GetNonIndexableItemDetailsRequest request.
     /// </summary>
     internal sealed class GetNonIndexableItemDetailsRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetNonIndexableItemDetailsRequest"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         internal GetNonIndexableItemDetailsRequest(ExchangeService service)
             : base(service)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.GetNonIndexableItemDetailsResponse;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.GetNonIndexableItemDetails;
-        }
+            }
 
         /// <summary>
         /// Validate request.
         /// </summary>
         internal override void Validate()
-        {
+            {
             base.Validate();
 
-            if (this.Mailboxes == null || this.Mailboxes.Length == 0)
-            {
+            if (Mailboxes == null || Mailboxes.Length == 0)
+                {
                 throw new ServiceValidationException(Strings.MailboxesParameterIsNotSpecified);
+                }
             }
-        }
 
         /// <summary>
         /// Parses the response.
@@ -80,62 +76,62 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            GetNonIndexableItemDetailsResponse response = new GetNonIndexableItemDetailsResponse();
+            {
+            GetNonIndexableItemDetailsResponse response = new();
             response.LoadFromXml(reader, GetResponseXmlElementName());
             return response;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Mailboxes);
-            foreach (string mailbox in this.Mailboxes)
             {
+            writer.WriteStartElement(XmlNamespace.Messages, XmlElementNames.Mailboxes);
+            foreach (string mailbox in Mailboxes)
+                {
                 writer.WriteElementValue(XmlNamespace.Types, XmlElementNames.LegacyDN, mailbox);
-            }
+                }
 
             writer.WriteEndElement();
 
-            if (this.PageSize != null && this.PageSize.HasValue)
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageSize, this.PageSize.Value.ToString());
-            }
+            if (PageSize != null && PageSize.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageSize, PageSize.Value.ToString());
+                }
 
-            if (!string.IsNullOrEmpty(this.PageItemReference))
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageItemReference, this.PageItemReference);
-            }
+            if (!string.IsNullOrEmpty(PageItemReference))
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageItemReference, PageItemReference);
+                }
 
-            if (this.PageDirection != null && this.PageDirection.HasValue)
-            {
-                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageDirection, this.PageDirection.Value.ToString());
-            }
+            if (PageDirection != null && PageDirection.HasValue)
+                {
+                writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.PageDirection, PageDirection.Value.ToString());
+                }
 
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchArchiveOnly, this.SearchArchiveOnly);
-        }
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.SearchArchiveOnly, SearchArchiveOnly);
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal GetNonIndexableItemDetailsResponse Execute()
-        {
-            GetNonIndexableItemDetailsResponse serviceResponse = (GetNonIndexableItemDetailsResponse)this.InternalExecute();
+            {
+            GetNonIndexableItemDetailsResponse serviceResponse = (GetNonIndexableItemDetailsResponse)InternalExecute();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Mailboxes
@@ -161,5 +157,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Whether to search archive only
         /// </summary>
         public bool SearchArchiveOnly { get; set; }
+        }
     }
-}

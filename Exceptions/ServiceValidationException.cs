@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Runtime.Serialization;
 
@@ -33,14 +33,14 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Serializable]
     public sealed class ServiceValidationException : ServiceLocalException
-    {
+        {
         /// <summary>
         /// ServiceValidationException Constructor.
         /// </summary>
         public ServiceValidationException()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceValidationException Constructor.
@@ -48,8 +48,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="message">Error message text.</param>
         public ServiceValidationException(string message)
             : base(message)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// ServiceValidationException Constructor.
@@ -58,17 +58,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="innerException">Inner exception.</param>
         public ServiceValidationException(string message, Exception innerException)
             : base(message, innerException)
-        {
-		}
+            {
+            }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceValidationException"/> class with serialized data.
-		/// </summary>
-		/// <param name="info">The object that holds the serialized object data.</param>
-		/// <param name="context">The contextual information about the source or destination.</param>
-		private ServiceValidationException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-	    {
-		}
-	}
-}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Microsoft.Exchange.WebServices.Data.ServiceValidationException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        private ServiceValidationException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+            {
+            }
+        }
+    }

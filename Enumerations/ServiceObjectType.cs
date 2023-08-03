@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of a service object.
     /// </summary>
     public enum ServiceObjectType
-    {
+        {
         /// <summary>
         /// The object is a folder.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Data represents a persona
         /// </summary>
         Persona
+        }
     }
-}

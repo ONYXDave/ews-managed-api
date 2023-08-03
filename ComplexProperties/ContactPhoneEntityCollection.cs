@@ -24,8 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
     using System.ComponentModel;
 
@@ -34,26 +33,26 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ContactPhoneEntityCollection : ComplexPropertyCollection<ContactPhoneEntity>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactPhoneEntityCollection"/> class.
         /// </summary>
         internal ContactPhoneEntityCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactPhoneEntityCollection"/> class.
         /// </summary>
         /// <param name="collection">The collection of objects to include.</param>
         internal ContactPhoneEntityCollection(IEnumerable<ContactPhoneEntity> collection)
-        {
-            if (collection != null)
             {
-                collection.ForEach(this.InternalAdd);
+            if (collection != null)
+                {
+                collection.ForEach(InternalAdd);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the complex property.
@@ -61,9 +60,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>ContactPhoneEntity.</returns>
         internal override ContactPhoneEntity CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new ContactPhoneEntity();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -71,8 +70,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(ContactPhoneEntity complexProperty)
-        {
+            {
             return XmlElementNames.NlgPhone;
+            }
         }
     }
-}

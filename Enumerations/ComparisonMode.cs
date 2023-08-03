@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the way values are compared in search filters.
     /// </summary>
     public enum ComparisonMode
-    {
+        {
         /// <summary>
         /// The comparison is exact.
         /// </summary>
@@ -63,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         // LooseAndIgnoreCase,
         // LooseAndIgnoreNonSpace,
         // LooseAndIgnoreCaseAndIgnoreNonSpace
+        }
     }
-}

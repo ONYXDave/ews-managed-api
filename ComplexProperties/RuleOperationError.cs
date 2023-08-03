@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents an error that occurred while processing a rule operation.
     /// </summary>
     public sealed class RuleOperationError : ComplexProperty, IEnumerable<RuleError>
-    {
+        {
         /// <summary>
         /// Index of the operation mapping to the error.
         /// </summary>
@@ -53,24 +53,24 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal RuleOperationError()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets the operation that resulted in an error.
         /// </summary>
         public RuleOperation Operation
-        {
-            get { return this.operation; }
-        }
+            {
+            get { return operation; }
+            }
 
         /// <summary>
         /// Gets the number of rule errors in the list.
         /// </summary>
         public int Count
-        {
-            get { return this.ruleErrors.Count; }
-        }
+            {
+            get { return ruleErrors.Count; }
+            }
 
         /// <summary>
         /// Gets the rule error at the specified index.
@@ -78,17 +78,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="index">The index of the rule error to get.</param>
         /// <returns>The rule error at the specified index.</returns>
         public RuleError this[int index]
-        {
-            get
             {
-                if (index < 0 || index >= this.Count)
+            get
                 {
+                if (index < 0 || index >= Count)
+                    {
                     throw new ArgumentOutOfRangeException("index");
-                }
+                    }
 
-                return this.ruleErrors[index];
+                return ruleErrors[index];
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -96,34 +96,34 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.OperationIndex:
-                    this.operationIndex = reader.ReadElementValue<int>();
+                    operationIndex = reader.ReadElementValue<int>();
                     return true;
                 case XmlElementNames.ValidationErrors:
-                    this.ruleErrors = new RuleErrorCollection();
-                    this.ruleErrors.LoadFromXml(reader, reader.LocalName);
+                    ruleErrors = new RuleErrorCollection();
+                    ruleErrors.LoadFromXml(reader, reader.LocalName);
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Set operation property by the index of a given opeation enumerator.
         /// </summary>
         /// <param name="operations">Operation enumerator.</param>
         internal void SetOperationByIndex(IEnumerator<RuleOperation> operations)
-        {
-            operations.Reset();
-            for (int i = 0; i <= this.operationIndex; i++)
             {
+            operations.Reset();
+            for (int i = 0; i <= operationIndex; i++)
+                {
                 operations.MoveNext();
+                }
+            operation = operations.Current;
             }
-            this.operation = operations.Current;
-        }
 
         #region IEnumerable<RuleError> Members
 
@@ -132,9 +132,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         public IEnumerator<RuleError> GetEnumerator()
-        {
-            return this.ruleErrors.GetEnumerator();
-        }
+            {
+            return ruleErrors.GetEnumerator();
+            }
 
         #endregion
 
@@ -145,10 +145,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>An IEnumerator for the collection.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.ruleErrors.GetEnumerator();
-        }
+            {
+            return ruleErrors.GetEnumerator();
+            }
 
         #endregion
+        }
     }
-}

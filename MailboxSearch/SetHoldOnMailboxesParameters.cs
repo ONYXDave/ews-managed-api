@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Represents set hold on mailboxes parameters.
     /// </summary>
     public sealed class SetHoldOnMailboxesParameters
-    {
+        {
         /// <summary>
         /// Action type
         /// </summary>
@@ -61,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// In-place hold identity
         /// </summary>
         public string InPlaceHoldIdentity { get; set; }
+        }
     }
-}

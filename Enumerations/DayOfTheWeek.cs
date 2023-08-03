@@ -24,9 +24,9 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    
+
     /// <summary>
     /// Specifies the day of the week.
     /// </summary>
@@ -36,7 +36,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// WeekendDay) are used for monthly and yearly recurrences and cannot be cast to System.DayOfWeek values.
     /// </remarks>
     public enum DayOfTheWeek
-    {
+        {
         /// <summary>
         /// Sunday
         /// </summary>
@@ -86,5 +86,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Any weekend day (Saturday or Sunday)
         /// </summary>
         WeekendDay,
+        }
     }
-}

@@ -24,11 +24,8 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Text;
 
     /// <summary>
     /// Defines a callback method used to get a reference to a property definition.
@@ -40,7 +37,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents a property definition for DateTime values scoped to a specific time zone property.
     /// </summary>
     internal class ScopedDateTimePropertyDefinition : DateTimePropertyDefinition
-    {
+        {
         private GetPropertyDefinitionCallback getPropertyDefinitionCallback;
 
         /// <summary>
@@ -49,8 +46,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="version">The EWS version for which the property is to be retrieved.</param>
         /// <returns>The PropertyDefinition of the scoping time zone property.</returns>
         private PropertyDefinition GetTimeZoneProperty(ExchangeVersion version)
-        {
-            PropertyDefinition timeZoneProperty = this.getPropertyDefinitionCallback(version);
+            {
+            PropertyDefinition timeZoneProperty = getPropertyDefinitionCallback(version);
 
             EwsUtilities.Assert(
                  timeZoneProperty != null,
@@ -58,7 +55,7 @@ namespace Microsoft.Exchange.WebServices.Data
                  "timeZoneProperty is null.");
 
             return timeZoneProperty;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScopedDateTimePropertyDefinition"/> class.
@@ -79,14 +76,14 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
+            {
             EwsUtilities.Assert(
                 getPropertyDefinitionCallback != null,
                 "ScopedDateTimePropertyDefinition.ctor",
                 "getPropertyDefinitionCallback is null.");
 
             this.getPropertyDefinitionCallback = getPropertyDefinitionCallback;
-        }
+            }
 
         /// <summary>
         /// Scopes the date time property to the appropriate time zone, if necessary.
@@ -101,9 +98,9 @@ namespace Microsoft.Exchange.WebServices.Data
             DateTime dateTime,
             PropertyBag propertyBag,
             bool isUpdateOperation)
-        {
-            if (!propertyBag.Owner.GetIsCustomDateTimeScopingRequired())
             {
+            if (!propertyBag.Owner.GetIsCustomDateTimeScopingRequired())
+                {
                 // Most item types do not require a custom scoping mechanism. For those item types,
                 // use the default scoping mechanism.
                 return base.ScopeToTimeZone(
@@ -111,22 +108,22 @@ namespace Microsoft.Exchange.WebServices.Data
                     dateTime,
                     propertyBag,
                     isUpdateOperation);
-            }
+                }
             else
-            {
+                {
                 // Appointment, however, requires a custom scoping mechanism which is based on an
                 // associated time zone property.
-                PropertyDefinition timeZoneProperty = this.GetTimeZoneProperty(service.RequestedServerVersion);
+                PropertyDefinition timeZoneProperty = GetTimeZoneProperty(service.RequestedServerVersion);
                 object timeZonePropertyValue = null;
 
                 bool timeZonePropertyIsSet = propertyBag.TryGetProperty(timeZoneProperty, out timeZonePropertyValue);
 
                 if (timeZonePropertyValue != null && propertyBag.IsPropertyUpdated(timeZoneProperty))
-                {
+                    {
                     // If we have the associated time zone property handy and if it has been updated locally,
                     // then we scope the date time to that time zone.
                     try
-                    {
+                        {
                         DateTime convertedDateTime = EwsUtilities.ConvertTime(
                             dateTime,
                             (TimeZoneInfo)timeZonePropertyValue,
@@ -134,47 +131,47 @@ namespace Microsoft.Exchange.WebServices.Data
 
                         // This is necessary to stamp the date/time with the Local kind.
                         return new DateTime(convertedDateTime.Ticks, DateTimeKind.Utc);
-                    }
+                        }
                     catch (TimeZoneConversionException e)
-                    {
+                        {
                         throw new PropertyException(
                             string.Format(Strings.InvalidDateTime, dateTime),
-                            this.Name,
+                            Name,
                             e);
+                        }
                     }
-                }
                 else
-                {
-                    if (isUpdateOperation)
                     {
+                    if (isUpdateOperation)
+                        {
                         // In an update operation, what we do depends on what version of EWS
                         // we are targeting.
                         if (service.RequestedServerVersion == ExchangeVersion.Exchange2007_SP1)
-                        {
+                            {
                             // For Exchange 2007 SP1, we still need to scope to the service's time zone.
                             return base.ScopeToTimeZone(
                                 service,
                                 dateTime,
                                 propertyBag,
                                 isUpdateOperation);
-                        }
+                            }
                         else
-                        {
+                            {
                             // Otherwise, we let the server scope to the appropriate time zone.
                             return dateTime;
+                            }
                         }
-                    }
                     else
-                    {
+                        {
                         // In a Create operation, always scope to the service's time zone.
                         return base.ScopeToTimeZone(
                             service,
                             dateTime,
                             propertyBag,
                             isUpdateOperation);
+                        }
                     }
                 }
             }
         }
     }
-}

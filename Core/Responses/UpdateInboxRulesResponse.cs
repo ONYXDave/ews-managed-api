@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System.Xml;
-
+    {
     /// <summary>
     /// Represents the response to a UpdateInboxRulesResponse operation.
     /// </summary>
     internal sealed class UpdateInboxRulesResponse : ServiceResponse
-    {
+        {
         /// <summary>
         /// Rule operation error collection.
         /// </summary>
@@ -42,9 +40,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal UpdateInboxRulesResponse()
             : base()
-        {
-            this.errors = new RuleOperationErrorCollection();
-        }
+            {
+            errors = new RuleOperationErrorCollection();
+            }
 
         /// <summary>
         /// Loads extra error details from XML
@@ -54,31 +52,31 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <returns>True if the expected extra details is loaded; 
         /// False if the element name does not match the expected element. </returns>
         internal override bool LoadExtraErrorDetailsFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
+            {
             if (xmlElementName.Equals(XmlElementNames.MessageXml))
-            {
+                {
                 return base.LoadExtraErrorDetailsFromXml(reader, xmlElementName);
-            }
+                }
             else if (xmlElementName.Equals(XmlElementNames.RuleOperationErrors))
-            {
-                this.errors.LoadFromXml(reader, XmlNamespace.Messages, xmlElementName);
+                {
+                errors.LoadFromXml(reader, XmlNamespace.Messages, xmlElementName);
                 return true;
-            }
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the rule operation errors in the response.
         /// </summary>
         internal RuleOperationErrorCollection Errors
-        {
-            get
             {
-                return this.errors;
+            get
+                {
+                return errors;
+                }
             }
         }
     }
-}

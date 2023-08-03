@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents the normalized body of an item - the HTML fragment representation of the body.
     /// </summary>
     public sealed class NormalizedBody : ComplexProperty
-    {
+        {
         private BodyType bodyType;
         private string text;
         private bool isTruncated;
@@ -38,8 +38,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="NormalizedBody"/> class.
         /// </summary>
         internal NormalizedBody()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Defines an implicit conversion of NormalizedBody into a string.
@@ -47,103 +47,103 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="messageBody">The NormalizedBody to convert to a string.</param>
         /// <returns>A string containing the text of the UniqueBody.</returns>
         public static implicit operator string(NormalizedBody messageBody)
-        {
+            {
             EwsUtilities.ValidateParam(messageBody, "messageBody");
             return messageBody.Text;
-        }
+            }
 
         /// <summary>
         /// Reads attributes from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
-            this.bodyType = reader.ReadAttributeValue<BodyType>(XmlAttributeNames.BodyType);
+            {
+            bodyType = reader.ReadAttributeValue<BodyType>(XmlAttributeNames.BodyType);
 
             string attributeValue = reader.ReadAttributeValue(XmlAttributeNames.IsTruncated);
             if (!string.IsNullOrEmpty(attributeValue))
-            {
-                this.isTruncated = bool.Parse(attributeValue);
+                {
+                isTruncated = bool.Parse(attributeValue);
+                }
             }
-        }
 
         /// <summary>
         /// Reads text value from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadTextValueFromXml(EwsServiceXmlReader reader)
-        {
-            this.text = reader.ReadValue();
-        }
+            {
+            text = reader.ReadValue();
+            }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.BodyType, this.BodyType);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.BodyType, BodyType);
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (!string.IsNullOrEmpty(this.Text))
             {
-                writer.WriteValue(this.Text, XmlElementNames.NormalizedBody);
+            if (!string.IsNullOrEmpty(Text))
+                {
+                writer.WriteValue(Text, XmlElementNames.NormalizedBody);
+                }
             }
-        }
 
         /// <summary>
         /// Gets the type of the normalized body's text.
         /// </summary>
         public BodyType BodyType
-        {
-            get
             {
-                return this.bodyType;
-            }
+            get
+                {
+                return bodyType;
+                }
 
             internal set
-            {
-                this.bodyType = value;
+                {
+                bodyType = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the text of the normalized body.
         /// </summary>
         public string Text
-        {
-            get 
             {
-                return this.text;
-            }
+            get
+                {
+                return text;
+                }
 
             internal set
-            {
-                this.text = value;
+                {
+                text = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets whether the body is truncated.
         /// </summary>
         public bool IsTruncated
-        {
-            get
             {
-                return this.isTruncated;
-            }
+            get
+                {
+                return isTruncated;
+                }
 
             internal set
-            {
-                this.isTruncated = value;
+                {
+                isTruncated = value;
+                }
             }
-        }
 
         #region Object method overrides
         /// <summary>
@@ -153,9 +153,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
         /// </returns>
         public override string ToString()
-        {
-            return (this.Text == null) ? string.Empty : this.Text;
-        }
+            {
+            return (Text == null) ? string.Empty : Text;
+            }
         #endregion
+        }
     }
-}

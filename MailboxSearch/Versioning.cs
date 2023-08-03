@@ -24,18 +24,15 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Interface IDiscoveryVersionable
     /// This interface will be used to store versioning information on the request
     /// </summary>
     internal interface IDiscoveryVersionable
-    {
+        {
         /// <summary>
         /// Gets or sets the server version.
         /// </summary>
@@ -43,7 +40,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The server version.
         /// </value>
         long ServerVersion { get; set; }
-    }
+        }
 
     /// <summary>
     /// Class DiscoverySchemaChanges
@@ -58,18 +55,18 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Eg, SearchMailboxesRequest.cs
     /// </summary>
     internal static class DiscoverySchemaChanges
-    {
+        {
         /// <summary>
         /// Initializes static members of the <see cref="DiscoverySchemaChanges"/> class.
         /// </summary>
         static DiscoverySchemaChanges()
-        {
+            {
             // Schema change for passing extended data with the SearchMailboxes request
             SearchMailboxesExtendedData = new SchemaChange("15.0.730.0");
 
             // Schema change for additional search scopes such as "AllMailboxes", "PublicFolders", "SearchId" etc with the SearchMailboxes request
             SearchMailboxesAdditionalSearchScopes = new SchemaChange("15.0.730.0");
-        }
+            }
 
         /// <summary>
         /// Gets the search mailboxes extended data.
@@ -91,7 +88,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Class Feature
         /// </summary>
         internal sealed class SchemaChange
-        {
+            {
             /// <summary>
             /// Gets the minimum server version.
             /// </summary>
@@ -105,23 +102,23 @@ namespace Microsoft.Exchange.WebServices.Data
             /// </summary>
             /// <param name="serverVersion">The server version.</param>
             internal SchemaChange(long serverVersion)
-            {
-                this.MinimumServerVersion = serverVersion;
-            }
+                {
+                MinimumServerVersion = serverVersion;
+                }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="SchemaChange"/> class.
             /// </summary>
             /// <param name="serverBuild">The server build.</param>
             internal SchemaChange(string serverBuild)
-            {
-                Version version = new Version(serverBuild);
+                {
+                Version version = new(serverBuild);
 
-                this.MinimumServerVersion = (version.Build & 0x7FFF) |
+                MinimumServerVersion = (version.Build & 0x7FFF) |
                                             ((version.Minor & 0x3F) << 16) |
                                             ((version.Major & 0x3F) << 22) |
                                             0x70008000;
-            }
+                }
 
             /// <summary>
             /// Determines whether the specified versionable is compatible.
@@ -129,10 +126,10 @@ namespace Microsoft.Exchange.WebServices.Data
             /// <param name="versionable">The versionable.</param>
             /// <returns><c>true</c> if the specified versionable is compatible; otherwise, <c>false</c>.</returns>
             internal bool IsCompatible(IDiscoveryVersionable versionable)
-            {
+                {
                 // note: when ServerVersion is not set(i.e., => 0), we ignore compatible check on the client side. It will eventually fail server side schema check if incompatible
                 return versionable.ServerVersion == 0 || versionable.ServerVersion >= MinimumServerVersion;
+                }
             }
         }
     }
-}

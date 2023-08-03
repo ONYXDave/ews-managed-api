@@ -24,23 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Groups
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a UnifiedGroup class.
     /// </summary>
     public class UnifiedGroup : ComplexProperty
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnifiedGroup"/> class.
         /// </summary>
         internal UnifiedGroup() :
             base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets whether this groups is a favorite group
@@ -88,46 +86,46 @@ namespace Microsoft.Exchange.WebServices.Data.Groups
         /// <param name="reader">The reader.</param>
         /// <param name="xmlElementName">The xml element to read.</param>
         internal override void LoadFromXml(EwsServiceXmlReader reader, string xmlElementName)
-        {
+            {
             reader.EnsureCurrentNodeIsStartElement(XmlNamespace.Types, XmlElementNames.UnifiedGroup);
             do
-            {
+                {
                 reader.Read();
                 switch (reader.LocalName)
-                {
+                    {
                     case XmlElementNames.SmtpAddress:
-                        this.SmtpAddress = reader.ReadElementValue();
+                        SmtpAddress = reader.ReadElementValue();
                         break;
                     case XmlElementNames.LegacyDN:
-                        this.LegacyDN = reader.ReadElementValue();
+                        LegacyDN = reader.ReadElementValue();
                         break;
                     case XmlElementNames.MailboxGuid:
-                        this.MailboxGuid = reader.ReadElementValue();
+                        MailboxGuid = reader.ReadElementValue();
                         break;
                     case XmlElementNames.DisplayName:
-                        this.DisplayName = reader.ReadElementValue();
+                        DisplayName = reader.ReadElementValue();
                         break;
                     case XmlElementNames.IsFavorite:
-                        this.IsFavorite = reader.ReadElementValue<bool>();
+                        IsFavorite = reader.ReadElementValue<bool>();
                         break;
                     case XmlElementNames.LastVisitedTimeUtc:
-                        this.LastVisitedTimeUtc = reader.ReadElementValue();
+                        LastVisitedTimeUtc = reader.ReadElementValue();
                         break;
                     case XmlElementNames.AccessType:
-                        this.AccessType = (UnifiedGroupAccessType)Enum.Parse(typeof(UnifiedGroupAccessType), reader.ReadElementValue(), false);
+                        AccessType = (UnifiedGroupAccessType)Enum.Parse(typeof(UnifiedGroupAccessType), reader.ReadElementValue(), false);
                         break;
                     case XmlElementNames.ExternalDirectoryObjectId:
-                        this.ExternalDirectoryObjectId = reader.ReadElementValue();
+                        ExternalDirectoryObjectId = reader.ReadElementValue();
                         break;
                     default:
                         break;
+                    }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Types, XmlElementNames.UnifiedGroup));
 
             // Skip end element
             reader.EnsureCurrentNodeIsEndElement(XmlNamespace.NotSpecified, XmlElementNames.UnifiedGroup);
-            reader.Read(); 
+            reader.Read();
+            }
         }
     }
-}

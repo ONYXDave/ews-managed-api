@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -36,7 +36,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// A wrapper class to facilitate creating XML signatures around wsu:Id.
     /// </summary>
     internal class WSSecurityUtilityIdSignedXml : SignedXml
-    {
+        {
         private static long nextId = 0;
         private static string commonPrefix = "uuid-" + Guid.NewGuid().ToString() + "-";
 
@@ -49,28 +49,28 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="document">Xml document.</param>
         public WSSecurityUtilityIdSignedXml(XmlDocument document)
             : base(document)
-        {
+            {
             this.document = document;
-            this.ids = new Dictionary<string, XmlElement>();
-        }
+            ids = new Dictionary<string, XmlElement>();
+            }
 
         /// <summary>
         /// Get unique Id.
         /// </summary>
         /// <returns>The wsu id.</returns>
         public static string GetUniqueId()
-        {
+            {
             return commonPrefix + Interlocked.Increment(ref nextId).ToString(CultureInfo.InvariantCulture);
-        }
+            }
 
         /// <summary>
         /// Add the node as reference. 
         /// </summary>
         /// <param name="xpath">The XPath string.</param>
         public void AddReference(string xpath)
-        {
-            XmlElement element = this.document.SelectSingleNode(
-                xpath, 
+            {
+            XmlElement element = document.SelectSingleNode(
+                xpath,
                 WSSecurityBasedCredentials.NamespaceManager) as XmlElement;
 
             // for now, ignore the error if the node is not found. 
@@ -78,25 +78,25 @@ namespace Microsoft.Exchange.WebServices.Data
             // but currently Credentials are unaware of the service type.
             // 
             if (element != null)
-            {
+                {
                 string wsuId = GetUniqueId();
 
                 XmlAttribute wsuIdAttribute = document.CreateAttribute(
-                    EwsUtilities.WSSecurityUtilityNamespacePrefix, 
-                    "Id", 
+                    EwsUtilities.WSSecurityUtilityNamespacePrefix,
+                    "Id",
                     EwsUtilities.WSSecurityUtilityNamespace);
 
                 wsuIdAttribute.Value = wsuId;
                 element.Attributes.Append(wsuIdAttribute);
 
-                Reference reference = new Reference();
+                Reference reference = new();
                 reference.Uri = "#" + wsuId;
                 reference.AddTransform(new XmlDsigExcC14NTransform());
 
-                this.AddReference(reference);
-                this.ids.Add(wsuId, element);
+                AddReference(reference);
+                ids.Add(wsuId, element);
+                }
             }
-        }
 
         /// <summary>
         /// Returns the XmlElement  object with the specified ID from the specified XmlDocument  object.
@@ -105,8 +105,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="idValue">The ID of the XmlElement object to retrieve from the XmlDocument object.</param>
         /// <returns>The XmlElement object with the specified ID from the specified XmlDocument object</returns>
         public override XmlElement GetIdElement(XmlDocument document, string idValue)
-        {
-            return this.ids[idValue];
+            {
+            return ids[idValue];
+            }
         }
     }
-}

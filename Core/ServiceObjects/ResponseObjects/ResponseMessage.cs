@@ -24,17 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the base class for e-mail related responses (Reply, Reply all and Forward).
     /// </summary>
     public sealed class ResponseMessage : ResponseObject<EmailMessage>
-    {
+        {
         private ResponseMessageType responseType;
 
         /// <summary>
@@ -44,27 +39,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="responseType">Type of the response.</param>
         internal ResponseMessage(Item referenceItem, ResponseMessageType responseType)
             : base(referenceItem)
-        {
+            {
             this.responseType = responseType;
-        }
+            }
 
         /// <summary>
         /// Internal method to return the schema associated with this type of object.
         /// </summary>
         /// <returns>The schema associated with this type of object.</returns>
         internal override ServiceObjectSchema GetSchema()
-        {
+            {
             return ResponseMessageSchema.Instance;
-        }
+            }
 
         /// <summary>
         /// Gets the minimum required server version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this service object type is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2007_SP1;
-        }
+            }
 
         /// <summary>
         /// This methods lets subclasses of ServiceObject override the default mechanism
@@ -81,9 +76,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// attribute for XML element name determination.
         /// </remarks>
         internal override string GetXmlElementNameOverride()
-        {
-            switch (this.responseType)
             {
+            switch (responseType)
+                {
                 case ResponseMessageType.Reply:
                     return XmlElementNames.ReplyToItem;
                 case ResponseMessageType.ReplyAll:
@@ -96,16 +91,16 @@ namespace Microsoft.Exchange.WebServices.Data
                         "ResponseMessage.GetXmlElementNameOverride",
                         "An unexpected value for responseType could not be handled.");
                     return null; // Because the compiler wants it
+                }
             }
-        }
 
         /// <summary>
         /// Gets a value indicating the type of response this object represents.
         /// </summary>
         public ResponseMessageType ResponseType
-        {
-            get { return this.responseType; }
-        }
+            {
+            get { return responseType; }
+            }
 
         #region Properties
 
@@ -113,53 +108,53 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets or sets the body of the response.
         /// </summary>
         public MessageBody Body
-        {
-            get { return (MessageBody)this.PropertyBag[ItemSchema.Body]; }
-            set { this.PropertyBag[ItemSchema.Body] = value; }
-        }
+            {
+            get { return (MessageBody)PropertyBag[ItemSchema.Body]; }
+            set { PropertyBag[ItemSchema.Body] = value; }
+            }
 
         /// <summary>
         /// Gets a list of recipients the response will be sent to.
         /// </summary>
         public EmailAddressCollection ToRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.ToRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.ToRecipients]; }
+            }
 
         /// <summary>
         /// Gets a list of recipients the response will be sent to as Cc.
         /// </summary>
         public EmailAddressCollection CcRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.CcRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.CcRecipients]; }
+            }
 
         /// <summary>
         /// Gets a list of recipients this response will be sent to as Bcc.
         /// </summary>
         public EmailAddressCollection BccRecipients
-        {
-            get { return (EmailAddressCollection)this.PropertyBag[EmailMessageSchema.BccRecipients]; }
-        }
+            {
+            get { return (EmailAddressCollection)PropertyBag[EmailMessageSchema.BccRecipients]; }
+            }
 
         /// <summary>
         /// Gets or sets the subject of this response.
         /// </summary>
         public string Subject
-        {
-            get { return (string)this.PropertyBag[EmailMessageSchema.Subject]; }
-            set { this.PropertyBag[EmailMessageSchema.Subject] = value; }
-        }
+            {
+            get { return (string)PropertyBag[EmailMessageSchema.Subject]; }
+            set { PropertyBag[EmailMessageSchema.Subject] = value; }
+            }
 
         /// <summary>
         /// Gets or sets the body prefix of this response. The body prefix will be prepended to the original
         /// message's body when the response is created.
         /// </summary>
         public MessageBody BodyPrefix
-        {
-            get { return (MessageBody)this.PropertyBag[ResponseObjectSchema.BodyPrefix]; }
-            set { this.PropertyBag[ResponseObjectSchema.BodyPrefix] = value; }
-        }
+            {
+            get { return (MessageBody)PropertyBag[ResponseObjectSchema.BodyPrefix]; }
+            set { PropertyBag[ResponseObjectSchema.BodyPrefix] = value; }
+            }
         #endregion
+        }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Represents the results of a GetDelegates operation.
     /// </summary>
     public sealed class DelegateInformation
-    {
+        {
         #region Private members
 
         private Collection<DelegateUserResponse> delegateUserResponses;
@@ -48,10 +48,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="delegateUserResponses">List of DelegateUserResponses from a GetDelegates request</param>
         /// <param name="meetingReqestsDeliveryScope">MeetingRequestsDeliveryScope from a GetDelegates request.</param>
         internal DelegateInformation(IList<DelegateUserResponse> delegateUserResponses, MeetingRequestsDeliveryScope meetingReqestsDeliveryScope)
-        {
+            {
             this.delegateUserResponses = new Collection<DelegateUserResponse>(delegateUserResponses);
             this.meetingReqestsDeliveryScope = meetingReqestsDeliveryScope;
-        }
+            }
 
         #endregion
 
@@ -61,18 +61,18 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets a list of responses for each of the delegate users concerned by the operation.
         /// </summary>
         public Collection<DelegateUserResponse> DelegateUserResponses
-        {
-            get { return this.delegateUserResponses; }
-        }
+            {
+            get { return delegateUserResponses; }
+            }
 
         /// <summary>
         /// Gets a value indicating if and how meeting requests are delivered to delegates.
         /// </summary>
         public MeetingRequestsDeliveryScope MeetingRequestsDeliveryScope
-        {
-            get { return this.meetingReqestsDeliveryScope; }
-        }
+            {
+            get { return meetingReqestsDeliveryScope; }
+            }
 
         #endregion
+        }
     }
-}

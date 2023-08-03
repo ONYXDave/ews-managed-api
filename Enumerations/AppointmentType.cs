@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the type of an appointment.
     /// </summary>
     public enum AppointmentType
-    {
+        {
         /// <summary>
         /// The appointment is non-recurring.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The appointment is the recurring master of a series.
         /// </summary>
         RecurringMaster
+        }
     }
-}

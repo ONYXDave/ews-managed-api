@@ -24,17 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Defines how a complex property behaves.
     /// </summary>
     [Flags]
     internal enum PropertyDefinitionFlags
-    {
+        {
         /// <summary>
         /// No specific behavior.
         /// </summary>
@@ -81,5 +79,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Should be used together with the ReuseInstance flag.
         /// </summary>
         UpdateCollectionItems = 128,
+        }
     }
-}

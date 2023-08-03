@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// The values indicate the types of item icons to display.
     /// </summary>
     public enum IconIndex
-    {
+        {
         /// <summary>
         /// A default icon.
         /// </summary>
@@ -209,5 +209,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Icon task delegated
         /// </summary>
         TaskDelegated,
+        }
     }
-}

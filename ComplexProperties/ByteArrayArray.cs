@@ -24,19 +24,16 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
 
     /// <summary>
     /// Represents an array of byte arrays
     /// </summary>
     public sealed class ByteArrayArray : ComplexProperty
-    {
+        {
         private const string ItemXmlElementName = "Base64Binary";
-        private List<byte[]> content = new List<byte[]>();
+        private List<byte[]> content = new();
 
         #region Properties
 
@@ -44,9 +41,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the content of the arrray of byte arrays
         /// </summary>
         public byte[][] Content
-        {
-            get { return this.content.ToArray(); }
-        }
+            {
+            get { return content.ToArray(); }
+            }
 
         #endregion
 
@@ -56,30 +53,30 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
+            {
             if (reader.LocalName == ByteArrayArray.ItemXmlElementName)
-            {
-                this.content.Add(reader.ReadBase64ElementValue());
+                {
+                content.Add(reader.ReadBase64ElementValue());
                 return true;
-            }
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes the elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            foreach (byte[] item in this.content)
             {
+            foreach (byte[] item in content)
+                {
                 writer.WriteStartElement(XmlNamespace.Types, ByteArrayArray.ItemXmlElementName);
                 writer.WriteBase64ElementValue(item);
                 writer.WriteEndElement();
+                }
             }
         }
     }
-}

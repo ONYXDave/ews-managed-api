@@ -24,31 +24,27 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents the abstraction of a folder Id.
     /// </summary>
     internal abstract class AbstractFolderIdWrapper
-    {
+        {
         /// <summary>
         /// Obtains the Folder object associated with the wrapper.
         /// </summary>
         /// <returns>The Folder object associated with the wrapper.</returns>
         public virtual Folder GetFolder()
-        {
+            {
             return null;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of AbstractFolderIdWrapper.
         /// </summary>
         internal AbstractFolderIdWrapper()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Writes the Id encapsulated in the wrapper to XML.
@@ -61,7 +57,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="version">The version.</param>
         internal virtual void Validate(ExchangeVersion version)
-        {
+            {
+            }
         }
     }
-}

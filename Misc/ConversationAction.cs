@@ -24,10 +24,8 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// ConversationAction class that represents ConversationActionType in the request XML.
@@ -35,7 +33,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// be taken on a conversation.
     /// </summary>
     internal class ConversationAction
-    {
+        {
         /// <summary>
         /// Gets or sets conversation action
         /// </summary>
@@ -112,32 +110,32 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>XML element name.</returns>
         internal string GetXmlElementName()
-        {
+            {
             return XmlElementNames.ApplyConversationAction;
-        }
+            }
 
         /// <summary>
         /// Validate request.
         /// </summary>
         internal void Validate()
-        {
-            EwsUtilities.ValidateParam(this.ConversationId, "conversationId");
-        }
+            {
+            EwsUtilities.ValidateParam(ConversationId, "conversationId");
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             writer.WriteStartElement(
                 XmlNamespace.Types,
                 XmlElementNames.ConversationAction);
             try
-            {
-                string actionValue = String.Empty;
-                switch (this.Action)
                 {
+                string actionValue = String.Empty;
+                switch (Action)
+                    {
                     case ConversationActionType.AlwaysCategorize:
                         actionValue = XmlElementNames.AlwaysCategorize;
                         break;
@@ -167,7 +165,7 @@ namespace Microsoft.Exchange.WebServices.Data
                         break;
                     default:
                         throw new ArgumentException("ConversationAction");
-                }
+                    }
 
                 // Emit the action element
                 writer.WriteElementValue(
@@ -176,167 +174,167 @@ namespace Microsoft.Exchange.WebServices.Data
                                     actionValue);
 
                 // Emit the conversation id element
-                this.ConversationId.WriteToXml(
+                ConversationId.WriteToXml(
                                     writer,
                                     XmlNamespace.Types,
                                     XmlElementNames.ConversationId);
 
-                if (this.Action == ConversationActionType.AlwaysCategorize ||
-                    this.Action == ConversationActionType.AlwaysDelete ||
-                    this.Action == ConversationActionType.AlwaysMove)
-                {
+                if (Action == ConversationActionType.AlwaysCategorize ||
+                    Action == ConversationActionType.AlwaysDelete ||
+                    Action == ConversationActionType.AlwaysMove)
+                    {
                     // Emit the ProcessRightAway element
                     writer.WriteElementValue(
                                         XmlNamespace.Types,
                                         XmlElementNames.ProcessRightAway,
-                                        EwsUtilities.BoolToXSBool(this.ProcessRightAway));
-                }
+                                        EwsUtilities.BoolToXSBool(ProcessRightAway));
+                    }
 
-                if (this.Action == ConversationActionType.AlwaysCategorize)
-                {
-                    // Emit the categories element
-                    if (this.Categories != null && this.Categories.Count > 0)
+                if (Action == ConversationActionType.AlwaysCategorize)
                     {
-                        this.Categories.WriteToXml(
+                    // Emit the categories element
+                    if (Categories != null && Categories.Count > 0)
+                        {
+                        Categories.WriteToXml(
                                    writer,
                                    XmlNamespace.Types,
                                    XmlElementNames.Categories);
+                        }
                     }
-                }
-                else if (this.Action == ConversationActionType.AlwaysDelete)
-                {
+                else if (Action == ConversationActionType.AlwaysDelete)
+                    {
                     // Emit the EnableAlwaysDelete element
                     writer.WriteElementValue(
                                    XmlNamespace.Types,
                                    XmlElementNames.EnableAlwaysDelete,
-                                   EwsUtilities.BoolToXSBool(this.EnableAlwaysDelete));
-                }
-                else if (this.Action == ConversationActionType.AlwaysMove)
-                {
-                    // Emit the Move Folder Id
-                    if (this.DestinationFolderId != null)
-                    {
-                        writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.DestinationFolderId);
-                        this.DestinationFolderId.WriteToXml(writer);
-                        writer.WriteEndElement();
+                                   EwsUtilities.BoolToXSBool(EnableAlwaysDelete));
                     }
-                }
-                else
-                {
-                    if (this.ContextFolderId != null)
+                else if (Action == ConversationActionType.AlwaysMove)
                     {
+                    // Emit the Move Folder Id
+                    if (DestinationFolderId != null)
+                        {
+                        writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.DestinationFolderId);
+                        DestinationFolderId.WriteToXml(writer);
+                        writer.WriteEndElement();
+                        }
+                    }
+                else
+                    {
+                    if (ContextFolderId != null)
+                        {
                         writer.WriteStartElement(
                             XmlNamespace.Types,
                             XmlElementNames.ContextFolderId);
 
-                        this.ContextFolderId.WriteToXml(writer);
+                        ContextFolderId.WriteToXml(writer);
 
                         writer.WriteEndElement();
-                    }
+                        }
 
-                    if (this.ConversationLastSyncTime.HasValue)
-                    {
+                    if (ConversationLastSyncTime.HasValue)
+                        {
                         writer.WriteElementValue(
                             XmlNamespace.Types,
                             XmlElementNames.ConversationLastSyncTime,
-                            this.ConversationLastSyncTime.Value);
-                    }
+                            ConversationLastSyncTime.Value);
+                        }
 
-                    if (this.Action == ConversationActionType.Copy)
-                    {
+                    if (Action == ConversationActionType.Copy)
+                        {
                         EwsUtilities.Assert(
-                            this.DestinationFolderId != null,
+                            DestinationFolderId != null,
                             "ApplyconversationActionRequest",
                             "DestinationFolderId should be set when performing copy action");
 
                         writer.WriteStartElement(
                             XmlNamespace.Types,
                             XmlElementNames.DestinationFolderId);
-                        this.DestinationFolderId.WriteToXml(writer);
+                        DestinationFolderId.WriteToXml(writer);
                         writer.WriteEndElement();
-                    }
-                    else if (this.Action == ConversationActionType.Move)
-                    {
+                        }
+                    else if (Action == ConversationActionType.Move)
+                        {
                         EwsUtilities.Assert(
-                            this.DestinationFolderId != null,
+                            DestinationFolderId != null,
                             "ApplyconversationActionRequest",
                             "DestinationFolderId should be set when performing move action");
 
                         writer.WriteStartElement(
                             XmlNamespace.Types,
                             XmlElementNames.DestinationFolderId);
-                        this.DestinationFolderId.WriteToXml(writer);
+                        DestinationFolderId.WriteToXml(writer);
                         writer.WriteEndElement();
-                    }
-                    else if (this.Action == ConversationActionType.Delete)
-                    {
+                        }
+                    else if (Action == ConversationActionType.Delete)
+                        {
                         EwsUtilities.Assert(
-                            this.DeleteType.HasValue,
+                            DeleteType.HasValue,
                             "ApplyconversationActionRequest",
                             "DeleteType should be specified when deleting a conversation.");
 
                         writer.WriteElementValue(
                             XmlNamespace.Types,
                             XmlElementNames.DeleteType,
-                            this.DeleteType.Value);
-                    }
-                    else if (this.Action == ConversationActionType.SetReadState)
-                    {
+                            DeleteType.Value);
+                        }
+                    else if (Action == ConversationActionType.SetReadState)
+                        {
                         EwsUtilities.Assert(
-                            this.IsRead.HasValue,
+                            IsRead.HasValue,
                             "ApplyconversationActionRequest",
                             "IsRead should be specified when marking/unmarking a conversation as read.");
 
                         writer.WriteElementValue(
                             XmlNamespace.Types,
                             XmlElementNames.IsRead,
-                            this.IsRead.Value);
+                            IsRead.Value);
 
-                        if (this.SuppressReadReceipts.HasValue)
-                        {
+                        if (SuppressReadReceipts.HasValue)
+                            {
                             writer.WriteElementValue(
                                 XmlNamespace.Types,
                                 XmlElementNames.SuppressReadReceipts,
-                                this.SuppressReadReceipts.Value);
+                                SuppressReadReceipts.Value);
+                            }
                         }
-                    }
-                    else if (this.Action == ConversationActionType.SetRetentionPolicy)
-                    {
+                    else if (Action == ConversationActionType.SetRetentionPolicy)
+                        {
                         EwsUtilities.Assert(
-                            this.RetentionPolicyType.HasValue,
+                            RetentionPolicyType.HasValue,
                             "ApplyconversationActionRequest",
                             "RetentionPolicyType should be specified when setting a retention policy on a conversation.");
 
                         writer.WriteElementValue(
                             XmlNamespace.Types,
                             XmlElementNames.RetentionPolicyType,
-                            this.RetentionPolicyType.Value);
+                            RetentionPolicyType.Value);
 
-                        if (this.RetentionPolicyTagId.HasValue)
-                        {
+                        if (RetentionPolicyTagId.HasValue)
+                            {
                             writer.WriteElementValue(
                                 XmlNamespace.Types,
                                 XmlElementNames.RetentionPolicyTagId,
-                                this.RetentionPolicyTagId.Value);
+                                RetentionPolicyTagId.Value);
+                            }
                         }
-                    }
-                    else if (this.Action == ConversationActionType.Flag)
-                    {
+                    else if (Action == ConversationActionType.Flag)
+                        {
                         EwsUtilities.Assert(
-                            this.Flag != null,
+                            Flag != null,
                             "ApplyconversationActionRequest",
                             "Flag should be specified when flagging conversation items.");
 
                         writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Flag);
-                        this.Flag.WriteElementsToXml(writer);
+                        Flag.WriteElementsToXml(writer);
                         writer.WriteEndElement();
+                        }
                     }
                 }
-            }
             finally
-            {
+                {
                 writer.WriteEndElement();
+                }
             }
         }
     }
-}

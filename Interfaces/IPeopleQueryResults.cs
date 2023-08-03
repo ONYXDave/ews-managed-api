@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
 
     /// <summary>
     /// Represents the results of an Persona search operation.
     /// </summary>
     public interface IPeopleQueryResults
-    {
+        {
         /// <summary>
         /// Gets the Personas that were found by the search operation.
         /// </summary>
@@ -41,5 +41,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Gets the ID for this FindPeople call, which can be used for feedback
         /// </summary>
         string TransactionId { get; }
+        }
     }
-}

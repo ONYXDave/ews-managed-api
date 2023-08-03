@@ -24,24 +24,23 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.IO;
 
     /// <summary>
     /// Represents a ClientExtension object.
     /// </summary>
     public sealed class ClientExtension : ComplexProperty
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientExtension"/> class.
         /// </summary>
         internal ClientExtension()
             : base()
-        {
-            this.Namespace = XmlNamespace.Types;
-        }
-        
+            {
+            Namespace = XmlNamespace.Types;
+            }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientExtension"/> class.
         /// </summary>
@@ -71,20 +70,20 @@ namespace Microsoft.Exchange.WebServices.Data
             string appStatus,
             string etoken)
                 : this()
-        {
-            this.Type = type;
-            this.Scope = scope;
-            this.ManifestStream = manifestStream;
-            this.MarketplaceAssetID = marketplaceAssetID;
-            this.MarketplaceContentMarket = marketplaceContentMarket;
-            this.IsAvailable = isAvailable;
-            this.IsMandatory = isMandatory;
-            this.IsEnabledByDefault = isEnabledByDefault;
-            this.ProvidedTo = providedTo;
-            this.SpecificUsers = specificUsers;
-            this.AppStatus = appStatus;
-            this.Etoken = etoken;
-        }
+            {
+            Type = type;
+            Scope = scope;
+            ManifestStream = manifestStream;
+            MarketplaceAssetID = marketplaceAssetID;
+            MarketplaceContentMarket = marketplaceContentMarket;
+            IsAvailable = isAvailable;
+            IsMandatory = isMandatory;
+            IsEnabledByDefault = isEnabledByDefault;
+            ProvidedTo = providedTo;
+            SpecificUsers = specificUsers;
+            AppStatus = appStatus;
+            Etoken = etoken;
+            }
 
         /// <summary>
         /// Gets or sets the extension type.
@@ -156,92 +155,92 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadAttributesFromXml(EwsServiceXmlReader reader)
-        {
+            {
             string value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionType);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.Type = reader.ReadAttributeValue<ExtensionType>(XmlAttributeNames.ClientExtensionType);
-            }
+                {
+                Type = reader.ReadAttributeValue<ExtensionType>(XmlAttributeNames.ClientExtensionType);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionScope);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.Scope = reader.ReadAttributeValue<ExtensionInstallScope>(XmlAttributeNames.ClientExtensionScope);
-            }
-            
+                {
+                Scope = reader.ReadAttributeValue<ExtensionInstallScope>(XmlAttributeNames.ClientExtensionScope);
+                }
+
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceAssetID);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.MarketplaceAssetID = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionMarketplaceAssetID);
-            }
+                {
+                MarketplaceAssetID = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionMarketplaceAssetID);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceContentMarket);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.MarketplaceContentMarket = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionMarketplaceContentMarket);
-            }
+                {
+                MarketplaceContentMarket = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionMarketplaceContentMarket);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionAppStatus);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.AppStatus = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionAppStatus);
-            }
+                {
+                AppStatus = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionAppStatus);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionEtoken);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.Etoken = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionEtoken);
-            }
+                {
+                Etoken = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionEtoken);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionInstalledDateTime);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.InstalledDateTime = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionInstalledDateTime);
-            }
+                {
+                InstalledDateTime = reader.ReadAttributeValue<string>(XmlAttributeNames.ClientExtensionInstalledDateTime);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionIsAvailable);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.IsAvailable = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsAvailable);
-            }
+                {
+                IsAvailable = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsAvailable);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionIsMandatory);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.IsMandatory = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsMandatory);
-            }
+                {
+                IsMandatory = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsMandatory);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionIsEnabledByDefault);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.IsEnabledByDefault = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsEnabledByDefault);
-            }
+                {
+                IsEnabledByDefault = reader.ReadAttributeValue<bool>(XmlAttributeNames.ClientExtensionIsEnabledByDefault);
+                }
 
             value = reader.ReadAttributeValue(XmlAttributeNames.ClientExtensionProvidedTo);
             if (!string.IsNullOrEmpty(value))
-            {
-                this.ProvidedTo = reader.ReadAttributeValue<ClientExtensionProvidedTo>(XmlAttributeNames.ClientExtensionProvidedTo);
+                {
+                ProvidedTo = reader.ReadAttributeValue<ClientExtensionProvidedTo>(XmlAttributeNames.ClientExtensionProvidedTo);
+                }
             }
-        }
 
         /// <summary>
         /// Writes attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionType, this.Type);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionScope, this.Scope);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceAssetID, this.MarketplaceAssetID);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceContentMarket, this.MarketplaceContentMarket);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionAppStatus, this.AppStatus);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionEtoken, this.Etoken);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionInstalledDateTime, this.InstalledDateTime);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsAvailable, this.IsAvailable);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsMandatory, this.IsMandatory);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsEnabledByDefault, this.IsEnabledByDefault);
-            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionProvidedTo, this.ProvidedTo);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionType, Type);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionScope, Scope);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceAssetID, MarketplaceAssetID);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionMarketplaceContentMarket, MarketplaceContentMarket);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionAppStatus, AppStatus);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionEtoken, Etoken);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionInstalledDateTime, InstalledDateTime);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsAvailable, IsAvailable);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsMandatory, IsMandatory);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionIsEnabledByDefault, IsEnabledByDefault);
+            writer.WriteAttributeValue(XmlAttributeNames.ClientExtensionProvidedTo, ProvidedTo);
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -249,49 +248,49 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.Manifest:
-                    this.ManifestStream = new MemoryStream();
-                    reader.ReadBase64ElementValue(this.ManifestStream);
-                    this.ManifestStream.Position = 0;
+                    ManifestStream = new MemoryStream();
+                    reader.ReadBase64ElementValue(ManifestStream);
+                    ManifestStream.Position = 0;
                     return true;
-                
+
                 case XmlElementNames.ClientExtensionSpecificUsers:
-                    this.SpecificUsers = new StringList();
-                    this.SpecificUsers.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.ClientExtensionSpecificUsers);
+                    SpecificUsers = new StringList();
+                    SpecificUsers.LoadFromXml(reader, XmlNamespace.Types, XmlElementNames.ClientExtensionSpecificUsers);
                     return true;
-                
+
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
-        }
-    
+
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            if (null != this.SpecificUsers)
             {
-                writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.ClientExtensionSpecificUsers);
-                this.SpecificUsers.WriteElementsToXml(writer);
-                writer.WriteEndElement();
-            }
-
-            if (null != this.ManifestStream)
-            {                
-                if (this.ManifestStream.CanSeek)
+            if (null != SpecificUsers)
                 {
-                    this.ManifestStream.Position = 0;
+                writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.ClientExtensionSpecificUsers);
+                SpecificUsers.WriteElementsToXml(writer);
+                writer.WriteEndElement();
                 }
 
+            if (null != ManifestStream)
+                {
+                if (ManifestStream.CanSeek)
+                    {
+                    ManifestStream.Position = 0;
+                    }
+
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Manifest);
-                writer.WriteBase64ElementValue(this.ManifestStream);
+                writer.WriteBase64ElementValue(ManifestStream);
                 writer.WriteEndElement();
+                }
             }
         }
     }
-}

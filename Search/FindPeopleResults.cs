@@ -24,21 +24,21 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.ObjectModel;
 
     /// <summary>
     /// Represents the results of an Persona search operation.
     /// </summary>
     public sealed class FindPeopleResults
-    {
+        {
         /// <summary>
         /// Creates a new instance of the <see cref="FindPeopleResults"/> class.
         /// </summary>
         internal FindPeopleResults()
-        {
-            this.Personas = new Collection<Persona>();
-        }
+            {
+            Personas = new Collection<Persona>();
+            }
 
         /// <summary>
         /// Accessors for the Personas that were found by the search operation.
@@ -59,5 +59,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Accessors for the first index of the loaded row.
         /// </summary>
         public int? FirstLoadedRowIndex { get; internal set; }
+        }
     }
-}

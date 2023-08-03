@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents a date range view of appointments in calendar folder search operations.
     /// </summary>
     public sealed class CalendarView : ViewBase
-    {
+        {
         private ItemTraversal traversal;
         private int? maxItemsReturned;
         private DateTime startDate;
@@ -44,9 +42,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteAttributeValue(XmlAttributeNames.Traversal, this.Traversal);
-        }
+            {
+            writer.WriteAttributeValue(XmlAttributeNames.Traversal, Traversal);
+            }
 
         /// <summary>
         /// Writes the search settings to XML.
@@ -54,27 +52,27 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="writer">The writer.</param>
         /// <param name="groupBy">The group by clause.</param>
         internal override void InternalWriteSearchSettingsToXml(EwsServiceXmlWriter writer, Grouping groupBy)
-        {
+            {
             // No search settings for calendar views.
-        }
+            }
 
         /// <summary>
         /// Writes OrderBy property to XML.
         /// </summary>
         /// <param name="writer">The writer</param>
         internal override void WriteOrderByToXml(EwsServiceXmlWriter writer)
-        {
+            {
             // No OrderBy for calendar views.
-        }
+            }
 
         /// <summary>
         /// Gets the type of service object this view applies to.
         /// </summary>
         /// <returns>A ServiceObjectType value.</returns>
         internal override ServiceObjectType GetServiceObjectType()
-        {
+            {
             return ServiceObjectType.Item;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of CalendarView.
@@ -85,10 +83,10 @@ namespace Microsoft.Exchange.WebServices.Data
             DateTime startDate,
             DateTime endDate)
             : base()
-        {
+            {
             this.startDate = startDate;
             this.endDate = endDate;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of CalendarView.
@@ -101,44 +99,44 @@ namespace Microsoft.Exchange.WebServices.Data
             DateTime endDate,
             int maxItemsReturned)
             : this(startDate, endDate)
-        {
-            this.MaxItemsReturned = maxItemsReturned;
-        }
+            {
+            MaxItemsReturned = maxItemsReturned;
+            }
 
         /// <summary>
         /// Validate instance.
         /// </summary>
         /// <param name="request">The request using this view.</param>
         internal override void InternalValidate(ServiceRequestBase request)
-        {
+            {
             base.InternalValidate(request);
 
-            if (this.endDate < this.StartDate)
-            {
+            if (endDate < StartDate)
+                {
                 throw new ServiceValidationException(Strings.EndDateMustBeGreaterThanStartDate);
+                }
             }
-        }
 
         /// <summary>
         /// Write to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void InternalWriteViewToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.InternalWriteViewToXml(writer);
 
-            writer.WriteAttributeValue(XmlAttributeNames.StartDate, this.StartDate);
-            writer.WriteAttributeValue(XmlAttributeNames.EndDate, this.EndDate);
-        }
+            writer.WriteAttributeValue(XmlAttributeNames.StartDate, StartDate);
+            writer.WriteAttributeValue(XmlAttributeNames.EndDate, EndDate);
+            }
 
         /// <summary>
         /// Gets the name of the view XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetViewXmlElementName()
-        {
+            {
             return XmlElementNames.CalendarView;
-        }
+            }
 
         /// <summary>
         /// Gets the maximum number of items or folders the search operation should return.
@@ -146,59 +144,59 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <returns>The maximum number of items the search operation should return.
         /// </returns>
         internal override int? GetMaxEntriesReturned()
-        {
-            return this.MaxItemsReturned;
-        }
+            {
+            return MaxItemsReturned;
+            }
 
         /// <summary>
         /// Gets or sets the start date.
         /// </summary>
         public DateTime StartDate
-        {
-            get { return this.startDate; }
-            set { this.startDate = value; }
-        }
+            {
+            get { return startDate; }
+            set { startDate = value; }
+            }
 
         /// <summary>
         /// Gets or sets the end date.
         /// </summary>
         public DateTime EndDate
-        {
-            get { return this.endDate; }
-            set { this.endDate = value; }
-        }
+            {
+            get { return endDate; }
+            set { endDate = value; }
+            }
 
         /// <summary>
         /// The maximum number of items the search operation should return.
         /// </summary>
         public int? MaxItemsReturned
-        {
+            {
             get
-            {
-                return this.maxItemsReturned;
-            }
-
-            set
-            {
-                if (value.HasValue)
                 {
-                    if (value.Value <= 0)
-                    {
-                        throw new ArgumentException(Strings.ValueMustBeGreaterThanZero);
-                    }
+                return maxItemsReturned;
                 }
 
-                this.maxItemsReturned = value;
+            set
+                {
+                if (value.HasValue)
+                    {
+                    if (value.Value <= 0)
+                        {
+                        throw new ArgumentException(Strings.ValueMustBeGreaterThanZero);
+                        }
+                    }
+
+                maxItemsReturned = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the search traversal mode. Defaults to ItemTraversal.Shallow.
         /// </summary>
         public ItemTraversal Traversal
-        {
-            get { return this.traversal; }
-            set { this.traversal = value; }
+            {
+            get { return traversal; }
+            set { traversal = value; }
+            }
         }
     }
-}

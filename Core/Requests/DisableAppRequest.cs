@@ -24,17 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-
+    {
     /// <summary>
     /// Disable reason type
     /// </summary>
     public enum DisableReasonType
-    {
+        {
         /// <summary>
         /// Extension is being disabled with no reason
         /// </summary>
@@ -54,13 +49,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Extension is being disabled from MOWA due to performance reasons
         /// </summary>
         MobileClientPerformance
-    }
+        }
 
     /// <summary>
     /// Represents a DisableApp request.
     /// </summary>
     internal sealed class DisableAppRequest : SimpleServiceRequestBase
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="DisableAppRequest"/> class.
         /// </summary>
@@ -69,38 +64,38 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="disableReason">Disable reason.</param>
         internal DisableAppRequest(ExchangeService service, string id, DisableReasonType disableReason)
             : base(service)
-        {
-            this.Id = id;
-            this.DisableReason = disableReason;
-        }
+            {
+            Id = id;
+            DisableReason = disableReason;
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.DisableAppRequest;
-        }
+            }
 
         /// <summary>
         /// Writes XML elements.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ID, this.Id);
-            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.DisableReason, this.DisableReason);
-        }
+            {
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.ID, Id);
+            writer.WriteElementValue(XmlNamespace.Messages, XmlElementNames.DisableReason, DisableReason);
+            }
 
         /// <summary>
         /// Gets the name of the response XML element.
         /// </summary>
         /// <returns>XML element name,</returns>
         internal override string GetResponseXmlElementName()
-        {
+            {
             return XmlElementNames.DisableAppResponse;
-        }
+            }
 
         /// <summary>
         /// Parses the response.
@@ -108,48 +103,48 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>Response object.</returns>
         internal override object ParseResponse(EwsServiceXmlReader reader)
-        {
-            DisableAppResponse response = new DisableAppResponse();
+            {
+            DisableAppResponse response = new();
             response.LoadFromXml(reader, XmlElementNames.DisableAppResponse);
             return response;
-        }
+            }
 
         /// <summary>
         /// Gets the request version.
         /// </summary>
         /// <returns>Earliest Exchange version in which this request is supported.</returns>
         internal override ExchangeVersion GetMinimumRequiredServerVersion()
-        {
+            {
             return ExchangeVersion.Exchange2013;
-        }
+            }
 
         /// <summary>
         /// Executes this request.
         /// </summary>
         /// <returns>Service response.</returns>
         internal DisableAppResponse Execute()
-        {
-            DisableAppResponse serviceResponse = (DisableAppResponse)this.InternalExecute();
+            {
+            DisableAppResponse serviceResponse = (DisableAppResponse)InternalExecute();
             serviceResponse.ThrowIfNecessary();
             return serviceResponse;
-        }
+            }
 
         /// <summary>
         /// Extension id
         /// </summary>
         private string Id
-        {
+            {
             get;
             set;
-        }
+            }
 
         /// <summary>
         /// Disable reason
         /// </summary>
         private DisableReasonType DisableReason
-        {
+            {
             get;
             set;
+            }
         }
     }
-}

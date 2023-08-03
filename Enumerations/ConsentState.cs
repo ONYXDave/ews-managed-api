@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data.Enumerations
-{
+    {
     using System;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data.Enumerations
     /// </summary>
     [Serializable]
     public enum ConsentState
-    {
+        {
         /// <summary>
         /// User has closed the consent page or has not responded yet.
         /// </summary>
@@ -47,5 +47,5 @@ namespace Microsoft.Exchange.WebServices.Data.Enumerations
         /// User has requested to enable the extension.
         /// </summary>
         Consented = 2
+        }
     }
-}

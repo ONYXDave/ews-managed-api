@@ -24,13 +24,11 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     internal sealed class NumberedRecurrenceRange : RecurrenceRange
-    {
+        {
         private int? numberOfOccurrences;
 
         /// <summary>
@@ -38,8 +36,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         public NumberedRecurrenceRange()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumberedRecurrenceRange"/> class.
@@ -48,46 +46,46 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="numberOfOccurrences">The number of occurrences.</param>
         public NumberedRecurrenceRange(DateTime startDate, int? numberOfOccurrences)
             : base(startDate)
-        {
+            {
             this.numberOfOccurrences = numberOfOccurrences;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <value>The name of the XML element.</value>
         internal override string XmlElementName
-        {
+            {
             get { return XmlElementNames.NumberedRecurrence; }
-        }
+            }
 
         /// <summary>
         /// Setups the recurrence.
         /// </summary>
         /// <param name="recurrence">The recurrence.</param>
         internal override void SetupRecurrence(Recurrence recurrence)
-        {
+            {
             base.SetupRecurrence(recurrence);
 
-            recurrence.NumberOfOccurrences = this.NumberOfOccurrences;
-        }
+            recurrence.NumberOfOccurrences = NumberOfOccurrences;
+            }
 
         /// <summary>
         /// Writes the elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteElementsToXml(writer);
 
-            if (this.NumberOfOccurrences.HasValue)
-            {
+            if (NumberOfOccurrences.HasValue)
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.NumberOfOccurrences,
-                    this.NumberOfOccurrences);
+                    NumberOfOccurrences);
+                }
             }
-        }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -95,39 +93,39 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
+            {
             if (base.TryReadElementFromXml(reader))
-            {
-                return true;
-            }
-            else
-            {
-                switch (reader.LocalName)
                 {
+                return true;
+                }
+            else
+                {
+                switch (reader.LocalName)
+                    {
                     case XmlElementNames.NumberOfOccurrences:
-                        this.numberOfOccurrences = reader.ReadElementValue<int>();
+                        numberOfOccurrences = reader.ReadElementValue<int>();
                         return true;
                     default:
                         return false;
+                    }
                 }
             }
-        }
 
         /// <summary>
         /// Gets or sets the number of occurrences.
         /// </summary>
         /// <value>The number of occurrences.</value>
         public int? NumberOfOccurrences
-        {
-            get
             {
-                return this.numberOfOccurrences;
-            }
+            get
+                {
+                return numberOfOccurrences;
+                }
 
             set
-            {
-                this.SetFieldValue<int?>(ref this.numberOfOccurrences, value);
+                {
+                SetFieldValue<int?>(ref numberOfOccurrences, value);
+                }
             }
         }
     }
-}

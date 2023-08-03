@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Represents Integer property defintion.
     /// </summary>
     internal class IntPropertyDefinition : GenericPropertyDefinition<int>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="IntPropertyDefinition"/> class.
         /// </summary>
@@ -44,8 +44,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 xmlElementName,
                 uri,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntPropertyDefinition"/> class.
@@ -64,8 +64,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntPropertyDefinition"/> class.
@@ -87,7 +87,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 flags,
                 version,
                 isNullable)
-        {
+            {
+            }
         }
     }
-}

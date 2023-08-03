@@ -24,42 +24,40 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents the response to a GetPasswordExpirationDate operation
     /// </summary>
     internal sealed class GetPasswordExpirationDateResponse : ServiceResponse
-    {
-        private DateTime? passwordExpirationDate;    
+        {
+        private DateTime? passwordExpirationDate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetPasswordExpirationDateResponse"/> class.
         /// </summary>
         internal GetPasswordExpirationDateResponse()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
-            this.passwordExpirationDate = reader.ReadElementValueAsDateTime(XmlNamespace.NotSpecified, XmlElementNames.PasswordExpirationDate);
-        }
+            passwordExpirationDate = reader.ReadElementValueAsDateTime(XmlNamespace.NotSpecified, XmlElementNames.PasswordExpirationDate);
+            }
 
         /// <summary>
         /// Password expiration date
         /// </summary>
         public DateTime? PasswordExpirationDate
-        {
-            get { return this.passwordExpirationDate; }
+            {
+            get { return passwordExpirationDate; }
+            }
         }
     }
-}

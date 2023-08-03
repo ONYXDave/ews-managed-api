@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class AppointmentSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// Field URIs for Appointment.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string Start = "calendar:Start";
             public const string End = "calendar:End";
             public const string OriginalStart = "calendar:OriginalStart";
@@ -84,7 +84,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string EnhancedLocation = "calendar:EnhancedLocation";
             public const string JoinOnlineMeetingUrl = "calendar:JoinOnlineMeetingUrl";
             public const string OnlineMeetingSettings = "calendar:OnlineMeetingSettings";
-        }
+            }
 
         /// <summary>
         /// Defines the StartTimeZone property.
@@ -118,10 +118,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Start,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate(ExchangeVersion version)
+                delegate (ExchangeVersion version)
                 {
                     return AppointmentSchema.StartTimeZone;
-                });
+                    });
 
         /// <summary>
         /// Defines the End property.
@@ -133,10 +133,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.End,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate(ExchangeVersion version)
+                delegate (ExchangeVersion version)
                 {
                     return version == ExchangeVersion.Exchange2007_SP1 ? AppointmentSchema.StartTimeZone : AppointmentSchema.EndTimeZone;
-                });
+                    });
 
         /// <summary>
         /// Defines the OriginalStart property.
@@ -280,7 +280,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.Mailbox,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new EmailAddress(); });
+                delegate () { return new EmailAddress(); });
 
         /// <summary>
         /// Defines the RequiredAttendees property.
@@ -292,7 +292,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.RequiredAttendees,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new AttendeeCollection(); });
+                delegate () { return new AttendeeCollection(); });
 
         /// <summary>
         /// Defines the OptionalAttendees property.
@@ -304,7 +304,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.OptionalAttendees,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new AttendeeCollection(); });
+                delegate () { return new AttendeeCollection(); });
 
         /// <summary>
         /// Defines the Resources property.
@@ -316,7 +316,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Resources,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new AttendeeCollection(); });
+                delegate () { return new AttendeeCollection(); });
 
         /// <summary>
         /// Defines the ConflictingMeetingCount property.
@@ -347,7 +347,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.ConflictingMeetings,
                 FieldUris.ConflictingMeetings,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ItemCollection<Appointment>(); });
+                delegate () { return new ItemCollection<Appointment>(); });
 
         /// <summary>
         /// Defines the AdjacentMeetings property.
@@ -358,7 +358,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.AdjacentMeetings,
                 FieldUris.AdjacentMeetings,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ItemCollection<Appointment>(); });
+                delegate () { return new ItemCollection<Appointment>(); });
 
         /// <summary>
         /// Defines the Duration property.
@@ -434,7 +434,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.FirstOccurrence,
                 FieldUris.FirstOccurrence,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new OccurrenceInfo(); });
+                delegate () { return new OccurrenceInfo(); });
 
         /// <summary>
         /// Defines the LastOccurrence property.
@@ -445,7 +445,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.LastOccurrence,
                 FieldUris.LastOccurrence,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new OccurrenceInfo(); });
+                delegate () { return new OccurrenceInfo(); });
 
         /// <summary>
         /// Defines the ModifiedOccurrences property.
@@ -456,7 +456,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.ModifiedOccurrences,
                 FieldUris.ModifiedOccurrences,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new OccurrenceInfoCollection(); });
+                delegate () { return new OccurrenceInfoCollection(); });
 
         /// <summary>
         /// Defines the DeletedOccurrences property.
@@ -467,7 +467,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.DeletedOccurrences,
                 FieldUris.DeletedOccurrences,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new DeletedOccurrenceInfoCollection(); });
+                delegate () { return new DeletedOccurrenceInfoCollection(); });
 
         /// <summary>
         /// Defines the MeetingTimeZone property.
@@ -573,13 +573,13 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Enhanced Location property.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Immutable type")]
-        public static readonly PropertyDefinition EnhancedLocation = 
+        public static readonly PropertyDefinition EnhancedLocation =
             new ComplexPropertyDefinition<EnhancedLocation>(
                 XmlElementNames.EnhancedLocation,
                 FieldUris.EnhancedLocation,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new EnhancedLocation(); });
+                delegate () { return new EnhancedLocation(); });
 
         /// <summary>
         /// JoinOnlineMeetingUrl property.
@@ -602,7 +602,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.OnlineMeetingSettings,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new OnlineMeetingSettings(); });
+                delegate () { return new OnlineMeetingSettings(); });
 
         /// <summary>
         /// Instance of schema.
@@ -610,7 +610,7 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <remarks>
         /// This must be after the declaration of property definitions.
         /// </remarks>
-        internal static new readonly AppointmentSchema Instance = new AppointmentSchema();
+        internal static new readonly AppointmentSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -619,63 +619,63 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(ICalUid);
-            this.RegisterProperty(ICalRecurrenceId);
-            this.RegisterProperty(ICalDateTimeStamp);
-            this.RegisterProperty(Start);
-            this.RegisterProperty(End);
-            this.RegisterProperty(OriginalStart);
-            this.RegisterProperty(IsAllDayEvent);
-            this.RegisterProperty(LegacyFreeBusyStatus);
-            this.RegisterProperty(Location);
-            this.RegisterProperty(When);
-            this.RegisterProperty(IsMeeting);
-            this.RegisterProperty(IsCancelled);
-            this.RegisterProperty(IsRecurring);
-            this.RegisterProperty(MeetingRequestWasSent);
-            this.RegisterProperty(IsResponseRequested);
-            this.RegisterProperty(AppointmentType);
-            this.RegisterProperty(MyResponseType);
-            this.RegisterProperty(Organizer);
-            this.RegisterProperty(RequiredAttendees);
-            this.RegisterProperty(OptionalAttendees);
-            this.RegisterProperty(Resources);
-            this.RegisterProperty(ConflictingMeetingCount);
-            this.RegisterProperty(AdjacentMeetingCount);
-            this.RegisterProperty(ConflictingMeetings);
-            this.RegisterProperty(AdjacentMeetings);
-            this.RegisterProperty(Duration);
-            this.RegisterProperty(TimeZone);
-            this.RegisterProperty(AppointmentReplyTime);
-            this.RegisterProperty(AppointmentSequenceNumber);
-            this.RegisterProperty(AppointmentState);
-            this.RegisterProperty(Recurrence);
-            this.RegisterProperty(FirstOccurrence);
-            this.RegisterProperty(LastOccurrence);
-            this.RegisterProperty(ModifiedOccurrences);
-            this.RegisterProperty(DeletedOccurrences);
-            this.RegisterInternalProperty(MeetingTimeZone);
-            this.RegisterProperty(StartTimeZone);
-            this.RegisterProperty(EndTimeZone);
-            this.RegisterProperty(ConferenceType);
-            this.RegisterProperty(AllowNewTimeProposal);
-            this.RegisterProperty(IsOnlineMeeting);
-            this.RegisterProperty(MeetingWorkspaceUrl);
-            this.RegisterProperty(NetShowUrl);
-            this.RegisterProperty(EnhancedLocation);
-            this.RegisterProperty(JoinOnlineMeetingUrl);
-            this.RegisterProperty(OnlineMeetingSettings);
-        }
+            RegisterProperty(ICalUid);
+            RegisterProperty(ICalRecurrenceId);
+            RegisterProperty(ICalDateTimeStamp);
+            RegisterProperty(Start);
+            RegisterProperty(End);
+            RegisterProperty(OriginalStart);
+            RegisterProperty(IsAllDayEvent);
+            RegisterProperty(LegacyFreeBusyStatus);
+            RegisterProperty(Location);
+            RegisterProperty(When);
+            RegisterProperty(IsMeeting);
+            RegisterProperty(IsCancelled);
+            RegisterProperty(IsRecurring);
+            RegisterProperty(MeetingRequestWasSent);
+            RegisterProperty(IsResponseRequested);
+            RegisterProperty(AppointmentType);
+            RegisterProperty(MyResponseType);
+            RegisterProperty(Organizer);
+            RegisterProperty(RequiredAttendees);
+            RegisterProperty(OptionalAttendees);
+            RegisterProperty(Resources);
+            RegisterProperty(ConflictingMeetingCount);
+            RegisterProperty(AdjacentMeetingCount);
+            RegisterProperty(ConflictingMeetings);
+            RegisterProperty(AdjacentMeetings);
+            RegisterProperty(Duration);
+            RegisterProperty(TimeZone);
+            RegisterProperty(AppointmentReplyTime);
+            RegisterProperty(AppointmentSequenceNumber);
+            RegisterProperty(AppointmentState);
+            RegisterProperty(Recurrence);
+            RegisterProperty(FirstOccurrence);
+            RegisterProperty(LastOccurrence);
+            RegisterProperty(ModifiedOccurrences);
+            RegisterProperty(DeletedOccurrences);
+            RegisterInternalProperty(MeetingTimeZone);
+            RegisterProperty(StartTimeZone);
+            RegisterProperty(EndTimeZone);
+            RegisterProperty(ConferenceType);
+            RegisterProperty(AllowNewTimeProposal);
+            RegisterProperty(IsOnlineMeeting);
+            RegisterProperty(MeetingWorkspaceUrl);
+            RegisterProperty(NetShowUrl);
+            RegisterProperty(EnhancedLocation);
+            RegisterProperty(JoinOnlineMeetingUrl);
+            RegisterProperty(OnlineMeetingSettings);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentSchema"/> class.
         /// </summary>
         internal AppointmentSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

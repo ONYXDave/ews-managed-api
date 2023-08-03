@@ -24,21 +24,17 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines Instant Messaging address entries for a contact.
     /// </summary>
     public enum ImAddressKey
-    {
+        {
         /// <summary>
         /// The first Instant Messaging address.
         /// </summary>
         ImAddress1,
-        
+
         /// <summary>
         /// The second Instant Messaging address.
         /// </summary>
@@ -48,5 +44,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The third Instant Messaging address.
         /// </summary>
         ImAddress3
+        }
     }
-}

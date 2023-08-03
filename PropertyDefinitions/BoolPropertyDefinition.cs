@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Represents Boolean property definition
     /// </summary>
     internal sealed class BoolPropertyDefinition : GenericPropertyDefinition<bool>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="BoolPropertyDefinition"/> class.
         /// </summary>
@@ -43,8 +41,8 @@ namespace Microsoft.Exchange.WebServices.Data
             string uri,
             ExchangeVersion version)
             : base(xmlElementName, uri, version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BoolPropertyDefinition"/> class.
@@ -63,8 +61,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BoolPropertyDefinition"/> class.
@@ -86,8 +84,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 flags,
                 version,
                 isNullable)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Convert instance to string.
@@ -95,8 +93,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>String representation of Boolean property.</returns>
         internal override string ToString(object value)
-        {
+            {
             return EwsUtilities.BoolToXSBool((bool)value);
+            }
         }
     }
-}

@@ -24,15 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-
+    {
     /// <summary>
     /// 
     /// </summary>
     public sealed class ConversationResponse : ComplexProperty
-    {
+        {
         /// <summary>
         /// Property set used to fetch items in the conversation.
         /// </summary>
@@ -43,9 +40,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <param name="propertySet">The property set.</param>
         internal ConversationResponse(PropertySet propertySet)
-        {
+            {
             this.propertySet = propertySet;
-        }
+            }
 
         /// <summary>
         /// Gets the conversation id.
@@ -68,26 +65,26 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.ConversationId:
-                    this.ConversationId = new ConversationId();
-                    this.ConversationId.LoadFromXml(reader, XmlElementNames.ConversationId);
+                    ConversationId = new ConversationId();
+                    ConversationId.LoadFromXml(reader, XmlElementNames.ConversationId);
                     return true;
 
                 case XmlElementNames.SyncState:
-                    this.SyncState = reader.ReadElementValue();
+                    SyncState = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.ConversationNodes:
-                    this.ConversationNodes = new ConversationNodeCollection(this.propertySet);
-                    this.ConversationNodes.LoadFromXml(reader, XmlElementNames.ConversationNodes);
+                    ConversationNodes = new ConversationNodeCollection(propertySet);
+                    ConversationNodes.LoadFromXml(reader, XmlElementNames.ConversationNodes);
                     return true;
 
                 default:
                     return false;
+                }
             }
         }
     }
-}

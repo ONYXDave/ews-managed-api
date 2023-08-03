@@ -24,34 +24,33 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Collections.Generic;
-    using System.Xml;
 
     /// <summary>
     /// Represents the collection of InsightValue.
     /// </summary>
     public class InsightValueCollection : ComplexPropertyCollection<InsightValue>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="InsightValueCollection"/> class.
         /// </summary>
         internal InsightValueCollection()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InsightValueCollection"/> class.
         /// </summary>
         /// <param name="collection">The collection of objects to include.</param>
         internal InsightValueCollection(IEnumerable<InsightValue> collection)
-        {
-            if (collection != null)
             {
-                collection.ForEach(this.InternalAdd);
+            if (collection != null)
+                {
+                collection.ForEach(InternalAdd);
+                }
             }
-        }
 
         /// <summary>
         /// Creates the complex property.
@@ -59,9 +58,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>InsightValue.</returns>
         internal override InsightValue CreateComplexProperty(string xmlElementName)
-        {
+            {
             return new InsightValue();
-        }
+            }
 
         /// <summary>
         /// Gets the name of the collection item XML element.
@@ -69,8 +68,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="complexProperty">The complex property.</param>
         /// <returns>XML element name.</returns>
         internal override string GetCollectionItemXmlElementName(InsightValue complexProperty)
-        {
+            {
             return XmlElementNames.Item;
+            }
         }
     }
-}

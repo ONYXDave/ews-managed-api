@@ -24,24 +24,22 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.ObjectModel;
     using System.Drawing;
     using System.IO;
-    using Microsoft.Exchange.WebServices.Data.Enumerations;
 
     /// <summary>
     /// Represents the results of a GetUserPhoto operation.
     /// </summary>
     public sealed class GetUserPhotoResults
-    {
+        {
         /// <summary>
         /// Creates a new instance of the <see cref="GetUserPhotoResults"/> class.
         /// </summary>
         internal GetUserPhotoResults()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Accessors for the picture data
@@ -73,19 +71,19 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         /// <returns>The photo data as an Image</returns>
         public Image AsImage()
-        {
-            if (this.Photo == null || this.Photo.Length == 0)
             {
+            if (Photo == null || Photo.Length == 0)
+                {
                 throw new InvalidOperationException("Cannot create image when no photo data returned.");
-            }
+                }
 
             Image img;
-            using (MemoryStream stream = new MemoryStream(this.Photo))
-            {
+            using (MemoryStream stream = new(Photo))
+                {
                 img = Image.FromStream(stream);
-            }
+                }
 
             return img;
+            }
         }
     }
-}

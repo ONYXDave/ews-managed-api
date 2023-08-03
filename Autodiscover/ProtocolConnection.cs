@@ -24,15 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Autodiscover
-{
-    using System.Xml;
+    {
     using Microsoft.Exchange.WebServices.Data;
+    using System.Xml;
 
     /// <summary>
     /// Represents the email Protocol connection settings for pop/imap/smtp protocols.
     /// </summary>
     public sealed class ProtocolConnection
-    {
+        {
         private string encryptionMethod;
         private string hostname;
         private int port;
@@ -41,25 +41,25 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// Initializes a new instance of the <see cref="ProtocolConnection"/> class.
         /// </summary>
         internal ProtocolConnection()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Read user setting with ProtocolConnection value.
         /// </summary>
         /// <param name="reader">EwsServiceXmlReader</param>
         internal static ProtocolConnection LoadFromXml(EwsXmlReader reader)
-        {
-            ProtocolConnection connection = new ProtocolConnection();
-            
-            do
             {
+            ProtocolConnection connection = new();
+
+            do
+                {
                 reader.Read();
 
                 if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.LocalName)
                     {
+                    switch (reader.LocalName)
+                        {
                         case XmlElementNames.EncryptionMethod:
                             connection.EncryptionMethod = reader.ReadElementValue<string>();
                             break;
@@ -69,13 +69,13 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
                         case XmlElementNames.Port:
                             connection.Port = reader.ReadElementValue<int>();
                             break;
+                        }
                     }
                 }
-            }
             while (!reader.IsEndElement(XmlNamespace.Autodiscover, XmlElementNames.ProtocolConnection));
 
             return connection;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtocolConnection"/> class.
@@ -84,40 +84,40 @@ namespace Microsoft.Exchange.WebServices.Autodiscover
         /// <param name="hostname">The hostname.</param>
         /// <param name="port">The port number to use for the portocol.</param>
         internal ProtocolConnection(string encryptionMethod, string hostname, int port)
-        {
+            {
             this.encryptionMethod = encryptionMethod;
             this.hostname = hostname;
             this.port = port;
-        }
+            }
 
         /// <summary>
         /// Gets or sets the encryption method.
         /// </summary>
         /// <value>The encryption method.</value>
         public string EncryptionMethod
-        {
-            get { return this.encryptionMethod; }
-            set { this.encryptionMethod = value; }
-        }
+            {
+            get { return encryptionMethod; }
+            set { encryptionMethod = value; }
+            }
 
         /// <summary>
         /// Gets or sets the Hostname.
         /// </summary>
         /// <value>The hostname.</value>
         public string Hostname
-        {
-            get { return this.hostname; }
-            set { this.hostname = value; }
-        }
+            {
+            get { return hostname; }
+            set { hostname = value; }
+            }
 
         /// <summary>
         /// Gets or sets the port number.
         /// </summary>
         /// <value>The port number.</value>
         public int Port
-        {
-            get { return this.port; }
-            set { this.port = value; }
+            {
+            get { return port; }
+            set { port = value; }
+            }
         }
     }
-}

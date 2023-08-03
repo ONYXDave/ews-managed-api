@@ -23,15 +23,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-using System.Collections.Generic;
-
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Interface defined for properties that produce their own update serialization.
     /// </summary>
     internal interface ICustomUpdateSerializer
-    {
+        {
         /// <summary>
         /// Writes the update to XML.
         /// </summary>
@@ -51,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="ewsObject">The ews object.</param>
         /// <returns>True if property generated serialization.</returns>
         bool WriteDeleteUpdateToXml(EwsServiceXmlWriter writer, ServiceObject ewsObject);
+        }
     }
-}

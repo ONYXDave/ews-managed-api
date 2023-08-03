@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Represents response to UpdateFolder request.
     /// </summary>
     internal sealed class UpdateFolderResponse : ServiceResponse
-    {
+        {
         private Folder folder;
 
         /// <summary>
@@ -42,41 +38,41 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="folder">The folder.</param>
         internal UpdateFolderResponse(Folder folder)
             : base()
-        {
+            {
             EwsUtilities.Assert(
                 folder != null,
                 "UpdateFolderResponse.ctor",
                 "folder is null");
 
             this.folder = folder;
-        }
+            }
 
         /// <summary>
         /// Reads response elements from XML.
         /// </summary>
         /// <param name="reader">The reader.</param>
         internal override void ReadElementsFromXml(EwsServiceXmlReader reader)
-        {
+            {
             base.ReadElementsFromXml(reader);
 
             reader.ReadServiceObjectsCollectionFromXml<Folder>(
                 XmlElementNames.Folders,
-                this.GetObjectInstance,
+                GetObjectInstance,
                 false,  /* clearPropertyBag */
                 null,   /* requestedPropertySet */
                 false); /* summaryPropertiesOnly */
-        }
+            }
 
         /// <summary>
         /// Clears the change log of the updated folder if the update succeeded.
         /// </summary>
         internal override void Loaded()
-        {
-            if (this.Result == ServiceResult.Success)
             {
-                this.folder.ClearChangeLog();
+            if (Result == ServiceResult.Success)
+                {
+                folder.ClearChangeLog();
+                }
             }
-        }
 
         /// <summary>
         /// Gets Folder instance.
@@ -85,8 +81,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="xmlElementName">Name of the XML element.</param>
         /// <returns>Folder.</returns>
         private Folder GetObjectInstance(ExchangeService session, string xmlElementName)
-        {
-            return this.folder;
+            {
+            return folder;
+            }
         }
     }
-}

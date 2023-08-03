@@ -24,16 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    {
     /// <summary>
     /// Defines the location where a ResolveName operation searches for contacts.
     /// </summary>
     public enum ResolveNameSearchLocation
-    {
+        {
         /// <summary>
         /// The name is resolved against the Global Address List.
         /// </summary>
@@ -53,5 +49,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The name is resolved against the Contacts folder and then against the Global Address List if no match was found.
         /// </summary>
         ContactsThenDirectory
+        }
     }
-}

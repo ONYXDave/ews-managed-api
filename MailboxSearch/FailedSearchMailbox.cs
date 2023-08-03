@@ -24,16 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
+    {
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Represents failed mailbox to be searched
     /// </summary>
     public sealed class FailedSearchMailbox
-    {
+        {
         /// <summary>
         /// Constructor
         /// </summary>
@@ -42,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorMessage">Error message</param>
         public FailedSearchMailbox(string mailbox, int errorCode, string errorMessage) :
             this(mailbox, errorCode, errorMessage, false)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Constructor
@@ -53,12 +51,12 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="errorMessage">Error message</param>
         /// <param name="isArchive">True if it is mailbox archive</param>
         public FailedSearchMailbox(string mailbox, int errorCode, string errorMessage, bool isArchive)
-        {
+            {
             Mailbox = mailbox;
             ErrorCode = errorCode;
             ErrorMessage = errorMessage;
             IsArchive = isArchive;
-        }
+            }
 
         /// <summary>
         /// Mailbox identifier
@@ -87,15 +85,15 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader</param>
         /// <returns>Array of failed mailboxes</returns>
         internal static FailedSearchMailbox[] LoadFailedMailboxesXml(XmlNamespace rootXmlNamespace, EwsServiceXmlReader reader)
-        {
-            List<FailedSearchMailbox> failedMailboxes = new List<FailedSearchMailbox>();
+            {
+            List<FailedSearchMailbox> failedMailboxes = new();
 
             reader.EnsureCurrentNodeIsStartElement(rootXmlNamespace, XmlElementNames.FailedMailboxes);
             do
-            {
+                {
                 reader.Read();
                 if (reader.IsStartElement(XmlNamespace.Types, XmlElementNames.FailedMailbox))
-                {
+                    {
                     string mailbox = reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.Mailbox);
                     int errorCode = 0;
                     int.TryParse(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.ErrorCode), out errorCode);
@@ -104,11 +102,11 @@ namespace Microsoft.Exchange.WebServices.Data
                     bool.TryParse(reader.ReadElementValue(XmlNamespace.Types, XmlElementNames.IsArchive), out isArchive);
 
                     failedMailboxes.Add(new FailedSearchMailbox(mailbox, errorCode, errorMessage, isArchive));
+                    }
                 }
-            }
             while (!reader.IsEndElement(rootXmlNamespace, XmlElementNames.FailedMailboxes));
 
             return failedMailboxes.Count == 0 ? null : failedMailboxes.ToArray();
+            }
         }
     }
-}

@@ -24,18 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.IO;
-    using System.Text;
 
     /// <summary>
     /// Represents a recurrence pattern, as used by Appointment and Task items.
     /// </summary>
     public abstract partial class Recurrence : ComplexProperty
-    {
+        {
         private DateTime? startDate;
         private int? numberOfOccurrences;
         private DateTime? endDate;
@@ -45,8 +41,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </summary>
         internal Recurrence()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Recurrence"/> class.
@@ -54,9 +50,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="startDate">The start date.</param>
         internal Recurrence(DateTime startDate)
             : this()
-        {
+            {
             this.startDate = startDate;
-        }
+            }
 
         /// <summary>
         /// Gets the name of the XML element.
@@ -71,45 +67,45 @@ namespace Microsoft.Exchange.WebServices.Data
         ///     <c>true</c> if this instance is regeneration pattern; otherwise, <c>false</c>.
         /// </value>
         internal virtual bool IsRegenerationPattern
-        {
+            {
             get { return false; }
-        }
+            }
 
         /// <summary>
         /// Write properties to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal virtual void InternalWritePropertiesToXml(EwsServiceXmlWriter writer)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
-        internal override sealed void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            writer.WriteStartElement(XmlNamespace.Types, this.XmlElementName);
-            this.InternalWritePropertiesToXml(writer);
+        internal sealed override void WriteElementsToXml(EwsServiceXmlWriter writer)
+            {
+            writer.WriteStartElement(XmlNamespace.Types, XmlElementName);
+            InternalWritePropertiesToXml(writer);
             writer.WriteEndElement();
 
             RecurrenceRange range;
 
-            if (!this.HasEnd)
-            {
-                range = new NoEndRecurrenceRange(this.StartDate);
-            }
-            else if (this.NumberOfOccurrences.HasValue)
-            {
-                range = new NumberedRecurrenceRange(this.StartDate, this.NumberOfOccurrences);
-            }
+            if (!HasEnd)
+                {
+                range = new NoEndRecurrenceRange(StartDate);
+                }
+            else if (NumberOfOccurrences.HasValue)
+                {
+                range = new NumberedRecurrenceRange(StartDate, NumberOfOccurrences);
+                }
             else
-            {
-                range = new EndDateRecurrenceRange(this.StartDate, this.EndDate.Value);
-            }
+                {
+                range = new EndDateRecurrenceRange(StartDate, EndDate.Value);
+                }
 
             range.WriteToXml(writer, range.XmlElementName);
-        }
+            }
 
         /// <summary>
         /// Gets a property value or throw if null.
@@ -119,96 +115,96 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="name">The property name.</param>
         /// <returns>Property value</returns>
         internal T GetFieldValueOrThrowIfNull<T>(Nullable<T> value, string name) where T : struct
-        {
+            {
             if (value.HasValue)
-            {
+                {
                 return value.Value;
-            }
+                }
             else
-            {
+                {
                 throw new ServiceValidationException(
                                 string.Format(Strings.PropertyValueMustBeSpecifiedForRecurrencePattern, name));
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the date and time when the recurrence start.
         /// </summary>
         public DateTime StartDate
-        {
-            get { return this.GetFieldValueOrThrowIfNull<DateTime>(this.startDate, "StartDate"); }
-            set { this.startDate = value; }
-        }
+            {
+            get { return GetFieldValueOrThrowIfNull<DateTime>(startDate, "StartDate"); }
+            set { startDate = value; }
+            }
 
         /// <summary>
         /// Gets a value indicating whether the pattern has a fixed number of occurrences or an end date.
         /// </summary>
         public bool HasEnd
-        {
-            get { return this.numberOfOccurrences.HasValue || this.endDate.HasValue; }
-        }
+            {
+            get { return numberOfOccurrences.HasValue || endDate.HasValue; }
+            }
 
         /// <summary>
         /// Sets up this recurrence so that it never ends. Calling NeverEnds is equivalent to setting both NumberOfOccurrences and EndDate to null.
         /// </summary>
         public void NeverEnds()
-        {
-            this.numberOfOccurrences = null;
-            this.endDate = null;
-            this.Changed();
-        }
+            {
+            numberOfOccurrences = null;
+            endDate = null;
+            Changed();
+            }
 
         /// <summary>
         /// Validates this instance.
         /// </summary>
         internal override void InternalValidate()
-        {
+            {
             base.InternalValidate();
 
-            if (!this.startDate.HasValue)
-            {
+            if (!startDate.HasValue)
+                {
                 throw new ServiceValidationException(Strings.RecurrencePatternMustHaveStartDate);
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the number of occurrences after which the recurrence ends. Setting NumberOfOccurrences resets EndDate.
         /// </summary>
         public int? NumberOfOccurrences
-        {
+            {
             get
-            {
-                return this.numberOfOccurrences;
-            }
-
-            set
-            {
-                if (value < 1)
                 {
-                    throw new ArgumentException(Strings.NumberOfOccurrencesMustBeGreaterThanZero);
+                return numberOfOccurrences;
                 }
 
-                this.SetFieldValue<int?>(ref this.numberOfOccurrences, value);
-                this.endDate = null;
+            set
+                {
+                if (value < 1)
+                    {
+                    throw new ArgumentException(Strings.NumberOfOccurrencesMustBeGreaterThanZero);
+                    }
+
+                SetFieldValue<int?>(ref numberOfOccurrences, value);
+                endDate = null;
+                }
             }
-        }
 
         /// <summary>
         /// Gets or sets the date after which the recurrence ends. Setting EndDate resets NumberOfOccurrences.
         /// </summary>
         public DateTime? EndDate
-        {
-            get
             {
-                return this.endDate;
-            }
+            get
+                {
+                return endDate;
+                }
 
             set
-            {
-                this.SetFieldValue<DateTime?>(ref this.endDate, value);
-                this.numberOfOccurrences = null;
+                {
+                SetFieldValue<DateTime?>(ref endDate, value);
+                numberOfOccurrences = null;
+                }
             }
-        }
 
         /// <summary>
         /// Checks if two recurrence objects are identical. 
@@ -216,16 +212,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="otherRecurrence">The recurrence to compare this one to.</param>
         /// <returns>true if the two recurrences are identical, false otherwise.</returns>
         public virtual bool IsSame(Recurrence otherRecurrence)
-        {
-            if (otherRecurrence == null)
             {
+            if (otherRecurrence == null)
+                {
                 return false;
-            }
+                }
 
-            return (this.GetType() == otherRecurrence.GetType() &&
-                    this.numberOfOccurrences == otherRecurrence.numberOfOccurrences &&
-                    this.endDate == otherRecurrence.endDate &&
-                    this.startDate == otherRecurrence.startDate);
+            return GetType() == otherRecurrence.GetType() &&
+                    numberOfOccurrences == otherRecurrence.numberOfOccurrences &&
+                    endDate == otherRecurrence.endDate &&
+                    startDate == otherRecurrence.startDate;
+            }
         }
     }
-}

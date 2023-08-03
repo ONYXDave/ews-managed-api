@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents TimeSpan property definition.
     /// </summary>
     internal class TimeSpanPropertyDefinition : GenericPropertyDefinition<TimeSpan>
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeSpanPropertyDefinition"/> class.
         /// </summary>
@@ -49,8 +49,8 @@ namespace Microsoft.Exchange.WebServices.Data
                 uri,
                 flags,
                 version)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Parses the specified value.
@@ -58,9 +58,9 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>TimeSpan value.</returns>
         internal override object Parse(string value)
-        {
+            {
             return EwsUtilities.XSDurationToTimeSpan(value);
-        }
+            }
 
         /// <summary>
         /// Converts instance to a string.
@@ -68,8 +68,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="value">The value.</param>
         /// <returns>TimeSpan value.</returns>
         internal override string ToString(object value)
-        {
+            {
             return EwsUtilities.TimeSpanToXSDuration((TimeSpan)value);
+            }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
     using System.Collections.Generic;
 
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// Provides data to a StreamingSubscriptionConnection's OnNotificationEvent event.
     /// </summary>
     public class NotificationEventArgs : EventArgs
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationEventArgs"/> class.
         /// </summary>
@@ -41,27 +41,27 @@ namespace Microsoft.Exchange.WebServices.Data
         internal NotificationEventArgs(
             StreamingSubscription subscription,
             IEnumerable<NotificationEvent> events)
-        {
-            this.Subscription = subscription;
-            this.Events = events;
-        }
+            {
+            Subscription = subscription;
+            Events = events;
+            }
 
         /// <summary>
         /// Gets the subscription for which notifications have been received.
         /// </summary>
         public StreamingSubscription Subscription
-        {
+            {
             get;
             internal set;
-        }
+            }
 
         /// <summary>
         /// Gets the events that were received.
         /// </summary>
         public IEnumerable<NotificationEvent> Events
-        {
+            {
             get;
             internal set;
+            }
         }
     }
-}

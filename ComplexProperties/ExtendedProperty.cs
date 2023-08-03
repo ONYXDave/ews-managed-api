@@ -24,16 +24,15 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
-    using System.Collections.Generic;
     using System.Text;
 
     /// <summary>
     /// Represents an extended property.
     /// </summary>
     public sealed class ExtendedProperty : ComplexProperty
-    {
+        {
         private ExtendedPropertyDefinition propertyDefinition;
         private object value;
 
@@ -41,8 +40,8 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Initializes a new instance of the <see cref="ExtendedProperty"/> class.
         /// </summary>
         internal ExtendedProperty()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedProperty"/> class.
@@ -50,11 +49,11 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="propertyDefinition">The definition of the extended property.</param>
         internal ExtendedProperty(ExtendedPropertyDefinition propertyDefinition)
             : this()
-        {
+            {
             EwsUtilities.ValidateParam(propertyDefinition, "propertyDefinition");
 
             this.propertyDefinition = propertyDefinition;
-        }
+            }
 
         /// <summary>
         /// Tries to read element from XML.
@@ -62,129 +61,129 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.ExtendedFieldURI:
-                    this.propertyDefinition = new ExtendedPropertyDefinition();
-                    this.propertyDefinition.LoadFromXml(reader);
+                    propertyDefinition = new ExtendedPropertyDefinition();
+                    propertyDefinition.LoadFromXml(reader);
                     return true;
                 case XmlElementNames.Value:
                     EwsUtilities.Assert(
-                        this.PropertyDefinition != null,
+                        PropertyDefinition != null,
                         "ExtendedProperty.TryReadElementFromXml",
                         "PropertyDefintion is missing");
 
                     string stringValue = reader.ReadElementValue();
-                    this.value = MapiTypeConverter.ConvertToValue(this.PropertyDefinition.MapiType, stringValue);
+                    value = MapiTypeConverter.ConvertToValue(PropertyDefinition.MapiType, stringValue);
                     return true;
                 case XmlElementNames.Values:
                     EwsUtilities.Assert(
-                        this.PropertyDefinition != null,
+                        PropertyDefinition != null,
                         "ExtendedProperty.TryReadElementFromXml",
                         "PropertyDefintion is missing");
 
-                    StringList stringList = new StringList(XmlElementNames.Value);
+                    StringList stringList = new(XmlElementNames.Value);
                     stringList.LoadFromXml(reader, reader.LocalName);
-                    this.value = MapiTypeConverter.ConvertToValue(this.PropertyDefinition.MapiType, stringList);
+                    value = MapiTypeConverter.ConvertToValue(PropertyDefinition.MapiType, stringList);
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         /// <summary>
         /// Writes elements to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteElementsToXml(EwsServiceXmlWriter writer)
-        {
-            this.PropertyDefinition.WriteToXml(writer);
-
-            if (MapiTypeConverter.IsArrayType(this.PropertyDefinition.MapiType))
             {
-                Array array = this.Value as Array;
+            PropertyDefinition.WriteToXml(writer);
+
+            if (MapiTypeConverter.IsArrayType(PropertyDefinition.MapiType))
+                {
+                Array array = Value as Array;
                 writer.WriteStartElement(XmlNamespace.Types, XmlElementNames.Values);
                 for (int index = array.GetLowerBound(0); index <= array.GetUpperBound(0); index++)
-                {
+                    {
                     writer.WriteElementValue(
                         XmlNamespace.Types,
                         XmlElementNames.Value,
-                        MapiTypeConverter.ConvertToString(this.PropertyDefinition.MapiType, array.GetValue(index)));
-                }
+                        MapiTypeConverter.ConvertToString(PropertyDefinition.MapiType, array.GetValue(index)));
+                    }
                 writer.WriteEndElement();
-            }
+                }
             else
-            {
+                {
                 writer.WriteElementValue(
                     XmlNamespace.Types,
                     XmlElementNames.Value,
-                    MapiTypeConverter.ConvertToString(this.PropertyDefinition.MapiType, this.Value));
+                    MapiTypeConverter.ConvertToString(PropertyDefinition.MapiType, Value));
+                }
             }
-        }
 
         /// <summary>
         /// Gets the definition of the extended property.
         /// </summary>
         public ExtendedPropertyDefinition PropertyDefinition
-        {
-            get { return this.propertyDefinition; }
-        }
+            {
+            get { return propertyDefinition; }
+            }
 
         /// <summary>
         /// Gets or sets the value of the extended property.
         /// </summary>
         public object Value
-        {
-            get
             {
-                return this.value;
-            }
+            get
+                {
+                return value;
+                }
 
             set
-            {
+                {
                 EwsUtilities.ValidateParam(value, "value");
-                this.SetFieldValue<object>(
+                SetFieldValue<object>(
                     ref this.value,
-                    MapiTypeConverter.ChangeType(this.PropertyDefinition.MapiType, value));
+                    MapiTypeConverter.ChangeType(PropertyDefinition.MapiType, value));
+                }
             }
-        }
 
         /// <summary>
         /// Gets the string value.
         /// </summary>
         /// <returns>Value as string.</returns>
         private string GetStringValue()
-        {
-            if (MapiTypeConverter.IsArrayType(this.PropertyDefinition.MapiType))
             {
-                Array array = this.Value as Array;
+            if (MapiTypeConverter.IsArrayType(PropertyDefinition.MapiType))
+                {
+                Array array = Value as Array;
                 if (array == null)
-                {
+                    {
                     return string.Empty;
-                }
+                    }
                 else
-                {
-                    StringBuilder sb = new StringBuilder();
+                    {
+                    StringBuilder sb = new();
                     sb.Append("[");
                     for (int index = array.GetLowerBound(0); index <= array.GetUpperBound(0); index++)
-                    {
+                        {
                         sb.Append(
                             MapiTypeConverter.ConvertToString(
-                                this.PropertyDefinition.MapiType,
+                                PropertyDefinition.MapiType,
                                 array.GetValue(index)));
                         sb.Append(",");
-                    }
+                        }
                     sb.Append("]");
 
                     return sb.ToString();
+                    }
+                }
+            else
+                {
+                return MapiTypeConverter.ConvertToString(PropertyDefinition.MapiType, Value);
                 }
             }
-            else
-            {
-                return MapiTypeConverter.ConvertToString(this.PropertyDefinition.MapiType, this.Value);
-            }
-        }
 
         /// <summary>
         /// Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:System.Object"/>.
@@ -195,17 +194,17 @@ namespace Microsoft.Exchange.WebServices.Data
         /// </returns>
         /// <exception cref="T:System.NullReferenceException">The <paramref name="obj"/> parameter is null.</exception>
         public override bool Equals(object obj)
-        {
+            {
             ExtendedProperty other = obj as ExtendedProperty;
-            if ((other != null) && other.PropertyDefinition.Equals(this.PropertyDefinition))
-            {
-                return this.GetStringValue().Equals(other.GetStringValue());
-            }
+            if ((other != null) && other.PropertyDefinition.Equals(PropertyDefinition))
+                {
+                return GetStringValue().Equals(other.GetStringValue());
+                }
             else
-            {
+                {
                 return false;
+                }
             }
-        }
 
         /// <summary>
         /// Serves as a hash function for a particular type.
@@ -214,10 +213,10 @@ namespace Microsoft.Exchange.WebServices.Data
         /// A hash code for the current <see cref="T:System.Object"/>.
         /// </returns>
         public override int GetHashCode()
-        {
+            {
             return string.Concat(
-                (this.PropertyDefinition != null) ? this.PropertyDefinition.GetPrintableName() : string.Empty,
-                this.GetStringValue()).GetHashCode();
+                (PropertyDefinition != null) ? PropertyDefinition.GetPrintableName() : string.Empty,
+                GetStringValue()).GetHashCode();
+            }
         }
     }
-}

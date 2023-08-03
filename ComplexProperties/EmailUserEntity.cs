@@ -24,23 +24,20 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-    using System.IO;
-
+    {
     /// <summary>
     /// Represents an EmailUserEntity object.
     /// </summary>
     public sealed class EmailUserEntity : ComplexProperty
-    {
+        {
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailUserEntity"/> class.
         /// </summary>
         internal EmailUserEntity()
             : base()
-        {
-            this.Namespace = XmlNamespace.Types;
-        }
+            {
+            Namespace = XmlNamespace.Types;
+            }
 
         /// <summary>
         /// Gets the EmailUser entity Name.
@@ -58,20 +55,20 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="reader">The reader.</param>
         /// <returns>True if element was read.</returns>
         internal override bool TryReadElementFromXml(EwsServiceXmlReader reader)
-        {
-            switch (reader.LocalName)
             {
+            switch (reader.LocalName)
+                {
                 case XmlElementNames.NlgName:
-                    this.Name = reader.ReadElementValue();
+                    Name = reader.ReadElementValue();
                     return true;
 
                 case XmlElementNames.NlgUserId:
-                    this.UserId = reader.ReadElementValue();
+                    UserId = reader.ReadElementValue();
                     return true;
 
                 default:
                     return base.TryReadElementFromXml(reader);
+                }
             }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,12 +32,12 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class ItemSchema : ServiceObjectSchema
-    {
+        {
         /// <summary>
         /// Field URIs for Item.
         /// </summary>
         private static class FieldUris
-        {
+            {
             public const string ItemId = "item:ItemId";
             public const string ParentFolderId = "item:ParentFolderId";
             public const string ItemClass = "item:ItemClass";
@@ -90,7 +90,7 @@ namespace Microsoft.Exchange.WebServices.Data
             public const string Hashtags = "item:Hashtags";
             public const string Mentions = "item:Mentions";
             public const string MentionedMe = "item:MentionedMe";
-        }
+            }
 
         /// <summary>
         /// Defines the Id property.
@@ -102,7 +102,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ItemId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new ItemId(); });
+                delegate () { return new ItemId(); });
 
         /// <summary>
         /// Defines the Body property.
@@ -114,7 +114,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Body,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new MessageBody(); });
+                delegate () { return new MessageBody(); });
 
         /// <summary>
         /// Defines the ItemClass property.
@@ -148,7 +148,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.MimeContent,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new MimeContent(); });
+                delegate () { return new MimeContent(); });
 
         /// <summary>
         /// Defines the MimeContentUTF8 property.
@@ -160,7 +160,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.MimeContentUTF8,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2013_SP1,
-                delegate() { return new MimeContentUTF8(); });
+                delegate () { return new MimeContentUTF8(); });
 
         /// <summary>
         /// Defines the ParentFolderId property.
@@ -172,7 +172,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ParentFolderId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new FolderId(); });
+                delegate () { return new FolderId(); });
 
         /// <summary>
         /// Defines the Sensitivity property.
@@ -223,7 +223,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Categories,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the Importance property.
@@ -322,7 +322,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 XmlElementNames.InternetMessageHeaders,
                 FieldUris.InternetMessageHeaders,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate() { return new InternetMessageHeaderCollection(); });
+                delegate () { return new InternetMessageHeaderCollection(); });
 
         /// <summary>
         /// Defines the DateTimeSent property.
@@ -366,10 +366,10 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ReminderDueBy,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2007_SP1,
-                delegate(ExchangeVersion version)
+                delegate (ExchangeVersion version)
                 {
                     return AppointmentSchema.StartTimeZone;
-                });
+                    });
 
         /// <summary>
         /// Defines the IsReminderSet property.
@@ -502,7 +502,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ConversationId,
                 PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2010,
-                delegate() { return new ConversationId(); });
+                delegate () { return new ConversationId(); });
 
         /// <summary>
         /// Defines the UniqueBody property.
@@ -514,7 +514,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.UniqueBody,
                 PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2010,
-                delegate() { return new UniqueBody(); });
+                delegate () { return new UniqueBody(); });
 
         /// <summary>
         /// Defines the StoreEntryId property.
@@ -548,7 +548,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.NormalizedBody,
                 PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new NormalizedBody(); });
+                delegate () { return new NormalizedBody(); });
 
         /// <summary>
         /// Defines the EntityExtractionResult property.
@@ -560,7 +560,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.EntityExtractionResult,
                 PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new EntityExtractionResult(); });
+                delegate () { return new EntityExtractionResult(); });
 
         /// <summary>
         /// Defines the InternetMessageHeaders property.
@@ -572,7 +572,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Flag,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new Flag(); });
+                delegate () { return new Flag(); });
 
         /// <summary>
         /// Defines the PolicyTag property.
@@ -584,7 +584,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.PolicyTag,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new PolicyTag(); });
+                delegate () { return new PolicyTag(); });
 
         /// <summary>
         /// Defines the ArchiveTag property.
@@ -596,7 +596,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.ArchiveTag,
                 PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete | PropertyDefinitionFlags.CanFind,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new ArchiveTag(); });
+                delegate () { return new ArchiveTag(); });
 
         /// <summary>
         /// Defines the RetentionDate property.
@@ -631,7 +631,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.TextBody,
                 PropertyDefinitionFlags.MustBeExplicitlyLoaded,
                 ExchangeVersion.Exchange2013,
-                delegate() { return new TextBody(); });
+                delegate () { return new TextBody(); });
 
         /// <summary>
         /// Defines the IconIndex property.
@@ -654,7 +654,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Hashtags,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2015,
-                delegate() { return new StringList(); });
+                delegate () { return new StringList(); });
 
         /// <summary>
         /// Defines the Mentions property.
@@ -666,7 +666,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Mentions,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate | PropertyDefinitionFlags.CanDelete,
                 ExchangeVersion.Exchange2015,
-                delegate() { return new EmailAddressCollection(); });
+                delegate () { return new EmailAddressCollection(); });
 
         /// <summary>
         /// Defines the MentionedMe property.
@@ -681,7 +681,7 @@ namespace Microsoft.Exchange.WebServices.Data
                 true);
 
         // This must be declared after the property definitions
-        internal static readonly ItemSchema Instance = new ItemSchema();
+        internal static readonly ItemSchema Instance = new();
 
         /// <summary>
         /// Registers properties.
@@ -690,71 +690,71 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(MimeContent);
-            this.RegisterProperty(Id);
-            this.RegisterProperty(ParentFolderId);
-            this.RegisterProperty(ItemClass);
-            this.RegisterProperty(Subject);
-            this.RegisterProperty(Sensitivity);
-            this.RegisterProperty(Body);
-            this.RegisterProperty(Attachments);
-            this.RegisterProperty(DateTimeReceived);
-            this.RegisterProperty(Size);
-            this.RegisterProperty(Categories);
-            this.RegisterProperty(Importance);
-            this.RegisterProperty(InReplyTo);
-            this.RegisterProperty(IsSubmitted);
-            this.RegisterProperty(IsDraft);
-            this.RegisterProperty(IsFromMe);
-            this.RegisterProperty(IsResend);
-            this.RegisterProperty(IsUnmodified);
-            this.RegisterProperty(InternetMessageHeaders);
-            this.RegisterProperty(DateTimeSent);
-            this.RegisterProperty(DateTimeCreated);
-            this.RegisterProperty(AllowedResponseActions);
-            this.RegisterProperty(ReminderDueBy);
-            this.RegisterProperty(IsReminderSet);
-            this.RegisterProperty(ReminderMinutesBeforeStart);
-            this.RegisterProperty(DisplayCc);
-            this.RegisterProperty(DisplayTo);
-            this.RegisterProperty(HasAttachments);
-            this.RegisterProperty(ServiceObjectSchema.ExtendedProperties);
-            this.RegisterProperty(Culture);
-            this.RegisterProperty(EffectiveRights);
-            this.RegisterProperty(LastModifiedName);
-            this.RegisterProperty(LastModifiedTime);
-            this.RegisterProperty(IsAssociated);
-            this.RegisterProperty(WebClientReadFormQueryString);
-            this.RegisterProperty(WebClientEditFormQueryString);
-            this.RegisterProperty(ConversationId);
-            this.RegisterProperty(UniqueBody);
-            this.RegisterProperty(Flag);
-            this.RegisterProperty(StoreEntryId);
-            this.RegisterProperty(InstanceKey);
-            this.RegisterProperty(NormalizedBody);
-            this.RegisterProperty(EntityExtractionResult);
-            this.RegisterProperty(PolicyTag);
-            this.RegisterProperty(ArchiveTag);
-            this.RegisterProperty(RetentionDate);
-            this.RegisterProperty(Preview);
-            this.RegisterProperty(TextBody);
-            this.RegisterProperty(IconIndex);
-            this.RegisterProperty(MimeContentUTF8);
+            RegisterProperty(MimeContent);
+            RegisterProperty(Id);
+            RegisterProperty(ParentFolderId);
+            RegisterProperty(ItemClass);
+            RegisterProperty(Subject);
+            RegisterProperty(Sensitivity);
+            RegisterProperty(Body);
+            RegisterProperty(Attachments);
+            RegisterProperty(DateTimeReceived);
+            RegisterProperty(Size);
+            RegisterProperty(Categories);
+            RegisterProperty(Importance);
+            RegisterProperty(InReplyTo);
+            RegisterProperty(IsSubmitted);
+            RegisterProperty(IsDraft);
+            RegisterProperty(IsFromMe);
+            RegisterProperty(IsResend);
+            RegisterProperty(IsUnmodified);
+            RegisterProperty(InternetMessageHeaders);
+            RegisterProperty(DateTimeSent);
+            RegisterProperty(DateTimeCreated);
+            RegisterProperty(AllowedResponseActions);
+            RegisterProperty(ReminderDueBy);
+            RegisterProperty(IsReminderSet);
+            RegisterProperty(ReminderMinutesBeforeStart);
+            RegisterProperty(DisplayCc);
+            RegisterProperty(DisplayTo);
+            RegisterProperty(HasAttachments);
+            RegisterProperty(ServiceObjectSchema.ExtendedProperties);
+            RegisterProperty(Culture);
+            RegisterProperty(EffectiveRights);
+            RegisterProperty(LastModifiedName);
+            RegisterProperty(LastModifiedTime);
+            RegisterProperty(IsAssociated);
+            RegisterProperty(WebClientReadFormQueryString);
+            RegisterProperty(WebClientEditFormQueryString);
+            RegisterProperty(ConversationId);
+            RegisterProperty(UniqueBody);
+            RegisterProperty(Flag);
+            RegisterProperty(StoreEntryId);
+            RegisterProperty(InstanceKey);
+            RegisterProperty(NormalizedBody);
+            RegisterProperty(EntityExtractionResult);
+            RegisterProperty(PolicyTag);
+            RegisterProperty(ArchiveTag);
+            RegisterProperty(RetentionDate);
+            RegisterProperty(Preview);
+            RegisterProperty(TextBody);
+            RegisterProperty(IconIndex);
+            RegisterProperty(MimeContentUTF8);
 
-            this.RegisterProperty(Hashtags);
-            this.RegisterProperty(Mentions);
-            this.RegisterProperty(MentionedMe);
-        }
+            RegisterProperty(Hashtags);
+            RegisterProperty(Mentions);
+            RegisterProperty(MentionedMe);
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemSchema"/> class.
         /// </summary>
         internal ItemSchema()
             : base()
-        {
+            {
+            }
         }
     }
-}

@@ -24,7 +24,7 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.Exchange.WebServices.Data
     /// </summary>
     [Schema]
     public class ContactGroupSchema : ItemSchema
-    {
+        {
         /// <summary>
         /// Defines the DisplayName property.
         /// </summary>
@@ -57,20 +57,20 @@ namespace Microsoft.Exchange.WebServices.Data
                 FieldUris.Members,
                 PropertyDefinitionFlags.AutoInstantiateOnRead | PropertyDefinitionFlags.CanSet | PropertyDefinitionFlags.CanUpdate,
                 ExchangeVersion.Exchange2010,
-                delegate() { return new GroupMemberCollection(); });
+                delegate () { return new GroupMemberCollection(); });
 
         /// <summary>
         /// This must be declared after the property definitions.
         /// </summary>
-        internal static new readonly ContactGroupSchema Instance = new ContactGroupSchema();
+        internal static new readonly ContactGroupSchema Instance = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactGroupSchema"/> class.
         /// </summary>
         internal ContactGroupSchema()
             : base()
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Registers properties.
@@ -79,23 +79,23 @@ namespace Microsoft.Exchange.WebServices.Data
         /// IMPORTANT NOTE: PROPERTIES MUST BE REGISTERED IN SCHEMA ORDER (i.e. the same order as they are defined in types.xsd)
         /// </remarks>
         internal override void RegisterProperties()
-        {
+            {
             base.RegisterProperties();
 
-            this.RegisterProperty(DisplayName);
-            this.RegisterProperty(FileAs);
-            this.RegisterProperty(Members);
-        }
+            RegisterProperty(DisplayName);
+            RegisterProperty(FileAs);
+            RegisterProperty(Members);
+            }
 
         /// <summary>
         /// Field URIs for Members.
         /// </summary>
         private static class FieldUris
-        {
+            {
             /// <summary>
             /// FieldUri for members.
             /// </summary>
             public const string Members = "distributionlist:Members";
+            }
         }
     }
-}

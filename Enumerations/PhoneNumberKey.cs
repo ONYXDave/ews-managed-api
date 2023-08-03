@@ -24,12 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     /// <summary>
     /// Defines phone number entries for a contact.
     /// </summary>
     public enum PhoneNumberKey
-    {
+        {
         /// <summary>
         /// The assistant's phone number.
         /// </summary>
@@ -144,5 +144,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Msn number.
         /// </summary>
         Msn
+        }
     }
-}

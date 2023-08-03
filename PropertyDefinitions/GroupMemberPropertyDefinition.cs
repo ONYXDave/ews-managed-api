@@ -24,14 +24,14 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
+    {
     using System;
 
     /// <summary>
     /// Represents the definition of the GroupMember property.
     /// </summary>
     internal sealed class GroupMemberPropertyDefinition : ServiceObjectPropertyDefinition
-    {
+        {
         /// <summary>
         /// FieldUri of IndexedFieldURI for a group member.
         /// </summary>
@@ -49,52 +49,52 @@ namespace Microsoft.Exchange.WebServices.Data
         /// <param name="key">The member's key.</param>
         public GroupMemberPropertyDefinition(string key)
             : base(FieldUri)
-        {
+            {
             this.key = key;
-        }
+            }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GroupMemberPropertyDefinition"/> class without key.
         /// </summary>
         internal GroupMemberPropertyDefinition()
             : base(FieldUri)
-        {
-        }
+            {
+            }
 
         /// <summary>
         /// Gets or sets the member's key.
         /// </summary>
         public string Key
-        {
-            get
             {
-                return this.key;
-            }
+            get
+                {
+                return key;
+                }
 
             set
-            {
-                this.key = value;
+                {
+                key = value;
+                }
             }
-        }
 
         /// <summary>
         /// Gets the name of the XML element.
         /// </summary>
         /// <returns>XML element name.</returns>
         internal override string GetXmlElementName()
-        {
+            {
             return XmlElementNames.IndexedFieldURI;
-        }
+            }
 
         /// <summary>
         /// Writes the attributes to XML.
         /// </summary>
         /// <param name="writer">The writer.</param>
         internal override void WriteAttributesToXml(EwsServiceXmlWriter writer)
-        {
+            {
             base.WriteAttributesToXml(writer);
-            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, this.Key);
-        }
+            writer.WriteAttributeValue(XmlAttributeNames.FieldIndex, Key);
+            }
 
         /// <summary>
         /// Gets the property definition's printable name.
@@ -103,16 +103,16 @@ namespace Microsoft.Exchange.WebServices.Data
         /// The property definition's printable name.
         /// </returns>
         internal override string GetPrintableName()
-        {
-            return string.Format("{0}:{1}", FieldUri, this.Key);
-        }
+            {
+            return string.Format("{0}:{1}", FieldUri, Key);
+            }
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
         public override Type Type
-        {
+            {
             get { return typeof(string); }
+            }
         }
     }
-}

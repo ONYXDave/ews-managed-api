@@ -24,14 +24,12 @@
  */
 
 namespace Microsoft.Exchange.WebServices.Data
-{
-    using System;
-
+    {
     /// <summary>
     /// Defines the each available Exchange release version
     /// </summary>
     public enum ExchangeVersion
-    {
+        {
         /// <summary>
         /// Microsoft Exchange 2007, Service Pack 1
         /// </summary>
@@ -76,5 +74,5 @@ namespace Microsoft.Exchange.WebServices.Data
         /// Functionality starting 10/05/2015
         /// </summary>
         V2015_10_05 = 8,
+        }
     }
-}
